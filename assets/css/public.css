@@ -1,0 +1,33 @@
+/* 
+    Document   : public
+    Created on : 12-mar-2013, 0:09:22
+    Author     : Carlos Bello
+    Description:
+        Personalización de la plantilla de Bootstrap y estilos de la plantilla
+        de páginas públicas.
+*/
+
+/* Personalización de Jumbotrons de Bootstraps
+-------------------------------------------------- */
+
+/* Base class
+------------------------- */
+.jumbotron {
+  color: #fff;
+  background: rgb(126, 27, 18); /* Old browsers */
+  background: -moz-linear-gradient(45deg,  rgb(126, 27, 18) 0%, rgb(83, 68, 28) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,rgb(83, 68, 28))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg, rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%);
+  background: -o-linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* IE10+ */
+  background: linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7E1B12', endColorstr='#53441C',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.jumbotron:after {
+    background: url(../img/simple_dashed.png) repeat center center;
+}
+
+.subhead {
+    margin-bottom: 30px;
+}
