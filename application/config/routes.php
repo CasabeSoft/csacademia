@@ -42,6 +42,8 @@ $route['admin/(:any)'] = 'admin_pages/$1';
 $route['(:any)'] = 'public_pages/$1';
 $route['default_controller'] = 'public_pages/home';
 
+$route["lang/(:any)"] = "public_pages/lang/$1";
+
 //$route['404_override'] = '';
 
 

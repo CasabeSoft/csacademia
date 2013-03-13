@@ -5,7 +5,7 @@
         <button class="btn btn-primary">Adicionar</button>
         <button class="btn">Exportar</button>
     </div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>#</th>

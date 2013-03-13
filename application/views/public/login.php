@@ -13,15 +13,15 @@
         <div class="span4">
             <form class="well"  method="POST" action="admin/main">
                 <fieldset>
-                    <legend>Login</legend>
-                    <label for="userName">Nombre de usuario: </label>
-                    <input name="userName" id="userName" placeholder="nombre de usuario" type="text">
-                    <label for="password">Contrase&ntilde;a: </label>
-                    <input name="password" id="password" placeholder="contrase&ntilde;a" type="password">
+                    <legend><?php echo lang('menu_login'); ?></legend>
+                    <label for="userName"><?php echo lang('form_username'); ?>: </label>
+                    <input name="userName" id="userName" placeholder="<?php echo lang('form_username'); ?>" type="text">
+                    <label for="password"><?php echo lang('form_password'); ?>: </label>
+                    <input name="password" id="password" placeholder="<?php echo lang('form_password'); ?>" type="password">
                     <label class="checkbox">
-                        <input type="checkbox"> Recu&eacute;rdame
+                        <input type="checkbox"> <?php echo lang('form_remenber'); ?>
                     </label>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-primary"><?php echo lang('btn_enter'); ?></button>
                 </fieldset>
             </form>
         </div>
