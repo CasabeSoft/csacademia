@@ -42,7 +42,7 @@ function is_active($current_page, $page_name = 'main') {
           <a class="brand" href="main">CS Academia</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="<?php echo is_active($current_page, 'management') ?>"><a href="managment">Gestión</a></li>
+              <li class="<?php echo is_active($current_page, 'management') ?>"><a href="management">Gestión</a></li>
               <li class="<?php echo is_active($current_page, 'reports') ?>"><a href="main">Informes</a></li>
               <li class="<?php echo is_active($current_page, 'billing') ?>"><a href="main">Facturación</a></li>
               <li class="<?php echo is_active($current_page, 'tools') ?>"><a href="main">Herramientas</a></li>

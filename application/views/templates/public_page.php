@@ -42,14 +42,27 @@ function is_active($current_page, $page_name = 'home') {
                         <span class="icon-bar"></span>
                     </button>
                     <a class="brand" href="home">CS Academia</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="<?php echo is_active($current_page, 'home') ?>"><a href="home"><?php echo lang('menu_home'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'about') ?>"><a href="about"><?php echo lang('menu_about'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="contact"><?php echo lang('menu_contact'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'login') ?>"><a href="login"><?php echo lang('menu_login'); ?></a></li>
+                            
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                    <div class="nav-collapse collapse pull-right">
+                        <ul class="nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <?php echo lang('menu_lang') . lang('menu_lang_'.$lang_code); ?>
+                                  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
+                                    <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

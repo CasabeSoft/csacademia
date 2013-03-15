@@ -24,7 +24,7 @@ class Admin_pages extends Base_Controller {
         $this->load_page('main');
     }
     
-    public function managment() {
+    public function management() {
         // TODO: Remplazar literales por acceso a texto desde recurso internacionalizado
         $this->title = "CasabeSoft Academia - Gestión";
         $this->description = "Administración y gestión de datos."; 
@@ -40,7 +40,7 @@ class Admin_pages extends Base_Controller {
                     [6, 'Chris', 'Albert', 'cab79@hotmail.com']
                 ]
         ];
-        $this->load_page('managment');
+        $this->load_page('management');
     }
 }
 
