@@ -1,6 +1,6 @@
 <?php
 
-function is_active($current_page, $page_name = 'home') {
+function is_active($current_page, $page_name = 'main') {
     return $current_page == $page_name ? 'active' : '';
 }
 ?>
@@ -15,7 +15,6 @@ function is_active($current_page, $page_name = 'home') {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/docs.css">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="../assets/lib/html5shiv/3.6.2-6/html5shiv.js"></script>
@@ -27,7 +26,7 @@ function is_active($current_page, $page_name = 'home') {
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="../assets/ico/favicon.png">    
-        <link rel="stylesheet" type="text/css" href="../assets/css/public.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
         <!-- Start page style -->
         <?php echo $styles ?>
         <!-- End page style -->
@@ -41,21 +40,21 @@ function is_active($current_page, $page_name = 'home') {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="home">CS Academia</a>
+                    <a class="brand" href="main">CS Academia</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="<?php echo is_active($current_page, 'home') ?>"><a href="home"><?php echo lang('menu_home'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'about') ?>"><a href="about"><?php echo lang('menu_about'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="contact"><?php echo lang('menu_contact'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'login') ?>"><a href="login"><?php echo lang('menu_login'); ?></a></li>
-
+                            <li class="<?php echo is_active($current_page, 'management') ?>"><a href="management">Gestión</a></li>
+                            <li class="<?php echo is_active($current_page, 'reports') ?>"><a href="main">Informes</a></li>
+                            <li class="<?php echo is_active($current_page, 'billing') ?>"><a href="main">Facturación</a></li>
+                            <li class="<?php echo is_active($current_page, 'tools') ?>"><a href="main">Herramientas</a></li>
+                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="main">Ayuda</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo lang('menu_lang') . lang('menu_lang_' . $lang_code); ?>
+                                    <?php echo lang('menu_lang') . lang('menu_lang_' . $this->lang_code); ?>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">

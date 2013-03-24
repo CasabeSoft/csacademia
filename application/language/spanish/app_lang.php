@@ -10,6 +10,8 @@ $lang['menu_login'] = "Acceder";
 
 $lang['menu_admin'] = "Administrar";
 
+
+
 $lang['form_username'] = "Nombre de usuario";
 $lang['form_password'] = "Contraseña";
 $lang['form_email'] = "Correo";

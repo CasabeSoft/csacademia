@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
  * Temas para el grocery crud
  * Value: datatables, flexigrid
  */
-$config['grocery_crud_theme'] = 'flexigrid';
+$config['grocery_crud_theme'] = 'datatables';
 
 /* End of file academy.php */
 /* Location: ./system/application/config/academy.php */

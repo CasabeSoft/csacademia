@@ -17,6 +17,7 @@ class MY_Controller extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
+        $this->load->config('academy', TRUE);
         
         //TODO: Cargar desde bbdd
         if ($this->session->userdata('lang') == 'en') {
