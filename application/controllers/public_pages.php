@@ -8,6 +8,7 @@ if (!defined('BASEPATH'))
  * procesamiento, del lado del servidor.
  *
  * @author Carlos Bello
+ * @author Leonardo Quintero
  */
 class Public_pages extends Base_controller {
 

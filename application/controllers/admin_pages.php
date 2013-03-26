@@ -8,6 +8,7 @@ if (!defined('BASEPATH'))
  * procesamiento, del lado del servidor.
  *
  * @author Carlos Bello
+ * @author Leonardo Quintero
  */
 class Admin_pages extends MY_Controller {
 

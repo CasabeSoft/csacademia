@@ -13,20 +13,20 @@ function is_active($current_page, $page_name = 'main') {
         <meta name="description" content="<?php echo $description ?>">
         <meta name="author" content="Carlos Bello Pauste, Leonardo Quintero Morales">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/lib/bootstrap/2.3.1/css/bootstrap.min.css') ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/lib/bootstrap/2.3.1/css/bootstrap-responsive.min.css') ?>" />
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
-          <script src="../assets/lib/html5shiv/3.6.2-6/html5shiv.js"></script>
+          <script src="<?php echo site_url('assets/lib/html5shiv/3.6.2-6/html5shiv.js') ?>"></script>
         <![endif]-->
 
         <!-- Fav and touch icons -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-        <link rel="shortcut icon" href="../assets/ico/favicon.png">    
-        <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo site_url('assets/ico/apple-touch-icon-144-precomposed.png') ?>">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo site_url('assets/ico/apple-touch-icon-114-precomposed.png') ?>">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo site_url('assets/ico/apple-touch-icon-72-precomposed.png') ?>">
+        <link rel="apple-touch-icon-precomposed" href="<?php echo site_url('assets/ico/apple-touch-icon-57-precomposed.png') ?>">
+        <link rel="shortcut icon" href="<?php echo site_url('assets/ico/favicon.png') ?>">    
+        <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/css/admin.css') ?>">
         <!-- Start page style -->
         <?php echo $styles ?>
         <!-- End page style -->
@@ -40,14 +40,34 @@ function is_active($current_page, $page_name = 'main') {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="main">CS Academia</a>
+                    <a class="brand" href="/main">CS Academia</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="<?php echo is_active($current_page, 'management') ?>"><a href="management">Gestión</a></li>
-                            <li class="<?php echo is_active($current_page, 'reports') ?>"><a href="main">Informes</a></li>
-                            <li class="<?php echo is_active($current_page, 'billing') ?>"><a href="main">Facturación</a></li>
-                            <li class="<?php echo is_active($current_page, 'tools') ?>"><a href="main">Herramientas</a></li>
-                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="main">Ayuda</a></li>
+                            <li class="<?php echo is_active($current_page, 'managment') ?> dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Gestión
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client">Clientes</a></li>
+                                    <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role">Roles</a></li>                          
+                                    <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/admin/center">Centros</a></li>
+                                    <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/admin/level">Niveles</a></li>
+                                    <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/admin/family_relationship">Parent.</a></li>
+                                    <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/admin/leave_reason">M. Baja</a></li>
+                                    <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/admin/classroom">Aulas</a></li>
+                                    <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/admin/group">Grupos</a></li>
+                                    <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/admin/user">Usuarios</a></li>
+                                    <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/admin/teacher">Prof.</a></li>
+                                    <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student">Alumnos</a></li>
+                                    <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/contact/edit">Contactos</a></li>
+                                    <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification">Calif.</a></li>
+                                </ul>
+                            </li>
+                            <li class="<?php echo is_active($current_page, 'reports') ?>"><a href="/manager/main">Informes</a></li>
+                            <li class="<?php echo is_active($current_page, 'billing') ?>"><a href="/manager/main">Facturación</a></li>
+                            <li class="<?php echo is_active($current_page, 'tools') ?>"><a href="/manager/main">Herramientas</a></li>
+                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/manager/main">Ayuda</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="nav-collapse collapse pull-right">
@@ -62,6 +82,7 @@ function is_active($current_page, $page_name = 'main') {
                                     <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
                                 </ul>
                             </li>
+                            <li class="<?php echo is_active($current_page, 'help') ?> pull-right"><a href="/close">Salir</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

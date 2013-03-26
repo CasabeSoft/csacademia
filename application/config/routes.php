@@ -41,6 +41,7 @@
 $route['user/(:any)'] = 'user_pages/$1';
 $route['admin/(:any)'] = 'admin_pages/$1';
 $route['manager/(:any)'] = 'manager_pages/$1';
+$route['contact/(:any)'] = 'contact/$1';
 $route['login'] = 'user_pages/login';
 $route['denied'] = 'user_pages/denied';
 $route['close'] = 'user_pages/close';

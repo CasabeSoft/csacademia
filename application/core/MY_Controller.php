@@ -8,6 +8,7 @@ if (!defined('BASEPATH'))
  * para todo el sitio.
  *
  * @author Carlos Bello
+ * @author Leonardo Quintero
  */
 class MY_Controller extends CI_Controller {
     
