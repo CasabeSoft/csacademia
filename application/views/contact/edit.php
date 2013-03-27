@@ -1,3 +1,10 @@
+<style>
+    .newComponentGroup {
+        margin-top: 40px;
+        border-top: 1px solid #e5e5e5;
+        padding-top: 20px;
+    }
+</style>
 <div class="container container-first">
 <h1><?php echo $title ?></h1>
 <div class="row">
@@ -24,9 +31,8 @@
     </form>
     <form class="span9">
         <fieldset>
-            <legend>Detalles del contacto</legend>
+            <legend><h3>Nombre completo</h3></legend>
             <input type="hidden" id="cnt_id" />
-            <h3>Nombre completo</h3>
             <div class="row-fluid">
                 <div class="span8">
                     <div class="row-fluid">
@@ -39,13 +45,51 @@
                             <input type="text" id="txtLastname" placeholder="Apellidos" class="span12">
                         </div>
                     </div>
-                    <label for="txtOccupation">Ocupación</label>
-                    <input type="text" id="txtOccupation" placeholder="Ocupación">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <label for="txtOccupation">Ocupación</label>
+                            <input type="text" id="txtOccupation" placeholder="Ocupación" class="span12">
+                        </div>
+                        <div class="span6">
+                            <label for="lbxGender">Género</label>
+                            <select id="lbxGender" class="span12">
+                                <option>Sin especificar</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="span4">
+                    <img src="/assets/img/personal.png" class="img-polaroid" />
+                </div>
+            </div>
+            <div class="row-fluid newComponentGroup">
+                <div class="span8">
                     <div class="row-fluid">
-                        <img src="/assets/img/personal.png" class="img-polaroid" />
+                        <div class="span6">
+                            <label for="txtPhoneMobile">Teléfono móvil</label>
+                            <input type="text" id="txtPhoneMobile" placeholder="Número de teléfono" class="span12">
+                        </div>
+                        <div class="span6">
+                            <label for="txtPhone">Teléfono</label>
+                            <input type="text" id="txtPhone" placeholder="Número de teléfono" class="span12">
+                        </div>
                     </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <label for="txtEmail">E-mail</label>
+                            <input type="text" id="txtEmail" placeholder="Correo electrónico" class="span12">
+                        </div>
+                        <div class="span6">
+                            <label for="txtIdCard">DNI / NIE / NIF / Pasaporte </label>
+                            <input type="text" id="txtIdCard" placeholder="Número de identidad" class="span12">
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <label>Notas</label>
+                    <textarea class="span12"></textarea>
                 </div>
             </div>
         </fieldset>
