@@ -43,3 +43,20 @@ $lang['btn_add'] = "Add";
 $lang['btn_edit'] = "Edit";
 $lang['btn_delete'] = "Delete";
 $lang['btn_order'] = "Order";
+
+/***
+ * Títulos de páginas
+ */
+$lang['page_manage_centers'] = "Center managment";
+$lang['page_manage_classrooms'] = "Classroom managment";
+$lang['page_manage_clients'] = "Client managment";
+$lang['page_manage_contacts'] = "Contact managment";
+$lang['page_manage_qualifications'] = "Qualification managment";
+$lang['page_manage_groups'] = "Group managment";
+$lang['page_manage_leave_reasons'] = "Leave reasons managment";
+$lang['page_manage_levels'] = "Level managment";
+$lang['page_manage_relationships'] = "Relationship managment";
+$lang['page_manage_roles'] = "Role managment";
+$lang['page_manage_students'] = "Student managment";
+$lang['page_manage_teachers'] = "Teacher managment";
+$lang['page_manage_users'] = "User managment";

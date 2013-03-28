@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Public_pages extends Base_controller {
+class Public_pages extends Basic_controller {
 
     public function __construct() {
         parent::__construct();
