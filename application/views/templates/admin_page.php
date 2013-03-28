@@ -1,8 +1,12 @@
 <?php
 $current_page = $this->uri->segment(2);
+$current_controller = $this->uri->segment(1);
 
 function is_active($current_page, $page_name = 'user') {
     return $current_page == $page_name ? 'active' : '';
+}
+function is_controller_active($current_controller, $controller_name = 'admin') {
+    return $current_controller == $controller_name ? 'active' : '';
 }
 ?>
 <!DOCTYPE html>
@@ -56,20 +60,28 @@ function is_active($current_page, $page_name = 'user') {
                     <a class="brand" href="/home">CS Academia</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client">Clientes</a></li>
-                            <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role">Roles</a></li>                          
-                            <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/admin/center">Centros</a></li>
-                            <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/admin/level">Niveles</a></li>
-                            <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/admin/family_relationship">Parent.</a></li>
-                            <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/admin/leave_reason">M. Baja</a></li>
-                            <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/admin/classroom">Aulas</a></li>
-                            <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/admin/group">Grupos</a></li>
-                            <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/admin/user">Usuarios</a></li>
-                            <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/admin/teacher">Prof.</a></li>
-                            <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student">Alumnos</a></li>
-                            <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/admin/contact">Contactos</a></li>
-                            <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification">Calif.</a></li>
-                            <li class="<?php echo is_active($current_page, 'close') ?>"><a href="close">Salir</a></li>
+                            <li class="<?php echo  is_controller_active($current_controller, 'admin') ?> dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <?php echo lang('menu_management'); ?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client"><?php echo lang('menu_client'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role"><?php echo lang('menu_role'); ?></a></li>                          
+                                    <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/admin/center"><?php echo lang('menu_center'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/admin/level"><?php echo lang('menu_level'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/admin/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/admin/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/admin/classroom"><?php echo lang('menu_classroom'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/admin/group"><?php echo lang('menu_group'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/admin/user"><?php echo lang('menu_user'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/admin/teacher"><?php echo lang('menu_teacher'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student"><?php echo lang('menu_student'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/admin/contact"><?php echo lang('menu_contact'); ?></a></li>
+                                    <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification"><?php echo lang('menu_qualification'); ?></a></li>
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="nav-collapse collapse pull-right">
@@ -84,6 +96,7 @@ function is_active($current_page, $page_name = 'user') {
                                     <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
                                 </ul>
                             </li>
+                            <li class="<?php echo is_active($current_page, 'close') ?>"><a href="/close"><?php echo lang('menu_close'); ?></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -91,8 +104,9 @@ function is_active($current_page, $page_name = 'user') {
         </div>
 
         <!-- Start page content -->
-        <br><br><br><br><br><br><br><br>
+        <br>
         <div class="well">
+            <h2><?php echo $title_table; ?></h2>
             <?php $this->load->view($view_to_load) ?>
         </div>
         <!-- End page content -->

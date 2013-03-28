@@ -14,7 +14,7 @@ class Manager_pages extends Base_Controller {
     public function __construct() {
         parent::__construct();
         if (!isLogged()) {
-            redirect('denied');
+            redirect('/denied');
             exit;
         }
         $this->location = 'manager/';
