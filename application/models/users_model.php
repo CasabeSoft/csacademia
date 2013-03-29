@@ -21,7 +21,7 @@ class Users_model extends CI_Model {
      */
     public function verifyLogin($email, $password) {
 
-        $result = $this->db->select('id, email, role_code')
+        $result = $this->db->select('id, email, role_code, client_id')
                 ->where('email', $email)
                 ->where('password', $password)
                 ->limit(1)

@@ -48,13 +48,15 @@ class User_pages extends Basic_controller {
                     $user = array(
                         'id' => 0,
                         'email' => $email,
-                        'role' => '1'
+                        'role_id' => '1',
+                        'client_id' => '1'
                     );
                 } else {
                     $user = array(
                         'id' => $result->id,
                         'email' => $result->email,
-                        'role' => $result->role_code
+                        'role_id' => $result->role_code,
+                        'client_id' => $result->client_id
                     );
                 }
 
@@ -67,9 +69,9 @@ class User_pages extends Basic_controller {
                   } else { */
 
                 //Según el rol del usuario lo enviamos a su página index
-                switch ($user['role']) {
+                switch ($user['role_id']) {
                     case 1:
-                        redirect('admin/user');
+                        redirect('admin/client');
                         break;
                     case 2:
                         redirect('manager/main');

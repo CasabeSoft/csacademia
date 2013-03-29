@@ -38,7 +38,7 @@
 
     </head>
     <body>
-        <?php $this->load->view('templates/manager_menu') ?>
+        <?php $this->load->view($menu_template) ?>
 
         <!-- Start page content -->
         <div class="container container-first">

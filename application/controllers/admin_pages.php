@@ -10,101 +10,93 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Admin_pages extends MY_Controller {
+class Admin_pages extends Crud_controller {
+
+    var $role_id;
+    var $client_id;
 
     public function __construct() {
         parent::__construct();
-        if (!isLogged()) {
-            redirect('denied');
-            exit;
-        }
-        $this->load->library('grocery_CRUD');
+        $this->template = 'templates/crud_template';
+        $this->description = 'Página de administración general';
+        $this->menu_template = 'templates/manager_menu';
+        $this->role_id = $this->session->userdata('role_id');
+        $this->client_id = $this->session->userdata('client_id');
     }
 
     public function client() {
-        $this->current_page();       
+        $this->set_page_title('page_manage_clients');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('client');
-        $crud->set_subject('Cliente');
-        $crud->columns('id', 'name');
-        $crud->display_as('id', 'Código')
-                ->display_as('name', 'Nombre');
+        $this->crud->set_table('client');
+        $this->crud->set_subject(lang('subject_client'));
+        $this->crud->columns('id', 'name');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'));
 
-        $crud->required_fields('name');
-        $crud->fields('name');
+        $this->crud->required_fields('name');
+        $this->crud->fields('name');
+        $this->crud_view = $this->crud->render();
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Cientes";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->load_page();
     }
 
     public function role() {
-        $this->current_page();
+        $this->set_page_title('page_manage_roles');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('role');
-        $crud->set_subject('Rol');
-        $crud->columns('code', 'description');
-        $crud->display_as('code', 'Código')
-                ->display_as('description', 'Descripción');
+        $this->crud->set_table('role');
+        $this->crud->set_subject(lang('subject_role'));
+        $this->crud->columns('code', 'description');
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('description', lang('form_description'));
+        $this->crud->required_fields('code', 'description');
+        $this->crud->fields('code', 'description');
+        $this->crud_view = $this->crud->render();
 
-        $crud->required_fields('code', 'description');
-        $crud->fields('code', 'description');
-
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Roles";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->load_page();
     }
 
     public function user() {
-        $this->current_page();
+        $this->set_page_title('page_manage_users');
+        $fields = array('id', 'email', 'client_id', 'role_code');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('login');
-        $crud->set_subject('Usuario');
-        $crud->columns('id', 'email', 'password', 'client_id', 'role_code');
-        $crud->display_as('id', 'Código')
-                ->display_as('email', 'Correo')
-                ->display_as('password', 'Contraseña')
-                ->display_as('client_id', 'Cliente')
-                ->display_as('role_code', 'Rol');
+        if ($this->role_id > 1) {
+            $this->crud->where('client_id', $this->client_id);
+            $fields = array('id', 'email', 'role_code');
+        }
 
-        $crud->required_fields('email', 'password', 'client_id', 'role_code');
-        $crud->fields('email', 'password', 'client_id', 'role_code');
-        $crud->change_field_type('password', 'password');
-        $crud->set_relation('client_id', 'client', 'name');
-        $crud->set_relation('role_code', 'role', 'description');
+        $this->crud->set_table('login');
+        $this->crud->set_subject(lang('subject_user'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('email', lang('form_email'))
+                ->display_as('password', lang('form_password'))
+                ->display_as('client_id', lang('form_client'))
+                ->display_as('role_code', lang('form_role'));
 
-        $crud->callback_edit_field('password', array($this, 'set_password_input_to_empty'));
-        $crud->callback_add_field('password', array($this, 'set_password_input_to_empty'));
-        $crud->callback_before_update(array($this, 'encrypt_password_callback'));
+        $this->crud->required_fields('email', 'password', 'client_id', 'role_code');
+        $this->crud->fields('email', 'password', 'client_id', 'role_code');
+        $this->crud->change_field_type('password', 'password');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        $this->crud->set_relation('role_code', 'role', 'description');
+        if ($this->role_id > 1) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
-        $data = $crud->render();
-        $data->title = lang('menu_admin');
-        $data->description = "Usuarios";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud->callback_edit_field('password', array($this, 'set_password_input_to_empty'));
+        $this->crud->callback_add_field('password', array($this, 'set_password_input_to_empty'));
+        $this->crud->callback_before_update(array($this, 'encrypt_password_callback'));
+        $this->crud->callback_before_insert(array($this, 'encrypt_password_callback'));
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
     function encrypt_password_callback($post_array) {
-
         if (!empty($post_array['password'])) {
             $post_array['password'] = md5($post_array['password']);
         } else {
             unset($post_array['password']);
         }
-
         return $post_array;
     }
 
@@ -113,305 +105,256 @@ class Admin_pages extends MY_Controller {
     }
 
     public function center() {
-        $this->current_page();
+        $this->set_page_title('page_manage_centers');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('center');
-        $crud->set_subject('Centro');
-        $crud->columns('id', 'client_id', 'name');
-        $crud->display_as('id', 'Código')
-                ->display_as('client_id', 'Cliente')
-                ->display_as('name', 'Nombre');
+        $this->crud->set_table('center');
+        $this->crud->set_subject(lang('subject_center'));
+        $this->crud->columns('id', 'client_id', 'name');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
+                ->display_as('name', lang('form_name'));
 
-        $crud->required_fields('name');
-        $crud->fields('client_id', 'name');
-        $crud->set_relation('client_id', 'client', 'name');
+        $this->crud->required_fields('name');
+        $this->crud->fields('client_id', 'name');
+        $this->crud->set_relation('client_id', 'client', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Centros";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
     public function level() {
-        $this->current_page();
+        $this->set_page_title('page_manage_levels');
+        $fields = array('code', 'description', 'price', 'client_id');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('level');
-        $crud->set_subject('Nivel');
-        $crud->columns('code', 'description', 'price');
-        $crud->display_as('code', 'Código')
-                ->display_as('description', 'Descripción')
-                ->display_as('price', 'Precio');
+        if ($this->role_id > 1) {
+            $this->crud->where('client_id', $this->client_id);
+            $fields = array('code', 'description', 'price');
+        }
 
-        $crud->required_fields('code', 'description', 'price');
-        $crud->fields('code', 'description', 'price');
+        $this->crud->set_table('level');
+        $this->crud->set_subject(lang('subject_level'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('description', lang('form_description'))
+                ->display_as('price', lang('form_price'))
+                ->display_as('client_id', lang('form_client'));
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Niveles";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud->required_fields('code', 'description', 'price', 'client_id');
+        $this->crud->fields('code', 'description', 'price', 'client_id');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id > 1) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
     public function family_relationship() {
-        $this->current_page();
+        $this->set_page_title('page_manage_relationships');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('family_relationship');
-        $crud->set_subject('Familiar');
-        $crud->columns('code', 'name');
-        $crud->display_as('code', 'Código')
-                ->display_as('name', 'Nombre');
+        $this->crud->set_table('family_relationship');
+        $this->crud->set_subject(lang('subject_family_relationship'));
+        $this->crud->columns('code', 'name');
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('name', lang('form_name'));
 
-        $crud->required_fields('code', 'name');
-        $crud->fields('code', 'name');
+        $this->crud->required_fields('code', 'name');
+        $this->crud->fields('code', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Familiares";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
     public function contact() {
-        $this->current_page();
+        $this->set_page_title('page_manage_contacts');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('contact');
-        $crud->set_subject('Contactos');
-        $crud->columns('id', 'client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
-        $crud->display_as('id', 'Código')
-                ->display_as('client', 'Cliente')
-                ->display_as('first_name', 'Nombre')
-                ->display_as('last_name', 'Apellidos')
-                ->display_as('sex', 'Sexo')
-                ->display_as('email', 'Correo')
-                ->display_as('phone_mobile', 'Teléfono Movil')
-                ->display_as('phone', 'Teléfono Fijo')
-                ->display_as('picture', 'Foto')
-                ->display_as('notes', 'Notas')
-                ->display_as('address', 'Dircción')
-                ->display_as('postal_code', 'Código Postal')
-                ->display_as('town', 'Población')
-                ->display_as('province', 'Provincia')
-                ->display_as('date_of_birth', 'Fecha de Cumpleaños')
-                ->display_as('occupation', 'Ocupación')
-                ->display_as('id_card', 'id_card');
+        $this->crud->set_table('contact');
+        $this->crud->set_subject(lang('subject_contact'));
+        $this->crud->columns('id', 'client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client', lang('form_client'))
+                ->display_as('first_name', lang('form_first_name'))
+                ->display_as('last_name', lang('form_last_name'))
+                ->display_as('sex', lang('form_sex'))
+                ->display_as('email', lang('form_email'))
+                ->display_as('phone_mobile', lang('form_phone_mobile'))
+                ->display_as('phone', lang('form_phone'))
+                ->display_as('picture', lang('form_photo'))
+                ->display_as('notes', lang('form_notes'))
+                ->display_as('address', lang('form_address'))
+                ->display_as('postal_code', lang('form_postal_code'))
+                ->display_as('town', lang('form_town'))
+                ->display_as('province', lang('form_province'))
+                ->display_as('date_of_birth', lang('form_date_of_birth'))
+                ->display_as('occupation', lang('form_occupation'))
+                ->display_as('id_card', lang('form_id_card'));
 
-        $crud->required_fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
-        $crud->fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
-        $crud->set_field_upload('picture', 'assets/uploads/files/contact');
-        $crud->change_field_type('notes', 'text');
-        $crud->set_relation_n_n('client', 'contacts_by_client', 'client', 'contact_id', 'client_id', 'name');
+        $this->crud->required_fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
+        $this->crud->fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
+        $this->crud->set_field_upload('picture', 'assets/uploads/files/contact');
+        $this->crud->change_field_type('notes', 'text');
+        $this->crud->field_type('sex', 'dropdown', array('M' => lang('form_sex_male'), 'F' => lang('form_sex_female')));
+        $this->crud->set_relation_n_n('client', 'contacts_by_client', 'client', 'contact_id', 'client_id', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Contactos";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
-    
-    public function  leave_reason() {
-        $this->current_page();
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('leave_reason');
-        $crud->set_subject('Motivo Baja');
-        $crud->columns('code', 'description');
-        $crud->display_as('code', 'Código')
-                ->display_as('description', 'Descripción');
+    public function leave_reason() {
+        $this->set_page_title('page_manage_leave_reasons');
 
-        $crud->required_fields('code', 'description');
-        $crud->fields('code', 'description');
+        $this->crud->set_table('leave_reason');
+        $this->crud->set_subject(lang('subject_leave_reason'));
+        $this->crud->columns('code', 'description');
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('description', lang('form_description'));
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Motivos Baja";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud->required_fields('code', 'description');
+        $this->crud->fields('code', 'description');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
-    
+
     public function classroom() {
-        $this->current_page();
+        $this->set_page_title('page_manage_classrooms');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('classroom');
-        $crud->set_subject('Aula');
-        $crud->columns('id', 'center_id', 'capacity', 'notes', 'picture');
-        $crud->display_as('id', 'Código')
-                ->display_as('center_id', 'Centro')
-                ->display_as('capacity', 'Capacidad')
-                ->display_as('notes', 'Notas')
-                ->display_as('picture', 'Foto');
+        $this->crud->set_table('classroom');
+        $this->crud->set_subject(lang('subject_classroom'));
+        $this->crud->columns('id', 'center_id', 'capacity', 'notes', 'picture');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('center_id', lang('form_center'))
+                ->display_as('capacity', lang('form_capacity'))
+                ->display_as('notes', lang('form_notes'))
+                ->display_as('picture', lang('form_photo'));
 
-        $crud->required_fields('center_id', 'capacity');
-        $crud->fields('center_id', 'capacity', 'notes', 'picture');
-        $crud->set_field_upload('picture', 'assets/uploads/files/classroom');
-        $crud->set_relation('center_id', 'center', 'name');
+        $this->crud->required_fields('center_id', 'capacity');
+        $this->crud->fields('center_id', 'capacity', 'notes', 'picture');
+        $this->crud->set_field_upload('picture', 'assets/uploads/files/classroom');
+        $this->crud->set_relation('center_id', 'center', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Aulas";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
-    
+
     public function teacher() {
-        $this->current_page();
+        $this->set_page_title('page_manage_teachers');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('teacher');
-        $crud->set_subject('Profesor');
-        $crud->columns('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
-        $crud->display_as('contact_id', 'Nombre')
-                ->display_as('center', 'Centro')
-                ->display_as('title', 'Titulación')
-                ->display_as('cv', 'Curriculum')
-                ->display_as('type', 'Tipo')
-                ->display_as('start_date', 'Fecha Entrada')
-                ->display_as('end_date', 'Fecha Salida')
-                ->display_as('state', 'Estado')
-                ->display_as('bank_account_format', 'Forma Pago')
-                ->display_as('bank_account_number', 'Cuenta bancaria');
+        $this->crud->set_table('teacher');
+        $this->crud->set_subject(lang('subject_teacher'));
+        $this->crud->columns('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
+        $this->crud->display_as('contact_id', lang('form_name'))
+                ->display_as('center', lang('form_center'))
+                ->display_as('title', lang('form_title'))
+                ->display_as('cv', lang('form_cv'))
+                ->display_as('type', lang('form_type'))
+                ->display_as('start_date', lang('form_start_date'))
+                ->display_as('end_date', lang('form_end_date'))
+                ->display_as('state', lang('form_state'))
+                ->display_as('bank_account_format', lang('form_bank_account_format'))
+                ->display_as('bank_account_number', lang('form_bank_account_number'));
 
-        $crud->required_fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
-        $crud->fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
-        $crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
-        $crud->set_relation_n_n('center', 'teachers_by_centers', 'center', 'teacher_id', 'center_id', 'name');
+        $this->crud->required_fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
+        $this->crud->fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
+        $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
+        $this->crud->set_relation_n_n('center', 'teachers_by_centers', 'center', 'teacher_id', 'center_id', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Profesores";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
-    
+
     public function group() {
-        $this->current_page();
+        $this->set_page_title('page_manage_groups');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('group');
-        $crud->set_subject('Grupo');
-        $crud->columns('id', 'name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
-        $crud->display_as('id', 'Código')
-                ->display_as('name', 'Nombre')
-                ->display_as('center_id', 'Centro')
-                ->display_as('classroom_id', 'Aula')
-                ->display_as('teacher_id', 'Profesor')
-                ->display_as('level_code', 'Nivel')
-                ->display_as('academic_period', 'Periodo')
-                ->display_as('monday', 'Lunes')
-                ->display_as('tuesday', 'Martes')
-                ->display_as('wednesday', 'Miercoles')
-                ->display_as('thursday', 'Jueves')
-                ->display_as('friday', 'Viernes')
-                ->display_as('saturday', 'Sabado')
-                ->display_as('start_time', 'Hora Inicio')
-                ->display_as('end_time', 'Hora Final');
+        $this->crud->set_table('group');
+        $this->crud->set_subject(lang('subject_group'));
+        $this->crud->columns('id', 'name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'))
+                ->display_as('center_id', lang('form_center'))
+                ->display_as('classroom_id', lang('form_classroom'))
+                ->display_as('teacher_id', lang('form_teacher'))
+                ->display_as('level_code', lang('form_level'))
+                ->display_as('academic_period', lang('form_academic_period'))
+                ->display_as('monday', lang('form_monday'))
+                ->display_as('tuesday', lang('form_tuesday'))
+                ->display_as('wednesday', lang('form_wednesday'))
+                ->display_as('thursday', lang('form_thursday'))
+                ->display_as('friday', lang('form_friday'))
+                ->display_as('saturday', lang('form_saturday'))
+                ->display_as('start_time', lang('form_start_time'))
+                ->display_as('end_time', lang('form_end_time'));
 
-        $crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
-        $crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
-        $crud->set_relation('center_id', 'center', 'name');
-        $crud->set_relation('classroom_id', 'classroom', 'notes');
-        $crud->set_relation('teacher_id', 'teacher', 'contact_id');
-        $crud->set_relation('level_code', 'level', 'description');
+        $this->crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
+        $this->crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
+        $this->crud->set_relation('center_id', 'center', 'name');
+        $this->crud->set_relation('classroom_id', 'classroom', 'notes');
+        $this->crud->set_relation('teacher_id', 'teacher', 'contact_id');
+        $this->crud->set_relation('level_code', 'level', 'description');
 
-
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Grupos";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
-    
+
     public function student() {
-        $this->current_page();
+        $this->set_page_title('page_manage_students');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('student');
-        $crud->set_subject('Alumno');
-        $crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code');
-        $crud->display_as('contact_id', 'Nombre')
-                ->display_as('center_id', 'Centro')
-                ->display_as('start_date', 'Fecha Incial')
-                ->display_as('end_date', 'Ficha final')
-                ->display_as('school_academic_period', 'Periodo Escuela')
-                ->display_as('school_name', 'Escuela')
-                ->display_as('language_years', 'Idioma Años')
-                ->display_as('pref_start_time', 'Hora inicial Pref.')
-                ->display_as('pref_end_time', 'Hora final Pref.')
-                ->display_as('current_academic_period', 'Periodo Actual')
-                ->display_as('bank_account_format', 'Formato cuenta')
-                ->display_as('bank_account_number', 'Cuenta Bancaria')
-                ->display_as('bank_account_holder', 'Titular cuenta')
-                ->display_as('bank_payment', 'Pago bancario')
-                ->display_as('current_level_code', 'Nivel')
-                ->display_as('leave_reason_code', 'Motivo baja');
+        $this->crud->set_table('student');
+        $this->crud->set_subject(lang('subject_student'));
+        $this->crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code');
+        $this->crud->display_as('contact_id', lang('form_name'))
+                ->display_as('center_id', lang('form_center'))
+                ->display_as('start_date', lang('form_start_date'))
+                ->display_as('end_date', lang('form_end_date'))
+                ->display_as('school_academic_period', lang('form_school_academic_period'))
+                ->display_as('school_name', lang('form_school_name'))
+                ->display_as('language_years', lang('form_language_years'))
+                ->display_as('pref_start_time', lang('form_pref_start_time'))
+                ->display_as('pref_end_time', lang('form_pref_end_time'))
+                ->display_as('current_academic_period', lang('form_academic_period'))
+                ->display_as('bank_account_format', lang('form_bank_account_format'))
+                ->display_as('bank_account_number', lang('form_bank_account_number'))
+                ->display_as('bank_account_holder', lang('form_bank_account_holder'))
+                ->display_as('bank_payment', lang('form_bank_payment'))
+                ->display_as('current_level_code', lang('form_level'))
+                ->display_as('leave_reason_code', lang('form_leave_reason'));
 
-        $crud->required_fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
-        $crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
-        $crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
-        $crud->set_relation('center_id', 'center', 'name');
-        $crud->set_relation('current_level_code', 'level', 'description');
-        $crud->set_relation('leave_reason_code', 'leave_reason', 'description');
-        $crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');        
+        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
+        $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
+        $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
+        $this->crud->set_relation('center_id', 'center', 'name');
+        $this->crud->set_relation('current_level_code', 'level', 'description');
+        $this->crud->set_relation('leave_reason_code', 'leave_reason', 'description');
+        $this->crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Alumnos";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
     public function qualification() {
-        $this->current_page();
+        $this->set_page_title('page_manage_qualifications');
 
-        $crud = new grocery_CRUD();
-        $crud->set_language($this->lang_folder);
-        $crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
-        $crud->set_table('qualification');
-        $crud->set_subject('Calificación');
-        $crud->columns('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'longon', 'others', 'eval1', 'eval2', 'eval2');
-        $crud->display_as('student_id', 'Alumno')
-                ->display_as('academic_period', 'Periodo')
-                ->display_as('description', 'Descripción')
-                ->display_as('qualification', 'Calificación')
-                ->display_as('trinity', 'Trinity')
-                ->display_as('longon', 'Longon')
-                ->display_as('others', 'Otros')
-                ->display_as('eval1', 'Eval1')
-                ->display_as('eval2', 'Eval2')
-                ->display_as('eval3', 'Eval3');
+        $this->crud->set_table('qualification');
+        $this->crud->set_subject(lang('subject_qualification'));
+        $this->crud->columns('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
+        $this->crud->display_as('student_id', lang('form_name'))
+                ->display_as('academic_period', lang('form_academic_period'))
+                ->display_as('description', lang('form_description'))
+                ->display_as('qualification', lang('form_qualification'))
+                ->display_as('trinity', lang('form_trinity'))
+                ->display_as('london', lang('form_london'))
+                ->display_as('others', lang('form_others'))
+                ->display_as('eval1', lang('form_eval1'))
+                ->display_as('eval2', lang('form_eval2'))
+                ->display_as('eval3', lang('form_eval3'));
 
-        $crud->required_fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'longon', 'others', 'eval1', 'eval2', 'eval2');
-        $crud->fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'longon', 'others', 'eval1', 'eval2', 'eval2');
-        $crud->set_relation('student_id', 'contact', '{first_name} {last_name}'); 
+        $this->crud->required_fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
+        $this->crud->fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
+        $this->crud->set_relation('student_id', 'contact', '{first_name} {last_name}');
 
-        $data = $crud->render();
-        $data->title = "CasabeSoft Academia - " . lang('menu_admin');
-        $data->description = "Calificaciones";
-        $data->view_to_load = 'admin/admin';
-        $this->load->view('templates/admin_page', $data);
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
     }
 
 }
