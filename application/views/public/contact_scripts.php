@@ -1,4 +1,4 @@
-<script type="text/javascript" src="../assets/lib/openlayers/2.12/OpenLayers.js"></script>
+<script type="text/javascript" src="/assets/lib/openlayers/2.12/OpenLayers.js"></script>
 <script type="text/javascript">
     var map, layer;
     function init(){

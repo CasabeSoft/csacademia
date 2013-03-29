@@ -22,6 +22,11 @@ class Contact extends Basic_controller {
         $this->load_page('edit');
     }
     
+    public function lst() {
+        $this->load->model('Contact_model');
+        header("Content-type:text/json");
+        echo json_encode($this->Contact_model->get_all());
+    }
 }
 
 /* End of file contact.php */

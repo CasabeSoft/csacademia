@@ -21,9 +21,9 @@ class Basic_controller extends MY_Controller {
     public function load_page($name = 'home') {
         $this->current_page = $name;
         $this->content = $this->load->view($this->location.$name, $this, true);
-        if (file_exists($this->location.'/'.$name.'_scripts'.'.php'))
+        if (file_exists(APPPATH.'views/'.$this->location.$name.'_scripts'.'.php'))
             $this->scripts = $this->load->view($this->location.$name.'_scripts', $this, true);
-        if (file_exists($this->location.'/'.$name.'_styles'.'.php'))
+        if (file_exists(APPPATH.'views/'.$this->location.$name.'_styles'.'.php'))
             $this->styles = $this->load->view($this->location.$name.'_styles', $this, true);
         $this->load->view($this->template, $this);
     }

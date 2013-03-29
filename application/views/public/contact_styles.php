@@ -5,5 +5,5 @@
     }
     #map img.olTileImage { max-width: none; }
 </style>
-<link rel="stylesheet" type="text/css" href="../assets/lib/openlayers/2.12/theme/default/style.css">
+<link rel="stylesheet" type="text/css" href="/assets/lib/openlayers/2.12/theme/default/style.css">
       
