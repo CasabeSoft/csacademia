@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  * 
  * @author Leoanrdo Quintero
  */
-class User_pages extends Base_controller {
+class User_pages extends Basic_controller {
 
     function __construct() {
         parent::__construct();

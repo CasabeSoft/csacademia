@@ -61,7 +61,7 @@ $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';
 $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = FALSE; // No autocargar la BBDD para evitar que se produzca un error en paginas que no necesitan acceso a datos, si no hubiera conexión.
+$db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 

@@ -8,13 +8,13 @@ if (!defined('BASEPATH'))
  *
  * @author Carlos Bello
  */
-class Manager_pages extends Base_Controller {
+class Manager_pages extends Basic_controller {
     var $extra_info;
     
     public function __construct() {
         parent::__construct();
         if (!isLogged()) {
-            redirect('/denied');
+            redirect('denied');
             exit;
         }
         $this->location = 'manager/';

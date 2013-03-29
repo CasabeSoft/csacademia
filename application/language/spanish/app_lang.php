@@ -115,6 +115,7 @@ $lang['form_eval2'] = "Eval2";
 $lang['form_eval3'] = "Eval3";
 $lang['form_sex_male'] = "Masculino";
 $lang['form_sex_female'] = "Femenino";
+$lang['form_id_card'] = "Tarjeta de Identidad";
 
 $lang['btn_accept'] = "Aceptar";
 $lang['btn_recover_password'] = "Recuperar contraseña";
@@ -131,3 +132,21 @@ $lang['btn_add'] = "Agregar";
 $lang['btn_edit'] = "Modificar";
 $lang['btn_delete'] = "Eliminar";
 $lang['btn_order'] = "Ordenar";
+
+/***
+ * Títulos de páginas
+ */
+$lang['page_manage_centers'] = "Gestión de centros";
+$lang['page_manage_classrooms'] = "Gestión de aulas";
+$lang['page_manage_clients'] = "Gestión de clientes";
+$lang['page_manage_contacts'] = "Gestión de contactos";
+$lang['page_manage_qualifications'] = "Gestión de calificaciones";
+$lang['page_manage_groups'] = "Gestión de grupos";
+$lang['page_manage_leave_reasons'] = "Gestión de motivos de baja";
+$lang['page_manage_levels'] = "Gestión de niveles";
+$lang['page_manage_relationships'] = "Gestión de relaciones de parentezco";
+$lang['page_manage_roles'] = "Gestión de roles";
+$lang['page_manage_students'] = "Gestión de estudiantes";
+$lang['page_manage_teachers'] = "Gestión de profesores";
+$lang['page_manage_users'] = "Gestión de usuarios";
+

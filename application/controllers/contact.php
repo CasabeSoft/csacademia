@@ -9,7 +9,7 @@ if (!defined('BASEPATH'))
  *
  * @author Carlos Bello
  */
-class Contact extends Base_controller {
+class Contact extends Basic_controller {
     public function __construct() {
         parent::__construct();
         $this->template = 'templates/manager_page';

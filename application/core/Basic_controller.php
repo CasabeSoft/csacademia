@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  *
  * @author Carlos Bello
  */
-class Base_controller extends MY_Controller {
+class Basic_controller extends MY_Controller {
     var $location;
     var $template;
     var $title;
@@ -29,5 +29,5 @@ class Base_controller extends MY_Controller {
     }
 }
 
-/* End of file Base_controller.php */
-/* Location: ./application/libraries/Base_controller.php */
+/* End of file Basic_controller.php */
+/* Location: ./application/libraries/Basic_controller.php */
