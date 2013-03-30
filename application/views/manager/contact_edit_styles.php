@@ -30,4 +30,12 @@
     #picture:hover a {
         visibility: visible;
     }
+    #tblContacts tbody {
+        display: block;
+        max-height: 320px;
+        overflow-y: auto;
+    }
+    #tblContacts, #tblContacts tr, #tblContacts td {
+        display: block;
+    }
 </style>

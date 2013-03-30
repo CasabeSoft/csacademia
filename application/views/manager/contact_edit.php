@@ -5,14 +5,16 @@
             <legend>
                 Contactos
                 <div class="btn-toolbar pull-right">
-                    <button class="btn btn-small pull-right"><i class="icon-plus-sign"></i> Nuevo</button>
+                    <button class="btn btn-small pull-right" data-bind="click: newContact">
+                        <i class="icon-plus-sign"></i> Nuevo
+                    </button>
                 </div>
             </legend>
             <div class="row-fluid">            
                 <input id="appendedInputButtons" type="text" class="span*" placeholder="Teclee el filtro y presione [Enter]"
                        data-bind="value: filter">
             </div>
-            <table class="table table-bordered table-hover table-condensed">
+            <table id="tblContacts" class="table table-bordered table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -20,22 +22,26 @@
                 </thead>            
                 <tbody data-bind="foreach: filteredContacts">
                     <tr data-bind="click: $root.selectContact">
-                        <td data-bind="text: $root.contactFullName($data)"></td>
+                        <td data-bind="text: full_name()"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="span9" data-bind="with: currentContact">
             <legend>
-                <span data-bind="text: $root.contactFullName($data) + '&nbsp;'"></span>
-                <div class="btn-toolbar pull-right">
-                    <button class="btn btn-small"><i class="icon-ok-sign"></i> Guardar</button>
-                    <button id="btnSave" class="btn btn-small btn-danger"><i class="icon-minus-sign icon-white"></i> Eliminar</button>
+                <span data-bind="text: full_name() + '&nbsp;'"></span>
+                <div class="pull-right">
+                    <button class="btn btn-small" data-bind="click: $root.saveContact">
+                        <i class="icon-ok-sign"></i> Guardar
+                    </button>
+                    <button class="btn btn-small btn-danger" data-bind="click: $root.removeContact">
+                        <i class="icon-minus-sign icon-white"></i> Eliminar
+                    </button>
                 </div>
             </legend>
             <div class="row-fluid">
                 <div class="span8">
-                    <input type="hidden" id="cnt_id" />
+                    <input type="hidden" id="cnt_id" data-bind="value: id" />
                     <div class="row-fluid">
                         <div class="span6">
                             <label for="txtFirstname">Nombre</label>
@@ -51,7 +57,7 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <label for="txtDateOfBirth">Fecha de nacimiento</label>
-                            <input type="text" id="txtDateOfBirth" class="input-block-level" placeholder="dd/MM/aaaa"
+                            <input type="text" id="txtDateOfBirth" class="input-block-level" placeholder="aaaa-MM-dd"
                                    data-bind="value: date_of_birth">
                         </div>                        
                         <div class="span6">
