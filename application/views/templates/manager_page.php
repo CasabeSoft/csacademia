@@ -26,7 +26,7 @@
         <!-- End page style -->
     </head>
     <body>
-        <?php $this->load->view('templates/manager_menu') ?>
+        <?php $this->load->view($menu_template) ?>
         
         <!-- Start page content -->
         <?php echo $content ?>

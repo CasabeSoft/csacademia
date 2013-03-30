@@ -16,9 +16,14 @@ class MY_Controller extends CI_Controller {
     public $lang_code;
     public $lang_folder;
     
+    public $role_id;
+    public $client_id;
+    
     public function __construct() {
         parent::__construct();
         $this->load->config('academy', TRUE);
+        $this->role_id = $this->session->userdata('role_id');
+        $this->client_id = $this->session->userdata('client_id');
         
         //TODO: Cargar desde bbdd
         if ($this->session->userdata('lang') == 'en') {

@@ -17,6 +17,7 @@ class Basic_controller extends MY_Controller {
     var $content;
     var $scripts;
     var $current_page;
+    var $menu_template;
     
     public function load_page($name = 'home') {
         $this->current_page = $name;

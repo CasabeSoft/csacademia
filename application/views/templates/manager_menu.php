@@ -27,8 +27,10 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client"><?php echo lang('menu_client'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role"><?php echo lang('menu_role'); ?></a></li>                          
+                            <?php if ($this->role_id === ROLE_ADMINISTRATOR) { ?>
+                                <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client"><?php echo lang('menu_client'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role"><?php echo lang('menu_role'); ?></a></li>   
+                            <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/admin/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/admin/level"><?php echo lang('menu_level'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/admin/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
@@ -58,6 +60,26 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
                             <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img width="20px" height="20px" src="../assets/img/personal.png">
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="well-small" >
+                                <div class="">
+                                    <img width="70px" height="70px" src="../assets/img/personal.png">
+                                </div>
+                                <div class="">
+                                    <?php echo $this->session->userdata('email'); ?>
+                                    <br>
+                                    <a class="" href="/change_password"><?php echo lang('menu_change_password'); ?></a>
+                                    <a class="btn" href="/profile"><?php echo lang('menu_profile'); ?></a>
+                                    <a class="btn pull-right" href="/close"><?php echo lang('menu_close'); ?></a>
+                                </div>
+                            </div>
                         </ul>
                     </li>
                     <li class="<?php echo is_active($current_page, 'help') ?> pull-right"><a href="/close">Salir</a></li>

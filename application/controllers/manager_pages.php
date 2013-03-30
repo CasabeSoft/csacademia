@@ -19,6 +19,7 @@ class Manager_pages extends Basic_controller {
         }
         $this->location = 'manager/';
         $this->template = 'templates/manager_page';
+        $this->menu_template = 'templates/manager_menu';
     }
     
     public function main() {

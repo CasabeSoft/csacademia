@@ -1,4 +1,5 @@
 <?php
+
 $lang['menu_lang'] = "Language: ";
 $lang['menu_lang_es'] = "Spanish";
 $lang['menu_lang_en'] = "English";
@@ -29,6 +30,9 @@ $lang['menu_reports'] = "Reports";
 $lang['menu_help'] = "Help";
 $lang['menu_tools'] = "Tools";
 $lang['menu_billing'] = "Billing";
+
+$lang['menu_change_password'] = "Change Password";
+$lang['menu_profile'] = "Profile";
 
 $lang['subject_client'] = "Customer";
 $lang['subject_role'] = "Role";
@@ -133,7 +137,14 @@ $lang['btn_edit'] = "Edit";
 $lang['btn_delete'] = "Delete";
 $lang['btn_order'] = "Order";
 
-/***
+$lang['message_error_login'] = "Please review the fields. The username or password is incorrect.";
+$lang['message_change_password'] = "Password changed.";
+$lang['message_error_change_password'] = "Could not change the password.";
+$lang['message_error_check_email'] = "The %s already exists.";
+$lang['message_profile'] = "Modified data.";
+$lang['message_error_profile'] = "Could not modify the data.";
+
+/* * *
  * Títulos de páginas
  */
 $lang['page_manage_centers'] = "Center managment";

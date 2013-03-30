@@ -14,6 +14,7 @@ class Contact extends Basic_controller {
         parent::__construct();
         $this->template = 'templates/manager_page';
         $this->location = 'manager/';
+        $this->menu_template = 'templates/manager_menu'; 
     }
 
     public function edit() {

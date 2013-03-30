@@ -30,6 +30,9 @@ $lang['menu_help'] = "Ayuda";
 $lang['menu_tools'] = "Herramientas";
 $lang['menu_billing'] = "Facturación";
 
+$lang['menu_change_password'] = "Cambiar Contraseña";
+$lang['menu_profile'] = "Perfil";
+
 $lang['subject_client'] = "Cliente";
 $lang['subject_role'] = "Rol";
 $lang['subject_center'] = "Centro";
@@ -132,6 +135,13 @@ $lang['btn_add'] = "Agregar";
 $lang['btn_edit'] = "Modificar";
 $lang['btn_delete'] = "Eliminar";
 $lang['btn_order'] = "Ordenar";
+
+$lang['message_error_login'] = "Revise los campos por favor. El nombre de usuario o contraseña no son correctos.";
+$lang['message_change_password'] = "Contraseña modificada.";
+$lang['message_error_change_password'] = "No se pudo cambiar la contraseña.";
+$lang['message_error_check_email'] = "El %s ya existe.";
+$lang['message_profile'] = "Datos modificados.";
+$lang['message_error_profile'] = "No se pudo modificar los datos.";
 
 /***
  * Títulos de páginas

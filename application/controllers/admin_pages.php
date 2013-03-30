@@ -11,17 +11,12 @@ if (!defined('BASEPATH'))
  * @author Leonardo Quintero
  */
 class Admin_pages extends Crud_controller {
-
-    var $role_id;
-    var $client_id;
-
+   
     public function __construct() {
         parent::__construct();
         $this->template = 'templates/crud_template';
         $this->description = 'Página de administración general';
-        $this->menu_template = 'templates/manager_menu';
-        $this->role_id = $this->session->userdata('role_id');
-        $this->client_id = $this->session->userdata('client_id');
+        $this->menu_template = 'templates/manager_menu';       
     }
 
     public function client() {
@@ -59,7 +54,7 @@ class Admin_pages extends Crud_controller {
         $this->set_page_title('page_manage_users');
         $fields = array('id', 'email', 'client_id', 'role_code');
 
-        if ($this->role_id > 1) {
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
             $fields = array('id', 'email', 'role_code');
         }
@@ -78,7 +73,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->change_field_type('password', 'password');
         $this->crud->set_relation('client_id', 'client', 'name');
         $this->crud->set_relation('role_code', 'role', 'description');
-        if ($this->role_id > 1) {
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);
         }
 
@@ -126,7 +121,7 @@ class Admin_pages extends Crud_controller {
         $this->set_page_title('page_manage_levels');
         $fields = array('code', 'description', 'price', 'client_id');
 
-        if ($this->role_id > 1) {
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
             $fields = array('code', 'description', 'price');
         }
@@ -142,7 +137,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->required_fields('code', 'description', 'price', 'client_id');
         $this->crud->fields('code', 'description', 'price', 'client_id');
         $this->crud->set_relation('client_id', 'client', 'name');
-        if ($this->role_id > 1) {
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);
         }
 
