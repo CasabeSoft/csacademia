@@ -21,6 +21,7 @@ $lang['menu_teacher'] = "Profesores";
 $lang['menu_student'] = "Alumnos";
 $lang['menu_contact'] = "Contactos";
 $lang['menu_qualification'] = "Calificaciones";
+$lang['menu_academic_period'] = "Períodos Académicos";
 
 $lang['menu_management'] = "Gestión";
 $lang['menu_close'] = "Salir";
@@ -46,6 +47,7 @@ $lang['subject_teacher'] = "Profesor";
 $lang['subject_student'] = "Alumno";
 $lang['subject_contact'] = "Contacto";
 $lang['subject_qualification'] = "Calificación";
+$lang['subject_academic_period'] = "Período Académico";
 
 $lang['form_username'] = "Nombre de usuario";
 $lang['form_password'] = "Contraseña";
@@ -159,4 +161,5 @@ $lang['page_manage_roles'] = "Gestión de roles";
 $lang['page_manage_students'] = "Gestión de estudiantes";
 $lang['page_manage_teachers'] = "Gestión de profesores";
 $lang['page_manage_users'] = "Gestión de usuarios";
+$lang['page_manage_academic_period'] = "Gestión de periodos académicos";
 

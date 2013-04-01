@@ -42,6 +42,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student"><?php echo lang('menu_student'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/contact/edit"><?php echo lang('menu_contact'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification"><?php echo lang('menu_qualification'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/admin/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo is_controller_active($current_controller, 'reports') ?>"><a href="/manager/main"><?php echo lang('menu_reports'); ?></a></li>
@@ -82,7 +83,6 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             </div>
                         </ul>
                     </li>
-                    <li class="<?php echo is_active($current_page, 'help') ?> pull-right"><a href="/close">Salir</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

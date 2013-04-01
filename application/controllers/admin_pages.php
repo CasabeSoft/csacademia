@@ -287,6 +287,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_relation('classroom_id', 'classroom', 'notes');
         $this->crud->set_relation('teacher_id', 'teacher', 'contact_id');
         $this->crud->set_relation('level_code', 'level', 'description');
+        $this->crud->set_relation('academic_period', 'academic_period', 'name');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -321,6 +322,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_relation('center_id', 'center', 'name');
         $this->crud->set_relation('current_level_code', 'level', 'description');
         $this->crud->set_relation('leave_reason_code', 'leave_reason', 'description');
+        $this->crud->set_relation('current_academic_period', 'academic_period', 'name');
         $this->crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');
 
         $this->crud_view = $this->crud->render();
@@ -347,6 +349,23 @@ class Admin_pages extends Crud_controller {
         $this->crud->required_fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
         $this->crud->fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
         $this->crud->set_relation('student_id', 'contact', '{first_name} {last_name}');
+        $this->crud->set_relation('academic_period', 'academic_period', 'name');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
+    
+    public function academic_period() {
+        $this->set_page_title('page_manage_academic_period');
+
+        $this->crud->set_table('academic_period');
+        $this->crud->set_subject(lang('subject_academic_period'));
+        $this->crud->columns('code', 'name');
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('name', lang('form_name'));
+
+        $this->crud->required_fields('code', 'name');
+        $this->crud->fields('code', 'name');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
