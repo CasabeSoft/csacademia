@@ -50,9 +50,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                     <li class="<?php echo is_controller_active($current_controller, 'tools') ?>"><a href="/manager/main"><?php echo lang('menu_tools'); ?></a></li>
                     <li class="<?php echo is_controller_active($current_controller, 'help') ?>"><a href="/manager/main"><?php echo lang('menu_help'); ?></a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
-            <div class="nav-collapse collapse pull-right">
-                <ul class="nav">
+                <ul class="nav pull-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <?php echo lang('menu_lang') . lang('menu_lang_' . $this->lang_code); ?>

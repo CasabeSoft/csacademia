@@ -54,6 +54,11 @@ var ContactsViewModel = function() {
             .fail(showError);
     };
 
+    self.activateTab = function (vm, e) {
+        e.preventDefault();
+        $(e.target).tab('show');
+    };
+    
     function setContacts(contacts) {
         self.contacts.removeAll();
         $(contacts).each(function (index, contact) {
