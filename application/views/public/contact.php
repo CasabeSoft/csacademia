@@ -10,9 +10,9 @@
         <form class="span5 well">
             <fieldset>
                     <label><?php echo lang('form_name'); ?></label>
-                    <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span><input type="text" class="span3" placeholder="Nombre completo"></div>
+                    <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span><input id="name" name="name" type="text" class="span3" placeholder="Nombre completo"></div>
                     <label><?php echo lang('form_email'); ?></label>
-                    <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span><input type="text" class="span3" placeholder="Tu dirección de Email"></div>
+                    <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span><input id="email" name="email" type="text" class="span3" placeholder="Tu dirección de Email"></div>
                     <label><?php echo lang('form_subject'); ?></label>
                     <div class="input-prepend"><span class="add-on"><i class="icon-question-sign"></i></span>
                         <select id="subject" name="subject" class="span3">

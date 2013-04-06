@@ -18,7 +18,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="/main">CS Academia</a>
+            <a class="brand" href="/home">CS Academia</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="<?php echo is_controller_active($current_controller, 'admin') ?> dropdown">

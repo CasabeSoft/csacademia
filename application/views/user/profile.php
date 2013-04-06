@@ -1,4 +1,3 @@
-<br><br><br>
 <div class="jumbotron subhead">
     <div class="container">
         <img style="float: left" src="../assets/img/logo.png">
@@ -9,8 +8,8 @@
 <div class="container pcontent">
     <div class="row">
         <div class="span8">
-            <h2>...</h2>
-            <p>...</p>
+            <h2>Actualizar información del perfil</h2>
+            <p>La cuenta de correo se utilizará para el inicio de sesión</p>
         </div>
         <div class="span4">
             <form class="well"  method="POST" action="/profile">

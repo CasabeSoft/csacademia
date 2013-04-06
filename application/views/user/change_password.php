@@ -1,4 +1,3 @@
-<br><br><br>
 <div class="jumbotron subhead">
     <div class="container">
         <img style="float: left" src="../assets/img/logo.png">
@@ -9,8 +8,8 @@
 <div class="container pcontent">
     <div class="row">
         <div class="span8">
-            <h2>...</h2>
-            <p>...</p>
+            <h2>Puedes cambiar la contraseña siempre que lo necesite</h2>
+            <p>Importante!!!. Mantener siempre la seguridad de su cuenta de usuario</p>
         </div>
         <div class="span4">
             <form class="well"  method="POST" action="/change_password">
@@ -35,7 +34,7 @@
                     }
                     ?>
                     <label for="current_password"><?php echo lang('form_current_password'); ?>: </label>
-                    <input class="span3" name="current_password" id="old_password" placeholder="<?php echo lang('form_current_password'); ?>" type="password" value="">
+                    <input class="span3" name="current_password" id="current_password" placeholder="<?php echo lang('form_current_password'); ?>" type="password" value="">
                     <span style="color: red"><?php echo form_error('current_password'); ?></span>
                     <label for="new_password"><?php echo lang('form_new_password'); ?>: </label>
                     <input class="span3" name="new_password" id="new_password" placeholder="<?php echo lang('form_new_password'); ?>" type="password" value="">
