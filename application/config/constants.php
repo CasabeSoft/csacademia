@@ -60,5 +60,14 @@ define('ROLE_SECRETARY', 3);
 define('USER_ADMINISTRATOR', 'admin');
 define('PASSWORD_ADMINISTRATOR', '202cb962ac59075b964b07152d234b70'); //123
 
+/*
+  |--------------------------------------------------------------------------
+  | Cuenta de correo del formulario de contacto
+  |--------------------------------------------------------------------------
+  |
+ */
+
+define('EMAIL_CONTACT', 'contacto@casabesoft.com');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -17,9 +17,9 @@ class Contact extends Basic_controller {
         $this->menu_template = 'templates/manager_menu'; 
     }
 
-    public function edit() {
+    public function admin() {
         $this->title = "Gestión de contactos";
-        $this->load_page('contact_edit');
+        $this->load_page('contact_admin');
     }
     
     protected function _echo_json_error($error) {

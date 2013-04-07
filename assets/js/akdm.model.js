@@ -1,4 +1,4 @@
-var akdm = window.akdm || {};
+window.akdm = window.akdm || {};
 
 akdm.model = (function () {
     var Contact = function() {

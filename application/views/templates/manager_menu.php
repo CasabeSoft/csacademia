@@ -40,7 +40,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/admin/user"><?php echo lang('menu_user'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/admin/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student"><?php echo lang('menu_student'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/contact/edit"><?php echo lang('menu_contact'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/admin/contact"><?php echo lang('menu_contact'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification"><?php echo lang('menu_qualification'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/admin/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
                         </ul>
@@ -63,13 +63,13 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img width="20px" height="20px" src="../assets/img/personal.png">
+                            <img width="20px" height="20px" src="/assets/img/personal.png">
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <div class="well-small" >
                                 <div class="">
-                                    <img width="70px" height="70px" src="../assets/img/personal.png">
+                                    <img width="70px" height="70px" src="/assets/img/personal.png">
                                 </div>
                                 <div class="">
                                     <?php echo $this->session->userdata('email'); ?>

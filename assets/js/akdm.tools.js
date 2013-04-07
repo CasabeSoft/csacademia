@@ -1,12 +1,17 @@
-var akdm = window.akdm || {};
+window.akdm = window.akdm || {};
 
-akdm.tools = {
-    db2LocaleDateStr: function (dateString) {
-        return $.datepicker.formatDate($.datepicker.regional[akdm.config.locale].dateFormat,
+akdm.tools = (function () {
+    var public = {};
+    
+    public.db2LocaleDateStr = function (dateString) {
+        return $.datepicker.formatDate(akdm.config.localeDateFormat,
             $.datepicker.parseDate($.datepicker.ATOM, dateString));
-    },
-    locale2dbDateStr: function (dateString) {
+    };
+    
+    public.locale2dbDateStr = function (dateString) {
         return $.datepicker.formatDate($.datepicker.ATOM,
-            $.datepicker.parseDate($.datepicker.regional[akdm.config.locale].dateFormat, dateString));
-    }
-};
+            $.datepicker.parseDate(akdm.config.localeDateFormat, dateString));
+    };
+    
+    return public;
+})();

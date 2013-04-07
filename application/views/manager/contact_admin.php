@@ -1,4 +1,4 @@
-<div class="container  container-first">
+<div class="container container-first">
     <h1><?php echo $title ?></h1>
     <div class="row">
         <div class="span3">

@@ -1,5 +1,8 @@
 <?php
 
+/* * *
+ * Menu
+ */
 $lang['menu_lang'] = "Language: ";
 $lang['menu_lang_es'] = "Spanish";
 $lang['menu_lang_en'] = "English";
@@ -35,6 +38,9 @@ $lang['menu_billing'] = "Billing";
 $lang['menu_change_password'] = "Change Password";
 $lang['menu_profile'] = "Profile";
 
+/* * *
+ * Títulos de formularios
+ */
 $lang['subject_client'] = "Customer";
 $lang['subject_role'] = "Role";
 $lang['subject_center'] = "Center";
@@ -50,9 +56,13 @@ $lang['subject_contact'] = "Contact";
 $lang['subject_qualification'] = "Qualification";
 $lang['subject_academic_period'] = "Academic Period";
 
+/* * *
+ * Campos de los formularios
+ */
 $lang['form_username'] = "Username";
 $lang['form_password'] = "Password";
 $lang['form_email'] = "Email";
+$lang['form_email_info'] = "Your email address";
 $lang['form_first_name'] = "First name";
 $lang['form_last_name'] = "Last name";
 $lang['form_phone'] = "Phone";
@@ -70,6 +80,7 @@ $lang['form_remenber'] = "Remember me";
 $lang['form_subject'] = "Subject";
 $lang['form_id'] = "Code";
 $lang['form_name'] = "Name";
+$lang['form_full_name'] = "Full Name";
 $lang['form_description'] = "Description";
 $lang['form_client'] = "Customer";
 $lang['form_role'] = "Role";
@@ -122,7 +133,17 @@ $lang['form_eval3'] = "Eval3";
 $lang['form_sex_male'] = "Male";
 $lang['form_sex_female'] = "Female";
 $lang['form_id_card'] = "Identity Card";
+$lang['form_contact_subject_select'] = "Select the subject of your message:";
+$lang['form_contact_subject_information'] = "Request information";
+$lang['form_contact_subject_suggestions'] = "Suggestions";
+$lang['form_contact_subject_report'] = "Report bug or issue";
+$lang['form_contact_subject_other'] = "Another subject";
+$lang['form_contact_privacy_info'] = "I have read the privacy policy and understand that you will not use CasabeSoft my data, except to contact me.";
+$lang['form_contact_privacy'] = "Privacy Policy";
 
+/* * *
+ * Botones
+ */
 $lang['btn_accept'] = "Accept";
 $lang['btn_recover_password'] = "Recover Password";
 $lang['btn_link'] = "Link";
@@ -139,12 +160,17 @@ $lang['btn_edit'] = "Edit";
 $lang['btn_delete'] = "Delete";
 $lang['btn_order'] = "Order";
 
+/* * *
+ * Mensajes
+ */
 $lang['message_error_login'] = "Please review the fields. The username or password is incorrect.";
 $lang['message_change_password'] = "Password changed.";
 $lang['message_error_change_password'] = "Could not change the password.";
 $lang['message_error_check_email'] = "The %s already exists.";
 $lang['message_profile'] = "Modified data.";
 $lang['message_error_profile'] = "Could not modify the data.";
+$lang['message_error_email'] = "Error sending email.";
+$lang['message_email'] = "Mail sent successfully.";
 
 /* * *
  * Títulos de páginas
@@ -163,6 +189,29 @@ $lang['page_manage_students'] = "Student managment";
 $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
+
+$lang['page_login_title'] = "Access to CSAcademia";
+$lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";
+$lang['page_login_content'] = "If you already have a user account you can ...";
+$lang['page_login_content_info'] = "If you have an account accesses the system, if not ...Ask for it!";
+$lang['page_contact_title'] = "Contact Information";
+$lang['page_contact_title_info'] = "Any suggestions, criticism, information request ...?";
+$lang['page_about_title'] = "About CS Academy";
+$lang['page_about_title_info'] = "What, how and why to use CS Academy?";
+$lang['page_about_text'] = "<p>...</p> <p>...</p> <p>...</p>";
+$lang['page_home_title'] = "CS Academy";
+$lang['page_home_title_info'] = "The ultimate software for the management of their academy.";
+$lang['page_home_content'] = "A quick look at CS Academy";
+$lang['page_home_text'] = "Why, what and how.";
+$lang['page_home_text_why'] = "Improve management";
+$lang['page_home_text_what'] = "Increase efficiency";
+$lang['page_home_text_how'] = "Computerizing";
+
+
+$lang['page_profile_content'] = "Update profile information";
+$lang['page_profile_content_info'] = "The email account will be used to login and contact the user.";
+$lang['page_change_password_content'] = "You can change your password whenever you need";
+$lang['page_change_password_content_info'] = "Important!. Always maintain the security of your user account.";
 
 /***
  * Números y fechas

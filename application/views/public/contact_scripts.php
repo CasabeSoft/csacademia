@@ -13,4 +13,7 @@
         );    
     }
     window.onload  = init;
+    $(document).ready(function() {
+        $("#name").focus();
+    });
 </script>
