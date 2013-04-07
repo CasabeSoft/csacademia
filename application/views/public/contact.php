@@ -1,6 +1,5 @@
 <div class="jumbotron subhead">
     <div class="container">
-        <img style="float: left" src="../assets/img/logo.png">
         <h1>Información de contacto</h1>
         <p class="lead">¿Agluna sugerencia, crítica, solicitud de información...?</p>
     </div>

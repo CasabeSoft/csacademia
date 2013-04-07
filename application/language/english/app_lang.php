@@ -163,3 +163,9 @@ $lang['page_manage_students'] = "Student managment";
 $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
+
+/***
+ * Números y fechas
+ */
+$lang['date_format'] = 'MM/dd/yyyy';
+$lang['date_format_humans'] = 'mm/dd/yyyy, for example 03/31/1985';

@@ -39,7 +39,7 @@ akdm.model = (function () {
         contact.postal_code(contactJSON.postal_code);
         contact.town(contactJSON.town);
         contact.province(contactJSON.province);
-        contact.date_of_birth(contactJSON.date_of_birth);
+        contact.date_of_birth(akdm.tools.db2LocaleDateStr(contactJSON.date_of_birth));
         contact.occupation(contactJSON.occupation);
         contact.id_card(contactJSON.id_card);
         return contact;
@@ -60,7 +60,7 @@ akdm.model = (function () {
             "postal_code": contact.postal_code(),
             "town": contact.town(),
             "province": contact.province(),
-            "date_of_birth": contact.date_of_birth(),
+            "date_of_birth": akdm.tools.locale2dbDateStr(contact.date_of_birth()),
             "occupation": contact.occupation(),
             "id_card": contact.id_card()
         };

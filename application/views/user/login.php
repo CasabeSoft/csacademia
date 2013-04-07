@@ -1,6 +1,5 @@
 <div class="jumbotron subhead">
     <div class="container">
-        <img style="float: left" src="../assets/img/logo.png">
         <h1>Acceder a CS Academia</h1>
         <p class="lead">Accede y obtén la información que buscas, gestiona datos y mucho más...</p>
     </div>

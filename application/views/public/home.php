@@ -1,7 +1,6 @@
 <div class="jumbotron masthead">
     <div class="container pcontent">
-        <img style="float: left" src="../assets/img/logodundee-cabecera.png">
-        <h1>CS Academia</h1>
+    <h1>CS Academia</h1>
         <p>
             El software definitivo para la gestión integral de su academia. 
         </p>

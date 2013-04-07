@@ -64,8 +64,9 @@
                             <div class="row-fluid">
                                 <div class="span6">
                                     <label for="txtDateOfBirth">Fecha de nacimiento</label>
-                                    <input type="text" id="txtDateOfBirth" class="input-block-level" placeholder="aaaa-MM-dd"
-                                           data-bind="value: date_of_birth">
+                                    <input type="text" id="txtDateOfBirth" class="input-block-level" 
+                                           placeholder="<?php echo lang('date_format_humans') ?>"
+                                           data-bind="value: date_of_birth, jqDatepicker: date_of_birth">
                                 </div>                        
                                 <div class="span6">
                                     <label for="lbxGender">Género</label>

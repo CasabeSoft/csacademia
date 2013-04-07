@@ -27,7 +27,7 @@ class Contact extends Basic_controller {
         echo json_encode($error);
     }
     
-    public function lst() {
+    public function get() {
         header("Content-type:text/json");
         try {
             $this->load->model('Contact_model');

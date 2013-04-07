@@ -1,3 +1,9 @@
+ko.bindingHandlers.jqDatepicker = {
+    init: function(element) {
+       $(element).datepicker();
+    }
+};
+
 var ContactsViewModel = function() {
     var self = this;
     self.contacts = ko.observableArray();
@@ -72,7 +78,7 @@ var ContactsViewModel = function() {
         }
     }
     
-    $.get('/contact/lst').done(setContacts).fail(showError);
+    $.get('/contact/get').done(setContacts).fail(showError);
 };
 
 $(document).ready(function () {
