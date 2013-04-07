@@ -27,6 +27,7 @@
 
         <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/lib/bootstrap/2.3.1/css/bootstrap.min.css') ?>" />
         <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/lib/bootstrap/2.3.1/css/bootstrap-responsive.min.css') ?>" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/docs.css">
 
         <!-- Fav and touch icons -->
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo site_url('assets/ico/apple-touch-icon-144-precomposed.png') ?>">
@@ -41,7 +42,7 @@
         <?php $this->load->view($menu_template) ?>
 
         <!-- Start page content -->
-        <div class="container container-first">
+        <div class="container">
             <h1><?php echo $page_header ?></h1>
             <?php echo $crud_view->output; ?>
         </div>

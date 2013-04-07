@@ -107,7 +107,6 @@ class User_pages extends Basic_controller {
     function denied() {
         $this->current_page();
         $this->title = "CasabeSoft Academia - " . lang('menu_login');
-        ;
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
         $this->load_page('denied');
     }
