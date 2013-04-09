@@ -66,6 +66,13 @@ class User_pages extends Basic_controller {
                   redirect($this->session->userdata('current_url'));
                   } else { */
 
+                /***
+                * [CB] TODO: Descomentar bloque siguiente cuando se decida cuál
+                * será la página por rol. De momento y para la demo
+                * redirigir a todos los usuarios hacia la pagina main
+                * para que se vea el título de la app y el logo del cliente.
+                */
+                /*
                 //Según el rol del usuario lo enviamos a su página index
                 switch ($user['role_id']) {
                     case 1:
@@ -77,7 +84,9 @@ class User_pages extends Basic_controller {
                     default:
                         redirect('manager/main');
                         break;
-                }
+                }*/
+                // De momento y hasta que se defina el bloque anterior:
+                 redirect('manager/main');
                 //}
             } else {
                 // Si no existe el usuario envio el mensaje de error.

@@ -43,9 +43,11 @@ if (!defined('BASEPATH'))
 
 $route['user/(:any)'] = 'user_pages/$1';
 $route['admin/contact'] = 'contact/admin';
+$route['admin/teacher'] = 'teacher/admin';
 $route['admin/(:any)'] = 'admin_pages/$1';
 $route['manager/(:any)'] = 'manager_pages/$1';
 $route['contact/(:any)'] = 'contact/$1';
+$route['teacher/(:any)'] = 'teacher/$1';
 
 $route['login'] = 'user_pages/login';
 $route['change_password'] = 'user_pages/change_password';

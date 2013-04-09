@@ -17,9 +17,9 @@ class Teacher extends Basic_controller {
         $this->menu_template = 'templates/manager_menu'; 
     }
 
-    public function edit() {
-        $this->title = "Gestión de profesores";
-        $this->load_page('teacher_edit');
+    public function admin() {
+        $this->title = lang('page_manage_teachers');
+        $this->load_page('teacher_admin');
     }
     
     protected function _echo_json_error($error) {

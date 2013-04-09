@@ -7,14 +7,15 @@
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.contactedit.js"></script>
+<script type="text/javascript" src="/assets/js/akdm.teacheradmin.js"></script>
 <script>
     $(document).ready(function () {
         akdm.setConfig({
             locale: '<?php echo $this->lang_code ?>',
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
-        var cvm = new ContactsViewModel();
-        ko.applyBindings(cvm);
-        cvm.init();
+        var tvm = new TeachersViewModel();
+        ko.applyBindings(tvm);
+        tvm.init();
     });
 </script>

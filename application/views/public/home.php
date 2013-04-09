@@ -14,17 +14,17 @@
 
         <div class="row-fluid">
             <div class="span4">
-                <img class="marketing-img" src="../assets/img/logo.png">
+                <img class="marketing-img" src="/assets/img/better-managment.jpg">
                 <h2><?php echo lang('page_home_text_why'); ?></h2>
                 <p>No es una opción sino lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit. Nam iaculis sapien ut <a href="#">nulla rutrum</a> adipiscing. Proin lacinia consequat semper. Quisque.</p>
             </div>
             <div class="span4">
-                <img class="marketing-img" src="../assets/img/logo.png">
+                <img class="marketing-img" src="/assets/img/more-efficiency.jpg">
                 <h2><?php echo lang('page_home_text_what'); ?></h2>
                 <p>Hará que su negocio lorem ipsum dolor sit amet, consectetur <a href="#">adipiscing</a> elit. Sed ante metus, lobortis at luctus eget, porta vel odio. Fusce tristique.</p>
             </div>
             <div class="span4">
-                <img class="marketing-img" src="../assets/img/logo.png">
+                <img class="marketing-img" src="/assets/img/automate.jpg">
                 <h2><?php echo lang('page_home_text_how'); ?></h2>
                 <p>Sus procesos de gestión lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non erat ac metus ultricies commodo. Phasellus elementum vehicula tincidunt. Sed.</p>
             </div>

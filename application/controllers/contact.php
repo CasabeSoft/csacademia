@@ -18,7 +18,7 @@ class Contact extends Basic_controller {
     }
 
     public function admin() {
-        $this->title = "Gestión de contactos";
+        $this->title = lang('page_manage_contacts');
         $this->load_page('contact_admin');
     }
     

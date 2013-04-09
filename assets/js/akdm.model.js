@@ -70,7 +70,20 @@ akdm.model = (function () {
         return Contact.toJSON(this);
     }; 
     
+    var Teacher = function() {
+        this.contact_id = ko.observable(null);
+        this.title = ko.observable(""); 
+        this.cv = ko.observable(""); 
+        this.type = ko.observable(""); 
+        this.start_date = ko.observable(""); 
+        this.end_date = ko.observable(""); 
+        this.state = ko.observable(""); 
+        this.bank_account_format = ko.observable(""); 
+        this.bank_account_number = ko.observable(""); 
+    };
+    
     return {
-        Contact: Contact
+        Contact: Contact,
+        Teacher: Teacher
     };
 })();

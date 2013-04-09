@@ -1,12 +1,6 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of contact_model
+ * Gestión de contactos
  *
  * @author carlos
  */
@@ -41,5 +35,5 @@ class Contact_model extends CI_Model {
     }
 }
 
-/* End of file Contact_model.php */
-/* Location: ./application/models/Contact_model.php */
+/* End of file contact_model.php */
+/* Location: ./application/models/contact_model.php */

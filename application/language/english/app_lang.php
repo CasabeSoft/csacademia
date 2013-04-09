@@ -55,6 +55,9 @@ $lang['subject_student'] = "Student";
 $lang['subject_contact'] = "Contact";
 $lang['subject_qualification'] = "Qualification";
 $lang['subject_academic_period'] = "Academic Period";
+$lang['subject_general_data'] = "General data";
+$lang['subject_academic_data'] = "Academic";
+$lang['subject_professional_data'] = "Professional & financial";
 
 /* * *
  * Campos de los formularios
@@ -89,6 +92,8 @@ $lang['form_sex'] = "Sex";
 $lang['form_photo'] = "Photo";
 $lang['form_notes'] = "Notes";
 $lang['form_address'] = "Address";
+$lang['form_address_desc'] = "House number Street, Door...";
+$lang['form_p_c'] = "P.C.";
 $lang['form_postal_code'] = "Postal Code";
 $lang['form_town'] = "Town";
 $lang['form_province'] = "Province";
@@ -140,6 +145,7 @@ $lang['form_contact_subject_report'] = "Report bug or issue";
 $lang['form_contact_subject_other'] = "Another subject";
 $lang['form_contact_privacy_info'] = "I have read the privacy policy and understand that you will not use CasabeSoft my data, except to contact me.";
 $lang['form_contact_privacy'] = "Privacy Policy";
+$lang['form_type_filter'] = "Type your filter and press [Enter]";
 
 /* * *
  * Botones
@@ -159,6 +165,13 @@ $lang['btn_add'] = "Add";
 $lang['btn_edit'] = "Edit";
 $lang['btn_delete'] = "Delete";
 $lang['btn_order'] = "Order";
+$lang['btn_new'] = "New";
+
+/***
+ * Enlaces
+ */
+$lang['lnk_chanche_picture'] = "Change picture";
+
 
 /* * *
  * Mensajes
@@ -189,6 +202,7 @@ $lang['page_manage_students'] = "Student managment";
 $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
+$lang['page_manage_main'] = "Academic managment system";
 
 $lang['page_login_title'] = "Access to CSAcademia";
 $lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";

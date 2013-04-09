@@ -55,6 +55,9 @@ $lang['subject_student'] = "Alumno";
 $lang['subject_contact'] = "Contacto";
 $lang['subject_qualification'] = "Calificación";
 $lang['subject_academic_period'] = "Período Académico";
+$lang['subject_general_data'] = "Datos generales";
+$lang['subject_academic_data'] = "Académicos";
+$lang['subject_professional_data'] = "Profesionales y financieros";
 
 /* * *
  * Campos de los formularios
@@ -64,7 +67,7 @@ $lang['form_password'] = "Contraseña";
 $lang['form_email'] = "Correo";
 $lang['form_email_info'] = "Tu dirección de Email";
 $lang['form_first_name'] = "Nombre";
-$lang['form_last_name'] = "Apellido";
+$lang['form_last_name'] = "Apellidos";
 $lang['form_phone'] = "Teléfono";
 $lang['form_phone_mobile'] = "Teléfono Móvil";
 $lang['form_message'] = "Mensaje";
@@ -89,6 +92,8 @@ $lang['form_sex'] = "Sexo";
 $lang['form_photo'] = "Foto";
 $lang['form_notes'] = "Notas";
 $lang['form_address'] = "Dirección";
+$lang['form_address_desc'] = "Calle, número, puerta...";
+$lang['form_p_c'] = "C.P.";
 $lang['form_postal_code'] = "Código Postal";
 $lang['form_town'] = "Población";
 $lang['form_province'] = "Provincia";
@@ -140,6 +145,7 @@ $lang['form_contact_subject_report'] = "Reporte de error o incidencia";
 $lang['form_contact_subject_other'] = "Otro asunto";
 $lang['form_contact_privacy_info'] = "He leído la política de privacidad y comprendo que CasabeSoft no hará ningún uso de mis datos, salvo para ponerse en contacto conmigo.";
 $lang['form_contact_privacy'] = "Politica de privacidad";
+$lang['form_type_filter'] = "Teclee el filtro y presione [Enter]";
 
 /* * *
  * Botones
@@ -159,6 +165,13 @@ $lang['btn_add'] = "Agregar";
 $lang['btn_edit'] = "Modificar";
 $lang['btn_delete'] = "Eliminar";
 $lang['btn_order'] = "Ordenar";
+$lang['btn_new'] = "Nuevo";
+
+/***
+ * Enlaces
+ */
+$lang['lnk_chanche_picture'] = "Cambiar imagen";
+
 
 /* * *
  * Mensajes
@@ -189,6 +202,7 @@ $lang['page_manage_students'] = "Gestión de estudiantes";
 $lang['page_manage_teachers'] = "Gestión de profesores";
 $lang['page_manage_users'] = "Gestión de usuarios";
 $lang['page_manage_academic_period'] = "Gestión de periodos académicos";
+$lang['page_manage_main'] = "Sistema de gestión académica";
 
 $lang['page_login_title'] = "Acceder a CS Academia";
 $lang['page_login_title_info'] = "Accede y obtén la información que buscas, gestiona datos y mucho más...";

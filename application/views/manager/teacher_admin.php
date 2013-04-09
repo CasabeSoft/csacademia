@@ -1,9 +1,9 @@
 <div class="container container-first">
-    <h1><?php echo lang('page_manage_contacts'); ?></h1>
+    <h1><?php echo lang('page_manage_teachers'); ?></h1>
     <div class="row">
         <div class="span3">
             <legend>
-                <?php echo lang('subject_contact'); ?>
+                <?php echo lang('subject_teacher'); ?>
                 <div class="btn-toolbar pull-right">
                     <button class="btn btn-small pull-right" data-bind="click: newContact">
                         <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
@@ -27,8 +27,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="span9" data-bind="with: currentContact">
-            <legend>
+        <div class="span9">
+            <legend data-bind="with: currentContact">
                 <span data-bind="text: full_name() + '&nbsp;'"></span>
                 <div class="pull-right">
                     <button class="btn btn-small" data-bind="click: $root.saveContact">
@@ -41,10 +41,10 @@
             </legend>
             <ul id="tbContactData" class="nav nav-tabs">
                 <li class="active"><a href="#generalData" data-bind="click: $root.activateTab"><?php echo lang('subject_general_data'); ?></a></li>
-                <li><a href="#academicData" data-bind="click: $root.activateTab"><?php echo lang('subject_academic_data'); ?></a></li>
+                <li><a href="#professionalData" data-bind="click: $root.activateTab"><?php echo lang('subject_professional_data'); ?></a></li>
             </ul>
             <div class="tab-content">
-                <div id="generalData" class="tab-pane active">
+                <div id="generalData" class="tab-pane active" data-bind="with: currentContact">
                     <div class="row-fluid">
                         <div class="span8">
                             <input type="hidden" id="cnt_id" data-bind="value: id" />
@@ -151,9 +151,50 @@
                         </div>
                     </div>
                 </div>
-                <div id="academicData" class="tab-pane">
-                    <h1><?php echo lang('subject_academic_data'); ?></h1>
-                </div>
+                <div id="professionalData" class="tab-pane" data-bind="with: currentTeacher">
+                    <label for="txtTitle"><?php echo lang('form_title'); ?></label>
+                    <input type="text" id="txtTitle" placeholder="<?php echo lang('form_title'); ?>" class="input-block-level"
+                           data-bind="">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label for="lbxType"><?php echo lang('form_type'); ?></label>
+                            <select id="lbxType" class="input-block-level">
+                                <option>--</option>
+                            </select>
+                        </div>
+                        <div class="span4">
+                            <label for="txtStartDate"><?php echo lang('form_start_date'); ?></label>
+                            <input type="text" id="txtStartDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
+                                   data-bind="value: start_date, jqDatepicker: start_date">
+                        </div>
+                        <div class="span2">
+                            <label for="lbxState"><?php echo lang('form_state'); ?></label>
+                            <select id="lbxState" class="input-block-level">
+                                <option>--</option>
+                            </select>
+                        </div>
+                        <div class="span4">
+                            <label for="txtEndDate"><?php echo lang('form_end_date'); ?></label>
+                            <input type="text" id="txtEndDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
+                                   data-bind="value: end_date, jqDatepicker: end_date">
+                        </div> 
+                    </div>
+                    <div class="row-fluid newComponentGroup">
+                        <div class="span4">
+                            <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
+                            <select id="lbxAccountFormat" class="input-block-level">
+                                <option>--</option>
+                            </select>
+                        </div>
+                        <div class="span8">
+                            <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
+                            <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
+                                data-bind="value: bank_account_number">
+                        </div>
+                    </div>
+                    <label for="txtCV" class="newComponentGroup"><?php echo lang('form_cv'); ?></label>
+                    <textarea id="txtCV" class="input-block-level"></textarea>
+                </div>            
             </div>
         </div>
     </div>

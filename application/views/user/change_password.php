@@ -2,6 +2,7 @@
     <div class="row">
         <div class="span8">
             <h2><?php echo lang('page_change_password_content'); ?></h2>
+            <img src="/assets/img/logo.png">
             <p><?php echo lang('page_change_password_content_info'); ?></p>
         </div>
         <div class="span4">

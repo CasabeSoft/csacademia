@@ -72,15 +72,13 @@ var ContactsViewModel = function() {
         });
     }
 
-    function showError(jqXHR, textStatus, errorThrown) {
+    self._showError = function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status === 500) {
             alert('Internal Server Error. Details: ' + jqXHR.responseText);
         }
     }
     
-    $.get('/contact/get').done(setContacts).fail(showError);
+    self.init = function () {
+        $.get('/contact/get').done(setContacts).fail(self._showError);
+    };
 };
-
-$(document).ready(function () {
-    ko.applyBindings(new ContactsViewModel());
-});
