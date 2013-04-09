@@ -27,6 +27,7 @@ $lang['menu_contact'] = "Contactos";
 $lang['menu_qualification'] = "Calificaciones";
 $lang['menu_academic_period'] = "Períodos Académicos";
 
+$lang['menu_catalog'] = "Catálogo";
 $lang['menu_management'] = "Gestión";
 $lang['menu_close'] = "Salir";
 $lang['menu_admin'] = "Administrar";

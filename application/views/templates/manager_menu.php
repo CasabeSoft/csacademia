@@ -21,28 +21,40 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
             <a class="brand" href="/manager/main">CS Academia</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="<?php echo is_controller_active($current_controller, 'admin') ?> dropdown">
+                    <li class="<?php echo is_controller_active($current_controller, 'catalog') ?> dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <?php echo lang('menu_catalog'); ?>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
+                                <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/catalog/client"><?php echo lang('menu_client'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/catalog/role"><?php echo lang('menu_role'); ?></a></li> 
+                                <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/catalog/teacher"><?php echo lang('menu_teacher'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/catalog/student"><?php echo lang('menu_student'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
+                            <?php } ?>
+                            <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/catalog/classroom"><?php echo lang('menu_classroom'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/catalog/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/catalog/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="<?php echo is_controller_active($current_controller, 'manage') ?> dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <?php echo lang('menu_management'); ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <?php if ($this->role_id === ROLE_ADMINISTRATOR) { ?>
-                                <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/admin/client"><?php echo lang('menu_client'); ?></a></li>
-                                <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/admin/role"><?php echo lang('menu_role'); ?></a></li>   
+                            <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
+                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/manage/contact"><?php echo lang('menu_contact'); ?></a></li>                            
                             <?php } ?>
-                            <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/admin/center"><?php echo lang('menu_center'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/admin/level"><?php echo lang('menu_level'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/admin/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/admin/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/admin/classroom"><?php echo lang('menu_classroom'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/admin/group"><?php echo lang('menu_group'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/admin/user"><?php echo lang('menu_user'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/admin/teacher"><?php echo lang('menu_teacher'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/admin/student"><?php echo lang('menu_student'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/admin/contact"><?php echo lang('menu_contact'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/admin/qualification"><?php echo lang('menu_qualification'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/admin/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/manage/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo is_controller_active($current_controller, 'reports') ?>"><a href="/manager/main"><?php echo lang('menu_reports'); ?></a></li>

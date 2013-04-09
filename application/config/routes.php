@@ -41,10 +41,12 @@ if (!defined('BASEPATH'))
   |
  */
 
+$route['default_controller'] = 'public_pages/home';
+
 $route['user/(:any)'] = 'user_pages/$1';
-$route['admin/contact'] = 'contact/admin';
-$route['admin/teacher'] = 'teacher/admin';
-$route['admin/(:any)'] = 'admin_pages/$1';
+$route['manage/contact'] = 'contact/admin';
+$route['manage/teacher'] = 'teacher/admin';
+$route['catalog/(:any)'] = 'admin_pages/$1';
 $route['manager/(:any)'] = 'manager_pages/$1';
 $route['contact/(:any)'] = 'contact/$1';
 $route['teacher/(:any)'] = 'teacher/$1';
@@ -55,10 +57,9 @@ $route['profile'] = 'user_pages/profile';
 $route['denied'] = 'user_pages/denied';
 $route['close'] = 'user_pages/close';
 
-$route['(:any)'] = 'public_pages/$1';
-$route['default_controller'] = 'public_pages/home';
-
 $route["lang/(:any)"] = "public_pages/lang/$1";
+
+$route['(:any)'] = 'public_pages/$1';
 
 //$route['404_override'] = '';
 
