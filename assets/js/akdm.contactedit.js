@@ -4,8 +4,16 @@ ko.bindingHandlers.jqDatepicker = {
     }
 };
 
-var ContactsViewModel = function() {
+var ContactsViewModel = function(strings) {
     var self = this;
+    strings = $.extend( 
+        {
+            contact_created: 'Contacto creado satisfactoriamente.',
+            contact_updated: 'Contacto actualizado satisfactoriamente.',
+            contact_deleted: 'Contacto eliminado satisfactoriamente.',
+            server_error: 'Error interno del servidor. Detalles: '
+        }, strings);
+    
     self.contacts = ko.observableArray();
     self.filter = ko.observable();
     self.filteredContacts = ko.computed(function() {
@@ -36,8 +44,8 @@ var ContactsViewModel = function() {
             // Actualizar
             $.post('/contact/update', contact.toJSON())
                 .done(function () {
-                    // Notificar actualización
-                    ;
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_updated + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
                 .fail(showError);
         else {
@@ -46,6 +54,8 @@ var ContactsViewModel = function() {
                 .done(function(newId) {
                     contact.id(newId);
                     self.contacts.push(self.currentContact());
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_created + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
                 .fail(showError);
         }
@@ -56,6 +66,8 @@ var ContactsViewModel = function() {
             .done(function() {
                 self.contacts.remove(self.currentContact());
                 self.currentContact(new akdm.model.Contact());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_deleted + '</strong>',
+                        akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
             })
             .fail(showError);
     };
@@ -72,13 +84,15 @@ var ContactsViewModel = function() {
         });
     }
 
-    self._showError = function (jqXHR, textStatus, errorThrown) {
+    function showError(jqXHR, textStatus, errorThrown) {
         if (jqXHR.status === 500) {
-            alert('Internal Server Error. Details: ' + jqXHR.responseText);
+            akdm.ui.Feedback.show('#msgFeedback', 
+                strings.server_error + jqXHR.responseText, 
+                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
         }
     }
     
     self.init = function () {
-        $.get('/contact/get').done(setContacts).fail(self._showError);
+        $.get('/contact/get').done(setContacts).fail(showError);
     };
 };

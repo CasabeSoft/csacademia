@@ -173,7 +173,6 @@ $lang['btn_new'] = "New";
  */
 $lang['lnk_chanche_picture'] = "Change picture";
 
-
 /* * *
  * Mensajes
  */
@@ -185,6 +184,10 @@ $lang['message_profile'] = "Modified data.";
 $lang['message_error_profile'] = "Could not modify the data.";
 $lang['message_error_email'] = "Error sending email.";
 $lang['message_email'] = "Mail sent successfully.";
+$lang['message_contact_created'] = "Contact created successfully.";
+$lang['message_contact_updated'] = "Contact updated successfully.";
+$lang['message_contact_deleted'] = "Contact deleted.";
+$lang['message_server_error_details'] = "Internal server error. Details: ";
 
 /* * *
  * Títulos de páginas

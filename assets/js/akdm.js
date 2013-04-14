@@ -4,4 +4,3 @@ akdm.setConfig = function (config) {
     akdm.config = akdm.config || {};
     $.extend(akdm.config, config);
 };
-

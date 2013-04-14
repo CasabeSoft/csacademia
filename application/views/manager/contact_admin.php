@@ -1,4 +1,6 @@
 <div class="container container-first">
+    <div id="msgFeedback" class="feedback top">
+    </div>
     <h1><?php echo lang('page_manage_contacts'); ?></h1>
     <div class="row">
         <div class="span3">

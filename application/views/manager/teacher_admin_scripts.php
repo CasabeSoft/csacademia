@@ -5,6 +5,7 @@
 <?php } ?>
 <script type="text/javascript" src="/assets/js/akdm.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
+<script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.contactedit.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.teacheradmin.js"></script>
@@ -14,6 +15,14 @@
             locale: '<?php echo $this->lang_code ?>',
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
+        
+        var cvm = new ContactsViewModel(
+            {
+                contact_created: '<?php echo lang('message_contact_created') ?>',
+                contact_updated: '<?php echo lang('message_contact_updated') ?>',
+                contact_deleted: '<?php echo lang('message_contact_deleted') ?>',
+                server_error: '<?php echo lang('message_server_error_details') ?>'
+            });
         var tvm = new TeachersViewModel();
         ko.applyBindings(tvm);
         tvm.init();

@@ -8,8 +8,39 @@
 
 .container-first {
     margin-top: 43px;
+    position: relative;
 }
 
 .form-first {
     margin-top: 10px;
+}
+
+.feedback.top {
+    position: absolute; 
+    left: 50%; 
+    top: 0; 
+    margin-left: -25%; 
+    width: 50%;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+    .container-first { margin-top: 0; }
+    
+    .feedback.top {
+        margin-left: -37.5%; 
+        width: 75%;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+    .container-first { margin-top: 0; }
+
+    .feedback.top {
+        left: 0;
+        right: 0;
+        margin-left: 0; 
+        width: auto;
+    }
 }
