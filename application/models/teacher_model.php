@@ -11,7 +11,9 @@ class Teacher_model extends CI_Model {
     }
     
     public function get_all() {
-        return $this->Contact_model->get_all();
+        return $this->db->from('contact')
+                ->join('teacher', 'contact.id = teacher.contact_id')
+                ->get()->result_array();                
     }
     
     public function delete($id) {

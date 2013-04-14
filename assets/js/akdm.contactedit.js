@@ -47,7 +47,7 @@ var ContactsViewModel = function(strings) {
                     akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
-                .fail(showError);
+                .fail(self._showError);
         else {
             // Insertar
             $.post('/contact/add', contact.toJSON())
@@ -57,7 +57,7 @@ var ContactsViewModel = function(strings) {
                     akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
-                .fail(showError);
+                .fail(self._showError);
         }
     };
 
@@ -69,7 +69,7 @@ var ContactsViewModel = function(strings) {
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_deleted + '</strong>',
                         akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
             })
-            .fail(showError);
+            .fail(self._showError);
     };
 
     self.activateTab = function (vm, e) {
@@ -84,7 +84,7 @@ var ContactsViewModel = function(strings) {
         });
     }
 
-    function showError(jqXHR, textStatus, errorThrown) {
+    self._showError = function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status === 500) {
             akdm.ui.Feedback.show('#msgFeedback', 
                 strings.server_error + jqXHR.responseText, 
@@ -93,6 +93,6 @@ var ContactsViewModel = function(strings) {
     }
     
     self.init = function () {
-        $.get('/contact/get').done(setContacts).fail(showError);
+        $.get('/contact/get').done(setContacts).fail(self._showError);
     };
 };

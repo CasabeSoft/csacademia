@@ -71,6 +71,7 @@ akdm.model = (function () {
     }; 
     
     var Teacher = function() {
+        Contact.call(this);
         this.contact_id = ko.observable(null);
         this.title = ko.observable(""); 
         this.cv = ko.observable(""); 
@@ -81,6 +82,38 @@ akdm.model = (function () {
         this.bank_account_format = ko.observable(""); 
         this.bank_account_number = ko.observable(""); 
     };
+    
+    Teacher.fromJSON = function (teacherJSON) {
+        var teacher = $.extend(new Teacher(), Contact.fromJSON(teacherJSON)); 
+        teacher.contact_id(teacherJSON.contact_id);
+        teacher.title(teacherJSON.title); 
+        teacher.cv(teacherJSON.cv); 
+        teacher.type(teacherJSON.type); 
+        teacher.start_date(akdm.tools.db2LocaleDateStr(teacherJSON.start_date)); 
+        teacher.end_date(akdm.tools.db2LocaleDateStr(teacherJSON.end_date)); 
+        teacher.state(teacherJSON.state); 
+        teacher.bank_account_format(teacherJSON.bank_account_format); 
+        teacher.bank_account_number(teacherJSON.bank_account_number);
+        return teacher;
+    };
+    
+    Teacher.toJSON = function (teacher) {
+        return $.extend(Contact.toJSON(teacher), 
+            {
+                "contact_id": teacher.contact_id(),
+                "title": teacher.title(), 
+                "cv": teacher.cv(), 
+                "type": teacher.type(), 
+                "start_date": akdm.tools.locale2dbDateStr(teacher.start_date()), 
+                "end_date": akdm.tools.locale2dbDateStr(teacher.end_date()), 
+                "state": teacher.state(), 
+                "bank_account_format": teacher.bank_account_format(), 
+                "bank_account_number": teacher.bank_account_number()
+            });
+    };
+    
+    Teacher.prototype = new Contact();
+    Teacher.prototype.constructor = Teacher;
     
     return {
         Contact: Contact,

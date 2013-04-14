@@ -153,15 +153,17 @@
                         </div>
                     </div>
                 </div>
-                <div id="professionalData" class="tab-pane" data-bind="with: currentTeacher">
+                <div id="professionalData" class="tab-pane" data-bind="with: currentContact">
                     <label for="txtTitle"><?php echo lang('form_title'); ?></label>
                     <input type="text" id="txtTitle" placeholder="<?php echo lang('form_title'); ?>" class="input-block-level"
-                           data-bind="">
+                           data-bind="value: title">
                     <div class="row-fluid">
                         <div class="span2">
                             <label for="lbxType"><?php echo lang('form_type'); ?></label>
-                            <select id="lbxType" class="input-block-level">
-                                <option>--</option>
+                            <select id="lbxType" class="input-block-level" data-bind="value: type">
+                                <option value="U">--</option>
+                                <option value="F">Fijo</option>
+                                <option value="P">Tiempo parcial</option>
                             </select>
                         </div>
                         <div class="span4">
@@ -171,8 +173,10 @@
                         </div>
                         <div class="span2">
                             <label for="lbxState"><?php echo lang('form_state'); ?></label>
-                            <select id="lbxState" class="input-block-level">
-                                <option>--</option>
+                            <select id="lbxState" class="input-block-level" data-bind="value: state">
+                                <option value="U">--</option>
+                                <option value="A">Activo</option>
+                                <option value="I">Inactivo</option>
                             </select>
                         </div>
                         <div class="span4">
@@ -184,8 +188,10 @@
                     <div class="row-fluid newComponentGroup">
                         <div class="span4">
                             <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
-                            <select id="lbxAccountFormat" class="input-block-level">
-                                <option>--</option>
+                            <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format">
+                                <option value="U">--</option>
+                                <option value="CCC">CCC</option>
+                                <option value="IBAN">IBAN</option>
                             </select>
                         </div>
                         <div class="span8">
@@ -195,7 +201,7 @@
                         </div>
                     </div>
                     <label for="txtCV" class="newComponentGroup"><?php echo lang('form_cv'); ?></label>
-                    <textarea id="txtCV" class="input-block-level"></textarea>
+                    <textarea id="txtCV" class="input-block-level" data-bind="html: cv"></textarea>
                 </div>            
             </div>
         </div>

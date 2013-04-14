@@ -16,14 +16,14 @@
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
         
-        var cvm = new ContactsViewModel(
+        window.tvm = new akdm.TeachersViewModel(
             {
+                /* TODO: Cambiar a textos de profesores */
                 contact_created: '<?php echo lang('message_contact_created') ?>',
                 contact_updated: '<?php echo lang('message_contact_updated') ?>',
                 contact_deleted: '<?php echo lang('message_contact_deleted') ?>',
                 server_error: '<?php echo lang('message_server_error_details') ?>'
             });
-        var tvm = new TeachersViewModel();
         ko.applyBindings(tvm);
         tvm.init();
     });
