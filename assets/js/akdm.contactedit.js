@@ -6,7 +6,12 @@ ko.bindingHandlers.jqDatepicker = {
 
 var ContactsViewModel = function(strings) {
     var self = this;
-    strings = $.extend( 
+    self._get = '/contact/get';
+    self._add = '/contact/add';
+    self._update = '/contact/update';
+    self._delete = '/contact/delete/';
+    self._ContactPrototype = akdm.model.Contact;
+    self._strings = $.extend( 
         {
             contact_created: 'Contacto creado satisfactoriamente.',
             contact_updated: 'Contacto actualizado satisfactoriamente.',
@@ -23,7 +28,7 @@ var ContactsViewModel = function(strings) {
                            .indexOf(self.filter().toLowerCase()) >= 0;
         });
     });
-    self.currentContact = ko.observable(new akdm.model.Contact());
+    self.currentContact = ko.observable();
 
     self.selectContact = function (contact) {
         self.currentContact(contact);
@@ -34,7 +39,7 @@ var ContactsViewModel = function(strings) {
     };
 
     self.newContact = function () {
-        var newContact = new akdm.model.Contact();
+        var newContact = new self._ContactPrototype();
         self.currentContact(newContact);
     };
 
@@ -42,19 +47,19 @@ var ContactsViewModel = function(strings) {
         var contact = self.currentContact();
         if (contact.id())
             // Actualizar
-            $.post('/contact/update', contact.toJSON())
+            $.post(self._update, contact.toJSON())
                 .done(function () {
-                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_updated + '</strong>',
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
                 .fail(self._showError);
         else {
             // Insertar
-            $.post('/contact/add', contact.toJSON())
+            $.post(self._add, contact.toJSON())
                 .done(function(newId) {
                     contact.id(newId);
                     self.contacts.push(self.currentContact());
-                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_created + '</strong>',
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                 })
                 .fail(self._showError);
@@ -62,11 +67,11 @@ var ContactsViewModel = function(strings) {
     };
 
     self.removeContact = function() {
-        $.get('/contact/delete/' + self.currentContact().id())
+        $.get(self._delete + self.currentContact().id())
             .done(function() {
                 self.contacts.remove(self.currentContact());
-                self.currentContact(new akdm.model.Contact());
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + strings.contact_deleted + '</strong>',
+                self.currentContact(new self._ContactPrototype());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
                         akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
             })
             .fail(self._showError);
@@ -77,22 +82,23 @@ var ContactsViewModel = function(strings) {
         $(e.target).tab('show');
     };
     
-    function setContacts(contacts) {
+    self.setContacts = function (contacts) {
         self.contacts.removeAll();
         $(contacts).each(function (index, contact) {
-            self.contacts.push(akdm.model.Contact.fromJSON(contact));
+            self.contacts.push(self._ContactPrototype.fromJSON(contact));
         });
-    }
+    };
 
     self._showError = function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status === 500) {
             akdm.ui.Feedback.show('#msgFeedback', 
-                strings.server_error + jqXHR.responseText, 
-                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+                self._strings.server_error + jqXHR.responseText, 
+                akdm.ui.Feedback.ERROR);
         }
-    }
+    };
     
     self.init = function () {
-        $.get('/contact/get').done(setContacts).fail(self._showError);
+        self.currentContact(new self._ContactPrototype());
+        $.get(self._get).done(self.setContacts).fail(self._showError);
     };
 };

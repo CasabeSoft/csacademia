@@ -3,24 +3,11 @@ window.akdm = window.akdm || { };
 akdm.TeachersViewModel = function() {
     ContactsViewModel.call(this);
     var self = this;
-    self.teachers = ko.observableArray();
-    self.currentContact = ko.observable(new akdm.model.Teacher());
-
-    self.selectContact = function (contact) {
-        self.currentContact(contact);
-        //self.currentTeacher()
-    };
-
-    function setTeachers(teachers) {
-        self.contacts.removeAll();
-        $(teachers).each(function (index, teacher) {
-            self.contacts.push(akdm.model.Teacher.fromJSON(teacher));
-        });
-    }
-
-    self.init = function () {
-        $.get('/teacher/get').done(setTeachers).fail(self._showError);
-    };
+    self._get = '/teacher/get';
+    self._add = '/teacher/add';
+    self._update = '/teacher/update';
+    self._delete = '/teacher/delete/';
+    self._ContactPrototype = akdm.model.Teacher;
 };
 
 akdm.TeachersViewModel.prototype = new ContactsViewModel();

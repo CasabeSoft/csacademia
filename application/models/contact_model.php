@@ -5,6 +5,25 @@
  * @author carlos
  */
 class Contact_model extends CI_Model {
+    public $FIELDS = [
+        "id",
+        "first_name",
+        "last_name",
+        "sex",
+        "email",
+        "phone_mobile",
+        "phone",
+        "picture",
+        "notes",
+        "address",
+        "postal_code",
+        "town",
+        "province",
+        "date_of_birth",
+        "occupation",
+        "id_card",
+    ];
+    
     public function __construct() {
         parent::__construct();
     }

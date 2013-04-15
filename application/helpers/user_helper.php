@@ -3,7 +3,8 @@
 /**
  * User Helpers
  *
- * @author Leoanrdo Quintero
+ * @author Leoanrdo Quintero 
+ * @author Carlos Bello
  */
 // ------------------------------------------------------------------------
 
@@ -32,5 +33,20 @@ if (!function_exists('isLogged')) {
 
 }
 
+/**
+ * substract_fields
+ * 
+ * Extrae los campos deseados de un arreglo asociativo
+ * 
+ */
+if (!function_exists('substract_fields')) {
+    function substract_fields($array, $fields) {
+        $result = [];
+        foreach ($fields as $field) {
+            $result[$field] = $array[$field];
+        }
+        return $result;
+    }
+}
 
 ?>

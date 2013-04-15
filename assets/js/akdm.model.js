@@ -115,6 +115,10 @@ akdm.model = (function () {
     Teacher.prototype = new Contact();
     Teacher.prototype.constructor = Teacher;
     
+    Teacher.prototype.toJSON = function () {
+        return Teacher.toJSON(this);
+    }; 
+
     return {
         Contact: Contact,
         Teacher: Teacher
