@@ -39,7 +39,7 @@ akdm.model = (function () {
         contact.postal_code(contactJSON.postal_code);
         contact.town(contactJSON.town);
         contact.province(contactJSON.province);
-        contact.date_of_birth(akdm.tools.db2LocaleDateStr(contactJSON.date_of_birth));
+        contact.date_of_birth(akdm.tools.db2LocaleDateStr(contactJSON.date_of_birth || ""));
         contact.occupation(contactJSON.occupation);
         contact.id_card(contactJSON.id_card);
         return contact;
@@ -84,13 +84,30 @@ akdm.model = (function () {
     };
     
     Teacher.fromJSON = function (teacherJSON) {
-        var teacher = $.extend(new Teacher(), Contact.fromJSON(teacherJSON)); 
+        var teacher = new Teacher();
+        teacher.id(teacherJSON.id);
+        teacher.first_name(teacherJSON.first_name);
+        teacher.last_name(teacherJSON.last_name);
+        teacher.sex(teacherJSON.sex);
+        teacher.email(teacherJSON.email);
+        teacher.phone_mobile(teacherJSON.phone_mobile);
+        teacher.phone(teacherJSON.phone);
+        teacher.picture(teacherJSON.picture);
+        teacher.notes(teacherJSON.notes);
+        teacher.address(teacherJSON.address);
+        teacher.postal_code(teacherJSON.postal_code);
+        teacher.town(teacherJSON.town);
+        teacher.province(teacherJSON.province);
+        teacher.date_of_birth(akdm.tools.db2LocaleDateStr(teacherJSON.date_of_birth || ""));
+        teacher.occupation(teacherJSON.occupation);
+        teacher.id_card(teacherJSON.id_card);
+        
         teacher.contact_id(teacherJSON.contact_id);
         teacher.title(teacherJSON.title); 
         teacher.cv(teacherJSON.cv); 
         teacher.type(teacherJSON.type); 
-        teacher.start_date(akdm.tools.db2LocaleDateStr(teacherJSON.start_date)); 
-        teacher.end_date(akdm.tools.db2LocaleDateStr(teacherJSON.end_date)); 
+        teacher.start_date(akdm.tools.db2LocaleDateStr(teacherJSON.start_date || "")); 
+        teacher.end_date(akdm.tools.db2LocaleDateStr(teacherJSON.end_date || "")); 
         teacher.state(teacherJSON.state); 
         teacher.bank_account_format(teacherJSON.bank_account_format); 
         teacher.bank_account_number(teacherJSON.bank_account_number);
@@ -112,12 +129,12 @@ akdm.model = (function () {
             });
     };
     
-    Teacher.prototype = new Contact();
-    Teacher.prototype.constructor = Teacher;
-    
-    Teacher.prototype.toJSON = function () {
-        return Teacher.toJSON(this);
-    }; 
+    Teacher.prototype = $.extend(new Contact(), {
+        constructor: Teacher,
+        toJSON: function () {
+            return Teacher.toJSON(this);
+        }
+    }); 
 
     return {
         Contact: Contact,

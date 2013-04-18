@@ -188,6 +188,9 @@ $lang['message_contact_created'] = "Contact created successfully.";
 $lang['message_contact_updated'] = "Contact updated successfully.";
 $lang['message_contact_deleted'] = "Contact deleted.";
 $lang['message_server_error_details'] = "Internal server error. Details: ";
+$lang['message_teacher_created'] = "Teacher created successfully.";
+$lang['message_teacher_updated'] = "Teacher updated successfully.";
+$lang['message_teacher_deleted'] = "Teacher deleted.";
 
 /* * *
  * Títulos de páginas

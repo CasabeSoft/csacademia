@@ -188,6 +188,9 @@ $lang['message_contact_created'] = "Contacto creado satisfactoriamente.";
 $lang['message_contact_updated'] = "Contacto actualizado satisfactoriamente.";
 $lang['message_contact_deleted'] = "Contacto eliminado.";
 $lang['message_server_error_details'] = "Error interno en el servidor: Detalles: ";
+$lang['message_teacher_created'] = "Profesor creado satisfactoriamente.";
+$lang['message_teacher_updated'] = "Profesor actualizado satisfactoriamente.";
+$lang['message_teacher_deleted'] = "Profesor eliminado.";
 
 /* * *
  * Títulos de páginas

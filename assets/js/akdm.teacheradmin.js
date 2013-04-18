@@ -1,7 +1,7 @@
-window.akdm = window.akdm || { };
+var akdm = window.akdm || { };
 
 akdm.TeachersViewModel = function() {
-    ContactsViewModel.call(this);
+    akdm.ContactsViewModel.call(this);
     var self = this;
     self._get = '/teacher/get';
     self._add = '/teacher/add';
@@ -10,5 +10,5 @@ akdm.TeachersViewModel = function() {
     self._ContactPrototype = akdm.model.Teacher;
 };
 
-akdm.TeachersViewModel.prototype = new ContactsViewModel();
+akdm.TeachersViewModel.prototype = new akdm.ContactsViewModel();
 akdm.TeachersViewModel.prototype.constructor = akdm.TeachersViewModel;

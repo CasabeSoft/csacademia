@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
-<script type="text/javascript" src="/assets/js/akdm.contactedit.js"></script>
+<script type="text/javascript" src="/assets/js/akdm.contactadmin.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.teacheradmin.js"></script>
 <script>
     $(document).ready(function () {
@@ -16,15 +16,13 @@
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
         
-        window.tvm = new akdm.TeachersViewModel(
-            {
-                /* TODO: Cambiar a textos de profesores */
-                contact_created: '<?php echo lang('message_contact_created') ?>',
-                contact_updated: '<?php echo lang('message_contact_updated') ?>',
-                contact_deleted: '<?php echo lang('message_contact_deleted') ?>',
-                server_error: '<?php echo lang('message_server_error_details') ?>'
-            });
+        window.tvm = new akdm.TeachersViewModel();
         ko.applyBindings(tvm);
-        tvm.init();
+        tvm.init({
+            contact_created: '<?php echo lang('message_teacher_created') ?>',
+            contact_updated: '<?php echo lang('message_teacher_updated') ?>',
+            contact_deleted: '<?php echo lang('message_teacher_deleted') ?>',
+            server_error: '<?php echo lang('message_server_error_details') ?>'
+        });
     });
 </script>

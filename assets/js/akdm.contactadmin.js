@@ -1,23 +1,29 @@
+var akdm = window.akdm || { };
+
 ko.bindingHandlers.jqDatepicker = {
     init: function(element) {
-       $(element).datepicker();
+       var currentYear = new Date().getFullYear();
+       $(element).datepicker({
+           changeMonth: true, 
+           changeYear: true, 
+           yearRange: (currentYear - 90) + ':' + (currentYear + 10)
+       });
     }
 };
 
-var ContactsViewModel = function(strings) {
+akdm.ContactsViewModel = function() {
     var self = this;
     self._get = '/contact/get';
     self._add = '/contact/add';
     self._update = '/contact/update';
     self._delete = '/contact/delete/';
     self._ContactPrototype = akdm.model.Contact;
-    self._strings = $.extend( 
-        {
-            contact_created: 'Contacto creado satisfactoriamente.',
-            contact_updated: 'Contacto actualizado satisfactoriamente.',
-            contact_deleted: 'Contacto eliminado satisfactoriamente.',
-            server_error: 'Error interno del servidor. Detalles: '
-        }, strings);
+    self._string = {
+        contact_created: 'Contacto creado satisfactoriamente.',
+        contact_updated: 'Contacto actualizado satisfactoriamente.',
+        contact_deleted: 'Contacto eliminado satisfactoriamente.',
+        server_error: 'Error interno del servidor. Detalles: '
+    };
     
     self.contacts = ko.observableArray();
     self.filter = ko.observable();
@@ -97,8 +103,9 @@ var ContactsViewModel = function(strings) {
         }
     };
     
-    self.init = function () {
+    self.init = function (strings) {
         self.currentContact(new self._ContactPrototype());
         $.get(self._get).done(self.setContacts).fail(self._showError);
+        self._strings = $.extend(self._strings, strings);
     };
 };
