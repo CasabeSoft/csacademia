@@ -55,6 +55,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/manage/contact"><?php echo lang('menu_contact'); ?></a></li>                            
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/manage/teacher"><?php echo lang('menu_teacher'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/manage/student"><?php echo lang('menu_student'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo is_controller_active($current_controller, 'reports') ?>"><a href="/manager/main"><?php echo lang('menu_reports'); ?></a></li>

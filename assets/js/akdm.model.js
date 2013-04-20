@@ -24,25 +24,32 @@ akdm.model = (function () {
         return this.first_name() + " " + this.last_name();
     };
     
+    Contact.prototype.toJSON = function () {
+        return Contact.toJSON(this);
+    }; 
+    
+    Contact.prototype.fromJSON = function (contactJSON) {
+        this.id(contactJSON.id);
+        this.first_name(contactJSON.first_name);
+        this.last_name(contactJSON.last_name);
+        this.sex(contactJSON.sex);
+        this.email(contactJSON.email);
+        this.phone_mobile(contactJSON.phone_mobile);
+        this.phone(contactJSON.phone);
+        this.picture(contactJSON.picture);
+        this.notes(contactJSON.notes);
+        this.address(contactJSON.address);
+        this.postal_code(contactJSON.postal_code);
+        this.town(contactJSON.town);
+        this.province(contactJSON.province);
+        this.date_of_birth(akdm.tools.db2LocaleDateStr(contactJSON.date_of_birth || ""));
+        this.occupation(contactJSON.occupation);
+        this.id_card(contactJSON.id_card);
+        return this;
+    };
+    
     Contact.fromJSON = function (contactJSON) {
-        var contact = new Contact();
-        contact.id(contactJSON.id);
-        contact.first_name(contactJSON.first_name);
-        contact.last_name(contactJSON.last_name);
-        contact.sex(contactJSON.sex);
-        contact.email(contactJSON.email);
-        contact.phone_mobile(contactJSON.phone_mobile);
-        contact.phone(contactJSON.phone);
-        contact.picture(contactJSON.picture);
-        contact.notes(contactJSON.notes);
-        contact.address(contactJSON.address);
-        contact.postal_code(contactJSON.postal_code);
-        contact.town(contactJSON.town);
-        contact.province(contactJSON.province);
-        contact.date_of_birth(akdm.tools.db2LocaleDateStr(contactJSON.date_of_birth || ""));
-        contact.occupation(contactJSON.occupation);
-        contact.id_card(contactJSON.id_card);
-        return contact;
+        return new Contact().fromJSON(contactJSON);
     };
     
     Contact.toJSON = function(contact) {
@@ -66,10 +73,6 @@ akdm.model = (function () {
         };
     };
     
-    Contact.prototype.toJSON = function () {
-        return Contact.toJSON(this);
-    }; 
-    
     var Teacher = function() {
         Contact.call(this);
         this.contact_id = ko.observable(null);
@@ -84,34 +87,7 @@ akdm.model = (function () {
     };
     
     Teacher.fromJSON = function (teacherJSON) {
-        var teacher = new Teacher();
-        teacher.id(teacherJSON.id);
-        teacher.first_name(teacherJSON.first_name);
-        teacher.last_name(teacherJSON.last_name);
-        teacher.sex(teacherJSON.sex);
-        teacher.email(teacherJSON.email);
-        teacher.phone_mobile(teacherJSON.phone_mobile);
-        teacher.phone(teacherJSON.phone);
-        teacher.picture(teacherJSON.picture);
-        teacher.notes(teacherJSON.notes);
-        teacher.address(teacherJSON.address);
-        teacher.postal_code(teacherJSON.postal_code);
-        teacher.town(teacherJSON.town);
-        teacher.province(teacherJSON.province);
-        teacher.date_of_birth(akdm.tools.db2LocaleDateStr(teacherJSON.date_of_birth || ""));
-        teacher.occupation(teacherJSON.occupation);
-        teacher.id_card(teacherJSON.id_card);
-        
-        teacher.contact_id(teacherJSON.contact_id);
-        teacher.title(teacherJSON.title); 
-        teacher.cv(teacherJSON.cv); 
-        teacher.type(teacherJSON.type); 
-        teacher.start_date(akdm.tools.db2LocaleDateStr(teacherJSON.start_date || "")); 
-        teacher.end_date(akdm.tools.db2LocaleDateStr(teacherJSON.end_date || "")); 
-        teacher.state(teacherJSON.state); 
-        teacher.bank_account_format(teacherJSON.bank_account_format); 
-        teacher.bank_account_number(teacherJSON.bank_account_number);
-        return teacher;
+        return new Teacher().fromJSON(teacherJSON);
     };
     
     Teacher.toJSON = function (teacher) {
@@ -129,15 +105,100 @@ akdm.model = (function () {
             });
     };
     
-    Teacher.prototype = $.extend(new Contact(), {
-        constructor: Teacher,
-        toJSON: function () {
-            return Teacher.toJSON(this);
-        }
-    }); 
+    Teacher.prototype = new Contact();
+    Teacher.prototype.constructor = Teacher;
+    Teacher.prototype.toJSON = function () { 
+        return Teacher.toJSON(this); 
+    };        
+    Teacher.prototype.fromJSON = function (teacherJSON) {
+        Contact.prototype.fromJSON.call(this, teacherJSON);
+        this.contact_id(teacherJSON.contact_id);
+        this.title(teacherJSON.title); 
+        this.cv(teacherJSON.cv); 
+        this.type(teacherJSON.type); 
+        this.start_date(akdm.tools.db2LocaleDateStr(teacherJSON.start_date || "")); 
+        this.end_date(akdm.tools.db2LocaleDateStr(teacherJSON.end_date || "")); 
+        this.state(teacherJSON.state); 
+        this.bank_account_format(teacherJSON.bank_account_format); 
+        this.bank_account_number(teacherJSON.bank_account_number);
+        return this;
+    };
+
+    var Student = function () {
+        Contact.call(this);
+        this.contact_id = ko.observable("");
+        this.center_id = ko.observable(""); 
+        this.start_date = ko.observable(""); 
+        this.school_academic_period = ko.observable(""); 
+        this.school_name = ko.observable(""); 
+        this.language_years = ko.observable(""); 
+        this.pref_start_time = ko.observable("");
+        this.pref_end_time = ko.observable("");
+        this.current_academic_period = ko.observable("");
+        this.bank_account_format = ko.observable(""); 
+        this.bank_account_number = ko.observable("");
+        this.bank_account_holder = ko.observable("");
+        this.bank_payment = ko.observable(false);
+        this.current_level_code = ko.observable("");
+        this.leave_reason_code = ko.observable("");
+        this.end_date = ko.observable(""); 
+    };
+    
+    Student.fromJSON = function (studentJSON) {
+        return new Student().fromJSON(studentJSON);
+    };    
+    
+    Student.toJSON = function (student) {
+        return $.extend(Contact.toJSON(student), 
+            {
+                "contact_id": student.contact_id(),
+                "center_id": student.center_id(), 
+                "start_date": akdm.tools.locale2dbDateStr(student.start_date()), 
+                "school_academic_period": student.school_academic_period(), 
+                "school_name": student.school_name(), 
+                "language_years": student.language_years(), 
+                "pref_start_time": student.pref_start_time(),
+                "pref_end_time": student.pref_end_time(),
+                "current_academic_period": student.current_academic_period(),
+                "bank_account_format": student.bank_account_format(), 
+                "bank_account_number": student.bank_account_number(),
+                "bank_account_holder": student.bank_account_holder(),
+                "bank_payment": student.bank_payment() ? 1 : 0,
+                "current_level_code": student.current_level_code(),
+                "leave_reason_code": student.leave_reason_code(),
+                "end_date": akdm.tools.locale2dbDateStr(student.end_date())
+            });
+    };
+    
+    Student.prototype = new Contact();
+    Student.prototype.constructor = Student;
+    Student.prototype.fromJSON = function (studentJSON) {
+        Contact.prototype.fromJSON.call(this, studentJSON);
+        this.contact_id(studentJSON.contact_id);
+        this.center_id(studentJSON.center_id); 
+        this.start_date(akdm.tools.db2LocaleDateStr(studentJSON.start_date || "")); 
+        this.school_academic_period(studentJSON.school_academic_period); 
+        this.school_name(studentJSON.school_name);
+        this.language_years(studentJSON.language_years);
+        this.pref_start_time(studentJSON.pref_start_time);
+        this.pref_end_time(studentJSON.pref_end_time);
+        this.current_academic_period(studentJSON.current_academic_period);        
+        this.bank_account_format(studentJSON.bank_account_format); 
+        this.bank_account_number(studentJSON.bank_account_number);
+        this.bank_account_holder(studentJSON.bank_account_holder);
+        this.bank_payment(studentJSON.bank_payment > 0);
+        this.current_level_code(studentJSON.current_level_code);
+        this.leave_reason_code(studentJSON.leave_reason_code); 
+        this.end_date(akdm.tools.db2LocaleDateStr(studentJSON.end_date || "")); 
+        return this;
+    };
+    Student.prototype.toJSON = function () {
+        return Student.toJSON(this);
+    };
 
     return {
         Contact: Contact,
-        Teacher: Teacher
+        Teacher: Teacher,
+        Student: Student
     };
 })();

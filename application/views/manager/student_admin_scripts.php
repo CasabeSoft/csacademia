@@ -8,7 +8,7 @@
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.contactadmin.js"></script>
-<script type="text/javascript" src="/assets/js/akdm.teacheradmin.js"></script>
+<script type="text/javascript" src="/assets/js/akdm.studentadmin.js"></script>
 <script>
     $(document).ready(function () {
         akdm.setConfig({
@@ -16,9 +16,9 @@
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
         
-        var tvm = new akdm.TeachersViewModel();
-        ko.applyBindings(tvm);
-        tvm.init({
+        window.svm = new akdm.StudentViewModel();
+        ko.applyBindings(svm);
+        svm.init({
             contact_created: '<?php echo lang('message_teacher_created') ?>',
             contact_updated: '<?php echo lang('message_teacher_updated') ?>',
             contact_deleted: '<?php echo lang('message_teacher_deleted') ?>',

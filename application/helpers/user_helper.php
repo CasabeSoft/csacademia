@@ -49,4 +49,19 @@ if (!function_exists('substract_fields')) {
     }
 }
 
+ /**
+ * convert_nullables
+ * 
+ * Convierte a nulo los valores de cadena vacíos de un arreglo asociativo
+ * 
+ */
+if (!function_exists('convert_nullables')) {
+    function convert_nullables($array, $nullables) {
+        $result = $array;
+        foreach ($nullables as $name) {
+            if ($result[$name] == '') $result[$name] = NULL;
+        }
+        return $result;
+    }
+}
 ?>
