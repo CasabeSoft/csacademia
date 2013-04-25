@@ -29,8 +29,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="span9" data-bind="with: currentContact">
-            <legend>
+        <div class="span9">
+            <legend data-bind="with: currentContact">
                 <span data-bind="text: full_name() + '&nbsp;'"></span>
                 <div class="pull-right">
                     <button class="btn btn-small" data-bind="click: $root.saveContact">
@@ -43,9 +43,12 @@
             </legend>
             <ul id="tbContactData" class="nav nav-tabs">
                 <li class="active"><a href="#generalData" data-bind="click: $root.activateTab"><?php echo lang('subject_general_data'); ?></a></li>
+                <?php 
+                    if (isset($extra_tabs)) $this->load->view($extra_tabs) 
+                ?>
             </ul>
             <div class="tab-content">
-                <div id="generalData" class="tab-pane active">
+                <div id="generalData" class="tab-pane active" data-bind="with: currentContact">
                     <div class="row-fluid">
                         <div class="span8">
                             <input type="hidden" id="cnt_id" data-bind="value: id" />
@@ -152,6 +155,9 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                    if (isset($extra_tabs_content)) $this->load->view($extra_tabs_content)
+                ?>
             </div>
         </div>
     </div>

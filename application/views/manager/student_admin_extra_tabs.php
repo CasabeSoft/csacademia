@@ -1,0 +1,1 @@
+<li><a href="#studentData" data-bind="click: $root.activateTab"><?php echo lang('subject_academic_data'); ?></a></li>
