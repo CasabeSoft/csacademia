@@ -35,6 +35,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php echo lang('menu_student').' / '.lang('menu_group'); ?></a></li>
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
