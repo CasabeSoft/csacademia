@@ -77,22 +77,38 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img width="20px" height="20px" src="/assets/img/personal.png">
+                            <img src="/assets/img/personal.png" class="profilePhoto small">
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <div class="well-small" >
-                                <div class="">
-                                    <img width="70px" height="70px" src="/assets/img/personal.png">
-                                </div>
-                                <div class="">
-                                    <?php echo $this->session->userdata('email'); ?>
-                                    <br>
-                                    <a class="" href="/change_password"><?php echo lang('menu_change_password'); ?></a>
-                                    <a class="btn" href="/profile"><?php echo lang('menu_profile'); ?></a>
-                                    <a class="btn pull-right" href="/close"><?php echo lang('menu_close'); ?></a>
-                                </div>
-                            </div>
+                            <li class="well-small">
+                                <img src="/assets/img/personal.png" class="profilePhoto medium"> <?php echo $this->session->userdata('email'); ?>
+                            </li>
+                            <li>
+                                <a href="/change_password"><?php echo lang('menu_change_password'); ?></a>
+                            </li>
+                            <li>
+                                <a href="/profile"><?php echo lang('menu_profile'); ?></a>
+                            </li>
+                            <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#"><?php echo lang('form_client') ?>:</a>
+                                <ul class="dropdown-menu">
+                                    <?php 
+                                        $clients = $this->db->select('id, name')->from('client')->get()->result_array();
+                                        $client_id = $this->session->userdata('client_id');
+                                        foreach ($clients as $client) { ?>
+                                        <li class="<?php echo $client_id == $client['id'] ? 'active' : '' ?>"><a href="/manager/change_to_client/<?php echo $client['id'] ?>"><?php echo $client['name'] ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                                </a>
+                            </li>
+                            <?php } ?>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/close"><?php echo lang('menu_close'); ?></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -12,6 +12,7 @@ if (!defined('BASEPATH'))
 class Student extends Basic_controller {
     var $levels;
     var $academicPeriods;
+    var $leaveReasons;
     
     public function __construct() {
         parent::__construct();
@@ -26,6 +27,7 @@ class Student extends Basic_controller {
         $this->subject = lang('subject_student');
         $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
         $this->academicPeriods = $this->db->select("code, name")->from('academic_period')->get()->result_array();
+        $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
         $this->load_page('student_admin');
     }
     

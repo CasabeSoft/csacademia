@@ -43,8 +43,9 @@
             <label for="lbxLeaveReason"><?php echo lang('form_leave_reason'); ?></label>
             <select id="lbxLeaveReason" class="input-block-level" data-bind="value: leave_reason_code">
                 <option value="">--</option>
-                <option value="0">Se muda</option>
-                <option value="1">Cambio de escuela</option>
+                <?php foreach ($leaveReasons as $reason) { ?>
+                <option value="<?php echo $reason["code"]?>"><?php echo $reason["description"] ?></option>
+                <?php } ?>
             </select>
         </div>
         <div class="span4">
