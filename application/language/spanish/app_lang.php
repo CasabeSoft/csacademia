@@ -212,6 +212,7 @@ $lang['page_manage_levels'] = "Gestión de niveles";
 $lang['page_manage_relationships'] = "Gestión de relaciones de parentezco";
 $lang['page_manage_roles'] = "Gestión de roles";
 $lang['page_manage_students'] = "Gestión de alumnos";
+$lang['page_manage_students_by_group'] = "Gestión de alumnos / grupo";
 $lang['page_manage_teachers'] = "Gestión de profesores";
 $lang['page_manage_users'] = "Gestión de usuarios";
 $lang['page_manage_academic_period'] = "Gestión de periodos académicos";

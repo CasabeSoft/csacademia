@@ -212,6 +212,7 @@ $lang['page_manage_levels'] = "Level managment";
 $lang['page_manage_relationships'] = "Relationship managment";
 $lang['page_manage_roles'] = "Role managment";
 $lang['page_manage_students'] = "Student managment";
+$lang['page_manage_students_by_group'] = "Student / Group managment";
 $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
