@@ -1,11 +1,11 @@
 <div class="container container-first">
     <div id="msgFeedback" class="feedback top">
     </div>
-    <h1><?php echo lang('page_manage_contacts'); ?></h1>
+    <h1><?php echo $title; ?></h1>
     <div class="row">
         <div class="span3">
             <legend>
-                <?php echo lang('subject_contact'); ?>
+                <?php echo $subject; ?>
                 <div class="btn-toolbar pull-right">
                     <button class="btn btn-small pull-right" data-bind="click: newContact">
                         <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>

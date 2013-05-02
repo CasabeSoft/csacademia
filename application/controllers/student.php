@@ -10,6 +10,9 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  */
 class Student extends Basic_controller {
+    var $levels;
+    var $academicPeriods;
+    
     public function __construct() {
         parent::__construct();
         $this->template = 'templates/manager_page';
@@ -20,6 +23,9 @@ class Student extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_students');
+        $this->subject = lang('subject_student');
+        $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
+        $this->academicPeriods = $this->db->select("code, name")->from('academic_period')->get()->result_array();
         $this->load_page('student_admin');
     }
     

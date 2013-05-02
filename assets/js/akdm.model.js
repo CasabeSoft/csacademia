@@ -163,7 +163,7 @@ akdm.model = (function () {
                 "bank_account_format": student.bank_account_format(), 
                 "bank_account_number": student.bank_account_number(),
                 "bank_account_holder": student.bank_account_holder(),
-                "bank_payment": student.bank_payment() ? 1 : 0,
+                "bank_payment": student.bank_payment(),
                 "current_level_code": student.current_level_code(),
                 "leave_reason_code": student.leave_reason_code(),
                 "end_date": akdm.tools.locale2dbDateStr(student.end_date())
@@ -186,7 +186,7 @@ akdm.model = (function () {
         this.bank_account_format(studentJSON.bank_account_format); 
         this.bank_account_number(studentJSON.bank_account_number);
         this.bank_account_holder(studentJSON.bank_account_holder);
-        this.bank_payment(studentJSON.bank_payment > 0);
+        this.bank_payment(studentJSON.bank_payment);
         this.current_level_code(studentJSON.current_level_code);
         this.leave_reason_code(studentJSON.leave_reason_code); 
         this.end_date(akdm.tools.db2LocaleDateStr(studentJSON.end_date || "")); 
