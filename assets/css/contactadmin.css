@@ -8,7 +8,11 @@
 }
 #picture { 
     display: inline;
-    position: relative; 
+    position: relative;
+}
+#picture img {
+    max-height: 200px;
+    max-width: 200px;
 }
 #picture a {
     color: black;

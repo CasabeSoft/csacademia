@@ -38,6 +38,7 @@ $lang['menu_billing'] = "Billing";
 
 $lang['menu_change_password'] = "Change Password";
 $lang['menu_profile'] = "Profile";
+$lang['menu_see_as_client'] = "See as client";
 
 /* * *
  * Títulos de formularios

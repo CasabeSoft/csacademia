@@ -91,7 +91,8 @@
                         </div>
                         <div class="span4">
                             <div id="picture">
-                                <img src="/assets/img/personal.png" class="img-polaroid" />
+                                <img class="img-polaroid" 
+                                     data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}" />
                                 <a href="#"><?php echo lang('lnk_chanche_picture'); ?></a>
                             </div>
                         </div>

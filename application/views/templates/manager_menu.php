@@ -80,8 +80,9 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="well-small">
-                                <img src="/assets/img/personal.png" class="profilePhoto medium"> <?php echo $this->session->userdata('email'); ?>
+                            <li class="disabled">
+                                <a href="#"><img tabindex="-1" src="/assets/img/personal.png" class="profilePhoto medium"><span><?php echo $this->session->userdata('email'); ?></span>
+                                    </a>
                             </li>
                             <li>
                                 <a href="/change_password"><?php echo lang('menu_change_password'); ?></a>
@@ -92,7 +93,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
                             <li class="divider"></li>
                             <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#"><?php echo lang('form_client') ?>:</a>
+                                <a tabindex="-1" href="#"><?php echo lang('menu_see_as_client') ?></a>
                                 <ul class="dropdown-menu">
                                     <?php 
                                         $clients = $this->db->select('id, name')->from('client')->get()->result_array();
