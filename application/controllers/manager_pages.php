@@ -9,7 +9,6 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  */
 class Manager_pages extends Basic_controller {
-    var $extra_info;
     
     public function __construct() {
         parent::__construct();
@@ -30,24 +29,17 @@ class Manager_pages extends Basic_controller {
         $this->load_page('main');
     }
     
-    public function management() {
-        $this->current_page();
-        // TODO: Remplazar literales por acceso a texto desde recurso internacionalizado
-        $this->title = "CasabeSoft Academia - Gestión";
-        $this->description = "Administración y gestión de datos."; 
-        $this->extra_info = [ 
-            "num_pages" => 4,
-            "table" =>
-                [
-                    [1, 'Mark', 'Tompson', 'the_mark7@gmail.com'],
-                    [2, 'Ashley', 'Jacobs', 'ash11927@yahoo.com'],
-                    [3, 'Audrey', 'Ann', 'audann84@hotmail.com'],
-                    [4, 'John', 'Robinson', 'jr5527@mail.ru'],
-                    [5, 'Aaron', 'Butler', 'aaron_butler@gmail.com'],
-                    [6, 'Chris', 'Albert', 'cab79@hotmail.com']
-                ]
-        ];
-        $this->load_page('management');
+    public function change_to_client($client) {
+        $this->session->set_userdata('client_id', $client);
+        $current_url = $this->session->userdata('current_url');
+        
+        if (isset($current_url) && $current_url != '') {
+            //redireccionamos a la url desde donde se hizo el cambio de cliente
+            redirect($this->session->userdata('current_url'));
+        } else {
+            //redireccionamos a la página principal de gestión.
+            redirect('/manager/main');
+        }
     }
        
 }

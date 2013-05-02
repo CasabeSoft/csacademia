@@ -5,6 +5,8 @@
  * @author Carlos Bello
  */
 class Student_model extends CI_Model {
+    private $client_id;
+    
     public $FIELDS = [
         "contact_id",
         "center_id", 
@@ -33,13 +35,15 @@ class Student_model extends CI_Model {
     
     public function __construct() {
         parent::__construct();
+        $this->client_id = $this->session->userdata('client_id');
         $this->load->model('Contact_model');
     }
     
     public function get_all() {
         return $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
-                ->get()->result_array();                
+                ->where('client_id', $this->client_id)
+                ->get()->result_array();          
     }
     
     public function delete($id) {
@@ -49,8 +53,10 @@ class Student_model extends CI_Model {
     
     public function add($student) {
         $this->db->trans_start();
+        $student['client_id'] = $this->client_id; 
         $id = $this->Contact_model->add(substract_fields($student, $this->Contact_model->FIELDS));
         $student['contact_id'] = $id;    
+        // TODO: Cambiar 1 por el centro activo
         $student['center_id'] = 1;    
         $this->db->insert('student', convert_nullables(substract_fields($student, $this->FIELDS), $this->NULLABLES));
         $this->db->trans_complete();        
@@ -59,10 +65,12 @@ class Student_model extends CI_Model {
     
     public function update($student) {
         $this->db->trans_start();
+        $student['client_id'] = $this->client_id; 
         $id = $this->Contact_model->update(substract_fields($student, $this->Contact_model->FIELDS));
         $cleanStudent = substract_fields($student, $this->FIELDS);
         unset($cleanStudent['id']);
         unset($cleanStudent['contact_id']);
+        // TODO: Cambiar 1 por el centro activo
         $cleanStudent['center_id'] = 1; 
         $this->db->update('student', convert_nullables($cleanStudent, $this->NULLABLES), 'contact_id = '.$id);
         $this->db->trans_complete(); 

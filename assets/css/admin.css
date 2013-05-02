@@ -23,6 +23,16 @@
     width: 50%;
 }
 
+.profilePhoto.medium {
+    height: 70px;
+    width: 70px;
+}
+
+.profilePhoto.small {
+    height: 20px;
+    width: 20px;
+}
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) { 
     .container-first { margin-top: 0; }
