@@ -31,7 +31,7 @@
         </div> 
     </div>
     <div class="row-fluid newComponentGroup">
-        <div class="span4">
+        <div class="span2">
             <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
             <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format">
                 <option value="U">--</option>
@@ -39,7 +39,7 @@
                 <option value="IBAN">IBAN</option>
             </select>
         </div>
-        <div class="span8">
+        <div class="span10">
             <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
             <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
                 data-bind="value: bank_account_number">

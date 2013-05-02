@@ -20,6 +20,7 @@ class Teacher extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_teachers');
+        $this->subject = lang('subject_teacher');
         $this->load_page('teacher_admin');
     }
     

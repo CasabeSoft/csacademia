@@ -19,9 +19,9 @@
         window.svm = new akdm.StudentViewModel();
         ko.applyBindings(svm);
         svm.init({
-            contact_created: '<?php echo lang('message_teacher_created') ?>',
-            contact_updated: '<?php echo lang('message_teacher_updated') ?>',
-            contact_deleted: '<?php echo lang('message_teacher_deleted') ?>',
+            contact_created: '<?php echo lang('message_student_created') ?>',
+            contact_updated: '<?php echo lang('message_student_updated') ?>',
+            contact_deleted: '<?php echo lang('message_student_deleted') ?>',
             server_error: '<?php echo lang('message_server_error_details') ?>'
         });
     });

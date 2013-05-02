@@ -107,7 +107,7 @@ $lang['form_type'] = "Tipo";
 $lang['form_start_date'] = "Fecha Alta";
 $lang['form_end_date'] = "Fecha Baja";
 $lang['form_state'] = "Estado";
-$lang['form_bank_account_format'] = "Formato Cuenta Bancaria";
+$lang['form_bank_account_format'] = "Formato C. Banc.";
 $lang['form_bank_account_number'] = "Número Cuenta Bancaria";
 $lang['form_classroom'] = "Aula";
 $lang['form_teacher'] = "Profesor";
@@ -167,6 +167,8 @@ $lang['btn_edit'] = "Modificar";
 $lang['btn_delete'] = "Eliminar";
 $lang['btn_order'] = "Ordenar";
 $lang['btn_new'] = "Nuevo";
+$lang['btn_yes'] = "Si";
+$lang['btn_no'] = "No";
 
 /***
  * Enlaces
@@ -191,6 +193,9 @@ $lang['message_server_error_details'] = "Error interno en el servidor: Detalles:
 $lang['message_teacher_created'] = "Profesor creado satisfactoriamente.";
 $lang['message_teacher_updated'] = "Profesor actualizado satisfactoriamente.";
 $lang['message_teacher_deleted'] = "Profesor eliminado.";
+$lang['message_student_created'] = "Estudiante creado satisfactoriamente.";
+$lang['message_student_updated'] = "Estudiante actualizado satisfactoriamente.";
+$lang['message_student_deleted'] = "Estudiante eliminado.";
 
 /* * *
  * Títulos de páginas
@@ -205,7 +210,7 @@ $lang['page_manage_leave_reasons'] = "Gestión de motivos de baja";
 $lang['page_manage_levels'] = "Gestión de niveles";
 $lang['page_manage_relationships'] = "Gestión de relaciones de parentezco";
 $lang['page_manage_roles'] = "Gestión de roles";
-$lang['page_manage_students'] = "Gestión de estudiantes";
+$lang['page_manage_students'] = "Gestión de alumnos";
 $lang['page_manage_teachers'] = "Gestión de profesores";
 $lang['page_manage_users'] = "Gestión de usuarios";
 $lang['page_manage_academic_period'] = "Gestión de periodos académicos";

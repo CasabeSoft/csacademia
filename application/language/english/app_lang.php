@@ -167,6 +167,8 @@ $lang['btn_edit'] = "Edit";
 $lang['btn_delete'] = "Delete";
 $lang['btn_order'] = "Order";
 $lang['btn_new'] = "New";
+$lang['btn_yes'] = "Yes";
+$lang['btn_no'] = "No";
 
 /***
  * Enlaces
@@ -191,6 +193,9 @@ $lang['message_server_error_details'] = "Internal server error. Details: ";
 $lang['message_teacher_created'] = "Teacher created successfully.";
 $lang['message_teacher_updated'] = "Teacher updated successfully.";
 $lang['message_teacher_deleted'] = "Teacher deleted.";
+$lang['message_student_created'] = "Student created successfully.";
+$lang['message_student_updated'] = "Student updated successfully.";
+$lang['message_student_deleted'] = "Student deleted.";
 
 /* * *
  * Títulos de páginas

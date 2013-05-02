@@ -10,6 +10,8 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  */
 class Contact extends Basic_controller {
+    var $subject;
+    
     public function __construct() {
         parent::__construct();
         $this->template = 'templates/manager_page';
@@ -20,6 +22,7 @@ class Contact extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_contacts');
+        $this->subject = lang('subject_contact');
         $this->load_page('contact_admin');
     }
     
