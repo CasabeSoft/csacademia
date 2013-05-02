@@ -143,7 +143,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('price', lang('form_price'))
                 ->display_as('client_id', lang('form_client'));
 
-        $this->crud->required_fields('code', 'description', 'price', 'client_id');
+        $this->crud->required_fields('code', 'description', 'client_id');
         $this->crud->fields('code', 'description', 'price', 'client_id');
         $this->crud->set_relation('client_id', 'client', 'name');
         if ($this->role_id != ROLE_ADMINISTRATOR) {
@@ -175,7 +175,7 @@ class Admin_pages extends Crud_controller {
 
         $this->crud->set_table('contact');
         $this->crud->set_subject(lang('subject_contact'));
-        $this->crud->columns('id', 'client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
+        $this->crud->columns('id', 'client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
         $this->crud->display_as('id', lang('form_id'))
                 ->display_as('client', lang('form_client'))
                 ->display_as('first_name', lang('form_first_name'))
@@ -194,8 +194,8 @@ class Admin_pages extends Crud_controller {
                 ->display_as('occupation', lang('form_occupation'))
                 ->display_as('id_card', lang('form_id_card'));
 
-        $this->crud->required_fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
-        $this->crud->fields('client', 'first_name', 'last_name', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation', 'id_card');
+        $this->crud->required_fields('client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'address', 'town', 'province', 'date_of_birth');
+        $this->crud->fields('client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
         $this->crud->set_field_upload('picture', 'assets/uploads/files/contact');
         $this->crud->change_field_type('notes', 'text');
         $this->crud->field_type('sex', 'dropdown', array('M' => lang('form_sex_male'), 'F' => lang('form_sex_female')));
@@ -259,7 +259,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('bank_account_format', lang('form_bank_account_format'))
                 ->display_as('bank_account_number', lang('form_bank_account_number'));
 
-        $this->crud->required_fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
+        $this->crud->required_fields('contact_id', 'center', 'title', 'start_date');
         $this->crud->fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation_n_n('center', 'teachers_by_centers', 'center', 'teacher_id', 'center_id', 'name');
@@ -290,7 +290,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('start_time', lang('form_start_time'))
                 ->display_as('end_time', lang('form_end_time'));
 
-        $this->crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
+        $this->crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'start_time');
         $this->crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
         $this->crud->set_relation('center_id', 'center', 'name');
         $this->crud->set_relation('classroom_id', 'classroom', 'notes');
@@ -325,7 +325,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('current_level_code', lang('form_level'))
                 ->display_as('leave_reason_code', lang('form_leave_reason'));
 
-        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
+        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'current_level_code', 'group');
         $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation('center_id', 'center', 'name');
@@ -355,7 +355,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('eval2', lang('form_eval2'))
                 ->display_as('eval3', lang('form_eval3'));
 
-        $this->crud->required_fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
+        $this->crud->required_fields('student_id', 'academic_period', 'qualification');
         $this->crud->fields('student_id', 'academic_period', 'description', 'qualification', 'trinity', 'london', 'others', 'eval1', 'eval2', 'eval3');
         $this->crud->set_relation('student_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation('academic_period', 'academic_period', 'name');

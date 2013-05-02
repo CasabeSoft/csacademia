@@ -57,8 +57,8 @@ define('ROLE_SECRETARY', 3);
   |
  */
 
-define('USER_ADMINISTRATOR', 'admin');
-define('PASSWORD_ADMINISTRATOR', '202cb962ac59075b964b07152d234b70'); //123
+define('USER_ADMINISTRATOR', 'admin@casabesoft.com');
+define('PASSWORD_ADMINISTRATOR', '1ddf499b0415ef9d3281e715a1abbad3');
 
 /*
   |--------------------------------------------------------------------------
