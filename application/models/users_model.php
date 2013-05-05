@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Description of usersModel
+ * Gestión de Usuarios
  *
- * @author carlos
+ * @author Leonardo Quintero
+ * @author Carlos Bello
  */
 class Users_model extends CI_Model {
 

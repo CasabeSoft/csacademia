@@ -197,6 +197,9 @@ $lang['message_teacher_deleted'] = "Teacher deleted.";
 $lang['message_student_created'] = "Student created successfully.";
 $lang['message_student_updated'] = "Student updated successfully.";
 $lang['message_student_deleted'] = "Student deleted.";
+$lang['message_created'] = " created successfully.";
+$lang['message_updated'] = " updated successfully.";
+$lang['message_deleted'] = " deleted.";
 
 /* * *
  * Títulos de páginas

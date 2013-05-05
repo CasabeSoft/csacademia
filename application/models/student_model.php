@@ -1,6 +1,6 @@
 <?php
 /**
- * Gestión de Profesores
+ * Gestión de Alumnos
  *
  * @author Carlos Bello
  */

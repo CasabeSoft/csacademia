@@ -175,9 +175,9 @@ class Admin_pages extends Crud_controller {
 
         $this->crud->set_table('contact');
         $this->crud->set_subject(lang('subject_contact'));
-        $this->crud->columns('id', 'client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
+        $this->crud->columns('id', 'client_id', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
         $this->crud->display_as('id', lang('form_id'))
-                ->display_as('client', lang('form_client'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('first_name', lang('form_first_name'))
                 ->display_as('last_name', lang('form_last_name'))
                 ->display_as('sex', lang('form_sex'))
@@ -195,12 +195,12 @@ class Admin_pages extends Crud_controller {
                 ->display_as('id_card', lang('form_id_card'));
 
         $this->crud->required_fields('client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'address', 'town', 'province', 'date_of_birth');
-        $this->crud->fields('client', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
+        $this->crud->fields('client_id', 'first_name', 'last_name', 'id_card', 'sex', 'email', 'phone_mobile', 'phone', 'picture', 'notes', 'address', 'postal_code', 'town', 'province', 'date_of_birth', 'occupation');
         $this->crud->set_field_upload('picture', 'assets/uploads/files/contact');
         $this->crud->change_field_type('notes', 'text');
         $this->crud->field_type('date_of_birth','date');
         $this->crud->field_type('sex', 'dropdown', array('M' => lang('form_sex_male'), 'F' => lang('form_sex_female')));
-        $this->crud->set_relation_n_n('client', 'contacts_by_client', 'client', 'contact_id', 'client_id', 'name');
+        $this->crud->set_relation('client_id', 'client', 'name');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -296,7 +296,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'start_time');
         $this->crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
         $this->crud->set_relation('center_id', 'center', 'name');
-        $this->crud->set_relation('classroom_id', 'classroom', 'notes');       
+        $this->crud->set_relation('classroom_id', 'classroom', 'id');       
         $this->crud->field_type('monday','dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->field_type('tuesday','dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->field_type('wednesday','dropdown', array('0' => 'No', '1' => 'Si'));
