@@ -3,6 +3,8 @@
 <?php if ($this->lang_code != 'en') { ?>
 <script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/i18n/jquery.ui.datepicker-<?php echo $this->lang_code ?>.js"></script>
 <?php } ?>
+<script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/localization/messages_<?php echo $this->lang_code ?>.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>

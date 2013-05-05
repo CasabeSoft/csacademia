@@ -50,6 +50,8 @@ akdm.ContactsViewModel = function() {
     };
 
     self.saveContact = function() {
+        if (!$('#frm').valid()) return;
+        
         var contact = self.currentContact();
         if (contact.id())
             // Actualizar
@@ -107,5 +109,14 @@ akdm.ContactsViewModel = function() {
         self.currentContact(new self._ContactPrototype());
         $.get(self._get).done(self.setContacts).fail(self._showError);
         self._strings = $.extend(self._strings, strings);
+        $("#frm").validate({
+            highlight: function(element) {
+                $(element).closest('div').addClass('error');
+            },
+            success: function(element) {
+                element
+                .closest('div').removeClass('error');
+            } 
+        });
     };
 };

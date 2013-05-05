@@ -27,6 +27,10 @@ class Contact_model extends CI_Model {
         "client_id",
     ];
     
+    public $NULLABLES = [
+        'date_of_birth'
+    ];
+    
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
@@ -51,7 +55,7 @@ class Contact_model extends CI_Model {
         unset($contact['id']); 
         $contact['client_id'] = $this->client_id;
         $this->db->trans_start();        
-        $this->db->insert('contact', $contact);
+        $this->db->insert('contact', convert_nullables($contact, $this->NULLABLES));
         $id = $this->db->insert_id();        
         $this->db->trans_complete();        
         return $id;
@@ -61,7 +65,8 @@ class Contact_model extends CI_Model {
         $id = $contact['id'];
         unset($contact['client_id']);
         unset($contact['id']);
-        $this->db->update('contact', $contact, 'id = '.$id.' and client_id = '.$this->client_id);
+        $this->db->update('contact', convert_nullables($contact, $this->NULLABLES), 
+                'id = '.$id.' and client_id = '.$this->client_id);
         return $id;
     }
 }

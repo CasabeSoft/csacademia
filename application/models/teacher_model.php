@@ -8,15 +8,20 @@ class Teacher_model extends CI_Model {
     private $client_id;
     
     public $FIELDS = [
-        "contact_id",
-        "title", 
-        "cv", 
-        "type", 
-        "start_date", 
-        "end_date", 
-        "state", 
-        "bank_account_format", 
-        "bank_account_number"
+        'contact_id',
+        'title', 
+        'cv', 
+        'type', 
+        'start_date', 
+        'end_date', 
+        'state', 
+        'bank_account_format', 
+        'bank_account_number'
+    ];
+    
+    public $NULLABLES = [
+        'start_date',
+        'end_date'
     ];
     
     public function __construct() {
@@ -41,8 +46,9 @@ class Teacher_model extends CI_Model {
         $this->db->trans_start();
         $teacher['client_id'] = $this->client_id;
         $id = $this->Contact_model->add(substract_fields($teacher, $this->Contact_model->FIELDS));
-        $teacher['contact_id'] = $id;        
-        $this->db->insert('teacher', substract_fields($teacher, $this->FIELDS));
+        $teacher['contact_id'] = $id;   
+        $cleanTeacher = convert_nullables(substract_fields($teacher, $this->FIELDS), $this->NULLABLES);
+        $this->db->insert('teacher', $cleanTeacher);
         $this->db->trans_complete();        
         return $id;
     }
@@ -50,8 +56,9 @@ class Teacher_model extends CI_Model {
     public function update($teacher) {
         $this->db->trans_start();
         $teacher['client_id'] = $this->client_id;
-        $id = $this->Contact_model->update(substract_fields($teacher, $this->Contact_model->FIELDS));
-        $cleanTeacher = substract_fields($teacher, $this->FIELDS);
+        $cleanContact = substract_fields($teacher, $this->Contact_model->FIELDS);
+        $id = $this->Contact_model->update($cleanContact);
+        $cleanTeacher = convert_nullables(substract_fields($teacher, $this->FIELDS), $this->NULLABLES);
         unset($cleanTeacher['id']);
         unset($cleanTeacher['contact_id']);
         $this->db->update('teacher', $cleanTeacher, 'contact_id = '.$id);

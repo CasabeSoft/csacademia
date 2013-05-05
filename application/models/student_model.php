@@ -30,7 +30,9 @@ class Student_model extends CI_Model {
         'language_years',
         'current_academic_period',
         'current_level_code',
-        "leave_reason_code"
+        'leave_reason_code',
+        'start_date',
+        'end_date'
     ];
     
     public function __construct() {
@@ -79,4 +81,4 @@ class Student_model extends CI_Model {
 }
 
 /* End of file teacher_model.php */
-/* Location: ./application/models/teacher_model.php */
+/* Location: ./application/models/student_model.php */
