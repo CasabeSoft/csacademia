@@ -200,6 +200,7 @@ $lang['message_student_deleted'] = "Student deleted.";
 $lang['message_created'] = " created successfully.";
 $lang['message_updated'] = " updated successfully.";
 $lang['message_deleted'] = " deleted.";
+$lang['message_validation_error'] = "Some specified value isn't correct. Verify the data.";
 
 /* * *
  * Títulos de páginas

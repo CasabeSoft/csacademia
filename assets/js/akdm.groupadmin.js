@@ -18,11 +18,12 @@ akdm.GroupsViewModel = function() {
     self._update = '/group/update';
     self._delete = '/group/delete/';
     self._GroupPrototype = akdm.model.Group;
-    self._string = {
+    self._strings = {
         group_created: 'Grupo creado satisfactoriamente.',
         group_updated: 'Grupo actualizado satisfactoriamente.',
         group_deleted: 'Grupo eliminado satisfactoriamente.',
-        server_error: 'Error interno del servidor. Detalles: '
+        server_error: 'Error interno del servidor. Detalles: ',
+        validation_error: 'Algún valor indicado no es correcto. Verifique los datos.'
     };
     
     self.groups = ko.observableArray();
@@ -46,6 +47,12 @@ akdm.GroupsViewModel = function() {
     };
 
     self.saveGroup = function() {
+        if (!$('#frm').valid()) {
+            akdm.ui.Feedback.show('#msgFeedback', 
+                self._strings.validation_error, 
+                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+            return;
+        }
         var group = self.currentGroup();
         if (group.id())
             // Actualizar
@@ -103,5 +110,15 @@ akdm.GroupsViewModel = function() {
         self.currentGroup(new self._GroupPrototype());
         $.get(self._get).done(self.setGroups).fail(self._showError);
         self._strings = $.extend(self._strings, strings);
+        $("#frm").validate({
+            ignore: '',
+            highlight: function(element) {
+                $(element).closest('div').addClass('error');
+            },
+            success: function(element) {
+                element
+                .closest('div').removeClass('error');
+            } 
+        });
     };
 };

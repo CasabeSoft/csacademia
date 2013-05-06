@@ -24,7 +24,8 @@
             contact_created: '<?php echo lang('message_student_created') ?>',
             contact_updated: '<?php echo lang('message_student_updated') ?>',
             contact_deleted: '<?php echo lang('message_student_deleted') ?>',
-            server_error: '<?php echo lang('message_server_error_details') ?>'
+            server_error: '<?php echo lang('message_server_error_details') ?>',
+            validation_error: <?php echo json_encode(lang('message_validation_error')) ?>
         });
     });
 </script>

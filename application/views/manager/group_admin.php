@@ -1,3 +1,4 @@
+<form id="frm" action="" method="POST">
 <div class="container container-first">
     <div id="msgFeedback" class="feedback top">
     </div>
@@ -44,10 +45,10 @@
             <div data-bind="with: currentGroup">
                 <input type="hidden" id="cnt_id" data-bind="value: id" />
                 <div class="row-fluid">
-                    <div class="span2">
-                        <label for="txtName"><?php echo lang('form_name'); ?></label>
+                    <div class="span2 control-group">
+                        <label for="txtName" class="control-label"><?php echo lang('form_name'); ?></label>
                         <input type="text" id="txtName" placeholder="<?php echo lang('form_name'); ?>" class="input-block-level"
-                               data-bind="value: name">
+                               data-bind="value: name" required >
                     </div>
                     <div class="span2">
                         <label for="lbxClassroom"><?php echo lang('form_classroom'); ?></label>
@@ -162,3 +163,4 @@
         </div>
     </div>
 </div>
+</form>

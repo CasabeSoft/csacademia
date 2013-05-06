@@ -18,11 +18,12 @@ akdm.ContactsViewModel = function() {
     self._update = '/contact/update';
     self._delete = '/contact/delete/';
     self._ContactPrototype = akdm.model.Contact;
-    self._string = {
+    self._strings = {
         contact_created: 'Contacto creado satisfactoriamente.',
         contact_updated: 'Contacto actualizado satisfactoriamente.',
         contact_deleted: 'Contacto eliminado satisfactoriamente.',
-        server_error: 'Error interno del servidor. Detalles: '
+        server_error: 'Error interno del servidor. Detalles: ',
+        validation_error: 'Algún valor indicado no es correcto. Verifique los datos.'
     };
     
     self.contacts = ko.observableArray();
@@ -50,7 +51,12 @@ akdm.ContactsViewModel = function() {
     };
 
     self.saveContact = function() {
-        if (!$('#frm').valid()) return;
+        if (!$('#frm').valid()) {
+            akdm.ui.Feedback.show('#msgFeedback', 
+                self._strings.validation_error, 
+                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+            return;
+        }
         
         var contact = self.currentContact();
         if (contact.id())
@@ -110,6 +116,7 @@ akdm.ContactsViewModel = function() {
         $.get(self._get).done(self.setContacts).fail(self._showError);
         self._strings = $.extend(self._strings, strings);
         $("#frm").validate({
+            ignore: '',
             highlight: function(element) {
                 $(element).closest('div').addClass('error');
             },
