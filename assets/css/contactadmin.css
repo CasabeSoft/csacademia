@@ -41,3 +41,34 @@
 #tblContacts, #tblContacts tr, #tblContacts td {
     display: block;
 }
+
+.family.thumbnails .thumbnail img {
+    height: 70px;
+    width: 70px;
+}
+
+.family.thumbnails .add {
+    color: gray;
+}
+
+.family.thumbnails .add:hover {
+    color: inherit;
+    cursor: pointer;
+}
+
+.family.thumbnails .add .thumbnail div {
+    height: 70px;
+    background-image: url(/assets/img/edit-add-3_gray.png);
+    background-position:center; 
+    background-repeat:no-repeat;
+}
+
+.family.thumbnails .add:hover .thumbnail div {
+    background-size: 70px;
+    background-image: url(/assets/img/personal_gray.png);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}

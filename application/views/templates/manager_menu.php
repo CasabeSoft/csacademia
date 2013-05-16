@@ -104,7 +104,6 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                         <li class="<?php echo $client_id == $client['id'] ? 'active' : '' ?>"><a href="/manager/change_to_client/<?php echo $client['id'] ?>"><?php echo $client['name'] ?></a></li>
                                     <?php } ?>
                                 </ul>
-                                </a>
                             </li>
                             <?php } ?>
                             <li class="divider"></li>

@@ -60,6 +60,7 @@ $lang['subject_academic_period'] = "Período Académico";
 $lang['subject_general_data'] = "Datos generales";
 $lang['subject_academic_data'] = "Académicos";
 $lang['subject_professional_data'] = "Profesionales y financieros";
+$lang['subject_family_data'] = "Familiares";
 
 /* * *
  * Campos de los formularios

@@ -96,3 +96,43 @@
         </div>
     </div>
 </div>
+<div id="familyData" class="tab-pane" > <!-- data-bind="with: currentContact" -->
+    <div class="row-fluid">
+        <ul class="family thumbnails">
+            <!-- ko foreach: filteredContacts -->
+            <li class="span2">
+                <a href="#" class="thumbnail">
+                    <img src="/assets/img/personal.png" alt="">
+                </a>
+                <strong data-bind="text: first_name"></strong>
+                <p>family relationship</p>
+            </li>
+            <!-- /ko -->
+            <li class="span2 add">
+                <a href="#" class="thumbnail">
+                    <div></div>
+                </a>
+                <strong>Nuevo</strong>
+                <p>family relationship</p>
+            </li>            
+        </ul>
+    </div>
+    <div class="row-fluid">
+        <legend data-bind="with: currentContact">
+                <span data-bind="text: full_name() + '&nbsp;'"></span>
+                <div class="pull-right">
+                    <button class="btn btn-small" data-bind="click: $root.saveContact">
+                        <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                    </button>
+                    <button class="btn btn-small btn-danger" data-bind="click: $root.removeContact">
+                        <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                    </button>
+                </div>
+        </legend>
+    </div>
+    <div class="row-fluid" data-bind="with: currentContact">
+        <?php
+            $this->load->view('manager/contact_admin_contact_data');
+        ?>
+    </div>
+</div>
