@@ -261,10 +261,44 @@ akdm.model = (function() {
         };
     };
 
+    var Family = function() {
+        Contact.call(this);
+        this.contact_id = ko.observable("");
+        this.student_id = ko.observable("");
+        this.relationship_code = ko.observable("");
+    };
+
+    Family.fromJSON = function(familyJSON) {
+        return new Family().fromJSON(familyJSON);
+    };
+
+    Family.toJSON = function(family) {
+        return $.extend(Contact.toJSON(family),
+                {
+                    "contact_id": family.contact_id(),
+                    "student_id": family.student_id(),
+                    "relationship_code": family.relationship_code()
+                });
+    };
+
+    Family.prototype = new Contact();
+    Family.prototype.constructor = Family;
+    Family.prototype.fromJSON = function(familyJSON) {
+        Contact.prototype.fromJSON.call(this, familyJSON);
+        this.contact_id(familyJSON.contact_id);
+        this.student_id(familyJSON.student_id);
+        this.relationship_code(familyJSON.relationship_code);
+        return this;
+    };
+    Family.prototype.toJSON = function() {
+        return Family.toJSON(this);
+    };
+
     return {
         Contact: Contact,
         Teacher: Teacher,
         Student: Student,
-        Group: Group
+        Group: Group,
+        Family: Family
     };
 })();

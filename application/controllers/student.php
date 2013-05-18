@@ -13,6 +13,7 @@ class Student extends Basic_controller {
     var $levels;
     var $academicPeriods;
     var $leaveReasons;
+    VAR $relationships;
     
     public function __construct() {
         parent::__construct();
@@ -28,6 +29,7 @@ class Student extends Basic_controller {
         $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
         $this->academicPeriods = $this->db->select("code, name")->from('academic_period')->get()->result_array();
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
+        $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
         $this->load_page('student_admin');
     }
     
@@ -58,7 +60,7 @@ class Student extends Basic_controller {
     }
     
     public function delete($id) {
-            header("Content-type:text/json");
+        header("Content-type:text/json");
         try {
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->delete($id));
@@ -73,6 +75,48 @@ class Student extends Basic_controller {
             $contact = $this->input->post();
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update($contact));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function family_get($id) {
+        header("Content-type:text/json");
+        try {
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->get_all($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function family_delete($student_id, $contact_id) {
+        header("Content-type:text/json");
+        try {
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->delete($student_id, $contact_id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function family_add() {
+        header("Content-type:text/json");
+        try {
+            $family = $this->input->post();
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->add($family));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function family_update() {
+        header("Content-type:text/json");
+        try {
+            $family = $this->input->post();
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->update($family));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

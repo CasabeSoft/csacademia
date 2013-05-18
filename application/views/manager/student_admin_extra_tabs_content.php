@@ -85,8 +85,8 @@
     <div class="row-fluid newComponentGroup">
         <!-- Datos escolares -->
         <div class="span4">
-            <label for="lbxSchoolAcademicPeriod"><?php echo lang('form_school_academic_period'); ?></label>
-            <input type="text" id="lbxSchoolAcademicPeriod" placeholder="20XX-20YY" class="input-block-level" 
+            <label for="tbxSchoolAcademicPeriod"><?php echo lang('form_school_academic_period'); ?></label>
+            <input type="text" id="tbxSchoolAcademicPeriod" placeholder="20XX-20YY" class="input-block-level" 
                    data-bind="value: school_academic_period" />
         </div>
         <div class="span8">
@@ -99,40 +99,51 @@
 <div id="familyData" class="tab-pane" > <!-- data-bind="with: currentContact" -->
     <div class="row-fluid">
         <ul class="family thumbnails">
-            <!-- ko foreach: filteredContacts -->
+            <!-- ko foreach: familyList -->
             <li class="span2">
-                <a href="#" class="thumbnail">
+                <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
                     <img src="/assets/img/personal.png" alt="">
                 </a>
                 <strong data-bind="text: first_name"></strong>
-                <p>family relationship</p>
+                <p data-bind="text: relationship_code"></p>
             </li>
             <!-- /ko -->
             <li class="span2 add">
-                <a href="#" class="thumbnail">
+                <a href="#" class="thumbnail" data-bind="click: $root.newFamily">
                     <div></div>
                 </a>
-                <strong>Nuevo</strong>
-                <p>family relationship</p>
+                <strong><?php echo lang('btn_new'); ?></strong>
+                <p></p>
             </li>            
         </ul>
     </div>
     <div class="row-fluid">
-        <legend data-bind="with: currentContact">
+        <legend data-bind="with: currentFamily">
                 <span data-bind="text: full_name() + '&nbsp;'"></span>
                 <div class="pull-right">
-                    <button class="btn btn-small" data-bind="click: $root.saveContact">
+                    <button class="btn btn-small" data-bind="click: $root.saveFamily">
                         <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
                     </button>
-                    <button class="btn btn-small btn-danger" data-bind="click: $root.removeContact">
+                    <button class="btn btn-small btn-danger" data-bind="click: $root.removeFamily">
                         <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
                     </button>
                 </div>
         </legend>
     </div>
-    <div class="row-fluid" data-bind="with: currentContact">
-        <?php
-            $this->load->view('manager/contact_admin_contact_data');
-        ?>
+    <div class="row-fluid" data-bind="with: currentFamily">
+        <div class="span4">
+            <label for="lbxRelationship"><?php echo lang('form_relationship'); ?></label>
+            <select id="lbxRelationship" class="input-block-level" data-bind="value: relationship_code">
+                <option value="">--</option>
+                <?php foreach ($relationships as $relationship) { ?>
+                <option value="<?php echo $relationship["code"]?>"><?php echo $relationship["name"] ?></option>
+                <?php } ?>
+            </select>
+        </div> 
+    </div>
+    <div class="row-fluid" data-bind="with: currentFamily">
+    <?php
+        $this->load->view('manager/contact_admin_contact_data');
+    ?>
     </div>
 </div>

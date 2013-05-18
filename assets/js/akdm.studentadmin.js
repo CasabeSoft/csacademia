@@ -8,6 +8,90 @@ akdm.StudentViewModel = function() {
     self._update = '/student/update';
     self._delete = '/student/delete/';
     self._ContactPrototype = akdm.model.Student;
+    self._family_get = '/student/family_get/';
+    var family_add = '/student/family_add';
+    var family_update = '/student/family_update';
+    var family_delete = '/student/family_delete/';
+    
+    self.familyList = ko.observableArray();
+    self.currentFamily = ko.observable();
+    
+    self.selectFamily = function (family) {
+        self.currentFamily(family);
+    };
+    
+    self.newFamily = function () {
+        var newFamily = new akdm.model.Family();
+        self.currentFamily(newFamily);
+    };
+    
+    self.saveFamily = function() {
+        // TODO: Implementar validación de datos del familiar.
+        if (false || !$('#frm').valid()) {
+            akdm.ui.Feedback.show('#msgFeedback', 
+                self._strings.validation_error, 
+                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+            return;
+        }
+        
+        var family = self.currentFamily();
+        if (family.id())
+            // Actualizar
+            $.post(family_update, family.toJSON())
+                .done(function () {
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+                })
+                .fail(self._showError);
+        else {
+            // Insertar
+            family.student_id(self.currentContact().id());
+            $.post(family_add, family.toJSON())
+                .done(function(newId) {
+                    family.id(newId);
+                    self.familyList.push(self.currentFamily());
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+                })
+                .fail(self._showError);
+        }
+    };
+    
+    self.removeFamily = function() {
+        var family = self.currentFamily();
+        $.get(family_delete + family.student_id() + '/' + family.id())
+            .done(function() {
+                self.familyList.remove(self.currentFamily());
+                self.currentFamily(new akdm.model.Family());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
+                        akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
+            })
+            .fail(self._showError);
+    };
+    
+    self.setFamilyList = function (familyList) {
+        self.familyList.removeAll();
+        $(familyList).each(function (index, family) {
+            self.familyList.push(akdm.model.Family.fromJSON(family));
+        });
+    };
+
+        
+    parent = {
+        selectContact: self.selectContact,
+        init: self.init
+    };
+    
+    self.selectContact = function (contact) {
+        parent.selectContact(contact);
+        self.currentFamily(new akdm.model.Family());
+        $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
+    };    
+    
+    self.init = function (strings) {
+        parent.init(this, strings);
+        self.currentFamily(new akdm.model.Family());
+    };
 };
 
 akdm.StudentViewModel.prototype = new akdm.ContactsViewModel();

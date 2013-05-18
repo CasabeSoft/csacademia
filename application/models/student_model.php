@@ -60,7 +60,7 @@ class Student_model extends CI_Model {
         $student['contact_id'] = $id;    
         // TODO: Cambiar 1 por el centro activo
         $student['center_id'] = 1;    
-        $this->db->insert('student', convert_nullables(substract_fields($student, $this->FIELDS), $this->NULLABLES));
+        $this->db->insert('student', substract_fields($student, $this->FIELDS));
         $this->db->trans_complete();        
         return $id;
     }

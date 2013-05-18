@@ -15,8 +15,8 @@
         </div>
         <div class="row-fluid">
             <div class="span6">
-                <label for="txtDateOfBirth"><?php echo lang('form_date_of_birth'); ?></label>
-                <input type="text" id="txtDateOfBirth" class="input-block-level" 
+                <label><?php echo lang('form_date_of_birth'); ?></label>
+                <input type="text" class="input-block-level" 
                        placeholder="<?php echo lang('date_format_humans') ?>"
                        data-bind="value: date_of_birth, jqDatepicker: date_of_birth">
             </div>                        

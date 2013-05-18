@@ -149,6 +149,7 @@ $lang['form_contact_subject_other'] = "Another subject";
 $lang['form_contact_privacy_info'] = "I have read the privacy policy and understand that you will not use CasabeSoft my data, except to contact me.";
 $lang['form_contact_privacy'] = "Privacy Policy";
 $lang['form_type_filter'] = "Type your filter and press [Enter]";
+$lang['form_relationship'] = "Relationship";
 
 /* * *
  * Botones
