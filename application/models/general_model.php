@@ -44,6 +44,40 @@ class General_model extends CI_Model {
         return;
     }            
 
+    function get_first_client() {
+        $client_id = $this->db->select('id')->from('client')->limit(1)->get();
+        return $client_id->num_rows() > 0
+                ? $client_id->row()->id
+                : NULL;                
+    }
+    
+    function get_first_center($client_id) {
+        $center = $this->db->select('id, name')
+                ->from('center')
+                ->where('client_id', $client_id)
+                ->limit(1)
+                ->get()->result_array();
+        return count($center) > 0
+                ? $center[0]
+                : ['id' => NULL, 'name' => lang('menu_all_centers')];
+    }
+    
+    function get_all_centers($client_id) {
+        return $this->db->select('id, name')
+                ->from('center')
+                ->where('client_id', $client_id)
+                ->get()->result_array();
+    }
+    
+    function get_center($id) {
+        $center = $this->db->select('id, name')
+                ->from('center')
+                ->where('id', $id)
+                ->get()->result_array();
+        return count($center) > 0
+                ? $center[0]
+                : ['id' => NULL, 'name' => lang('menu_all_centers')];
+    }
 }
 
 ?>

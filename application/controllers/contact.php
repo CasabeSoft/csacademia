@@ -11,6 +11,7 @@ if (!defined('BASEPATH'))
  */
 class Contact extends Basic_controller {
     var $subject;
+    var $editMode;
     
     public function __construct() {
         parent::__construct();
@@ -23,6 +24,7 @@ class Contact extends Basic_controller {
         $this->current_page();
         $this->title = lang('page_manage_contacts');
         $this->subject = lang('subject_contact');
+        $this->editMode = 'true';
         $this->load_page('contact_admin');
     }
     

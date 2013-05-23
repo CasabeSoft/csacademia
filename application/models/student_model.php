@@ -6,6 +6,7 @@
  */
 class Student_model extends CI_Model {
     private $client_id;
+    private $center_id;
     
     public $FIELDS = [
         "contact_id",
@@ -38,14 +39,17 @@ class Student_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
+        $this->center_id = $this->session->userdata('current_center')['id'];
         $this->load->model('Contact_model');
     }
     
     public function get_all() {
-        return $this->db->from('contact')
+        $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
-                ->where('client_id', $this->client_id)
-                ->get()->result_array();          
+                ->where('client_id', $this->client_id);
+        if ($this->center_id != NULL)
+            $this->db->where('center_id', $this->center_id);
+        return $this->db->get()->result_array();          
     }
     
     public function delete($id) {
@@ -58,9 +62,9 @@ class Student_model extends CI_Model {
         $student['client_id'] = $this->client_id; 
         $id = $this->Contact_model->add(substract_fields($student, $this->Contact_model->FIELDS));
         $student['contact_id'] = $id;    
-        // TODO: Cambiar 1 por el centro activo
-        $student['center_id'] = 1;    
-        $this->db->insert('student', substract_fields($student, $this->FIELDS));
+        $student['center_id'] = $this->center_id;   
+        $cleanStudent = substract_fields($student, $this->FIELDS);
+        $this->db->insert('student', convert_nullables($cleanStudent, $this->NULLABLES));
         $this->db->trans_complete();        
         return $id;
     }
@@ -72,8 +76,7 @@ class Student_model extends CI_Model {
         $cleanStudent = substract_fields($student, $this->FIELDS);
         unset($cleanStudent['id']);
         unset($cleanStudent['contact_id']);
-        // TODO: Cambiar 1 por el centro activo
-        $cleanStudent['center_id'] = 1; 
+        $cleanStudent['center_id'] = $this->center_id; 
         $this->db->update('student', convert_nullables($cleanStudent, $this->NULLABLES), 'contact_id = '.$id);
         $this->db->trans_complete(); 
         return $id;
