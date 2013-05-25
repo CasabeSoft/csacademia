@@ -34,8 +34,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/catalog/student"><?php echo lang('menu_student'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
-                                <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
-                                <li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php echo lang('menu_student').' / '.lang('menu_group'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php echo lang('menu_student') . ' / ' . lang('menu_group'); ?></a></li>
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
@@ -43,6 +42,8 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/catalog/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/catalog/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'course') ?>"><a href="/catalog/course"><?php echo lang('menu_course'); ?></a></li>                            
+                            <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
                         </ul>
                     </li>
@@ -84,7 +85,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         <ul class="dropdown-menu">
                             <li class="disabled">
                                 <a href="#"><img tabindex="-1" src="/assets/img/personal.png" class="profilePhoto medium"><span><?php echo $this->session->userdata('email'); ?></span>
-                                    </a>
+                                </a>
                             </li>
                             <li>
                                 <a href="/change_password"><?php echo lang('menu_change_password'); ?></a>
@@ -93,19 +94,20 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <a href="/profile"><?php echo lang('menu_profile'); ?></a>
                             </li>
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
-                            <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#"><?php echo lang('menu_see_as_client') ?></a>
-                                <ul class="dropdown-menu">
-                                    <?php 
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#"><?php echo lang('menu_see_as_client') ?></a>
+                                    <ul class="dropdown-menu">
+                                        <?php
                                         $clients = $this->db->select('id, name')->from('client')->get()->result_array();
                                         $client_id = $this->session->userdata('client_id');
-                                        foreach ($clients as $client) { ?>
-                                        <li class="<?php echo $client_id == $client['id'] ? 'active' : '' ?>"><a href="/manager/change_to_client/<?php echo $client['id'] ?>"><?php echo $client['name'] ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php } ?>
+                                        foreach ($clients as $client) {
+                                            ?>
+                                            <li class="<?php echo $client_id == $client['id'] ? 'active' : '' ?>"><a href="/manager/change_to_client/<?php echo $client['id'] ?>"><?php echo $client['name'] ?></a></li>
+    <?php } ?>
+                                    </ul>
+                                </li>
+<?php } ?>
                             <li class="divider"></li>
                             <li>
                                 <a href="/close"><?php echo lang('menu_close'); ?></a>

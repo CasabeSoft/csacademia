@@ -169,6 +169,22 @@ class Admin_pages extends Crud_controller {
         $this->crud_view = $this->crud->render();
         $this->load_page();
     }
+    
+    public function course() {
+        $this->set_page_title('page_manage_courses');
+
+        $this->crud->set_table('course');
+        $this->crud->set_subject(lang('subject_course'));
+        $this->crud->columns('id', 'name');
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'));
+
+        $this->crud->required_fields('name');
+        $this->crud->fields('name');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
 
     public function contact() {
         $this->set_page_title('page_manage_contacts');
