@@ -41,6 +41,8 @@ $lang['menu_change_password'] = "Cambiar Contraseña";
 $lang['menu_profile'] = "Perfil";
 $lang['menu_see_as_client'] = "Ver como cliente";
 
+$lang['menu_all_centers'] = "(Todos)";
+
 /* * *
  * Títulos de formularios
  */

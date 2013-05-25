@@ -29,8 +29,7 @@ class Manager_pages extends Basic_controller {
         $this->load_page('main');
     }
     
-    public function change_to_client($client) {
-        $this->session->set_userdata('client_id', $client);
+    protected function redirect_to_caller() {
         $current_url = $this->session->userdata('current_url');
         
         if (isset($current_url) && $current_url != '') {
@@ -41,7 +40,19 @@ class Manager_pages extends Basic_controller {
             redirect('/manager/main');
         }
     }
-       
+
+
+    public function change_to_client($client) {
+        $this->load->model('General_model');
+        $this->session->set_userdata('client_id', $client);
+        $this->change_to_center($this->General_model->get_first_center($client)['id']);
+    }
+    
+    public function change_to_center($center_id) {
+        $this->load->model('General_model');
+        $this->session->set_userdata('current_center', $this->General_model->get_center($center_id));
+        $this->redirect_to_caller();
+}
 }
 
 /* End of file manager_pages.php */

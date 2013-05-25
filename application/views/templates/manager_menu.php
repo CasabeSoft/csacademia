@@ -67,16 +67,28 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                     <li class="<?php echo is_controller_active($current_controller, 'help') ?>"><a href="/manager/main"><?php echo lang('menu_help'); ?></a></li>
                 </ul>
                 <ul class="nav pull-right">
-                    <li class="dropdown">
+                    <li class="dropdown"><!-- currentSchool -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <?php echo lang('menu_lang') . lang('menu_lang_' . $this->lang_code); ?>
+                            <?php echo lang('subject_center').": ".$this->session->userdata('current_center')['name']; ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
-                            <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
+                            <li><a href="<?php echo site_url('/manager/change_to_center/NULL') ?>"><?php echo lang('menu_all_centers') ?></a></li>
+                            <?php 
+                                // HACK! Por algún motivo que no entiendo aquí no puedo llamar a la función get_all_centers
+                                // 
+                                // $this->load->model('General_model');
+                                // $centers = $this->General_model->get_all_centers($this->session->userdata('client_id'));
+                                $centers = $this->db->select('id, name')
+                                                ->from('center')
+                                                ->where('client_id', $this->session->userdata('client_id'))
+                                                ->get()->result_array();
+                                foreach ($centers as $center) {
+                            ?>
+                                <li><a href="<?php echo site_url('/manager/change_to_center/'.$center['id']) ?>"><?php echo $center['name'] ?></a></li>
+                            <?php } ?>
                         </ul>
-                    </li>
+                    </li>     <!-- /currentSchool -->               
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/assets/img/personal.png" class="profilePhoto small">
@@ -92,6 +104,15 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             </li>
                             <li>
                                 <a href="/profile"><?php echo lang('menu_profile'); ?></a>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">
+                                    <?php echo lang('menu_lang') . lang('menu_lang_' . $this->lang_code); ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
+                                    <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
+                                </ul>
                             </li>
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
                                 <li class="divider"></li>

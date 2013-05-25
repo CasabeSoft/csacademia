@@ -26,6 +26,8 @@ class Student extends Basic_controller {
         $this->current_page();
         $this->title = lang('page_manage_students');
         $this->subject = lang('subject_student');
+        $this->editMode = is_null($this->session->userdata('current_center')['id'])
+                ? 'false' : 'true';
         $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
         $this->academicPeriods = $this->db->select("code, name")->from('academic_period')->get()->result_array();
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();

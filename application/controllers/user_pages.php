@@ -41,20 +41,27 @@ class User_pages extends Basic_controller {
 
             //Si el usuario es el administrador o existe en la db..
             if (!empty($result) || $isAdmin) {
-
+                $this->load->model('General_model');
+                $client_id = $isAdmin
+                        ? $this->General_model->get_first_client()
+                        : $result->client_id;
+                $center = $this->General_model->get_first_center($client_id);
+                
                 if ($isAdmin) {
                     $user = array(
                         'id' => 0,
                         'email' => $email,
                         'role_id' => '1',
-                        'client_id' => '1'
+                        'client_id' => $client_id,
+                        'current_center' => $center
                     );
                 } else {
                     $user = array(
                         'id' => $result->id,
                         'email' => $result->email,
                         'role_id' => $result->role_code,
-                        'client_id' => $result->client_id
+                        'client_id' => $client_id,
+                        'current_center' => $center
                     );
                 }
 
