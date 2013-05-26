@@ -294,11 +294,41 @@ akdm.model = (function() {
         return Family.toJSON(this);
     };
 
+
+
+
+    var Students_by_groups = function() {
+        this.groups_id = ko.observable("");
+        this.student_id = ko.observable("");
+    };
+
+    Students_by_groups.prototype.toJSON = function() {
+        return Students_by_groups.toJSON(this);
+    };
+
+    Students_by_groups.prototype.fromJSON = function(students_by_groupsJSON) {
+        this.groups_id(students_by_groupsJSON.groups_id);
+        this.student_id(students_by_groupsJSON.student_id);
+        return this;
+    };
+
+    Students_by_groups.fromJSON = function(students_by_groupsJSON) {
+        return new Students_by_groups().fromJSON(students_by_groupsJSON);
+    };
+
+    Students_by_groups.toJSON = function(students_by_groups) {
+        return {
+            "groups_id": students_by_groups.groups_id(),
+            "student_id": students_by_groups.student_id(),
+        };
+    };
+
     return {
         Contact: Contact,
         Teacher: Teacher,
         Student: Student,
         Group: Group,
-        Family: Family
+        Family: Family,
+        Students_by_groups: Students_by_groups
     };
 })();
