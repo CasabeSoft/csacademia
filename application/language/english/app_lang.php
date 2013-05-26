@@ -154,6 +154,7 @@ $lang['form_contact_privacy_info'] = "I have read the privacy policy and underst
 $lang['form_contact_privacy'] = "Privacy Policy";
 $lang['form_type_filter'] = "Type your filter and press [Enter]";
 $lang['form_relationship'] = "Relationship";
+$lang['form_group'] = "Group";
 
 /* * *
  * Botones
