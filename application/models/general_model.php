@@ -77,6 +77,20 @@ class General_model extends CI_Model {
         return count($center) > 0
                 ? $center[0]
                 : ['id' => NULL, 'name' => lang('menu_all_centers')];
+    }   
+        
+    public function update_picture($table, $id, $picture) {
+        $this->db->update($table, ['picture' => $picture], ['id' => $id]);
+    }
+    
+    public function get_picture($table, $id) {
+        $picture = $this->db->select('picture')
+                ->from($table)
+                ->where('id', $id)
+                ->get()->result_array();
+        return count($picture) > 0
+                ? $picture[0]['picture']
+                : NULL;
     }
 }
 

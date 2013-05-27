@@ -107,11 +107,11 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             </li>
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#">
-                                    <?php echo lang('menu_lang') . lang('menu_lang_' . $this->lang_code); ?>
+                                    <?php echo lang('menu_lang'); ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
-                                    <li><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
+                                    <li class="<?php echo $this->session->userdata('lang') == 'es' ? 'active' : '' ?>"><a href="<?php echo site_url('lang/es') ?>"><?php echo lang('menu_lang_es'); ?></a></li>
+                                    <li class="<?php echo $this->session->userdata('lang') == 'en' ? 'active' : '' ?>"><a href="<?php echo site_url('lang/en') ?>"><?php echo lang('menu_lang_en'); ?></a></li>
                                 </ul>
                             </li>
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>

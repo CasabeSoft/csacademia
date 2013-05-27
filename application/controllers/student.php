@@ -1,11 +1,9 @@
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 /**
- * TEMPORAL. Probablemente este código deba ser heredado o integrado
- * en los controladores de estudiantes y profesores.
+ * Gestión de los datos de un estudiante.
  *
  * @author Carlos Bello
  */

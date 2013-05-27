@@ -55,7 +55,7 @@ function is_active($current_page, $page_name = 'home') {
                         <ul class="nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo lang('menu_lang') . lang('menu_lang_' . $lang_code); ?>
+                                    <?php echo lang('menu_lang').": ".lang('menu_lang_' . $lang_code); ?>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">

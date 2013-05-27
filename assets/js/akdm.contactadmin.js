@@ -11,6 +11,42 @@ ko.bindingHandlers.jqDatepicker = {
     }
 };
 
+ko.bindingHandlers.jqFileUpload = {
+    init: function(element, valueAccessor) {
+       $(element).fileupload({
+            maxFileSize: 2048,
+            dataType: 'json',
+            done: function (e, data) {
+                var value = valueAccessor();
+                value().picture(data.result.picture);
+                setTimeout(function () { 
+                    $('#progress .bar').css('width', '0%');
+                    $('#pictureDialog').modal('hide'); 
+                }, 1000);
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .bar').css('width', progress + '%');
+            },
+            fail: function (e, data) {
+                setTimeout(function () { 
+                    $('#progress .bar').css('width', '0%');
+                    $('#pictureDialog').modal('hide'); 
+                    akdm.ui.Feedback.show('#msgFeedback', 
+                        // TODO: cambiar literal de cadena por cadena parametrizada.
+                        'Es posible que la foto indicada sea demaciado grande o el fichero ya no exista.', 
+                        akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+                }, 1000);
+            }
+        });
+    },
+    update: function (element, valueAccessor) {
+        var currentContact = ko.utils.unwrapObservable(valueAccessor());
+        var url = '/picture/upload/contact/' + currentContact.id();
+        $(element).fileupload('option', 'url', url);
+    }
+};
+
 akdm.ContactsViewModel = function() {
     var self = this;
     self._get = '/contact/get';
@@ -36,6 +72,9 @@ akdm.ContactsViewModel = function() {
         });
     });
     self.currentContact = ko.observable();
+    self.uploadUrl = function () { 
+        return  '/picture/upload/contact/' + self.currentContact().id();
+    };
 
     self.selectContact = function (contact) {
         self.currentContact(contact);
@@ -111,6 +150,10 @@ akdm.ContactsViewModel = function() {
         }
     };
     
+    self.uploadPicture = function() {
+        
+    };
+    
     self.init = function (strings) {
         self.currentContact(new self._ContactPrototype());
         $.get(self._get).done(self.setContacts).fail(self._showError);
@@ -124,6 +167,22 @@ akdm.ContactsViewModel = function() {
                 element
                 .closest('div').removeClass('error');
             } 
+        });
+        $('#fileupload').fileupload({
+            url: self.uploadUrl(),
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<p/>').text(file.name).appendTo('#files');
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .bar').css(
+                    'width',
+                    progress + '%'
+                );
+            }
         });
     };
 };

@@ -42,7 +42,7 @@
         <div id="picture">
             <img class="img-polaroid" 
                  data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}" />
-            <a href="#"><?php echo lang('lnk_chanche_picture'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#pictureDialog"><?php echo lang('lnk_chanche_picture'); ?></a>
         </div>
     </div>
 </div>
@@ -102,5 +102,29 @@
         <textarea id="txtNotes" class="input-block-level" 
                   data-bind="html: notes">
         </textarea>
+    </div>
+</div>
+<div class="modal hide fade" id="pictureDialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?php echo lang('form_photo') ?></h3>
+    </div>
+    <div class="modal-body">
+        <form class="frmPictureUpload" method="POST" enctype="multipart/form-data" >
+            <span class="btn btn-success fileinput-button">
+                <i class="icon-plus icon-white"></i>
+                <span><?php echo lang('btn_search') ?></span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="fileupload" data-bind="jqFileUpload: $root.currentContact">
+            </span>
+            <br>
+            <br>
+            <!-- The global progress bar -->
+            <div id="progress" class="progress progress-success progress-striped">
+                <div class="bar"></div>
+            </div>
+            <!-- The container for the uploaded files -->
+            <div id="files"></div>
+        </form>
     </div>
 </div>

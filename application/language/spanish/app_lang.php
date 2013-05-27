@@ -3,7 +3,7 @@
 /* * *
  * Menu
  */
-$lang['menu_lang'] = "Idioma: ";
+$lang['menu_lang'] = "Idioma";
 $lang['menu_lang_es'] = "Español";
 $lang['menu_lang_en'] = "Inglés";
 

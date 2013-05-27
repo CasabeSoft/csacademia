@@ -5,6 +5,9 @@
 <script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/i18n/jquery.ui.datepicker-<?php echo $this->lang_code ?>.js"></script>
 <script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/localization/messages_<?php echo $this->lang_code ?>.js"></script>
 <?php } ?>
+<script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/vendor/jquery.ui.widget.js"></script>
+<script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/jquery.iframe-transport.js"></script>
+<script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
