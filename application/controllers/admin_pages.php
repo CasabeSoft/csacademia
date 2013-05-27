@@ -30,6 +30,9 @@ class Admin_pages extends Crud_controller {
 
         $this->crud->required_fields('name');
         $this->crud->fields('name');
+        
+        //$this->crud->add_action('nivel', site_url(). 'assets/img/edit-add-3.png', 'catalog/level_detail','ui-icon-plus');
+        
         $this->crud_view = $this->crud->render();
 
         $this->load_page();
@@ -149,6 +152,35 @@ class Admin_pages extends Crud_controller {
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);
         }
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
+    
+    public function level_detail($client_id) {
+        $this->set_page_title('page_manage_levels');
+        $fields = array('code', 'description', 'price', 'client_id');
+
+        $this->crud->where('client_id', $client_id);
+        /*if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
+            $fields = array('code', 'description', 'price');
+        }*/
+
+        $this->crud->set_table('level');
+        $this->crud->set_subject(lang('subject_level'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('code', lang('form_id'))
+                ->display_as('description', lang('form_description'))
+                ->display_as('price', lang('form_price'))
+                ->display_as('client_id', lang('form_client'));
+
+        $this->crud->required_fields('code', 'description', 'client_id');
+        $this->crud->fields('code', 'description', 'price', 'client_id');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        /*if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }*/
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -368,7 +400,8 @@ class Admin_pages extends Crud_controller {
                 ->display_as('bank_account_holder', lang('form_bank_account_holder'))
                 ->display_as('bank_payment', lang('form_bank_payment'))
                 ->display_as('current_level_code', lang('form_level'))
-                ->display_as('leave_reason_code', lang('form_leave_reason'));
+                ->display_as('leave_reason_code', lang('form_leave_reason'))
+                ->display_as('group', lang('form_group'));
 
         $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'current_level_code', 'group');
         $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_academic_period', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
