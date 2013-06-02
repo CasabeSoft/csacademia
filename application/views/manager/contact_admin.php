@@ -51,11 +51,15 @@
             <div class="tab-content">
                 <div id="generalData" class="tab-pane active" data-bind="with: currentContact">
                 <?php
-                    $this->load->view('manager/contact_admin_contact_data');
+                    $data = [
+                        'pictureDialogId' => isset($pictureDialogId) ? $pictureDialogId : 'currentContactPicture',
+                        'pictureDialogBind' => isset($pictureDialogBind) ? $pictureDialogBind : '$root.currentContact'
+                    ];
+                    $this->load->view('manager/contact_admin_contact_data', $data);
                 ?>
                 </div>
                 <?php
-                    if (isset($extra_tabs_content)) $this->load->view($extra_tabs_content)
+                    if (isset($extra_tabs_content)) $this->load->view($extra_tabs_content);
                 ?>
             </div>
         </div>

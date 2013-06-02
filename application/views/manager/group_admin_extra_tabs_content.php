@@ -119,3 +119,4 @@
 <div id="studentData" class="tab-pane" data-bind="">
 
 </div>
+<?php $this->load->view('manager/group_admin_extra_tabs_content_assistance') ?>

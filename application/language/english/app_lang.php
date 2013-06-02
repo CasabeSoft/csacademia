@@ -27,6 +27,7 @@ $lang['menu_student'] = "Students";
 $lang['menu_contact'] = "Contacts";
 $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
+$lang['menu_assistance'] = "Assistance";
 
 $lang['menu_catalog'] = "Catalog";
 $lang['menu_management'] = "Management";
@@ -134,7 +135,8 @@ $lang['form_pref_end_time'] = "Pref. End Time";
 $lang['form_bank_account_holder'] = "Bank Account Holder";
 $lang['form_bank_payment'] = "Bank Payment";
 $lang['form_leave_reason'] = "Leave Reason";
-$lang['form_school_academic_period'] = "School Academic Period";
+$lang['form_school_academic_period'] = "School Academic Period";    // Eliminar cuando se haya actualizado la gestión en GroceryCRUD
+$lang['form_school_level'] = "School level";
 $lang['form_qualification'] = "Qualification";
 $lang['form_others'] = "Others";
 $lang['form_trinity'] = "Trinity";
@@ -155,6 +157,7 @@ $lang['form_contact_privacy'] = "Privacy Policy";
 $lang['form_type_filter'] = "Type your filter and press [Enter]";
 $lang['form_relationship'] = "Relationship";
 $lang['form_group'] = "Group";
+$lang['form_view_as'] = "View as";
 
 /* * *
  * Botones

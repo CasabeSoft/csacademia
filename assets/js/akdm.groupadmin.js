@@ -6,7 +6,7 @@ ko.bindingHandlers.jqDatepicker = {
        $(element).datepicker({
            changeMonth: true, 
            changeYear: true, 
-           yearRange: (currentYear - 90) + ':' + (currentYear + 10)
+           yearRange: (currentYear - 10) + ':' + (currentYear + 10)
        });
     }
 };
@@ -36,9 +36,19 @@ akdm.GroupsViewModel = function() {
         });
     });
     self.currentGroup = ko.observable();
+    self.currentList = ko.observableArray();
+    self.currentAssistance = ko.observableArray();
+
+    self.setCurrentList = function (list) {
+        self.currentList.removeAll();
+        $(list).each(function (index, contact) {
+            self.currentList.push(akdm.model.Contact.fromJSON(contact));
+        });
+    };
 
     self.selectGroup = function (group) {
         self.currentGroup(group);
+        $.get('/contact/get').done(self.setCurrentList).fail(self._showError);
     };   
 
     self.newGroup = function () {

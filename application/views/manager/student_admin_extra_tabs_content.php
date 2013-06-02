@@ -85,9 +85,13 @@
     <div class="row-fluid newComponentGroup">
         <!-- Datos escolares -->
         <div class="span4">
-            <label for="tbxSchoolAcademicPeriod"><?php echo lang('form_school_academic_period'); ?></label>
-            <input type="text" id="tbxSchoolAcademicPeriod" placeholder="20XX-20YY" class="input-block-level" 
-                   data-bind="value: school_academic_period" />
+            <label for="cbxSchoolLevel"><?php echo lang('form_school_level'); ?></label>
+            <select id="cbxSchoolLevel" class="input-block-level" data-bind="value: school_level">
+                <option value="">--</option>
+                <?php foreach ($schoolLevels as $level) { ?>
+                <option value="<?php echo $level["id"]?>"><?php echo $level["name"] ?></option>
+                <?php } ?>
+            </select>
         </div>
         <div class="span8">
             <label for="txtSchoolName"><?php echo lang('form_school_name'); ?></label>
@@ -96,13 +100,15 @@
         </div>
     </div>
 </div>
-<div id="familyData" class="tab-pane" > <!-- data-bind="with: currentContact" -->
+<div id="familyData" class="tab-pane">
     <div class="row-fluid">
         <ul class="family thumbnails">
             <!-- ko foreach: familyList -->
             <li class="span2">
                 <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
-                    <img src="/assets/img/personal.png" alt="">
+                    <img data-bind="attr: {
+                         alt: first_name,
+                         src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
                 </a>
                 <strong data-bind="text: first_name"></strong>
                 <p data-bind="text: relationship_code"></p>
@@ -143,7 +149,11 @@
     </div>
     <div class="row-fluid" data-bind="with: currentFamily">
     <?php
-        $this->load->view('manager/contact_admin_contact_data');
+        $data = [
+            'pictureDialogId' => 'currentFamilyPicture',
+            'pictureDialogBind' => '$root.currentFamily'
+        ];
+        $this->load->view('manager/contact_admin_contact_data', $data);
     ?>
     </div>
 </div>

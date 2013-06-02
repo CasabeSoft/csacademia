@@ -11,7 +11,8 @@ class Student extends Basic_controller {
     var $levels;
     var $academicPeriods;
     var $leaveReasons;
-    VAR $relationships;
+    var $relationships;
+    var $schoolLevels;
     
     public function __construct() {
         parent::__construct();
@@ -30,6 +31,7 @@ class Student extends Basic_controller {
         $this->academicPeriods = $this->db->select("code, name")->from('academic_period')->get()->result_array();
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
         $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
+        $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
         $this->load_page('student_admin');
     }
     

@@ -13,37 +13,55 @@ ko.bindingHandlers.jqDatepicker = {
 
 ko.bindingHandlers.jqFileUpload = {
     init: function(element, valueAccessor) {
-       $(element).fileupload({
+        var pictureDialogId = $(element).data('parent-dialog');
+        $(element).fileupload({
             maxFileSize: 2048,
             dataType: 'json',
-            done: function (e, data) {
+            done: function(e, data) {
                 var value = valueAccessor();
                 value().picture(data.result.picture);
-                setTimeout(function () { 
+                setTimeout(function() {
                     $('#progress .bar').css('width', '0%');
-                    $('#pictureDialog').modal('hide'); 
+                    $(pictureDialogId).modal('hide');
                 }, 1000);
             },
-            progressall: function (e, data) {
+            progressall: function(e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .bar').css('width', progress + '%');
             },
-            fail: function (e, data) {
-                setTimeout(function () { 
+            fail: function(e, data) {
+                setTimeout(function() {
                     $('#progress .bar').css('width', '0%');
-                    $('#pictureDialog').modal('hide'); 
-                    akdm.ui.Feedback.show('#msgFeedback', 
-                        // TODO: cambiar literal de cadena por cadena parametrizada.
-                        'Es posible que la foto indicada sea demaciado grande o el fichero ya no exista.', 
-                        akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+                    $(pictureDialogId).modal('hide');
+                    akdm.ui.Feedback.show('#msgFeedback',
+                            // TODO: cambiar literal de cadena por cadena parametrizada.
+                            'Es posible que la foto indicada sea demaciado grande o el fichero ya no exista.',
+                            akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
                 }, 1000);
             }
         });
     },
-    update: function (element, valueAccessor) {
-        var currentContact = ko.utils.unwrapObservable(valueAccessor());
-        var url = '/picture/upload/contact/' + currentContact.id();
-        $(element).fileupload('option', 'url', url);
+    update: function(element, valueAccessor) {
+        var contact = ko.utils.unwrapObservable(valueAccessor());
+        if (contact) {
+            var url = '/picture/upload/contact/' + contact.id();
+            $(element).fileupload('option', 'url', url);
+        }
+    }
+};
+
+ko.bindingHandlers.jqValidator = {
+    init: function(element) {
+        $(element).validate({
+            ignore: '',
+            highlight: function(element) {
+                $(element).closest('div').addClass('error');
+            },
+            success: function(element) {
+                element
+                .closest('div').removeClass('error');
+            } 
+        });
     }
 };
 
@@ -158,31 +176,5 @@ akdm.ContactsViewModel = function() {
         self.currentContact(new self._ContactPrototype());
         $.get(self._get).done(self.setContacts).fail(self._showError);
         self._strings = $.extend(self._strings, strings);
-        $("#frm").validate({
-            ignore: '',
-            highlight: function(element) {
-                $(element).closest('div').addClass('error');
-            },
-            success: function(element) {
-                element
-                .closest('div').removeClass('error');
-            } 
-        });
-        $('#fileupload').fileupload({
-            url: self.uploadUrl(),
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo('#files');
-                });
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .bar').css(
-                    'width',
-                    progress + '%'
-                );
-            }
-        });
     };
 };

@@ -12,7 +12,7 @@ class Student_model extends CI_Model {
         "contact_id",
         "center_id", 
         "start_date", 
-        "school_academic_period", 
+        "school_level", 
         "school_name", 
         "language_years", 
         "pref_start_time", 
@@ -33,7 +33,8 @@ class Student_model extends CI_Model {
         'current_level_code',
         'leave_reason_code',
         'start_date',
-        'end_date'
+        'end_date',
+        'school_level'
     ];
     
     public function __construct() {

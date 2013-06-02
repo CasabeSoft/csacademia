@@ -129,7 +129,7 @@ akdm.model = (function() {
         this.contact_id = ko.observable("");
         this.center_id = ko.observable("");
         this.start_date = ko.observable("");
-        this.school_academic_period = ko.observable("");
+        this.school_level = ko.observable("");
         this.school_name = ko.observable("");
         this.language_years = ko.observable("");
         this.pref_start_time = ko.observable("");
@@ -154,7 +154,7 @@ akdm.model = (function() {
                     "contact_id": student.contact_id(),
                     "center_id": student.center_id(),
                     "start_date": akdm.tools.locale2dbDateStr(student.start_date()),
-                    "school_academic_period": student.school_academic_period(),
+                    "school_level": student.school_level(),
                     "school_name": student.school_name(),
                     "language_years": student.language_years(),
                     "pref_start_time": student.pref_start_time(),
@@ -177,7 +177,7 @@ akdm.model = (function() {
         this.contact_id(studentJSON.contact_id);
         this.center_id(studentJSON.center_id);
         this.start_date(akdm.tools.db2LocaleDateStr(studentJSON.start_date || ""));
-        this.school_academic_period(studentJSON.school_academic_period);
+        this.school_level(studentJSON.school_level);
         this.school_name(studentJSON.school_name);
         this.language_years(studentJSON.language_years);
         this.pref_start_time(studentJSON.pref_start_time);
