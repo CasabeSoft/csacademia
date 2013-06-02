@@ -18,6 +18,23 @@ akdm.GroupsViewModel = function() {
     self._update = '/group/update';
     self._delete = '/group/delete/';
     self._GroupPrototype = akdm.model.Group;
+    self._students_get = '/group/students_get/';
+    var student_add = '/group/student_add';
+    var student_update = '/group/student_update';
+    var student_delete = '/group/student_delete/';
+    
+    self.studentList = ko.observableArray();
+    self.currentStudent = ko.observable();
+    
+    self.selectStudent = function (student) {
+        self.currentStudent(student);
+    };
+    
+    self.newStudent = function () {
+        var newStudent = new akdm.model.Students_by_groups();
+        self.currentStudent(newStudent);
+    };
+    
     self._strings = {
         group_created: 'Grupo creado satisfactoriamente.',
         group_updated: 'Grupo actualizado satisfactoriamente.',
@@ -46,9 +63,19 @@ akdm.GroupsViewModel = function() {
         });
     };
 
+    self.setStudentList = function (studentList) {
+        self.studentList.removeAll();
+        $(studentList).each(function (index, student) {
+            self.studentList.push(akdm.model.Student.fromJSON(student));
+        });
+    };
+
     self.selectGroup = function (group) {
         self.currentGroup(group);
-        $.get('/contact/get').done(self.setCurrentList).fail(self._showError);
+        // Cargar listado de estudiantes.
+        self.currentStudent(new akdm.model.Student());
+        //self.setStudentList([{first_name: 'Estudiante 1', picture: ''}]);
+        $.get(self._students_get + group.id()).done(self.setStudentList).fail(self._showError);
     };   
 
     self.newGroup = function () {
@@ -130,5 +157,6 @@ akdm.GroupsViewModel = function() {
                 .closest('div').removeClass('error');
             } 
         });
+        self.currentStudent(new akdm.model.Student());
     };
 };
