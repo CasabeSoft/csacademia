@@ -76,6 +76,16 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
+    
+    public function students_get($id) {
+        header("Content-type:text/json");
+        try {
+            $this->load->model('Student_by_group_model');
+            echo json_encode($this->Student_by_group_model->get_all($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
 
 }
 

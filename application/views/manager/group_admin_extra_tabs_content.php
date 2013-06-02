@@ -116,6 +116,26 @@
         </div>
     </div>
 </div>
-<div id="studentData" class="tab-pane" data-bind="">
-
+<div id="studentData" class="tab-pane" >
+    <div class="row-fluid">
+        
+        <ul class="family thumbnails">
+            <!-- ko foreach: studentList -->
+            <li class="span2">
+                <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
+                    <img  alt="" 
+                          data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                </a>
+                <strong data-bind="text: first_name"></strong>
+            </li>
+            <!-- /ko -->
+            <li class="span2 add">
+                <a href="#" class="thumbnail" data-bind="click: $root.newStudent">
+                    <div><img src="/assets/img/personal.png" alt=""></div>
+                </a>
+                <strong><?php echo lang('btn_new'); ?></strong>
+                <p></p>
+            </li>            
+        </ul>
+    </div>
 </div>

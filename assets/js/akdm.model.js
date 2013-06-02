@@ -319,7 +319,7 @@ akdm.model = (function() {
     Students_by_groups.toJSON = function(students_by_groups) {
         return {
             "groups_id": students_by_groups.groups_id(),
-            "student_id": students_by_groups.student_id(),
+            "student_id": students_by_groups.student_id()
         };
     };
 
