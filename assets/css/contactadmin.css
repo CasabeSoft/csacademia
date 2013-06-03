@@ -42,29 +42,35 @@
     display: block;
 }
 
-.family.thumbnails .thumbnail img {
-    height: 70px;
-    width: 70px;
+.list.thumbnails li.medium {
+    width: 120px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    float: left;
 }
 
-.family.thumbnails .add {
+.list.thumbnails .thumbnail img {
+    height: 120px;
+}
+
+.list.thumbnails .add {
     color: gray;
 }
 
-.family.thumbnails .add:hover {
+.list.thumbnails .add:hover {
     color: inherit;
     cursor: pointer;
 }
 
-.family.thumbnails .add .thumbnail div {
-    height: 70px;
+.list.thumbnails .add .thumbnail div {
+    height: 120px;
     background-image: url(/assets/img/edit-add-3_gray.png);
     background-position:center; 
     background-repeat:no-repeat;
 }
 
-.family.thumbnails .add:hover .thumbnail div {
-    background-size: 70px;
+.list.thumbnails .add:hover .thumbnail div {
+    background-size: 120px;
     background-image: url(/assets/img/personal_gray.png);
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;

@@ -15,13 +15,11 @@
             </div>
         </div>
     </div>
-    <div class="row-fluid">
-        <ul class="thumbnails" data-bind="foreach: currentList">
-            <li class="span3">
-              <a href="#" class="thumbnail">
-                <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
-              </a>
-            </li>
-        </ul>
-    </div>
+    <ul class="list thumbnails" data-bind="foreach: currentList">
+        <li class="medium">
+          <a href="#" class="thumbnail">
+            <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+          </a>
+        </li>
+    </ul>
 </div>

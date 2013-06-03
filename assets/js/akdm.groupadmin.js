@@ -72,6 +72,7 @@ akdm.GroupsViewModel = function() {
 
     self.selectGroup = function (group) {
         self.currentGroup(group);
+        $.get('/contact/get').done(self.setCurrentList).fail(self._showError);
         // Cargar listado de estudiantes.
         self.currentStudent(new akdm.model.Student());
         //self.setStudentList([{first_name: 'Estudiante 1', picture: ''}]);

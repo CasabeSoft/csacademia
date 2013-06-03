@@ -101,28 +101,26 @@
     </div>
 </div>
 <div id="familyData" class="tab-pane">
-    <div class="row-fluid">
-        <ul class="family thumbnails">
-            <!-- ko foreach: familyList -->
-            <li class="span2">
-                <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
-                    <img data-bind="attr: {
-                         alt: first_name,
-                         src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
-                </a>
-                <strong data-bind="text: first_name"></strong>
-                <p data-bind="text: relationship_code"></p>
-            </li>
-            <!-- /ko -->
-            <li class="span2 add">
-                <a href="#" class="thumbnail" data-bind="click: $root.newFamily">
-                    <div></div>
-                </a>
-                <strong><?php echo lang('btn_new'); ?></strong>
-                <p></p>
-            </li>            
-        </ul>
-    </div>
+    <ul class="list thumbnails">
+        <!-- ko foreach: familyList -->
+        <li class="medium">
+            <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
+                <img data-bind="attr: {
+                     alt: first_name,
+                     src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+            </a>
+            <strong data-bind="text: first_name"></strong>
+            <p data-bind="text: relationship_code"></p>
+        </li>
+        <!-- /ko -->
+        <li class="medium add">
+            <a href="#" class="thumbnail" data-bind="click: $root.newFamily">
+                <div></div>
+            </a>
+            <strong><?php echo lang('btn_new'); ?></strong>
+            <p></p>
+        </li>            
+    </ul>
     <div class="row-fluid">
         <legend data-bind="with: currentFamily">
                 <span data-bind="text: full_name() + '&nbsp;'"></span>
