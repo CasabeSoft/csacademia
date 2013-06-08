@@ -22,11 +22,13 @@ class Group extends Basic_controller {
         $this->title = lang('page_manage_groups');
         $this->subject = lang('subject_group');
         $this->load->model('General_model');
+        $this->load->model('Student_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name');
         $this->classrooms = $this->General_model->get_fields('classroom', 'id, name');
         $this->teachers = $this->General_model->get_fields('view_teacher', 'contact_id, full_name');
         $this->levels = $this->General_model->get_fields('level', 'code, description');
         $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->students = $this->Student_model->get_all();
         $this->load_page('group_admin');
     }
 
@@ -82,6 +84,38 @@ class Group extends Basic_controller {
         try {
             $this->load->model('Student_by_group_model');
             echo json_encode($this->Student_by_group_model->get_all($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function student_delete($student_id, $groups_id) {
+        header("Content-type:text/json");
+        try {
+            $this->load->model('Student_by_group_model');
+            echo json_encode($this->Student_by_group_model->delete($student_id, $groups_id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function student_add() {
+        header("Content-type:text/json");
+        try {
+            $student = $this->input->post();
+            $this->load->model('Student_by_group_model');
+            echo json_encode($this->Student_by_group_model->add($student));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function student_update() {
+        header("Content-type:text/json");
+        try {
+            $student = $this->input->post();
+            $this->load->model('Student_by_group_model');
+            echo json_encode($this->Student_by_group_model->update($student));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

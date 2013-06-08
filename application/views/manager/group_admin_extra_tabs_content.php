@@ -138,5 +138,30 @@
             </li>            
         </ul>
     </div>
+    
+    <div class="row-fluid">
+        <legend data-bind="with: currentStudent">
+            <span data-bind="text: full_name() + '&nbsp;'"></span>
+            <div class="pull-right">
+                <button class="btn btn-small" data-bind="click: $root.saveStudent">
+                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                </button>
+                <button class="btn btn-small btn-danger" data-bind="click: $root.removeStudent">
+                    <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                </button>
+            </div>
+        </legend>
+    </div>
+    <div class="row-fluid" data-bind="with: currentStudent">
+        <div class="span4">
+            <label for="lbxRelationship"><?php echo lang('menu_student'); ?></label>
+            <select id="lbxRelationship" class="input-block-level" data-bind="value: contact_id">
+                <option value="">--</option>
+                <?php foreach ($students as $student) { ?>
+                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] ?></option>
+                <?php } ?>
+            </select>
+        </div> 
+    </div>
 </div>
 <?php $this->load->view('manager/group_admin_extra_tabs_content_assistance') ?>

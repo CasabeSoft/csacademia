@@ -34,6 +34,29 @@ class Student_by_group_model extends CI_Model {
         }
         return $this->db->from('students_by_groups')->count_all_results();
     }
+    
+    public function delete($student_id, $groups_id) {
+        $this->db->delete('students_by_groups', 'student_id = '.$student_id.' AND groups_id = '.$groups_id);         
+        return $student_id;        
+    }
+    
+    public function add($student) {
+        $student['client_id'] = $this->client_id; 
+        $student['contact_id'] = $id;    
+        $this->db->insert('students_by_groups', substract_fields($student, $this->FIELDS));
+        return $id;
+    }
+    
+    public function update($student) {
+
+        //$student['client_id'] = $this->client_id; 
+        //$student_id = $family['student_id'];
+        //$cleanFamily = substract_fields($student, $this->FIELDS);
+       // unset($cleanFamily['student_id']);
+        //unset($cleanFamily['contact_id']);
+        $this->db->update('students_by_groups', $cleanFamily, 'groups_id = '.$id.' AND student_id = '.$student_id);
+        return $id;
+    }
    
 }
 
