@@ -38,12 +38,16 @@ class Basic_controller extends MY_Controller {
     }
 
     public function load_centers() {
-
         $cliente_id = $this->session->userdata('client_id');
         if (!empty($cliente_id)) {
             $this->load->model('General_model');
             $this->centers = $this->General_model->get_all_centers($cliente_id);
         }
+    }
+    
+    public function setup_ajax_response_headers() {
+        header("Content-type: text/json");
+        header("Expires: -1");  // HACK! Necesario para evitar que el IE cachee las llamadas AJAX.
     }
 
 }

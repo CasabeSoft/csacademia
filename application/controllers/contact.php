@@ -34,7 +34,7 @@ class Contact extends Basic_controller {
     }
     
     public function get() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             // throw new Exception('Error simulado', '-1');
             $this->load->model('Contact_model');
@@ -45,7 +45,7 @@ class Contact extends Basic_controller {
     }
     
     public function add() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
             $this->load->model('Contact_model');
@@ -56,7 +56,7 @@ class Contact extends Basic_controller {
     }
     
     public function delete($id) {
-            header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->delete($id));
@@ -66,7 +66,7 @@ class Contact extends Basic_controller {
     }
     
     public function update() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
             $this->load->model('Contact_model');

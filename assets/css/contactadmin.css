@@ -42,7 +42,7 @@
     display: block;
 }
 
-.list.thumbnails li.medium {
+.list.thumbnails .medium {
     width: 120px;
     margin-left: 30px;
     margin-bottom: 20px;
@@ -50,7 +50,7 @@
 }
 
 .list.thumbnails .thumbnail img {
-    height: 120px;
+    height: 110px;
 }
 
 .list.thumbnails .add {
@@ -63,18 +63,22 @@
 }
 
 .list.thumbnails .add .thumbnail div {
-    height: 120px;
+    height: 110px;
     background-image: url(/assets/img/edit-add-3_gray.png);
     background-position:center; 
     background-repeat:no-repeat;
 }
 
 .list.thumbnails .add:hover .thumbnail div {
-    background-size: 120px;
+    background-size: 110px;
     background-image: url(/assets/img/personal_gray.png);
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
     -ms-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
+}
+
+.list.thumbnails .medium .name {
+    height: 40px;
 }

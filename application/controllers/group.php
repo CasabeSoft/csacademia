@@ -38,7 +38,7 @@ class Group extends Basic_controller {
     }
 
     public function get() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->get_all());
@@ -48,7 +48,7 @@ class Group extends Basic_controller {
     }
 
     public function add() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $group = $this->input->post();
             $this->load->model('Group_model');
@@ -59,7 +59,7 @@ class Group extends Basic_controller {
     }
 
     public function delete($id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->delete($id));
@@ -69,7 +69,7 @@ class Group extends Basic_controller {
     }
 
     public function update() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $group = $this->input->post();
             $this->load->model('Group_model');
@@ -80,7 +80,7 @@ class Group extends Basic_controller {
     }
     
     public function students_get($id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_by_group_model');
             echo json_encode($this->Student_by_group_model->get_all($id));
@@ -90,7 +90,7 @@ class Group extends Basic_controller {
     }
     
     public function student_delete($student_id, $groups_id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_by_group_model');
             echo json_encode($this->Student_by_group_model->delete($student_id, $groups_id));
@@ -100,7 +100,7 @@ class Group extends Basic_controller {
     }
     
     public function student_add() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $student = $this->input->post();
             $this->load->model('Student_by_group_model');
@@ -111,7 +111,7 @@ class Group extends Basic_controller {
     }
     
     public function student_update() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $student = $this->input->post();
             $this->load->model('Student_by_group_model');

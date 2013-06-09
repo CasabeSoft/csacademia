@@ -77,7 +77,7 @@ akdm.StudentViewModel = function() {
     };
 
         
-    parent = {
+    var parent = {
         selectContact: self.selectContact,
         init: self.init
     };

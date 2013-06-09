@@ -110,7 +110,7 @@
         <h3><?php echo lang('form_photo') ?></h3>
     </div>
     <div class="modal-body">
-        <form class="frmPictureUpload" method="POST" enctype="multipart/form-data" >
+        <!-- <form class="frmPictureUpload" method="POST" enctype="multipart/form-data" > -->
             <span class="btn btn-success fileinput-button">
                 <i class="icon-plus icon-white"></i>
                 <span><?php echo lang('btn_search') ?></span>
@@ -126,6 +126,6 @@
             </div>
             <!-- The container for the uploaded files -->
             <div id="files"></div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>

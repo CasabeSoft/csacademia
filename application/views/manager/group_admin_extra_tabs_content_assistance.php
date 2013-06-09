@@ -17,9 +17,10 @@
     </div>
     <ul class="list thumbnails" data-bind="foreach: currentList">
         <li class="medium">
-          <a href="#" class="thumbnail">
-            <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
-          </a>
+            <a href="#" class="thumbnail">
+              <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+            </a>
+            <p data-bind="text: full_name()" class="name"></p>
         </li>
     </ul>
 </div>

@@ -41,7 +41,7 @@ class Student extends Basic_controller {
     }
     
     public function get() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_all());
@@ -51,7 +51,7 @@ class Student extends Basic_controller {
     }
     
     public function add() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
             $this->load->model('Student_model');
@@ -62,7 +62,7 @@ class Student extends Basic_controller {
     }
     
     public function delete($id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->delete($id));
@@ -72,7 +72,7 @@ class Student extends Basic_controller {
     }
     
     public function update() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
             $this->load->model('Student_model');
@@ -83,7 +83,7 @@ class Student extends Basic_controller {
     }
     
     public function family_get($id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->get_all($id));
@@ -93,7 +93,7 @@ class Student extends Basic_controller {
     }
     
     public function family_delete($student_id, $contact_id) {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->delete($student_id, $contact_id));
@@ -103,7 +103,7 @@ class Student extends Basic_controller {
     }
     
     public function family_add() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $family = $this->input->post();
             $this->load->model('Family_model');
@@ -114,7 +114,7 @@ class Student extends Basic_controller {
     }
     
     public function family_update() {
-        header("Content-type:text/json");
+        $this->setup_ajax_response_headers();
         try {
             $family = $this->input->post();
             $this->load->model('Family_model');

@@ -19,13 +19,6 @@ class Picture extends MY_Controller {
         echo json_encode($error);
     }
     
-    public function upload3($table, $primary_key) {
-        header("Content-type:text/json");
-        $options = ['upload_dir' => '/assets/uploads/files/'.$table.'/'];
-        $uploader = new UploadHandler($options);
-        echo json_encode($uploader->get());
-    }
-    
     public function upload($table, $primary_key) {
         $this->load->model('General_model');
         header("Content-type:text/json");
