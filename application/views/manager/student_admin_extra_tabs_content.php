@@ -5,7 +5,7 @@
             <label for="lbxCurrentLevelCode"><?php echo lang('form_level'); ?></label>
             <select id="lbxCurrentLevelCode" class="input-block-level" data-bind="value: current_level_code">
                 <?php foreach ($levels as $level) { ?>
-                <option value="<?php echo $level["code"]?>"><?php echo $level["description"] ?></option>
+                    <option value="<?php echo $level["code"] ?>"><?php echo $level["description"] ?></option>
                 <?php } ?>
             </select>            
         </div>
@@ -13,7 +13,7 @@
             <label for="lbxAcademicPeriod"><?php echo lang('form_academic_period'); ?></label>
             <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: current_academic_period">
                 <?php foreach ($academicPeriods as $period) { ?>
-                <option value="<?php echo $period["code"]?>"><?php echo $period["name"] ?></option>
+                    <option value="<?php echo $period["code"] ?>"><?php echo $period["name"] ?></option>
                 <?php } ?>
             </select>            
         </div>
@@ -44,7 +44,7 @@
             <select id="lbxLeaveReason" class="input-block-level" data-bind="value: leave_reason_code">
                 <option value="">--</option>
                 <?php foreach ($leaveReasons as $reason) { ?>
-                <option value="<?php echo $reason["code"]?>"><?php echo $reason["description"] ?></option>
+                    <option value="<?php echo $reason["code"] ?>"><?php echo $reason["description"] ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -66,7 +66,7 @@
         <div class="span4">
             <label for="txtBankAccountHolder"><?php echo lang('form_bank_account_holder'); ?></label>
             <input type="text" id="txtBankAccountHolder" placeholder="<?php echo lang('form_first_name'); ?>" class="input-block-level"
-                data-bind="value: bank_account_holder">
+                   data-bind="value: bank_account_holder">
         </div>
         <div class="span2">
             <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
@@ -79,7 +79,7 @@
         <div class="span4">
             <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
             <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
-                data-bind="value: bank_account_number">
+                   data-bind="value: bank_account_number">
         </div>
     </div>
     <div class="row-fluid newComponentGroup">
@@ -89,14 +89,14 @@
             <select id="cbxSchoolLevel" class="input-block-level" data-bind="value: school_level">
                 <option value="">--</option>
                 <?php foreach ($schoolLevels as $level) { ?>
-                <option value="<?php echo $level["id"]?>"><?php echo $level["name"] ?></option>
+                    <option value="<?php echo $level["id"] ?>"><?php echo $level["name"] ?></option>
                 <?php } ?>
             </select>
         </div>
         <div class="span8">
             <label for="txtSchoolName"><?php echo lang('form_school_name'); ?></label>
             <input type="text" id="txtSchoolName" placeholder="<?php echo lang('form_school_name'); ?>" class="input-block-level"
-                data-bind="value: school_name">
+                   data-bind="value: school_name">
         </div>
     </div>
 </div>
@@ -123,15 +123,15 @@
     </ul>
     <div class="row-fluid">
         <legend data-bind="with: currentFamily">
-                <span data-bind="text: full_name() + '&nbsp;'"></span>
-                <div class="pull-right">
-                    <button class="btn btn-small" data-bind="click: $root.saveFamily">
-                        <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
-                    </button>
-                    <button class="btn btn-small btn-danger" data-bind="click: $root.removeFamily">
-                        <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-                    </button>
-                </div>
+            <span data-bind="text: full_name() + '&nbsp;'"></span>
+            <div class="pull-right">
+                <button class="btn btn-small" data-bind="click: $root.saveFamily">
+                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                </button>
+                <button class="btn btn-small btn-danger" data-bind="click: $root.removeFamily">
+                    <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                </button>
+            </div>
         </legend>
     </div>
     <div class="row-fluid" data-bind="with: currentFamily">
@@ -140,18 +140,64 @@
             <select id="lbxRelationship" class="input-block-level" data-bind="value: relationship_code">
                 <option value="">--</option>
                 <?php foreach ($relationships as $relationship) { ?>
-                <option value="<?php echo $relationship["code"]?>"><?php echo $relationship["name"] ?></option>
+                    <option value="<?php echo $relationship["code"] ?>"><?php echo $relationship["name"] ?></option>
                 <?php } ?>
             </select>
         </div> 
     </div>
     <div class="row-fluid" data-bind="with: currentFamily">
-    <?php
+        <?php
         $data = [
             'pictureDialogId' => 'currentFamilyPicture',
             'pictureDialogBind' => '$root.currentFamily'
         ];
         $this->load->view('manager/contact_admin_contact_data', $data);
-    ?>
+        ?>
     </div>
+</div>
+<div id="paymentData" class="tab-pane" data-bind="with: currentPayment">
+    <div class="row-fluid">
+
+        <ul class="family thumbnails">
+            <!-- ko foreach: paymentList -->
+            <li class="span2">
+                <a href="#" class="thumbnail" data-bind="click: $root.selectPayment">
+                </a>
+                <strong data-bind="text: amount"></strong>
+            </li>
+            <!-- /ko -->
+            <!--li class="span2 add">
+                <a href="#" class="thumbnail" data-bind="click: $root.newPayment">
+                    <div><img src="/assets/img/personal.png" alt=""></div>
+                </a>
+                <strong><?php echo lang('btn_new'); ?></strong>
+                <p></p>
+            </li-->            
+        </ul>
+    </div>
+
+    <!--div class="row-fluid">
+        <legend data-bind="with: currentPayment">
+            <span data-bind="text: full_name() + '&nbsp;'"></span>
+            <div class="pull-right">
+                <button class="btn btn-small" data-bind="click: $root.savePayment">
+                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                </button>
+                <button class="btn btn-small btn-danger" data-bind="click: $root.removePayment">
+                    <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                </button>
+            </div>
+        </legend>
+    </div>
+    <div class="row-fluid" data-bind="with: currentPayment">
+        <div class="span4">
+            <label for="lbxRelationship"><?php echo lang('menu_student'); ?></label>
+            <select id="lbxRelationship" class="input-block-level" data-bind="value: contact_id">
+                <option value="">--</option>
+                <?php foreach ($students as $student) { ?>
+                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] ?></option>
+                <?php } ?>
+            </select>
+        </div> 
+    </div-->
 </div>

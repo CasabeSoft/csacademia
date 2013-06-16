@@ -35,6 +35,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php echo lang('menu_student') . ' / ' . lang('menu_group'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li> 
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
@@ -42,7 +43,8 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/catalog/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/catalog/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>                            
+                            <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>   
+                            <li class="<?php echo is_active($current_page, 'payment_type') ?>"><a href="/catalog/payment_type"><?php echo lang('menu_payment_type'); ?></a></li> 
                             <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
                         </ul>

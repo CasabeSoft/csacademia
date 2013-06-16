@@ -29,6 +29,8 @@ $lang['menu_contact'] = "Contacts";
 $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
 $lang['menu_assistance'] = "Assistance";
+$lang['menu_payment'] = "Payments";
+$lang['menu_payment_type'] = "Payment types";
 
 $lang['menu_catalog'] = "Catalog";
 $lang['menu_management'] = "Management";
@@ -68,6 +70,8 @@ $lang['subject_general_data'] = "General data";
 $lang['subject_academic_data'] = "Academic";
 $lang['subject_professional_data'] = "Professional & financial";
 $lang['subject_family_data'] = "Family";
+$lang['subject_payment'] = "Payment";
+$lang['subject_payment_type'] = "Payment type";
 
 /* * *
  * Campos de los formularios
@@ -160,6 +164,11 @@ $lang['form_type_filter'] = "Type your filter and press [Enter]";
 $lang['form_relationship'] = "Relationship";
 $lang['form_group'] = "Group";
 $lang['form_view_as'] = "View as";
+$lang['form_amount'] = "Amount";
+$lang['form_piriod'] = "Piriod";
+$lang['form_student'] = "Student";
+$lang['form_payment_type'] = "Payment type";
+$lang['form_number_months'] = "Number months";
 
 /* * *
  * Botones
@@ -235,6 +244,9 @@ $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
 $lang['page_manage_main'] = "Academic managment system";
+
+$lang['page_manage_payments'] = "Payment managment";
+$lang['page_manage_payment_types'] = "Payment types managment";
 
 $lang['page_login_title'] = "Access to CSAcademia";
 $lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";

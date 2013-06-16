@@ -13,6 +13,21 @@ akdm.StudentViewModel = function() {
     var family_update = '/student/family_update';
     var family_delete = '/student/family_delete/';
     
+    self._payments_get = '/student/payments_get/';
+    
+    self.paymentList = ko.observableArray();
+    self.currentPayment = ko.observable();
+    
+    self.selectPayment = function (payment) {
+        self.currentPayment(payment);
+    };
+    
+    self.newPayment = function () {
+        var newPayment = new akdm.model.Payment();
+        self.currentPayment(newPayment);
+    };
+    
+    
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
     
@@ -91,6 +106,7 @@ akdm.StudentViewModel = function() {
     self.init = function (strings) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
+        self.currentPayment(new akdm.model.Payment());
     };
 };
 

@@ -123,6 +123,16 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
+    
+    public function payments_get($id) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Payment_model');
+            echo json_encode($this->Payment_model->get_all($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
 }
 
 /* End of file teacher.php */

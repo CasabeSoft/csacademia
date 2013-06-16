@@ -29,6 +29,8 @@ $lang['menu_contact'] = "Contactos";
 $lang['menu_qualification'] = "Calificaciones";
 $lang['menu_academic_period'] = "Períodos Académicos";
 $lang['menu_assistance'] = "Asistencia";
+$lang['menu_payment'] = "Pagos";
+$lang['menu_payment_type'] = "Tipos de pago";
 
 $lang['menu_catalog'] = "Catálogo";
 $lang['menu_management'] = "Gestión";
@@ -68,6 +70,8 @@ $lang['subject_general_data'] = "Datos generales";
 $lang['subject_academic_data'] = "Académicos";
 $lang['subject_professional_data'] = "Profesionales y financieros";
 $lang['subject_family_data'] = "Familiares";
+$lang['subject_payment'] = "Pago";
+$lang['subject_payment_type'] = "Tipo de pago";
 
 /* * *
  * Campos de los formularios
@@ -157,9 +161,14 @@ $lang['form_contact_subject_other'] = "Otro asunto";
 $lang['form_contact_privacy_info'] = "He leído la política de privacidad y comprendo que CasabeSoft no hará ningún uso de mis datos, salvo para ponerse en contacto conmigo.";
 $lang['form_contact_privacy'] = "Politica de privacidad";
 $lang['form_type_filter'] = "Teclee el filtro y presione [Enter]";
-$lang['form_relationship'] = "Parentesco";
+$lang['form_relationship'] = "Relación familiar";
 $lang['form_group'] = "Grupo";
 $lang['form_view_as'] = "Ver como";
+$lang['form_amount'] = "Importe";
+$lang['form_piriod'] = "Periodo";
+$lang['form_student'] = "Alumno";
+$lang['form_payment_type'] = "Tipo de pago";
+$lang['form_number_months'] = "Número de meses";
 
 /* * *
  * Botones
@@ -227,7 +236,7 @@ $lang['page_manage_courses'] = "Gestión de cursos";
 $lang['page_manage_school_levels'] = "Gestión de niveles escolares";
 $lang['page_manage_leave_reasons'] = "Gestión de motivos de baja";
 $lang['page_manage_levels'] = "Gestión de niveles";
-$lang['page_manage_relationships'] = "Gestión de relaciones de parentezco";
+$lang['page_manage_relationships'] = "Gestión de relaciones familiares";
 $lang['page_manage_roles'] = "Gestión de roles";
 $lang['page_manage_students'] = "Gestión de alumnos";
 $lang['page_manage_students_by_group'] = "Gestión de alumnos / grupo";
@@ -235,6 +244,8 @@ $lang['page_manage_teachers'] = "Gestión de profesores";
 $lang['page_manage_users'] = "Gestión de usuarios";
 $lang['page_manage_academic_period'] = "Gestión de periodos académicos";
 $lang['page_manage_main'] = "Sistema de gestión académica";
+$lang['page_manage_payments'] = "Gestión de pagos";
+$lang['page_manage_payment_types'] = "Gestión de tipos de pagos";
 
 $lang['page_login_title'] = "Acceder a CS Academia";
 $lang['page_login_title_info'] = "Accede y obtén la información que buscas, gestiona datos y mucho más...";

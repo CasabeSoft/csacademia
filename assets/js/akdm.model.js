@@ -322,6 +322,44 @@ akdm.model = (function() {
             "student_id": students_by_groups.student_id()
         };
     };
+    
+    var Payment = function() {
+        this.id = ko.observable("");
+        this.date = ko.observable("");
+        this.amount = ko.observable("");
+        this.piriod = ko.observable("");
+        this.student_id = ko.observable("");        
+        this.payment_type_id = ko.observable("");
+    };
+
+    Payment.prototype.toJSON = function() {
+        return Payment.toJSON(this);
+    };
+
+    Payment.prototype.fromJSON = function(paymentJSON) {
+        this.id(paymentJSON.id);
+        this.date(paymentJSON.date);
+        this.amount(paymentJSON.amount);
+        this.piriod(paymentJSON.piriod);
+        this.student_id(paymentJSON.student_id);
+        this.payment_type_id(paymentJSON.payment_type_id);        
+        return this;
+    };
+
+    Payment.fromJSON = function(paymentJSON) {
+        return new payment().fromJSON(paymentJSON);
+    };
+
+    Payment.toJSON = function(payment) {
+        return {
+            "id": payment.id(),
+            "date": payment.date(),
+            "amount": payment.amount(),
+            "piriod": payment.piriod(),
+            "student_id": payment.student_id(),
+            "payment_type_id": payment.payment_type_id()
+        };
+    };
 
     return {
         Contact: Contact,
@@ -329,6 +367,7 @@ akdm.model = (function() {
         Student: Student,
         Group: Group,
         Family: Family,
-        Students_by_groups: Students_by_groups
+        Students_by_groups: Students_by_groups,
+        Payment: Payment
     };
 })();
