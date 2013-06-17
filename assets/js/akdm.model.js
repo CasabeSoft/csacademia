@@ -347,7 +347,7 @@ akdm.model = (function() {
     };
 
     Payment.fromJSON = function(paymentJSON) {
-        return new payment().fromJSON(paymentJSON);
+        return new Payment().fromJSON(paymentJSON);
     };
 
     Payment.toJSON = function(payment) {

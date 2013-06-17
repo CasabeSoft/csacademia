@@ -155,7 +155,7 @@
         ?>
     </div>
 </div>
-<div id="paymentData" class="tab-pane" data-bind="with: currentPayment">
+<div id="paymentData" class="tab-pane">
     <div class="row-fluid">
 
         <ul class="family thumbnails">

@@ -90,6 +90,13 @@ akdm.StudentViewModel = function() {
             self.familyList.push(akdm.model.Family.fromJSON(family));
         });
     };
+    
+    self.setPaymentList = function (paymentList) {
+        self.paymentList.removeAll();
+        $(paymentList).each(function (index, payment) {
+            self.paymentList.push(akdm.model.Payment.fromJSON(payment));
+        });
+    };
 
         
     var parent = {
@@ -101,6 +108,8 @@ akdm.StudentViewModel = function() {
         parent.selectContact(contact);
         self.currentFamily(new akdm.model.Family());
         $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
+        self.currentPayment(new akdm.model.Payment());
+        $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
     };    
     
     self.init = function (strings) {
