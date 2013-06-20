@@ -2,7 +2,7 @@
     <h1>Asistencia</h1>
     <div class="row-fluid">
         <div class="span4">
-            <label><?php echo lang('form_date_of_birth'); ?></label>
+            <label><?php echo lang('form_date'); ?></label>
             <input type="text" class="input-block-level" 
                 placeholder="<?php echo lang('date_format_humans') ?>"
                 data-bind="jqDatepicker: new Date()">

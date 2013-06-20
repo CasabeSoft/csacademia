@@ -168,10 +168,6 @@ akdm.ContactsViewModel = function() {
         }
     };
     
-    self.uploadPicture = function() {
-        
-    };
-    
     self.init = function (strings) {
         self.currentContact(new self._ContactPrototype());
         $.get(self._get).done(self.setContacts).fail(self._showError);

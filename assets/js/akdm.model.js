@@ -139,9 +139,9 @@ akdm.model = (function() {
         this.bank_account_number = ko.observable("");
         this.bank_account_holder = ko.observable("");
         this.bank_payment = ko.observable(false);
-        this.current_level_code = ko.observable("");
         this.leave_reason_code = ko.observable("");
         this.end_date = ko.observable("");
+        this.group_id = ko.observable("");
     };
 
     Student.fromJSON = function(studentJSON) {
@@ -164,9 +164,9 @@ akdm.model = (function() {
                     "bank_account_number": student.bank_account_number(),
                     "bank_account_holder": student.bank_account_holder(),
                     "bank_payment": student.bank_payment(),
-                    "current_level_code": student.current_level_code(),
                     "leave_reason_code": student.leave_reason_code(),
-                    "end_date": akdm.tools.locale2dbDateStr(student.end_date())
+                    "end_date": akdm.tools.locale2dbDateStr(student.end_date()),
+                    "group_id": student.group_id(),
                 });
     };
 
@@ -187,9 +187,9 @@ akdm.model = (function() {
         this.bank_account_number(studentJSON.bank_account_number);
         this.bank_account_holder(studentJSON.bank_account_holder);
         this.bank_payment(studentJSON.bank_payment);
-        this.current_level_code(studentJSON.current_level_code);
         this.leave_reason_code(studentJSON.leave_reason_code);
         this.end_date(akdm.tools.db2LocaleDateStr(studentJSON.end_date || ""));
+        this.group_id(studentJSON.group_id);
         return this;
     };
     Student.prototype.toJSON = function() {
@@ -293,9 +293,6 @@ akdm.model = (function() {
     Family.prototype.toJSON = function() {
         return Family.toJSON(this);
     };
-
-
-
 
     var Students_by_groups = function() {
         this.groups_id = ko.observable("");

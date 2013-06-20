@@ -2,16 +2,28 @@
     <div class="row-fluid">
         <!-- Datos de la academia -->
         <div class="span3">
-            <label for="lbxCurrentLevelCode"><?php echo lang('form_level'); ?></label>
-            <select id="lbxCurrentLevelCode" class="input-block-level" data-bind="value: current_level_code">
-                <?php foreach ($levels as $level) { ?>
-                    <option value="<?php echo $level["code"] ?>"><?php echo $level["description"] ?></option>
+            <label for="lbxCenterId"><?php echo lang('form_center'); ?></label>
+            <select id="lbxCenterId" class="input-block-level" data-bind="value: center_id">
+                <?php foreach ($centers as $center) { ?>
+                    <option value="<?php echo $center["id"] ?>" <?php echo $center["id"] == $this->session->userdata('current_center')['id'] ? "selected" : "" ?>>
+                        <?php echo $center["name"] ?>
+                    </option>
                 <?php } ?>
             </select>            
         </div>
         <div class="span3">
+            <label for="lbxCurrentGroupId"><?php echo lang('form_group'); ?></label>
+            <select id="lbxCurrentGroupId" class="input-block-level" data-bind="value: group_id">
+                <option value="">--</option>
+                <?php foreach ($groups as $group) { ?>
+                    <option value="<?php echo $group["id"] ?>"><?php echo $group["name"] ?></option>
+                <?php } ?>
+            </select>            
+        </div>
+        <div class="span3 hidden hide" >
             <label for="lbxAcademicPeriod"><?php echo lang('form_academic_period'); ?></label>
             <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: current_academic_period">
+                <option value="">--</option>
                 <?php foreach ($academicPeriods as $period) { ?>
                     <option value="<?php echo $period["code"] ?>"><?php echo $period["name"] ?></option>
                 <?php } ?>
@@ -110,7 +122,7 @@
                      src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
             <strong data-bind="text: first_name"></strong>
-            <p data-bind="text: relationship_code"></p>
+            <p data-bind="text: $root.relationships[relationship_code()]"></p>
         </li>
         <!-- /ko -->
         <li class="medium add">

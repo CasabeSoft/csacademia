@@ -12,11 +12,11 @@ akdm.StudentViewModel = function() {
     var family_add = '/student/family_add';
     var family_update = '/student/family_update';
     var family_delete = '/student/family_delete/';
-    
     self._payments_get = '/student/payments_get/';
     
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
+    self.relationships = {};
     
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
@@ -112,10 +112,13 @@ akdm.StudentViewModel = function() {
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
     };    
     
-    self.init = function (strings) {
+    self.init = function (strings, relationships) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
+        $(relationships).each(function (index, relationship){
+            self.relationships[relationship.code] = relationship.name;
+        });
     };
 };
 

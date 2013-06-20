@@ -22,19 +22,19 @@ class Student_model extends CI_Model {
         "bank_account_number",
         "bank_account_holder",
         "bank_payment",
-        "current_level_code",
         "leave_reason_code",
         "end_date",
+        "group_id"
     ];
     
     public $NULLABLES = [
         'language_years',
         'current_academic_period',
-        'current_level_code',
         'leave_reason_code',
         'start_date',
         'end_date',
-        'school_level'
+        'school_level',
+        'group_id'
     ];
     
     public function __construct() {
@@ -63,7 +63,6 @@ class Student_model extends CI_Model {
         $student['client_id'] = $this->client_id; 
         $id = $this->Contact_model->add(substract_fields($student, $this->Contact_model->FIELDS));
         $student['contact_id'] = $id;    
-        $student['center_id'] = $this->center_id;   
         $cleanStudent = substract_fields($student, $this->FIELDS);
         $this->db->insert('student', convert_nullables($cleanStudent, $this->NULLABLES));
         $this->db->trans_complete();        
@@ -77,7 +76,6 @@ class Student_model extends CI_Model {
         $cleanStudent = substract_fields($student, $this->FIELDS);
         unset($cleanStudent['id']);
         unset($cleanStudent['contact_id']);
-        $cleanStudent['center_id'] = $this->center_id; 
         $this->db->update('student', convert_nullables($cleanStudent, $this->NULLABLES), 'contact_id = '.$id);
         $this->db->trans_complete(); 
         return $id;
