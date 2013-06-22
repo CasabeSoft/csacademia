@@ -170,46 +170,71 @@
 <div id="paymentData" class="tab-pane">
     <div class="row-fluid">
 
-        <ul class="family thumbnails">
-            <!-- ko foreach: paymentList -->
-            <li class="span2">
-                <a href="#" class="thumbnail" data-bind="click: $root.selectPayment">
-                </a>
-                <strong data-bind="text: amount"></strong>
-            </li>
-            <!-- /ko -->
-            <!--li class="span2 add">
-                <a href="#" class="thumbnail" data-bind="click: $root.newPayment">
-                    <div><img src="/assets/img/personal.png" alt=""></div>
-                </a>
-                <strong><?php echo lang('btn_new'); ?></strong>
-                <p></p>
-            </li-->            
-        </ul>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Periodo</th>
+                    <th>Importe</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach: paymentList -->
+                <tr data-bind="click: $root.selectPayment">
+                    <td data-bind="text: payment_type_name"></td>
+                    <td data-bind="text: piriod"></td>
+                    <td data-bind="text: amount"></td>
+                    <td data-bind="text: date"></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>        
     </div>
 
-    <!--div class="row-fluid">
+    <div class="row-fluid">
         <legend data-bind="with: currentPayment">
-            <span data-bind="text: full_name() + '&nbsp;'"></span>
+            <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
             <div class="pull-right">
+                <button class="btn btn-small" data-bind="click: $root.newPayment">
+                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button>
                 <button class="btn btn-small" data-bind="click: $root.savePayment">
                     <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
                 </button>
+                <button class="btn btn-small" data-bind="click: $root.removePayment">
+                    <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
+                </button>
                 <button class="btn btn-small btn-danger" data-bind="click: $root.removePayment">
                     <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-                </button>
+                </button>                
             </div>
         </legend>
     </div>
     <div class="row-fluid" data-bind="with: currentPayment">
         <div class="span4">
-            <label for="lbxRelationship"><?php echo lang('menu_student'); ?></label>
-            <select id="lbxRelationship" class="input-block-level" data-bind="value: contact_id">
+            <label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label>
+            <select id="lbxRelationship" class="input-block-level" data-bind="value: payment_type_id">
                 <option value="">--</option>
-                <?php foreach ($students as $student) { ?>
-                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] ?></option>
+                <?php foreach ($payments_types as $payment_type) { ?>
+                    <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
                 <?php } ?>
             </select>
-        </div> 
-    </div-->
+        </div>
+        <div class="span4">
+            <label for="lbxPiriod"><?php echo lang('form_piriod'); ?></label>
+            <input type="text" id="lbxPiriod" placeholder="" class="input-block-level" 
+                   data-bind="value: piriod" />
+        </div>
+        <div class="span2">
+            <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
+            <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
+                   data-bind="value: amount" />
+        </div>
+        <div class="span2">
+            <label for="txtDate"><?php echo lang('form_date'); ?></label>
+            <input type="text" id="txtDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
+                   data-bind="value: date, jqDatepicker: date">
+        </div>
+    </div>
 </div>

@@ -26,6 +26,7 @@ class Student extends Basic_controller {
         $this->title = lang('page_manage_students');
         $this->subject = lang('subject_student');
         $this->load->model('Group_model');
+        $this->load->model('General_model');
         $this->editMode = is_null($this->session->userdata('current_center')['id'])
                 ? 'false' : 'true';
         $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
@@ -33,6 +34,7 @@ class Student extends Basic_controller {
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
         $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
         $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
+        $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
         $this->load_page('student_admin');
     }
     
@@ -130,6 +132,38 @@ class Student extends Basic_controller {
         try {
             $this->load->model('Payment_model');
             echo json_encode($this->Payment_model->get_all($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function payment_delete($id) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Payment_model');
+            echo json_encode($this->Payment_model->delete($id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function payment_add() {
+        $this->setup_ajax_response_headers();
+        try {
+            $payment = $this->input->post();
+            $this->load->model('Payment_model');
+            echo json_encode($this->Payment_model->add($payment));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function payment_update() {
+        $this->setup_ajax_response_headers();
+        try {
+            $payment = $this->input->post();
+            $this->load->model('Payment_model');
+            echo json_encode($this->Payment_model->update($payment));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

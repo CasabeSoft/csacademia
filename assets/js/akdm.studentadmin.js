@@ -11,8 +11,11 @@ akdm.StudentViewModel = function() {
     self._family_get = '/student/family_get/';
     var family_add = '/student/family_add';
     var family_update = '/student/family_update';
-    var family_delete = '/student/family_delete/';
+    var family_delete = '/student/family_delete/';    
     self._payments_get = '/student/payments_get/';
+    var payment_add = '/student/payment_add';
+    var payment_update = '/student/payment_update';
+    var payment_delete = '/student/payment_delete/';
     
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
@@ -72,12 +75,56 @@ akdm.StudentViewModel = function() {
         }
     };
     
+    self.savePayment = function() {
+        // TODO: Implementar validación de datos del familiar.
+        if (false || !$('#frm').valid()) {
+            akdm.ui.Feedback.show('#msgFeedback', 
+                self._strings.validation_error, 
+                akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+            return;
+        }
+        
+        var payment = self.currentPayment();
+        if (payment.id())
+            // Actualizar
+            $.post(payment_update, payment.toJSON())
+                .done(function () {
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+                })
+                .fail(self._showError);
+        else {
+            // Insertar
+            payment.student_id(self.currentContact().id());
+            $.post(payment_add, payment.toJSON())
+                .done(function(newId) {
+                    payment.id(newId);
+                    self.paymentList.push(self.currentPayment());
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+                })
+                .fail(self._showError);
+        }
+    };
+    
     self.removeFamily = function() {
         var family = self.currentFamily();
         $.get(family_delete + family.student_id() + '/' + family.id())
             .done(function() {
                 self.familyList.remove(self.currentFamily());
                 self.currentFamily(new akdm.model.Family());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
+                        akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
+            })
+            .fail(self._showError);
+    };
+    
+    self.removePayment = function() {
+        var payment = self.currentPayment();
+        $.get(payment_delete + payment.id())
+            .done(function() {
+                self.paymentList.remove(self.currentPayment());
+                self.currentPayment(new akdm.model.Payment());
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
                         akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
             })
