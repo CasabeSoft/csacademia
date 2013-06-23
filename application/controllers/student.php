@@ -46,8 +46,11 @@ class Student extends Basic_controller {
     public function get() {
         $this->setup_ajax_response_headers();
         try {
+            $filter = $this->input->post();
+            if (! is_array($filter))
+                $filter = [];
             $this->load->model('Student_model');
-            echo json_encode($this->Student_model->get_all());
+            echo json_encode($this->Student_model->get_all($filter));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

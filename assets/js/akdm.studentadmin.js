@@ -16,6 +16,9 @@ akdm.StudentViewModel = function() {
     var payment_add = '/student/payment_add';
     var payment_update = '/student/payment_update';
     var payment_delete = '/student/payment_delete/';
+    self._filter = {
+        "isActive": true
+    };
     
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
@@ -28,8 +31,7 @@ akdm.StudentViewModel = function() {
     self.newPayment = function () {
         var newPayment = new akdm.model.Payment();
         self.currentPayment(newPayment);
-    };
-    
+    };    
     
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
@@ -144,8 +146,7 @@ akdm.StudentViewModel = function() {
             self.paymentList.push(akdm.model.Payment.fromJSON(payment));
         });
     };
-
-        
+    
     var parent = {
         selectContact: self.selectContact,
         init: self.init
@@ -159,6 +160,16 @@ akdm.StudentViewModel = function() {
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
     };    
     
+    self.filterByState = function (event, ui) {
+        self._filter.isActive = event.currentTarget.value;
+        self.loadContacts();
+    };
+    
+    self.loadContacts = function () {
+        self.newContact();
+        $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);  
+    };
+    
     self.init = function (strings, relationships) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
@@ -166,6 +177,8 @@ akdm.StudentViewModel = function() {
         $(relationships).each(function (index, relationship){
             self.relationships[relationship.code] = relationship.name;
         });
+        $('#rdState').buttonset();
+        $('#rdState input').click(self.filterByState);
     };
 };
 

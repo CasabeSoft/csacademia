@@ -29,6 +29,9 @@
                     </tr>
                 </tbody>
             </table>
+            <?php
+                if (isset($filter_panel)) $this->load->view($filter_panel);
+            ?>
         </div>
         <div class="span9">
             <legend data-bind="with: currentContact">

@@ -72,6 +72,7 @@ $lang['subject_professional_data'] = "Profesionales y financieros";
 $lang['subject_family_data'] = "Familiares";
 $lang['subject_payment'] = "Pago";
 $lang['subject_payment_type'] = "Tipo de pago";
+$lang['subject_filter'] = "Filtrar por";
 
 /* * *
  * Campos de los formularios
@@ -169,6 +170,7 @@ $lang['form_piriod'] = "Periodo";
 $lang['form_student'] = "Alumno";
 $lang['form_payment_type'] = "Tipo de pago";
 $lang['form_number_months'] = "Número de meses";
+$lang['form_state'] = "Estado";
 
 /* * *
  * Botones
@@ -191,6 +193,9 @@ $lang['btn_order'] = "Ordenar";
 $lang['btn_new'] = "Nuevo";
 $lang['btn_yes'] = "Si";
 $lang['btn_no'] = "No";
+$lang['btn_active'] = "Activo";
+$lang['btn_inactive'] = "Baja";
+
 
 /***
  * Enlaces

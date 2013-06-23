@@ -82,3 +82,7 @@
 .list.thumbnails .medium .name {
     height: 40px;
 }
+
+.ui-widget {
+    font-size: inherit;
+}
