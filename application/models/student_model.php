@@ -48,7 +48,7 @@ class Student_model extends CI_Model {
         $this->load->model('Contact_model');
     }
     
-    public function get_all($filter) {
+    public function get_all($filter = []) {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
                 ->where('client_id', $this->client_id);

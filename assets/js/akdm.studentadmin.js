@@ -171,7 +171,7 @@ akdm.StudentViewModel = function() {
         $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);  
     };
     
-    self.init = function (strings, relationships) {
+    self.init = function (strings, relationships, paymentTypes) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
