@@ -23,6 +23,7 @@ akdm.StudentViewModel = function() {
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
     self.relationships = {};
+    self.paymentTypes = {};
     
     self.selectPayment = function (payment) {
         self.currentPayment(payment);

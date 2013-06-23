@@ -126,7 +126,7 @@
                     <img  alt="" 
                           data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
                 </a>
-                <strong data-bind="text: first_name"></strong>
+                <strong data-bind="text: full_name()"></strong>
             </li>
             <!-- /ko -->
             <li class="span2 add">
@@ -143,6 +143,9 @@
         <legend data-bind="with: currentStudent">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
             <div class="pull-right">
+                <!--button class="btn btn-small" data-bind="click: $root.newStudent">
+                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button-->
                 <button class="btn btn-small" data-bind="click: $root.saveStudent">
                     <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
                 </button>
@@ -158,7 +161,7 @@
             <select id="lbxRelationship" class="input-block-level" data-bind="value: contact_id">
                 <option value="">--</option>
                 <?php foreach ($students as $student) { ?>
-                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] ?></option>
+                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] . ' ' . $student["last_name"]?></option>
                 <?php } ?>
             </select>
         </div> 

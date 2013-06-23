@@ -168,6 +168,10 @@
     </div>
 </div>
 <div id="paymentData" class="tab-pane">
+                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="click: $root.newPayment">
+                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button>
+
     <div class="row-fluid">
 
         <table class="table table-striped table-bordered table-hover">
@@ -182,7 +186,7 @@
             <tbody>
                 <!-- ko foreach: paymentList -->
                 <tr data-bind="click: $root.selectPayment">
-                    <td data-bind="text: payment_type_name"></td>
+                    <td data-bind="text: $root.paymentTypes[payment_type_id()]"></td>
                     <td data-bind="text: piriod"></td>
                     <td data-bind="text: amount"></td>
                     <td data-bind="text: date"></td>
@@ -192,13 +196,16 @@
         </table>        
     </div>
 
+    <div id="dlgPayments" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Datos del pago</h3>
+            </div>
+        <div class="modal-body">
     <div class="row-fluid">
         <legend data-bind="with: currentPayment">
             <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
             <div class="pull-right">
-                <button class="btn btn-small" data-bind="click: $root.newPayment">
-                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
-                </button>
                 <button class="btn btn-small" data-bind="click: $root.savePayment">
                     <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
                 </button>
@@ -236,5 +243,7 @@
             <input type="text" id="txtDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
                    data-bind="value: date, jqDatepicker: date">
         </div>
+    </div>
+            </div>
     </div>
 </div>
