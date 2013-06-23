@@ -6,6 +6,7 @@
  * @author carlos
  */
 class Payment_model extends CI_Model {
+    private $client_id;
 
     public $FIELDS = [
         "id",
@@ -43,6 +44,7 @@ class Payment_model extends CI_Model {
         $id = $payment['id'];
         $cleanPayment = substract_fields($payment, $this->FIELDS);
         unset($cleanPayment['student_id']);
+        unset($cleanPayment['id']);
         $this->db->update('payment', $cleanPayment, 'id = ' . $id);
         return $id;
     }

@@ -191,6 +191,7 @@ $lang['btn_order'] = "Order";
 $lang['btn_new'] = "New";
 $lang['btn_yes'] = "Yes";
 $lang['btn_no'] = "No";
+$lang['btn_print'] = "Print";
 
 /***
  * Enlaces

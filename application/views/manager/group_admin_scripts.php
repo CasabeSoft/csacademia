@@ -16,7 +16,7 @@
             locale: '<?php echo $this->lang_code ?>'
         });
 
-        var gvm = new akdm.GroupsViewModel();
+        window.gvm = new akdm.GroupsViewModel();
         ko.applyBindings(gvm);
         gvm.init({
             group_created: '<?php echo lang('subject_group') . lang('message_created') ?>',

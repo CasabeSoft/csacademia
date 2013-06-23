@@ -20,6 +20,7 @@ akdm.StudentViewModel = function() {
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
     self.relationships = {};
+    self.paymentTypes = {};
     
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
@@ -159,12 +160,15 @@ akdm.StudentViewModel = function() {
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
     };    
     
-    self.init = function (strings, relationships) {
+    self.init = function (strings, relationships, paymentTypes) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
         $(relationships).each(function (index, relationship){
             self.relationships[relationship.code] = relationship.name;
+        });
+        $(paymentTypes).each(function (index, payment){
+            self.paymentTypes[payment.id] = payment.name;
         });
     };
 };

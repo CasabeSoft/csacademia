@@ -79,21 +79,23 @@ class Group extends Basic_controller {
         }
     }
     
-    public function students_get($id) {
+    public function students_get($groups_id) {
         $this->setup_ajax_response_headers();
         try {
-            $this->load->model('Student_by_group_model');
-            echo json_encode($this->Student_by_group_model->get_all($id));
+            $this->load->model('Student_model');
+            echo json_encode($this->Student_model->get_by_group($groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
     
-    public function student_delete($student_id, $groups_id) {
+    public function student_delete($student_id) {
         $this->setup_ajax_response_headers();
         try {
-            $this->load->model('Student_by_group_model');
-            echo json_encode($this->Student_by_group_model->delete($student_id, $groups_id));
+            $groups_id = 'NULL';
+            
+            $this->load->model('Student_model');
+            echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -102,9 +104,11 @@ class Group extends Basic_controller {
     public function student_add() {
         $this->setup_ajax_response_headers();
         try {
-            $student = $this->input->post();
-            $this->load->model('Student_by_group_model');
-            echo json_encode($this->Student_by_group_model->add($student));
+            $student_id = $this->input->post('contact_id');
+            $groups_id = $this->input->post('group_id');
+            
+            $this->load->model('Student_model');
+            echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -113,9 +117,11 @@ class Group extends Basic_controller {
     public function student_update() {
         $this->setup_ajax_response_headers();
         try {
-            $student = $this->input->post();
-            $this->load->model('Student_by_group_model');
-            echo json_encode($this->Student_by_group_model->update($student));
+            $student_id = $this->input->post('contact_id');
+            $groups_id = $this->input->post('group_id');
+            
+            $this->load->model('Student_model');
+            echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
