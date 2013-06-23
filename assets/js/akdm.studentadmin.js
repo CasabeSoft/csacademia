@@ -178,6 +178,9 @@ akdm.StudentViewModel = function() {
         $(relationships).each(function (index, relationship){
             self.relationships[relationship.code] = relationship.name;
         });
+        $(paymentTypes).each(function (index, payment){
+            self.paymentTypes[payment.id] = payment.name;
+        });
         $('#rdState').buttonset();
         $('#rdState input').click(self.filterByState);
     };
