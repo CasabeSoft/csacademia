@@ -28,7 +28,7 @@ $lang['menu_student'] = "Students";
 $lang['menu_contact'] = "Contacts";
 $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
-$lang['menu_assistance'] = "Assistance";
+$lang['menu_assistance'] = "Attendance";
 $lang['menu_payment'] = "Payments";
 $lang['menu_payment_type'] = "Payment types";
 
@@ -171,6 +171,7 @@ $lang['form_student'] = "Student";
 $lang['form_payment_type'] = "Payment type";
 $lang['form_number_months'] = "Number months";
 $lang['form_state'] = "State";
+$lang['form_attendance'] = "Attendance";
 
 /* * *
  * Botones

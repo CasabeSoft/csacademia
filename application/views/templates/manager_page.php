@@ -32,8 +32,9 @@
         <?php echo $content ?>
         <!-- End page content -->
 
-        <script src="../assets/lib/jquery/1.9.1/jquery.min.js"></script>
-        <script src="../assets/lib/bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script src="/assets/lib/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/jquery-ui.js"></script>
+        <script src="/assets/lib/bootstrap/2.3.1/js/bootstrap.min.js"></script>
         <!-- Start page scripts -->
         <?php echo $scripts ?>
         <!-- End page scripts -->

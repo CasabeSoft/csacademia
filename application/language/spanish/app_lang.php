@@ -171,6 +171,7 @@ $lang['form_student'] = "Alumno";
 $lang['form_payment_type'] = "Tipo de pago";
 $lang['form_number_months'] = "Número de meses";
 $lang['form_state'] = "Estado";
+$lang['form_attendance'] = "Asistencia";
 
 /* * *
  * Botones
