@@ -161,8 +161,8 @@ akdm.StudentViewModel = function() {
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
     };    
     
-    self.filterByState = function (event, ui) {
-        self._filter.isActive = event.currentTarget.value;
+    self.filterByState = function (value, event) {
+        self._filter.isActive = value;
         self.loadContacts();
     };
     
@@ -181,8 +181,6 @@ akdm.StudentViewModel = function() {
         $(paymentTypes).each(function (index, payment){
             self.paymentTypes[payment.id] = payment.name;
         });
-        $('#rdState').buttonset();
-        $('#rdState input').click(self.filterByState);
     };
 };
 

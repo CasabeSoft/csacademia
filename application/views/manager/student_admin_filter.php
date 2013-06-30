@@ -9,9 +9,9 @@
             </div>
             <div id="collapseOne" class="accordion-body collapse">
                 <div class="accordion-inner">
-                    <div id="rdState">
-                        <input type="radio" id="rdActive" name="rdState" checked="checked" value="true" /><label for="rdActive"><?php echo lang('btn_active')?></label>
-                        <input type="radio" id="rdInactive" name="rdState" value="false" /><label for="rdInactive"><?php echo lang('btn_inactive')?></label>
+                    <div class="btn-group" data-toggle="buttons-radio">
+                        <button type="button" class="btn active" data-bind="click: filterByState.bind($data, true)"><?php echo lang('btn_active')?></button>
+                        <button type="button" class="btn" data-bind="click: filterByState.bind($data, false)" ><?php echo lang('btn_inactive')?></button>
                     </div>
                 </div>
             </div>
