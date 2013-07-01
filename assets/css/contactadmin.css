@@ -49,6 +49,15 @@
     float: left;
 }
 
+.list.thumbnails .medium a {
+    position: relative;
+}
+
+.list.thumbnails .medium a input[type=checkbox] {
+    position: absolute;
+    right: 10px;
+}
+
 .list.thumbnails .thumbnail img {
     height: 110px;
 }
@@ -81,4 +90,8 @@
 
 .list.thumbnails .medium .name {
     height: 40px;
+}
+
+.ui-widget {
+    font-size: inherit;
 }

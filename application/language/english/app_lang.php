@@ -28,7 +28,7 @@ $lang['menu_student'] = "Students";
 $lang['menu_contact'] = "Contacts";
 $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
-$lang['menu_assistance'] = "Assistance";
+$lang['menu_assistance'] = "Attendance";
 $lang['menu_payment'] = "Payments";
 $lang['menu_payment_type'] = "Payment types";
 
@@ -72,6 +72,7 @@ $lang['subject_professional_data'] = "Professional & financial";
 $lang['subject_family_data'] = "Family";
 $lang['subject_payment'] = "Payment";
 $lang['subject_payment_type'] = "Payment type";
+$lang['subject_filter'] = "Filter by";
 
 /* * *
  * Campos de los formularios
@@ -169,6 +170,8 @@ $lang['form_piriod'] = "Piriod";
 $lang['form_student'] = "Student";
 $lang['form_payment_type'] = "Payment type";
 $lang['form_number_months'] = "Number months";
+$lang['form_state'] = "State";
+$lang['form_attendance'] = "Attendance";
 
 /* * *
  * Botones
@@ -191,7 +194,8 @@ $lang['btn_order'] = "Order";
 $lang['btn_new'] = "New";
 $lang['btn_yes'] = "Yes";
 $lang['btn_no'] = "No";
-$lang['btn_print'] = "Print";
+$lang['btn_active'] = "Active";
+$lang['btn_inactive'] = "Inactive";
 
 /***
  * Enlaces

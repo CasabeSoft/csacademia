@@ -36,21 +36,41 @@ class Student_model extends CI_Model {
         'school_level',
         'group_id'
     ];
-
+    
+    private $DEFAUL_FILTER = [
+        'isActive' => 'true'
+    ];
+    
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
         $this->load->model('Contact_model');
     }
-
-    public function get_all() {
+    
+    public function get_all($filter = []) {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
                 ->where('client_id', $this->client_id);
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
-        return $this->db->get()->result_array();
+        foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
+            $value = array_key_exists($key, $filter)
+                    ? $filter[$key]
+                    : $defaultValue;
+            switch ($key)
+            {
+                case 'isActive':
+                    if ($value == 'true')
+                        $this->db->where('end_date IS NULL');
+                    else 
+                        $this->db->where('end_date IS NOT NULL');
+                    break;
+                default :
+                    $this->db->where($key, $value);
+            }            
+        }
+        return $this->db->get()->result_array();          
     }
 
     public function get_by_group($groups_id) {

@@ -25,6 +25,13 @@ akdm.GroupsViewModel = function() {
 
     self.studentList = ko.observableArray();
     self.currentStudent = ko.observable();
+    self.viewStudentsAsList = ko.observable(false);
+    self.viewDailyAttendance = ko.observable(true);
+    self.currentDate = ko.observable($.datepicker.formatDate(akdm.config.localeDateFormat, new Date()));
+
+    self.getCurrentMonth = function () {
+        return $.datepicker.formatDate("MM / yy", $.datepicker.parseDate(akdm.config.localeDateFormat, self.currentDate()));
+    };
 
     self.selectStudent = function(student) {
         self.currentStudent(student);
@@ -33,6 +40,14 @@ akdm.GroupsViewModel = function() {
     self.newStudent = function() {
         var newStudent = new akdm.model.Student();
         self.currentStudent(newStudent);
+    };
+
+    self.setViewStudentsAsList = function (viewAsList, event) {
+        self.viewStudentsAsList(viewAsList);
+    };
+    
+    self.setViewDailyAttendance = function (viewDaily) {
+        self.viewDailyAttendance(viewDaily);
     };
 
     self._strings = {
