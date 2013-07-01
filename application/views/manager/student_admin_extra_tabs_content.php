@@ -168,82 +168,106 @@
     </div>
 </div>
 <div id="paymentData" class="tab-pane">
-                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="click: $root.newPayment">
-                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
-                </button>
+    <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="click: $root.newPayment">
+        <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+    </button>
 
+    <div class="btn-group">
+        <button class="btn" data-target="_blank" data-bind="enable: paymentList().length > 0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" data-bind="visible: paymentList().length > 0 && currentPayment().id() > 0">
+            <li data-bind="click: $root.printPayment"><a href="#" >Imprimir activo</a></li>
+        </ul>
+    </div>
+
+    <!--button class="btn btn-small" data-target="_blank" data-bind="enable: paymentList().length > 0, click: $root.printPayments" title="<?php echo lang('btn_print'); ?>">
+        <i class="icon-print"></i> Imprimir listado<?php //echo lang('btn_print');   ?>
+    </button-->
+
+    <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: paymentList().length > 0 && currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
+        <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
+    </button>
+    <!--button class="btn btn-small" data-bind="enable: paymentList().length > 0 && currentPayment().id() > 0, click: $root.printPayment" title="<?php echo lang('btn_print'); ?>">
+        <i class="icon-print"></i> <?php //echo lang('btn_print'); ?>
+    </button-->
+    <button class="btn btn-small btn-danger" data-bind="enable: paymentList().length > 0 && currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
+        <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+    </button>
+
+
+    <br><br>
     <div class="row-fluid">
 
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover ">
             <thead>
                 <tr>
-                    <th>Tipo</th>
-                    <th>Periodo</th>
-                    <th>Importe</th>
-                    <th>Fecha</th>
+                    <th><?php echo lang('form_payment_type'); ?></th>
+                    <th><?php echo lang('form_piriod'); ?></th>
+                    <th><?php echo lang('form_amount'); ?></th>
+                    <th><?php echo lang('form_date'); ?></th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- ko foreach: paymentList -->
-                <tr data-bind="click: $root.selectPayment">
-                    <td data-bind="text: $root.paymentTypes[payment_type_id()]"></td>
+            <tbody data-bind="foreach: paymentList">
+                <tr data-bind="click: $root.selectPayment" >
+                    <td data-bind="text: $root.paymentTypes[payment_type_id()]">
+                        <input type="text" data-bind="visible: $root.isInEditRowMode(id)">
+                    </td>
                     <td data-bind="text: piriod"></td>
                     <td data-bind="text: amount"></td>
-                    <td data-bind="text: date"></td>
+                    <td data-bind="text: date"></td>                   
                 </tr>
-                <!-- /ko -->
             </tbody>
         </table>        
     </div>
 
     <div id="dlgPayments" class="modal hide fade">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Datos del pago</h3>
-            </div>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Datos del pago</h3>
+        </div>
         <div class="modal-body">
-    <div class="row-fluid">
-        <legend data-bind="with: currentPayment">
-            <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
-            <div class="pull-right">
-                <button class="btn btn-small" data-bind="click: $root.savePayment">
-                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
-                </button>
-                <button class="btn btn-small" data-bind="click: $root.removePayment">
-                    <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
-                </button>
-                <button class="btn btn-small btn-danger" data-bind="click: $root.removePayment">
-                    <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-                </button>                
+
+            <div class="row-fluid" data-bind="with: currentPayment">
+                <div class="span3">
+                    <label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label>
+                    <select id="lbxRelationship" class="input-block-level" data-bind="value: payment_type_id">
+                        <option value="">--</option>
+                        <?php foreach ($payments_types as $payment_type) { ?>
+                            <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="span4">
+                    <label for="lbxPiriod"><?php echo lang('form_piriod'); ?></label>
+                    <input type="text" id="lbxPiriod" placeholder="" class="input-block-level" 
+                           data-bind="value: piriod" />
+                </div>
+                <div class="span2">
+                    <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
+                    <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
+                           data-bind="value: amount" />
+                </div>
+                <div class="span3">
+                    <label for="txtDate"><?php echo lang('form_date'); ?></label>
+                    <input type="text" id="txtDate" placeholder="dd/mm/aaaa" class="input-block-level"
+                           data-bind="value: date, jqDatepicker: date">
+                </div>
             </div>
-        </legend>
-    </div>
-    <div class="row-fluid" data-bind="with: currentPayment">
-        <div class="span4">
-            <label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label>
-            <select id="lbxRelationship" class="input-block-level" data-bind="value: payment_type_id">
-                <option value="">--</option>
-                <?php foreach ($payments_types as $payment_type) { ?>
-                    <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="span4">
-            <label for="lbxPiriod"><?php echo lang('form_piriod'); ?></label>
-            <input type="text" id="lbxPiriod" placeholder="" class="input-block-level" 
-                   data-bind="value: piriod" />
-        </div>
-        <div class="span2">
-            <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
-            <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
-                   data-bind="value: amount" />
-        </div>
-        <div class="span2">
-            <label for="txtDate"><?php echo lang('form_date'); ?></label>
-            <input type="text" id="txtDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
-                   data-bind="value: date, jqDatepicker: date">
-        </div>
-    </div>
+            <div class="row-fluid">
+                <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
+                <legend data-bind="with: currentPayment">
+                    <div class="pull-right">
+                        <button class="btn btn-small" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
+                            <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                        </button>                       
+                        <button class="btn btn-small" aria-hidden="true" data-dismiss="modal">
+                            <i class="icon-remove-sign"></i> <?php echo lang('btn_close'); ?>
+                        </button>                
+                    </div>
+                </legend>
             </div>
+        </div>
     </div>
 </div>

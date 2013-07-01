@@ -27,9 +27,17 @@ class Payment_model extends CI_Model {
                         ->from('payment')
                         ->join('payment_type', 'payment.payment_type_id = payment_type.id')
                         ->where('student_id', $student_id)
-                        ->get()->result_array();
+                        ->get()->result_array(); 
     }
-
+    
+    public function get_payment_id($id) {
+        return $this->db->select("payment.*, payment_type.name AS payment_type_name")
+                        ->from('payment')
+                        ->join('payment_type', 'payment.payment_type_id = payment_type.id')
+                        ->where('payment.id', $id)
+                        ->get()->row_array(); 
+    }
+    
     public function delete($id) {
         $this->db->delete('payment', 'id = ' . $id);
         return $id;
