@@ -178,7 +178,7 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" data-bind="visible: paymentList().length > 0 && currentPayment().id() > 0">
-            <li data-bind="click: $root.printPayment"><a href="#" >Imprimir activo</a></li>
+            <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
         </ul>
     </div>
 

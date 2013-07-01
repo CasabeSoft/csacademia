@@ -16,6 +16,8 @@ akdm.StudentViewModel = function() {
     var payment_add = '/student/payment_add';
     var payment_update = '/student/payment_update';
     var payment_delete = '/student/payment_delete/';
+    var payments_report = '/student/payments_report/';
+    var payment_report = '/student/payment_report/';
     self._filter = {
         "isActive": true
     };
