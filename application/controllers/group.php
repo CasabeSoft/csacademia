@@ -127,6 +127,44 @@ class Group extends Basic_controller {
         }
     }
 
+    public function get_attendance_for_date($group_id, $date) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Attendance_model');
+            echo json_encode($this->Attendance_model->get_attendance_for_date($group_id, $date));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+ 
+    public function get_attendance_for_month($group_id, $year, $month) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Attendance_model');
+            echo json_encode($this->Attendance_model->get_attendance_for_month($group_id, $year, $month));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }   
+    public function add_student_attendance($student_id, $date) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Attendance_model');
+            echo json_encode($this->Attendance_model->add_student_attendance($student_id, $date));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function delete_student_attendance($student_id, $date) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Attendance_model');
+            echo json_encode($this->Attendance_model->delete_student_attendance($student_id, $date));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
 }
 
 /* End of file group.php */
