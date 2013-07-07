@@ -58,3 +58,7 @@ label.error {
         width: auto;
     }
 }
+
+.table-active_bg {
+    background-color: #0069d6 !important;
+}
