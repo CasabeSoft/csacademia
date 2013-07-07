@@ -14,7 +14,8 @@ class Payment_model extends CI_Model {
         "amount",
         "piriod",
         "student_id",
-        "payment_type_id"
+        "payment_type_id",
+        "notes"
     ];
 
     public function __construct() {

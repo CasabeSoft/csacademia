@@ -328,6 +328,7 @@ akdm.model = (function() {
         this.student_id = ko.observable("");        
         this.payment_type_id = ko.observable("");
         this.payment_type_name = ko.observable("");
+        this.notes = ko.observable("");
     };
 
     Payment.prototype.toJSON = function() {
@@ -341,7 +342,8 @@ akdm.model = (function() {
         this.piriod(paymentJSON.piriod);
         this.student_id(paymentJSON.student_id);
         this.payment_type_id(paymentJSON.payment_type_id);   
-        this.payment_type_name(paymentJSON.payment_type_name);     
+        this.payment_type_name(paymentJSON.payment_type_name); 
+        this.notes(paymentJSON.notes);
         return this;
     };
 
@@ -357,7 +359,8 @@ akdm.model = (function() {
             "piriod": payment.piriod(),
             "student_id": payment.student_id(),
             "payment_type_id": payment.payment_type_id(),
-            "payment_type_name": payment.payment_type_name()
+            "payment_type_name": payment.payment_type_name(),
+            "notes": payment.notes(),
         };
     };
 

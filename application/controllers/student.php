@@ -48,7 +48,7 @@ class Student extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
-            if (! is_array($filter))
+            if (!is_array($filter))
                 $filter = [];
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_all($filter));
@@ -131,6 +131,16 @@ class Student extends Basic_controller {
         }
     }
 
+    public function get_price_by_student($student_id) {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Student_model');
+            echo json_encode($this->Student_model->get_price_by_student($student_id));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
     public function payments_get($id) {
         $this->setup_ajax_response_headers();
         try {
@@ -201,6 +211,7 @@ class Student extends Basic_controller {
 
             $payments = $this->Payment_model->get_all($id);
             $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
             $html = '
 <style>
 .td_center{
@@ -272,8 +283,8 @@ table.list td, th {
             //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
             //header('Content-type: application/pdf');
-            $this->mpdf->WriteHTML($html);
-            $this->mpdf->Output('pagos.pdf', 'I'); //exit;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -286,140 +297,104 @@ table.list td, th {
 
             $payment = $this->Payment_model->get_payment_id($id);
             $this->load->library('mpdf');
+            $mpdf = new mPDF('c', array(100, 100));
+
             $html = '
-<style>
-.td_center{
-        text-align:center; 
-        padding: 0 0.5em;
-}
-.td_right{
-        text-align:right; 
-        padding: 0 0.5em;
-}
+              <style>
+              .td_center{
+              text-align:center;
+              padding: 0 0.5em;
+              }
+              .td_right{
+              text-align:right;
+              padding: 0 0.5em;
+              }
 
-.gradient {
-	border:0.1mm solid #220044; 
-	background-color: #f0f2ff;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-	box-shadow: 0.3em 0.3em #888888;
-}
-.rounded {
-	border:0.1mm solid #220044; 
-	background-color: #f0f2ff;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-	border-radius: 2mm;
-	background-clip: border-box;
-}
-div.text {
-	padding:0.8em; 
-	margin-bottom: 0.7em;
-}
-p { 
-        margin: 0.25em 0; 
-}
-table.list {
-	border:1px solid #000000;
-	font-family: sans-serif;
-	font-size: 10pt;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-}
-table.list td, th {
-	border:1px solid #000000;
-	text-align: left;
-	font-weight: normal;
-}
-.code {
-	font-family: monospace;
-	font-size: 9pt;
-	background-color: #d5d5d5; 
-	margin: 0.5em 0 0.5cm 0;
-	padding: 0 0.3cm;
-	border:0.2mm solid #000088; 
-	box-shadow: 0.3em 0.3em #888888;
-}
-</style>
-<body>
+              .gradient {
+              border:0.1mm solid #220044;
+              background-color: #f0f2ff;
+              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+              box-shadow: 0.3em 0.3em #888888;
+              }
+              .rounded {
+              border:0.1mm solid #220044;
+              background-color: #f0f2ff;
+              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+              border-radius: 2mm;
+              background-clip: border-box;
+              }
+              div.text {
+              padding:0.8em;
+              margin-bottom: 0.7em;
+              }
+              p {
+              margin: 0.25em 0;
+              }
+              table.list {
+              border:1px solid #000000;
+              font-family: sans-serif;
+              font-size: 10pt;
+              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+              }
+              table.list td, th {
+              border:1px solid #000000;
+              text-align: left;
+              font-weight: normal;
+              }
+              .code {
+              font-family: monospace;
+              font-size: 9pt;
+              background-color: #d5d5d5;
+              margin: 0.5em 0 0.5cm 0;
+              padding: 0 0.3cm;
+              border:0.2mm solid #000088;
+              box-shadow: 0.3em 0.3em #888888;
+              }
+              </style>
+              <body>
 
-<div class="gradient text rounded">
-<table border="0" width="100%" >
-<tbody>
-<tr>
-<td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
-<td><p style="font-size: 20px">RECIBO</td>
-</tr>
-<tr>
-<td><p>
-';
+              <div class="gradient text rounded">
+              <table border="0" width="100%" >
+              <tbody>
+              <tr>
+              <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
+              <td><p style="font-size: 20px">RECIBO</td>
+              </tr>
+              <tr>
+              <td><p>
+              ';
             $html .= 'Fecha: ' . $payment['date'];
             $html .= '
-</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+              </p></td>
+              </tr>
+              </tbody>
+              </table>
+              </div>
 
-<div class="gradient text rounded">
-<p> Recibí de: </p>
-<p>La cantidad de euros: </p>
-<p> </p>
-<p class="code"> <br> <br></p>
-<p>Por: Pago 
-';
-            $html .= $payment['payment_type_name'] . '  ' .$payment['piriod'];
+              <div class="gradient text rounded">
+              <p> Recibí de: </p>
+              
+              <p> </p>
+              
+              <p>Por: Pago
+              ';
+            //<p>La cantidad de euros: </p>
+            //<p class="code"> <br> <br></p>
+            $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
             $html .= '</p>
-<p > </p>
-<p>€  
-';
+              <p > </p>
+              <p>€
+              ';
             $html .= $payment['amount'];
             $html .= '
- Firmado: __________________________</p>
-</div>           
-<br />
-<br />
-<p> -------------------------------------------------------------------------------------------------------------------------------------------------------- </p>
-<br />
-<br />
-<div class="gradient text rounded">
-<table border="0" width="100%" >
-<tbody>
-<tr>
-<td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
-<td><p style="font-size: 20px">RECIBO</td>
-</tr>
-<tr>
-<td><p>
-';
-            $html .= 'Fecha: ' . $payment['date'];
-            $html .= '
-</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div class="gradient text rounded">
-<p> Recibí de: </p>
-<p>La cantidad de euros: </p>
-<p> </p>
-<p class="code"> <br> <br></p>
-<p>Por: Pago 
-';
-            $html .= $payment['payment_type_name'] . '  ' .$payment['piriod'];
-            $html .= '</p>
-<p > </p>
-<p>€  
-';
-            $html .= $payment['amount'];
-            $html .= '
- Firmado: __________________________</p>
-</div>           
-<br />
-<body>';
+              Firmado: ______________</p>
+              </div>
+              </body>';
             //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
             //header('Content-type: application/pdf');
-            $this->mpdf->WriteHTML($html);
-            $this->mpdf->Output('pagos.pdf', 'I'); //exit;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

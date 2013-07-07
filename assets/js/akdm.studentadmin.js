@@ -18,14 +18,27 @@ akdm.StudentViewModel = function() {
     var payment_delete = '/student/payment_delete/';
     var payments_report = '/student/payments_report/';
     var payment_report = '/student/payment_report/';
+    self._get_price_by_student = '/student/get_price_by_student/';
+
     self._filter = {
         "isActive": true
     };
-    
+
+    self.levelPrice = ko.observable();
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
+    self.currentDate = ko.observable($.datepicker.formatDate(akdm.config.localeDateFormat, new Date()));
     self.relationships = {};
     self.paymentTypes = {};
+    
+    self.subtotal = ko.computed(function() {
+        var payment = self.currentPayment();
+        if (payment) {
+            return  payment.payment_type_id() === 1 ? self.levelPrice() * 3 : self.levelPrice();
+        } else {
+            return self.levelPrice();
+        }
+    });
 
     self.selectPayment = function(payment) {
         self.currentPayment(payment);
@@ -33,6 +46,8 @@ akdm.StudentViewModel = function() {
 
     self.newPayment = function() {
         var newPayment = new akdm.model.Payment();
+        newPayment.date(self.currentDate());
+        newPayment.amount(self.levelPrice());
         self.currentPayment(newPayment);
     };
 
@@ -90,7 +105,7 @@ akdm.StudentViewModel = function() {
     };
 
     self.savePayment = function() {
-        // TODO: Implementar validación de datos del familiar.
+        // TODO: Implementar validación de datos del pago.
         if (false || !$('#frm').valid()) {
             akdm.ui.Feedback.show('#msgFeedback',
                     self._strings.validation_error,
@@ -146,27 +161,13 @@ akdm.StudentViewModel = function() {
     };
 
     self.printPayments = function() {
-        //console.log("Url: " + payments_report + self.currentContact().id());
-        var myWindow = window.open(payments_report + self.currentContact().id(),'_blank');
+        var myWindow = window.open(payments_report + self.currentContact().id(), '_blank');
         myWindow.document.title = 'Informe de pagos';
-   
-        /*$.post(payments_report + self.currentContact().id())
-                .done(function() {
-            
-        })
-                .fail(self._showError);*/
     };
-    
+
     self.printPayment = function() {
-        //console.log("Url: " + payments_report + self.currentContact().id());
-        var myWindow = window.open(payment_report + self.currentPayment().id(),'_blank');
-        myWindow.document.title = 'Informe de pagos';
-   
-        /*$.post(payments_report + self.currentContact().id())
-                .done(function() {
-            
-        })
-                .fail(self._showError);*/
+        var myWindow = window.open(payment_report + self.currentPayment().id(), '_blank');
+        myWindow.document.title = 'Pago';
     };
 
     self.setFamilyList = function(familyList) {
@@ -183,6 +184,10 @@ akdm.StudentViewModel = function() {
         });
     };
 
+    self.setLevelPrice = function(price) {
+        self.levelPrice(price);
+    };
+
 
     var parent = {
         selectContact: self.selectContact,
@@ -195,19 +200,20 @@ akdm.StudentViewModel = function() {
         $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         self.currentPayment(new akdm.model.Payment());
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
-    };    
-    
-    self.filterByState = function (value, event) {
+        $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
+    };
+
+    self.filterByState = function(value, event) {
         self._filter.isActive = value;
         self.loadContacts();
     };
-    
-    self.loadContacts = function () {
+
+    self.loadContacts = function() {
         self.newContact();
-        $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);  
+        $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);
     };
-    
-    self.init = function (strings, relationships, paymentTypes) {
+
+    self.init = function(strings, relationships, paymentTypes) {
         parent.init(this, strings);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());

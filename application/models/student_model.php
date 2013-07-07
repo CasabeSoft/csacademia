@@ -81,6 +81,45 @@ class Student_model extends CI_Model {
             $this->db->where('center_id', $this->center_id);
         return $this->db->get()->result_array();
     }
+    
+    public function get_price_by_student($student_id) {
+        $level = $this->db->select('price')
+                ->from('student')
+                ->join('group', 'group.id = student.group_id')
+                ->join('level', 'level.code = group.level_code')
+                ->where('contact_id', $student_id)
+                ->get();
+        return $level->num_rows() > 0
+                ? $level->row()->price
+                : NULL;   
+    }
+    
+    public function get_group_by_student($student_id) {
+        $level = $this->db->select('group_id')->from('student')
+                ->where('contact_id', $student_id)
+                ->get();
+        return $level->num_rows() > 0
+                ? $level->row()->group_id
+                : NULL;   
+    }
+    
+    public function get_level_by_group($groups_id) {
+        $level = $this->db->select('level_code')->from('group')
+                ->where('id', $groups_id)
+                ->get();
+        return $level->num_rows() > 0
+                ? $level->row()->level_code
+                : NULL;   
+    }
+    
+    public function get_price_by_level($level_code) {
+        $level = $this->db->select('price')->from('level')
+                ->where('code', $level_code)
+                ->get();
+        return $level->num_rows() > 0
+                ? $level->row()->price
+                : NULL;   
+    }
 
     public function delete($id) {
         $this->db->delete('student', 'contact_id = ' . $id);  // Por si no hubiese eliminación en cascada

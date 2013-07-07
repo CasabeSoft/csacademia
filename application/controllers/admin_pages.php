@@ -386,7 +386,7 @@ class Admin_pages extends Crud_controller {
 
         $this->crud->set_table('student');
         $this->crud->set_subject(lang('subject_student'));
-        $this->crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code');
+        $this->crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code');
         $this->crud->display_as('contact_id', lang('form_name'))
                 ->display_as('center_id', lang('form_center'))
                 ->display_as('start_date', lang('form_start_date'))
@@ -401,17 +401,15 @@ class Admin_pages extends Crud_controller {
                 ->display_as('bank_account_number', lang('form_bank_account_number'))
                 ->display_as('bank_account_holder', lang('form_bank_account_holder'))
                 ->display_as('bank_payment', lang('form_bank_payment'))
-                ->display_as('current_level_code', lang('form_level'))
                 ->display_as('leave_reason_code', lang('form_leave_reason'))
                 ->display_as('group', lang('form_group'));
 
-        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'current_level_code', 'group');
-        $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'current_level_code', 'leave_reason_code', 'group');
+        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'group');
+        $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code', 'group');
         $this->crud->field_type('start_date','date');
         $this->crud->field_type('end_date','date');
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation('center_id', 'center', 'name');
-        $this->crud->set_relation('current_level_code', 'level', 'description');
         $this->crud->set_relation('leave_reason_code', 'leave_reason', 'description');
         $this->crud->set_relation('current_academic_period', 'academic_period', 'name');
         $this->crud->set_relation('school_level', 'school_level', 'name');
@@ -472,10 +470,10 @@ class Admin_pages extends Crud_controller {
     public function payment() {
         $this->set_page_title('page_manage_payments');
         
-        $fields = array('id', 'date', 'amount', 'payment_type_id', 'piriod', 'student_id');
+        $fields = array('id', 'date', 'amount', 'payment_type_id', 'piriod', 'student_id', 'notes');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
-            $fields = array('date', 'amount', 'payment_type_id', 'piriod', 'student_id');
+            $fields = array('date', 'amount', 'payment_type_id', 'piriod', 'student_id', 'notes');
         }
         
         $this->crud->set_table('payment');
@@ -486,10 +484,11 @@ class Admin_pages extends Crud_controller {
                 ->display_as('amount', lang('form_amount'))
                 ->display_as('payment_type_id', lang('form_payment_type'))
                 ->display_as('piriod', lang('form_piriod'))
-                ->display_as('student_id', lang('form_student'));
+                ->display_as('student_id', lang('form_student'))
+                ->display_as('notes', lang('form_notes'));
 
         $this->crud->required_fields('date', 'amount', 'payment_type_id', 'piriod', 'student_id');
-        $this->crud->fields('date', 'amount', 'payment_type_id', 'piriod', 'student_id');
+        $this->crud->fields('date', 'amount', 'payment_type_id', 'piriod', 'student_id', 'notes');
         $this->crud->field_type('date','date');
 
         $this->crud->set_primary_key('contact_id','view_student');
