@@ -4,7 +4,7 @@
             <label><?php echo lang('form_date'); ?></label>
             <input type="text" class="input-block-level" 
                 placeholder="<?php echo lang('date_format_humans') ?>"
-                data-bind="value: currentDate, jqDatepicker: new Date()">
+                data-bind="value: currentDate, jqDatepicker: new Date(), event: {change: onCurrentDateChange}">
         </div>
         <div class="span3">
             <label><?php echo lang('form_attendance'); ?></label>
@@ -21,16 +21,16 @@
             </div>
         </div>
     </div>
-    <ul class="list thumbnails" data-bind="foreach: currentList, visible: viewDailyAttendance() && ! viewStudentsAsList()">
+    <ul class="list thumbnails" data-bind="foreach: studentList, visible: viewDailyAttendance() && ! viewStudentsAsList()">
         <li class="medium">
             <a href="#" class="thumbnail">
-                <input type="checkbox">
-              <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                <input type="checkbox" data-bind="checked: $root.attended(contact_id(), $root.currentDate()), event: {change: function (data, event) { $root.onAttendanceDayChange(contact_id(), $root.currentDate(), event); }}">
+                <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
             <p data-bind="text: full_name()" class="name"></p>
         </li>
     </ul>
-    <table class="table table-bordered table-hover" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
+    <table class="table table-bordered table-hover table-condensed" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
         <thead>
             <tr>
                 <th>#</th>
@@ -38,31 +38,34 @@
                 <th>Asistencia</th>
             </tr>
         </thead>
-        <tbody data-bind="foreach: currentList">
+        <tbody data-bind="foreach: studentList">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
                 <td data-bind="text: full_name()"></td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" data-bind="checked: $root.attended(contact_id(), $root.currentDate()), event: {change: function (data, event) { $root.onAttendanceDayChange(contact_id(), $root.currentDate(), event); }}"></td>
             </tr>
         </tbody>
     </table>
-    <table class="table table-bordered table-hover" data-bind="visible: ! viewDailyAttendance()">
+    <table class="table table-bordered table-hover table-condensed" data-bind="visible: ! viewDailyAttendance()">
         <thead>
             <tr>
-                <th rowspan="2">#</th>
-                <th rowspan="2">Nombre</th>
-                <th colspan="31">Asistencia <span data-bind="text: getCurrentMonth()"></span></th>
+                <th rowspan="3">#</th>
+                <th rowspan="3">Nombre</th>
+                <th data-bind="attr: {colspan: attendanceDays().length}">Asistencia <span data-bind="text: getCurrentMonth()"></span></th>
             </tr>
-            <tr data-bind="foreach: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]">
-                <th data-bind="text: $data"></th>
-            </tr>            
+            <tr data-bind="foreach: attendanceDays">
+                <th data-bind="text: name"></th>
+            </tr> 
+            <tr data-bind="foreach: attendanceDays">
+                <th data-bind="text: number"></th>
+            </tr>             
         </thead>
-        <tbody data-bind="foreach: currentList">
+        <tbody data-bind="foreach: studentList">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
                 <td data-bind="text: full_name()"></td>
-                <!-- ko foreach: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] -->
-                <td><input type="checkbox"></td>
+                <!-- ko foreach: $root.attendanceDays -->
+                <td><input type="checkbox" data-bind="checked: $root.attended($parent.contact_id(), $root.genAttendanceDate(number)), event: {change: function (data, event) { $root.onAttendanceDayChange($parent.contact_id(), $root.genAttendanceDate(number), event); }}"></td>
                 <!-- /ko -->
             </tr>
         </tbody>
