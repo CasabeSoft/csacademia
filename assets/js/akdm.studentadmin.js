@@ -30,28 +30,35 @@ akdm.StudentViewModel = function() {
     self.currentDate = ko.observable($.datepicker.formatDate(akdm.config.localeDateFormat, new Date()));
     self.relationships = {};
     self.paymentTypes = {};
-    
-    self.subtotal = ko.computed(function() {
+
+    /*self.subtotal = ko.computed(function() {
         var payment = self.currentPayment();
         if (payment) {
             return  payment.payment_type_id() === 1 ? self.levelPrice() * 3 : self.levelPrice();
         } else {
             return self.levelPrice();
         }
-    });
+    });*/
 
-    self.selectPayment = function(payment) {
-        self.currentPayment(payment);
+    self.selectPayment = function(payment) {       
+        self.currentPayment(payment); 
+        
     };
 
     self.newPayment = function() {
         var newPayment = new akdm.model.Payment();
-        newPayment.date(self.currentDate());
-        newPayment.amount(self.levelPrice());
-        self.currentPayment(newPayment);
+        //$.get(self._get_price_by_student + self.currentContact().id()).done(self.setLevelPrice).fail(self._showError);
+        $.get(self._get_price_by_student + self.currentContact().id()).done(function(price) {
+            self.levelPrice(price);
+            if (!price)
+                 self.levelPrice(0);
+            newPayment.date(self.currentDate());
+            newPayment.amount(self.levelPrice());
+            self.currentPayment(newPayment);
+            $('#lbxPiriod').focus();
+        }).fail(self._showError);
     };
-
-
+    
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
 
@@ -200,7 +207,6 @@ akdm.StudentViewModel = function() {
         $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         self.currentPayment(new akdm.model.Payment());
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
-        $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
     };
 
     self.filterByState = function(value, event) {
