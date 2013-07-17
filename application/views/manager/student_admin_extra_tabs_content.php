@@ -111,6 +111,119 @@
                    data-bind="value: school_name">
         </div>
     </div>
+    <div class="row-fluid newComponentGroup">
+        <legend>
+            Evaluaciones
+            <div class="btn-toolbar pull-right">
+                <button type="button" class="btn btn-small pull-right" 
+                        data-toggle="modal" data-target="#dlgQualification" 
+                        data-bind="click: $root.newQualification">
+                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button>
+            </div>
+        </legend>
+    </div>
+    <div class="row-fluid">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Nivel</th>
+                    <th>Ev. 1</th>
+                    <th>Ev. 2</th>
+                    <th>Ev. 3</th>
+                    <th>Calificación</th>
+                    <th>Trinity</th>
+                    <th>London</th>
+                    <th>Otras</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: $root.currentQualifications">
+                <tr data-bind="click: $root.selectQualification">
+                    <td data-bind="text: $root.academicPeriods[academic_period()]"></td>
+                    <td data-bind="text: $root.levels[level_code()]"></td>
+                    <td data-bind="text: eval1"></td>
+                    <td data-bind="text: eval2"></td>
+                    <td data-bind="text: eval3"></td>
+                    <td data-bind="text: qualification"></td>
+                    <td data-bind="text: trinity"></td>
+                    <td data-bind="text: london"></td>
+                    <td data-bind="text: others"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="dlgQualification" class="modal hide fade" data-bind="with: $root.currentQualification">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Evaluación</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid">
+                <div class="span4">
+                    <label><?php echo lang('form_academic_period'); ?></label>
+                    <select class="input-block-level" data-bind="value: academic_period">
+                        <option value="">--</option>
+                        <?php foreach ($academicPeriods as $period) { ?>
+                            <option value="<?php echo $period["code"] ?>"><?php echo $period["name"] ?></option>
+                        <?php } ?>
+                    </select>                     
+                </div>
+                <div class="span4">
+                    <label><?php echo lang('form_level'); ?></label>
+                    <select class="input-block-level" data-bind="value: level_code">
+                        <option value="">--</option>
+                        <?php foreach ($levels as $level) { ?>
+                            <option value="<?php echo $level["code"] ?>"><?php echo $level["description"] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="span4">
+                    <label>Calificación</label>
+                    <input type="text" class="input-block-level" data-bind="value: qualification">
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <label>Evaluación 1</label>
+                    <input type="text" class="input-block-level" data-bind="value: eval1">
+                </div>
+                <div class="span4">
+                    <label>Evaluación 2</label>
+                    <input type="text" class="input-block-level" data-bind="value: eval2">
+                </div>
+                <div class="span4">
+                    <label>Evaluación 3</label>
+                    <input type="text" class="input-block-level" data-bind="value: eval3">
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <label>Trinity</label>
+                    <input type="text" class="input-block-level" data-bind="value: trinity">
+                </div>
+                <div class="span4">
+                    <label>London</label>
+                    <input type="text" class="input-block-level" data-bind="value: london">
+                </div>
+                <div class="span4">
+                    <label>Otras</label>
+                    <input type="text" class="input-block-level" data-bind="value: others">
+                </div>
+            </div>
+            <div class="row-fuid">
+                <label>Descripción</label>
+                <textarea class="input-block-level" data-bind="value: description"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-small" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign"></i> Guardar</button>
+            <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removeQualification, visible: student_id"><i class="icon-minus-sign icon-white"></i> Eliminar</button>
+            <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i> Cancelar</button>
+        </div>
+    </div>
+    
 </div>
 <div id="familyData" class="tab-pane">
     <ul class="list thumbnails">

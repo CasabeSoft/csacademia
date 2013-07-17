@@ -30,7 +30,9 @@
             validation_error: <?php echo json_encode(lang('message_validation_error')) ?>
         }, 
             <?php echo json_encode($this->relationships) ?>,
-            <?php echo json_encode($this->payments_types) ?>
+            <?php echo json_encode($this->payments_types) ?>,
+            <?php echo json_encode($this->academicPeriods) ?>,
+            <?php echo json_encode($this->levels) ?>
         );
     });
 </script>

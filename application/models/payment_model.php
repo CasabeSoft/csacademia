@@ -44,8 +44,10 @@ class Payment_model extends CI_Model {
         return $id;
     }
 
-    public function add($payment) {    
-        $this->db->insert('payment', substract_fields($payment, $this->FIELDS));
+    public function add($payment) { 
+        $cleanPayment = substract_fields($payment, $this->FIELDS);
+        unset($cleanPayment['id']);
+        $this->db->insert('payment', $cleanPayment);
         return $this->db->insert_id();
     }
 

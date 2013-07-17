@@ -1,7 +1,14 @@
-window.akdm = window.akdm || {};
+/*jslint sloppy: true */
+/*jslint nomen: true */
+/*jslint browser: true */
+/*jslint vars: true */
+/*global $ */
+/*global ko */
 
-akdm.model = (function() {
-    var Contact = function() {
+var akdm = window.akdm || {};
+
+akdm.model = (function () {
+    var Contact = function () {
         this.id = ko.observable(null);
         this.first_name = ko.observable("");
         this.last_name = ko.observable("");
@@ -20,15 +27,15 @@ akdm.model = (function() {
         this.id_card = ko.observable("");
     };
 
-    Contact.prototype.full_name = function() {
+    Contact.prototype.full_name = function () {
         return this.first_name() + " " + this.last_name();
     };
 
-    Contact.prototype.toJSON = function() {
+    Contact.prototype.toJSON = function () {
         return Contact.toJSON(this);
     };
 
-    Contact.prototype.fromJSON = function(contactJSON) {
+    Contact.prototype.fromJSON = function (contactJSON) {
         this.id(contactJSON.id);
         this.first_name(contactJSON.first_name);
         this.last_name(contactJSON.last_name);
@@ -48,11 +55,11 @@ akdm.model = (function() {
         return this;
     };
 
-    Contact.fromJSON = function(contactJSON) {
+    Contact.fromJSON = function (contactJSON) {
         return new Contact().fromJSON(contactJSON);
     };
 
-    Contact.toJSON = function(contact) {
+    Contact.toJSON = function (contact) {
         return {
             "id": contact.id(),
             "first_name": contact.first_name(),
@@ -73,7 +80,7 @@ akdm.model = (function() {
         };
     };
 
-    var Teacher = function() {
+    var Teacher = function () {
         Contact.call(this);
         this.contact_id = ko.observable(null);
         this.title = ko.observable("");
@@ -86,31 +93,31 @@ akdm.model = (function() {
         this.bank_account_number = ko.observable("");
     };
 
-    Teacher.fromJSON = function(teacherJSON) {
+    Teacher.fromJSON = function (teacherJSON) {
         return new Teacher().fromJSON(teacherJSON);
     };
 
-    Teacher.toJSON = function(teacher) {
+    Teacher.toJSON = function (teacher) {
         return $.extend(Contact.toJSON(teacher),
-                {
-                    "contact_id": teacher.contact_id(),
-                    "title": teacher.title(),
-                    "cv": teacher.cv(),
-                    "type": teacher.type(),
-                    "start_date": akdm.tools.locale2dbDateStr(teacher.start_date()),
-                    "end_date": akdm.tools.locale2dbDateStr(teacher.end_date()),
-                    "state": teacher.state(),
-                    "bank_account_format": teacher.bank_account_format(),
-                    "bank_account_number": teacher.bank_account_number()
-                });
+            {
+                "contact_id": teacher.contact_id(),
+                "title": teacher.title(),
+                "cv": teacher.cv(),
+                "type": teacher.type(),
+                "start_date": akdm.tools.locale2dbDateStr(teacher.start_date()),
+                "end_date": akdm.tools.locale2dbDateStr(teacher.end_date()),
+                "state": teacher.state(),
+                "bank_account_format": teacher.bank_account_format(),
+                "bank_account_number": teacher.bank_account_number()
+            });
     };
 
     Teacher.prototype = new Contact();
     Teacher.prototype.constructor = Teacher;
-    Teacher.prototype.toJSON = function() {
+    Teacher.prototype.toJSON = function () {
         return Teacher.toJSON(this);
     };
-    Teacher.prototype.fromJSON = function(teacherJSON) {
+    Teacher.prototype.fromJSON = function (teacherJSON) {
         Contact.prototype.fromJSON.call(this, teacherJSON);
         this.contact_id(teacherJSON.contact_id);
         this.title(teacherJSON.title);
@@ -124,7 +131,7 @@ akdm.model = (function() {
         return this;
     };
 
-    var Student = function() {
+    var Student = function () {
         Contact.call(this);
         this.contact_id = ko.observable("");
         this.center_id = ko.observable("");
@@ -144,35 +151,35 @@ akdm.model = (function() {
         this.group_id = ko.observable("");
     };
 
-    Student.fromJSON = function(studentJSON) {
+    Student.fromJSON = function (studentJSON) {
         return new Student().fromJSON(studentJSON);
     };
 
-    Student.toJSON = function(student) {
+    Student.toJSON = function (student) {
         return $.extend(Contact.toJSON(student),
-                {
-                    "contact_id": student.contact_id(),
-                    "center_id": student.center_id(),
-                    "start_date": akdm.tools.locale2dbDateStr(student.start_date()),
-                    "school_level": student.school_level(),
-                    "school_name": student.school_name(),
-                    "language_years": student.language_years(),
-                    "pref_start_time": student.pref_start_time(),
-                    "pref_end_time": student.pref_end_time(),
-                    "current_academic_period": student.current_academic_period(),
-                    "bank_account_format": student.bank_account_format(),
-                    "bank_account_number": student.bank_account_number(),
-                    "bank_account_holder": student.bank_account_holder(),
-                    "bank_payment": student.bank_payment(),
-                    "leave_reason_code": student.leave_reason_code(),
-                    "end_date": akdm.tools.locale2dbDateStr(student.end_date()),
-                    "group_id": student.group_id(),
-                });
+            {
+                "contact_id": student.contact_id(),
+                "center_id": student.center_id(),
+                "start_date": akdm.tools.locale2dbDateStr(student.start_date()),
+                "school_level": student.school_level(),
+                "school_name": student.school_name(),
+                "language_years": student.language_years(),
+                "pref_start_time": student.pref_start_time(),
+                "pref_end_time": student.pref_end_time(),
+                "current_academic_period": student.current_academic_period(),
+                "bank_account_format": student.bank_account_format(),
+                "bank_account_number": student.bank_account_number(),
+                "bank_account_holder": student.bank_account_holder(),
+                "bank_payment": student.bank_payment(),
+                "leave_reason_code": student.leave_reason_code(),
+                "end_date": akdm.tools.locale2dbDateStr(student.end_date()),
+                "group_id": student.group_id()
+            });
     };
 
     Student.prototype = new Contact();
     Student.prototype.constructor = Student;
-    Student.prototype.fromJSON = function(studentJSON) {
+    Student.prototype.fromJSON = function (studentJSON) {
         Contact.prototype.fromJSON.call(this, studentJSON);
         this.contact_id(studentJSON.contact_id);
         this.center_id(studentJSON.center_id);
@@ -192,11 +199,11 @@ akdm.model = (function() {
         this.group_id(studentJSON.group_id);
         return this;
     };
-    Student.prototype.toJSON = function() {
+    Student.prototype.toJSON = function () {
         return Student.toJSON(this);
     };
 
-    var Group = function() {
+    var Group = function () {
         this.id = ko.observable("");
         this.name = ko.observable("");
         this.center_id = ko.observable("");
@@ -214,11 +221,11 @@ akdm.model = (function() {
         this.end_time = ko.observable("");
     };
 
-    Group.prototype.toJSON = function() {
+    Group.prototype.toJSON = function () {
         return Group.toJSON(this);
     };
 
-    Group.prototype.fromJSON = function(groupJSON) {
+    Group.prototype.fromJSON = function (groupJSON) {
         this.id(groupJSON.id);
         this.name(groupJSON.name);
         this.center_id(groupJSON.center_id);
@@ -237,11 +244,11 @@ akdm.model = (function() {
         return this;
     };
 
-    Group.fromJSON = function(groupJSON) {
+    Group.fromJSON = function (groupJSON) {
         return new Group().fromJSON(groupJSON);
     };
 
-    Group.toJSON = function(group) {
+    Group.toJSON = function (group) {
         return {
             "id": group.id(),
             "name": group.name(),
@@ -261,97 +268,97 @@ akdm.model = (function() {
         };
     };
 
-    var Family = function() {
+    var Family = function () {
         Contact.call(this);
         this.contact_id = ko.observable("");
         this.student_id = ko.observable("");
         this.relationship_code = ko.observable("");
     };
 
-    Family.fromJSON = function(familyJSON) {
+    Family.fromJSON = function (familyJSON) {
         return new Family().fromJSON(familyJSON);
     };
 
-    Family.toJSON = function(family) {
+    Family.toJSON = function (family) {
         return $.extend(Contact.toJSON(family),
-                {
-                    "contact_id": family.contact_id(),
-                    "student_id": family.student_id(),
-                    "relationship_code": family.relationship_code()
-                });
+            {
+                "contact_id": family.contact_id(),
+                "student_id": family.student_id(),
+                "relationship_code": family.relationship_code()
+            });
     };
 
     Family.prototype = new Contact();
     Family.prototype.constructor = Family;
-    Family.prototype.fromJSON = function(familyJSON) {
+    Family.prototype.fromJSON = function (familyJSON) {
         Contact.prototype.fromJSON.call(this, familyJSON);
         this.contact_id(familyJSON.contact_id);
         this.student_id(familyJSON.student_id);
         this.relationship_code(familyJSON.relationship_code);
         return this;
     };
-    Family.prototype.toJSON = function() {
+    Family.prototype.toJSON = function () {
         return Family.toJSON(this);
     };
 
-    var Students_by_groups = function() {
+    var Students_by_groups = function () {
         this.groups_id = ko.observable("");
         this.student_id = ko.observable("");
     };
 
-    Students_by_groups.prototype.toJSON = function() {
+    Students_by_groups.prototype.toJSON = function () {
         return Students_by_groups.toJSON(this);
     };
 
-    Students_by_groups.prototype.fromJSON = function(students_by_groupsJSON) {
+    Students_by_groups.prototype.fromJSON = function (students_by_groupsJSON) {
         this.groups_id(students_by_groupsJSON.groups_id);
         this.student_id(students_by_groupsJSON.student_id);
         return this;
     };
 
-    Students_by_groups.fromJSON = function(students_by_groupsJSON) {
+    Students_by_groups.fromJSON = function (students_by_groupsJSON) {
         return new Students_by_groups().fromJSON(students_by_groupsJSON);
     };
 
-    Students_by_groups.toJSON = function(students_by_groups) {
+    Students_by_groups.toJSON = function (students_by_groups) {
         return {
             "groups_id": students_by_groups.groups_id(),
             "student_id": students_by_groups.student_id()
         };
     };
-    
-    var Payment = function() {
+
+    var Payment = function () {
         this.id = ko.observable("");
         this.date = ko.observable("");
         this.amount = ko.observable("");
         this.piriod = ko.observable("");
-        this.student_id = ko.observable("");        
+        this.student_id = ko.observable("");       
         this.payment_type_id = ko.observable("");
         this.payment_type_name = ko.observable("");
         this.notes = ko.observable("");
     };
 
-    Payment.prototype.toJSON = function() {
+    Payment.prototype.toJSON = function () {
         return Payment.toJSON(this);
     };
 
-    Payment.prototype.fromJSON = function(paymentJSON) {
+    Payment.prototype.fromJSON = function (paymentJSON) {
         this.id(paymentJSON.id);
         this.date(akdm.tools.db2LocaleDateStr(paymentJSON.date || ""));
         this.amount(paymentJSON.amount);
         this.piriod(paymentJSON.piriod);
         this.student_id(paymentJSON.student_id);
-        this.payment_type_id(paymentJSON.payment_type_id);   
-        this.payment_type_name(paymentJSON.payment_type_name); 
+        this.payment_type_id(paymentJSON.payment_type_id);
+        this.payment_type_name(paymentJSON.payment_type_name);
         this.notes(paymentJSON.notes);
         return this;
     };
 
-    Payment.fromJSON = function(paymentJSON) {
+    Payment.fromJSON = function (paymentJSON) {
         return new Payment().fromJSON(paymentJSON);
     };
 
-    Payment.toJSON = function(payment) {
+    Payment.toJSON = function (payment) {
         return {
             "id": payment.id(),
             "date": akdm.tools.locale2dbDateStr(payment.date()),
@@ -360,8 +367,60 @@ akdm.model = (function() {
             "student_id": payment.student_id(),
             "payment_type_id": payment.payment_type_id(),
             "payment_type_name": payment.payment_type_name(),
-            "notes": payment.notes(),
+            "notes": payment.notes()
         };
+    };
+
+    var Qualification = function () {
+        this.student_id = ko.observable();
+        this.academic_period = ko.observable();
+        this.description = ko.observable();
+        this.qualification = ko.observable();
+        this.trinity = ko.observable();
+        this.london = ko.observable();
+        this.others = ko.observable();
+        this.eval1 = ko.observable();
+        this.eval2 = ko.observable();
+        this.eval3 = ko.observable();
+        this.level_code = ko.observable();
+    };
+
+    Qualification.prototype.toJSON = function () {
+        return Qualification.toJSON(this);
+    };
+
+    Qualification.prototype.fromJSON = function (qualificationJSON) {
+        this.student_id(qualificationJSON.student_id);
+        this.academic_period(qualificationJSON.academic_period);
+        this.description(qualificationJSON.description);
+        this.qualification(qualificationJSON.qualification);
+        this.trinity(qualificationJSON.trinity);
+        this.london(qualificationJSON.london);
+        this.others(qualificationJSON.others);
+        this.eval1(qualificationJSON.eval1);
+        this.eval2(qualificationJSON.eval2);
+        this.eval3(qualificationJSON.eval3);
+        this.level_code(qualificationJSON.level_code);   
+    };
+
+    Qualification.toJSON = function (qualification) {
+        return {
+            "student_id": qualification.student_id(),
+            "academic_period": qualification.academic_period(),
+            "description": qualification.description(),
+            "qualification": qualification.qualification(),
+            "trinity": qualification.trinity(),
+            "london": qualification.london(),
+            "others": qualification.others(),
+            "eval1": qualification.eval1(),
+            "eval2": qualification.eval2(),
+            "eval3": qualification.eval3(),
+            "level_code": qualification.level_code()
+        };
+    };
+
+    Qualification.fromJSON = function (qualificationJSON) {
+        return new Qualification().fromJSON(qualificationJSON);
     };
 
     return {
@@ -371,6 +430,7 @@ akdm.model = (function() {
         Group: Group,
         Family: Family,
         Students_by_groups: Students_by_groups,
-        Payment: Payment
+        Payment: Payment,
+        Qualification: Qualification
     };
 })();

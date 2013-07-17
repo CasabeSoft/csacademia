@@ -123,6 +123,7 @@ akdm.GroupsViewModel = function() {
     };
 
     self.setViewStudentsAsList = function (viewAsList, event) {
+        self.updateAttendanceDays();
         self.viewStudentsAsList(viewAsList);
     };
     

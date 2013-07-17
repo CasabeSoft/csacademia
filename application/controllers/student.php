@@ -36,6 +36,7 @@ class Student extends Basic_controller {
         $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
         $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
         $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
+        $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name');
         $this->load_page('student_admin');
     }
 
@@ -400,6 +401,40 @@ table.list td, th {
         }
     }
 
+    public function qualification_add() {
+        $this->setup_ajax_response_headers();
+        try {
+            $qualification = $this->input->post();
+            echo true;
+            //$this->load->model('Payment_model');
+            // echo json_encode($this->Payment_model->update($payment));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function qualification_update() {
+        $this->setup_ajax_response_headers();
+        try {
+            $qualification = $this->input->post();
+            echo true;
+            //$this->load->model('Payment_model');
+            // echo json_encode($this->Payment_model->update($payment));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+        public function qualification_delete($student_id, $academic_period) {
+        $this->setup_ajax_response_headers();
+        try {
+            echo true;
+            //$this->load->model('Payment_model');
+            // echo json_encode($this->Payment_model->update($payment));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
 }
 
 /* End of file teacher.php */
