@@ -228,6 +228,9 @@ $lang['message_created'] = " creado satisfactoriamente.";
 $lang['message_updated'] = " actualizado satisfactoriamente.";
 $lang['message_deleted'] = " eliminado.";
 $lang['message_validation_error'] = "Algún valor indicado no es correcto. Verifique los datos.";
+$lang['message_qualification_created'] = "Evaluación creada satisfactoriamente.";
+$lang['message_qualification_updated'] = "Evaluación actualizada satisfactoriamente.";
+$lang['message_qualification_deleted'] = "Evaluación eliminada.";
 
 /* * *
  * Títulos de páginas

@@ -227,6 +227,9 @@ $lang['message_created'] = " created successfully.";
 $lang['message_updated'] = " updated successfully.";
 $lang['message_deleted'] = " deleted.";
 $lang['message_validation_error'] = "Some specified value isn't correct. Verify the data.";
+$lang['message_qualification_created'] = "Qualification created successfully.";
+$lang['message_qualification_updated'] = "Qualification updated successfully.";
+$lang['message_qualification_deleted'] = "Qualification deleted.";
 
 /* * *
  * Títulos de páginas

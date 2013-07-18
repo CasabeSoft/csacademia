@@ -27,7 +27,10 @@
             contact_updated: '<?php echo lang('message_student_updated') ?>',
             contact_deleted: '<?php echo lang('message_student_deleted') ?>',
             server_error: '<?php echo lang('message_server_error_details') ?>',
-            validation_error: <?php echo json_encode(lang('message_validation_error')) ?>
+            validation_error: <?php echo json_encode(lang('message_validation_error')) ?>,
+            qualification_created: '<?php echo lang('message_qualification_created') ?>',
+            qualification_updated: '<?php echo lang('message_qualification_updated') ?>',
+            qualification_deleted: '<?php echo lang('message_qualification_deleted') ?>'
         }, 
             <?php echo json_encode($this->relationships) ?>,
             <?php echo json_encode($this->payments_types) ?>,

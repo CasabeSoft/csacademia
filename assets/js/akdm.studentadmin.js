@@ -45,24 +45,32 @@ akdm.StudentViewModel = function () {
     self.currentQualifications = ko.observableArray();
     self.currentQualification = ko.observable();
 
-    self.subtotal = ko.computed(function () {
+    /*self.subtotal = ko.computed(function() {
         var payment = self.currentPayment();
         if (payment) {
             return payment.payment_type_id() === 1 ? self.levelPrice() * 3 : self.levelPrice();
         } else {
             return self.levelPrice();
         }
-    });
+    });*/
 
-    self.selectPayment = function (payment) {
-        self.currentPayment(payment);
+    self.selectPayment = function(payment) {       
+        self.currentPayment(payment); 
+        
     };
 
     self.newPayment = function () {
         var newPayment = new akdm.model.Payment();
-        newPayment.date(self.currentDate());
-        newPayment.amount(self.levelPrice());
-        self.currentPayment(newPayment);
+        //$.get(self._get_price_by_student + self.currentContact().id()).done(self.setLevelPrice).fail(self._showError);
+        $.get(self._get_price_by_student + self.currentContact().id()).done(function(price) {
+            self.levelPrice(price);
+            if (!price)
+                 self.levelPrice(0);
+            newPayment.date(self.currentDate());
+            newPayment.amount(self.levelPrice());
+            self.currentPayment(newPayment);
+            $('#lbxPiriod').focus();
+        }).fail(self._showError);
     };
 
     self.familyList = ko.observableArray();
@@ -206,7 +214,6 @@ akdm.StudentViewModel = function () {
         $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         self.currentPayment(new akdm.model.Payment());
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
-        $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
     };
 
     self.filterByState = function (value, event) {
@@ -377,7 +384,7 @@ akdm.StudentViewModel = function () {
         var qualification = self.currentQualification();
         if (qualification.student_id()) {
             $.post(qualification_update, qualification.toJSON()).done(function () {
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.qualification_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         } else {
@@ -385,7 +392,7 @@ akdm.StudentViewModel = function () {
             qualification.student_id(self.currentContact().id());
             $.post(qualification_add, qualification.toJSON()).done(function () {
                 self.currentQualifications.push(self.currentQualification());
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.qualification_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         }
@@ -396,7 +403,7 @@ akdm.StudentViewModel = function () {
         $.get(qualification_delete + qualification.student_id() + '/' + qualification.academic_period()).done(function () {
             self.currentQualifications.remove(self.currentQualification());
             self.currentQualification(new akdm.model.Qualification());
-            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
+            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.qualification_deleted + '</strong>',
                     akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
         }).fail(self._showError);
     };
@@ -406,8 +413,8 @@ akdm.StudentViewModel = function () {
         $('#dlgQualification').modal('show');
     };
 
-    self.init = function (strings, relationships, paymentTypes, academicPeriods, levels) {
-        parent.init(this, strings);
+    self.init = function (messages, relationships, paymentTypes, academicPeriods, levels) {
+        parent.init(messages);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
         self.currentQualification(new akdm.model.Qualification());

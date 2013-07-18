@@ -40,14 +40,20 @@ class Admin_pages extends Crud_controller {
 
     public function role() {
         $this->set_page_title('page_manage_roles');
+        
+        $fields = array('code', 'description');
+
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $fields = array('description');
+        }
 
         $this->crud->set_table('role');
         $this->crud->set_subject(lang('subject_role'));
-        $this->crud->columns('code', 'description');
+        $this->crud->columns($fields);
         $this->crud->display_as('code', lang('form_id'))
                 ->display_as('description', lang('form_description'));
         $this->crud->required_fields('code', 'description');
-        $this->crud->fields('code', 'description');
+        $this->crud->fields('description');
         $this->crud_view = $this->crud->render();
 
         $this->load_page();
@@ -59,7 +65,7 @@ class Admin_pages extends Crud_controller {
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
-            $fields = array('id', 'email', 'role_code');
+            $fields = array('email', 'role_code');
         }
 
         $this->crud->set_table('login');
@@ -135,7 +141,7 @@ class Admin_pages extends Crud_controller {
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
-            $fields = array('code', 'description', 'price');
+            $fields = array('description', 'price');
         }
 
         $this->crud->set_table('level');
@@ -147,7 +153,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('client_id', lang('form_client'));
 
         $this->crud->required_fields('code', 'description', 'client_id');
-        $this->crud->fields('code', 'description', 'price', 'client_id');
+        $this->crud->fields('description', 'price', 'client_id');
         $this->crud->set_relation('client_id', 'client', 'name');
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);
@@ -248,7 +254,7 @@ class Admin_pages extends Crud_controller {
 
         $this->crud->set_table('leave_reason');
         $this->crud->set_subject(lang('subject_leave_reason'));
-        $this->crud->columns('code', 'description');
+        $this->crud->columns($fields);
         $this->crud->display_as('code', lang('form_id'))
                 ->display_as('description', lang('form_description'));
 
