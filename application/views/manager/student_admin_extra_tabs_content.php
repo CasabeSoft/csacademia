@@ -66,8 +66,9 @@
                    data-bind="value: end_date, jqDatepicker: end_date">
         </div> 
     </div>
-    <div class="row-fluid newComponentGroup">
-        <!-- Datos financieros -->
+    <!-- Datos financieros -->
+    <!--div class="row-fluid newComponentGroup">
+        
         <div class="span2">
             <label for="rgrBankPayment"><?php echo lang('form_bank_payment'); ?></label>
             <select id="rgrBankPayment" class="input-block-level" data-bind="value: bank_payment">
@@ -93,7 +94,7 @@
             <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
                    data-bind="value: bank_account_number">
         </div>
-    </div>
+    </div-->
     <div class="row-fluid newComponentGroup">
         <!-- Datos escolares -->
         <div class="span4">
@@ -153,7 +154,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <div id="dlgQualification" class="modal hide fade" data-bind="with: $root.currentQualification">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -223,7 +224,7 @@
             <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i> Cancelar</button>
         </div>
     </div>
-    
+
 </div>
 <div id="familyData" class="tab-pane">
     <ul class="list thumbnails">
@@ -281,56 +282,88 @@
     </div>
 </div>
 <div id="paymentData" class="tab-pane" data-bind="with: currentContact">
-    <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id()>0, click: $root.newPayment">
-        <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
-    </button>
-
-    <div class="btn-group">
-        <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" data-bind="visible: $root.paymentList().length > 0 && $root.currentPayment().id() > 0">
-            <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
-        </ul>
-    </div>
-
-    <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
-        <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
-    </button>
-
-    <button class="btn btn-small btn-danger" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
-        <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-    </button>
-
-    <br><br>
     <div class="row-fluid">
-
-        <table class="table table-striped table-bordered table-hover ">
-            <thead>
-                <tr>
-                    <th><?php echo lang('form_payment_type'); ?></th>
-                    <th><?php echo lang('form_piriod'); ?></th>
-                    <th><?php echo lang('form_amount'); ?></th>
-                    <th><?php echo lang('form_date'); ?></th>
-                    <th><?php echo lang('form_notes'); ?></th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: $root.paymentList">
-                <tr data-bind="click: $root.selectPayment" >
-                    <td data-bind="text: $root.paymentTypes[payment_type_id()]">
-                        <!--input type="text" data-bind="visible: $root.isInEditRowMode(id)"-->
-                    </td>
-                    <td data-bind="text: piriod"></td>
-                    <td data-bind="text: amount"></td>
-                    <td data-bind="text: date"></td>
-                    <td data-bind="text: notes"></td>    
-                </tr>
-            </tbody>
-        </table>        
+        <!-- Datos financieros -->
+        <div class="span2">
+            <label for="rgrBankPayment"><?php echo lang('form_bank_payment'); ?></label>
+            <select id="rgrBankPayment" class="input-block-level" data-bind="value: bank_payment">
+                <option value="0"><?php echo lang('btn_no'); ?></option>
+                <option value="1"><?php echo lang('btn_yes'); ?></option>
+            </select>
+        </div>
+        <div class="span4">
+            <label for="txtBankAccountHolder"><?php echo lang('form_bank_account_holder'); ?></label>
+            <input type="text" id="txtBankAccountHolder" placeholder="<?php echo lang('form_first_name'); ?>" class="input-block-level"
+                   data-bind="value: bank_account_holder">
+        </div>
+        <div class="span2">
+            <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
+            <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format">
+                <option value="U">--</option>
+                <option value="CCC">CCC</option>
+                <option value="IBAN">IBAN</option>
+            </select>
+        </div>
+        <div class="span4">
+            <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
+            <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
+                   data-bind="value: bank_account_number">
+        </div>
     </div>
 
+    <div class="row-fluid newComponentGroup">
+        <!-- Pagos -->
+        <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id()>0, click: $root.newPayment">
+            <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+        </button>
+
+        <div class="btn-group">
+            <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" data-bind="visible: $root.paymentList().length > 0 && $root.currentPayment().id() > 0">
+                <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
+            </ul>
+        </div>
+
+        <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
+            <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
+        </button>
+
+        <button class="btn btn-small btn-danger" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
+            <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+        </button>
+
+        <br><br>
+        <div class="row-fluid">
+
+            <table class="table table-striped table-bordered table-hover ">
+                <thead>
+                    <tr>
+                        <th><?php echo lang('form_payment_type'); ?></th>
+                        <th><?php echo lang('form_piriod'); ?></th>
+                        <th><?php echo lang('form_amount'); ?></th>
+                        <th><?php echo lang('form_date'); ?></th>
+                        <th><?php echo lang('form_notes'); ?></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: $root.paymentList">
+                    <tr data-bind="click: $root.selectPayment" >
+                        <td data-bind="text: $root.paymentTypes[payment_type_id()]">
+                            <!--input type="text" data-bind="visible: $root.isInEditRowMode(id)"-->
+                        </td>
+                        <td data-bind="text: piriod"></td>
+                        <td data-bind="text: amount"></td>
+                        <td data-bind="text: date"></td>
+                        <td data-bind="text: notes"></td>    
+                    </tr>
+                </tbody>
+            </table>        
+        </div>
+    </div>
     <div id="dlgPayments" class="modal hide fade">
+        <!-- Dialogo de pagos -->
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Datos del pago</h3>
