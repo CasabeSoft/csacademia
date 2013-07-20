@@ -400,7 +400,8 @@ akdm.model = (function () {
         this.eval1(qualificationJSON.eval1);
         this.eval2(qualificationJSON.eval2);
         this.eval3(qualificationJSON.eval3);
-        this.level_code(qualificationJSON.level_code);   
+        this.level_code(qualificationJSON.level_code);
+        return this;
     };
 
     Qualification.toJSON = function (qualification) {

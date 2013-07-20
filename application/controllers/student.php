@@ -401,13 +401,21 @@ table.list td, th {
         }
     }
 
+    public function qualification_get($student_id) {
+        $this->setup_ajax_response_headers();
+        try {
+            echo json_encode($this->General_model->get_where('qualification', "student_id = '".$student_id."'"));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }       
+    }
+    
     public function qualification_add() {
         $this->setup_ajax_response_headers();
         try {
             $qualification = $this->input->post();
+            $this->General_model->insert('qualification', $qualification);
             echo true;
-            //$this->load->model('Payment_model');
-            // echo json_encode($this->Payment_model->update($payment));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -417,9 +425,12 @@ table.list td, th {
         $this->setup_ajax_response_headers();
         try {
             $qualification = $this->input->post();
+            $where = ['student_id' => $qualification['student_id'], 
+                'academic_period' => $qualification['academic_period']];
+            unset($qualification['student_id']);
+            unset($qualification['academic_period']);
+            $this->General_model->update('qualification', $qualification, $where);
             echo true;
-            //$this->load->model('Payment_model');
-            // echo json_encode($this->Payment_model->update($payment));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -428,9 +439,10 @@ table.list td, th {
         public function qualification_delete($student_id, $academic_period) {
         $this->setup_ajax_response_headers();
         try {
+            $where = ['student_id' => $student_id, 
+                'academic_period' => $academic_period];
+            $this->General_model->delete('qualification', $where);
             echo true;
-            //$this->load->model('Payment_model');
-            // echo json_encode($this->Payment_model->update($payment));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

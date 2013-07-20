@@ -26,6 +26,7 @@ akdm.StudentViewModel = function () {
     var payments_report = '/student/payments_report/';
     var payment_report = '/student/payment_report/';
     self._get_price_by_student = '/student/get_price_by_student/';
+    var qualification_get = '/student/qualification_get/';
     var qualification_update = '/student/qualification_update/';
     var qualification_add = '/student/qualification_add/';
     var qualification_delete = '/student/qualification_delete/';
@@ -357,6 +358,13 @@ akdm.StudentViewModel = function () {
         self.levelPrice(price);
     };
 
+    self.setQualifications = function (qualifications) {
+        self.currentQualifications.removeAll();
+        $(qualifications).each(function (index, qualification) {
+            self.currentQualifications.push(akdm.model.Qualification.fromJSON(qualification));
+        });
+    };
+
     self.selectContact = function (contact) {
         parent.selectContact(contact);
         self.currentFamily(new akdm.model.Family());
@@ -364,6 +372,7 @@ akdm.StudentViewModel = function () {
         self.currentPayment(new akdm.model.Payment());
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
         $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
+        $.get(qualification_get + contact.id()).done(self.setQualifications).fail(self._showError);
     };
 
     self.filterByState = function (value, event) {
