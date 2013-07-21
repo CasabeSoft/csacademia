@@ -27,9 +27,11 @@
     </head>
     <body>
         <?php $this->load->view($menu_template) ?>
-        
+
         <!-- Start page content -->
-        <?php echo $content ?>
+        <div class="container fondo">
+            <?php echo $content ?>
+        </div>
         <!-- End page content -->
 
         <script src="/assets/lib/jquery/1.9.1/jquery.min.js"></script>

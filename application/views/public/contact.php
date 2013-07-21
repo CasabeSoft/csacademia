@@ -1,5 +1,6 @@
 <div class="jumbotron subhead">
-    <div class="container">
+    <div class="container text-center">
+        <img src="/assets/img/logo.png" class="logo">
         <h1><?php echo lang('page_contact_title'); ?></h1>
         <p class="lead"><?php echo lang('page_contact_title_info'); ?></p>
     </div>

@@ -12,22 +12,53 @@
 
 /* Base class
 ------------------------- */
-.jumbotron {
-  color: #fff;
-  background: rgb(126, 27, 18); /* Old browsers */
-  background: -moz-linear-gradient(45deg,  rgb(126, 27, 18) 0%, rgb(83, 68, 28) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,rgb(83, 68, 28))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(45deg, rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%);
-  background: -o-linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* IE10+ */
-  background: linear-gradient(45deg,  rgb(126, 27, 18) 0%,rgb(83, 68, 28) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7E1B12', endColorstr='#53441C',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+.jumbotron1 {
+    color: #fff;
+    background: #FED026; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #FED026 0%, #D15E02 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#D15E02)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg, #FED026 0%,#D15E02 100%);
+    background: -o-linear-gradient(45deg,  #FED026 0%,#D15E02 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg,  #FED026 0%,#D15E02 100%); /* IE10+ */
+    background: linear-gradient(45deg,  #FED026 0%,#D15E02 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FED026', endColorstr='#D15E02',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.jumbotron:after {
+.jumbotron1:after {
     background: url(../img/simple_dashed.png) repeat center center;
+}
+
+.jumbotron {
+    color: #fff;
+    background-color: #FED026;
+    background-image: url("../img/header.jpg");
+    background-position: center top;
+    background-repeat: no-repeat;    
 }
 
 .subhead {
     margin-bottom: 30px;
+}
+
+.logo{
+    float: left;
+    margin-left: 10px;
+    width: 300px;
+}
+
+.navbar-inverse .navbar-inner {
+    background-color: #1B1B1B;
+    background-image: linear-gradient(to bottom, #684808, #222222);
+    background-repeat: repeat-x;
+    border-color: #252525;
+}
+body
+{
+    background-color: #ECE7CF;
+}
+
+.font-header{
+    font-family: 'Century Gothic', Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+    /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
+    text-shadow: 0 0 0.2em #684808, 0 0 0.2em #684808, 0 0 0.2em #684808;
 }
