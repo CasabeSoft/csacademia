@@ -28,6 +28,7 @@
     <body>
         <?php $this->load->view($menu_template) ?>
 
+        <!-- Start page content -->
         <?php echo $content ?>
         <!-- End page content -->
 

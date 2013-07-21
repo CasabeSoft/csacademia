@@ -41,7 +41,7 @@
         <?php $this->load->view($menu_template) ?>
 
         <!-- Start page content -->
-        <div class="container container-first well">
+        <div class="container container-first">
             <h1><?php echo $page_header ?></h1>
             <?php echo $crud_view->output; ?>
         </div>

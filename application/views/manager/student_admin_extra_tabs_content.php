@@ -115,11 +115,15 @@
     <div class="row-fluid newComponentGroup">
         <legend>
             Evaluaciones
-            <div class="btn-toolbar pull-right">
-                <button type="button" class="btn btn-small pull-right" 
+            <div class="pull-right">                
+                <button type="button" class="btn btn-small " 
                         data-toggle="modal" data-target="#dlgQualification" 
-                        data-bind="click: $root.newQualification">
+                        data-bind="enable: $root.currentContact().id()>0, click: $root.newQualification">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button>
+                <button type="button" class="btn btn-small " data-target="_blank" 
+                        data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments">
+                    <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                 </button>
             </div>
         </legend>
@@ -313,29 +317,32 @@
 
     <div class="row-fluid newComponentGroup">
         <!-- Pagos -->
-        <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id()>0, click: $root.newPayment">
-            <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
-        </button>
+        <legend>
+            <?php echo lang('menu_payment'); ?>
+            <div class="pull-right">       
+                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id()>0, click: $root.newPayment">
+                    <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
+                </button>
 
-        <div class="btn-group">
-            <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
-            <button class="btn dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" data-bind="visible: $root.paymentList().length > 0 && $root.currentPayment().id() > 0">
-                <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
-            </ul>
-        </div>
+                <div class="btn-group">
+                    <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" data-bind="visible: $root.paymentList().length > 0 && $root.currentPayment().id() > 0">
+                        <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
+                    </ul>
+                </div>
 
-        <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
-            <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
-        </button>
+                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
+                    <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
+                </button>
 
-        <button class="btn btn-small btn-danger" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
-            <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-        </button>
-
-        <br><br>
+                <button class="btn btn-small btn-danger" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
+                    <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                </button>
+            </div>
+        </legend>
         <div class="row-fluid">
 
             <table class="table table-striped table-bordered table-hover ">

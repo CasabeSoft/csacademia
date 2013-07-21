@@ -73,6 +73,7 @@ $lang['subject_family_data'] = "Familiares";
 $lang['subject_payment'] = "Pago";
 $lang['subject_payment_type'] = "Tipo de pago";
 $lang['subject_filter'] = "Filtrar por";
+$lang['subject_financial'] = "Financieros";
 
 /* * *
  * Campos de los formularios
