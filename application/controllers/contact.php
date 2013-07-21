@@ -36,7 +36,6 @@ class Contact extends Basic_controller {
     public function get() {
         $this->setup_ajax_response_headers();
         try {
-            // throw new Exception('Error simulado', '-1');
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->get_all());
         } catch (Exception $e) {

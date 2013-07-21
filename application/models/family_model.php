@@ -16,25 +16,44 @@ class Family_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
+        $this->center_id = $this->session->userdata('current_center')['id'];
         $this->load->model('Contact_model');
     }
     
     public function get_all($student_id) {
         return $this->db->from('contact')
                 ->join('family', 'contact.id = family.contact_id')
-                ->where('student_id', $student_id)
+                ->join('student', 'contact.id = student.contact_id', 'left')
+                ->join('teacher', 'contact.id = teacher.contact_id', 'left')
+                ->where('client_id = '.$this->client_id)
+                ->where('student.end_date IS NULL')
+                ->where('teacher.end_date IS NULL')                
+                ->where('family.student_id', $student_id)
                 ->get()->result_array();          
     }
     
-    private function count_student_associated_with($contact_id) {
-        return $this->db->from('family')->where('contact_id', $contact_id)->count_all_results();
-    }
+    public function get_available() {
+        $this->db->from('contact')
+            ->join('student', 'contact.id = student.contact_id', 'left')
+            ->join('teacher', 'contact.id = teacher.contact_id', 'left');
+        if ($this->center_id != NULL)
+            $this->db->where('student.contact_id IS NULL OR center_id = ' . $this->center_id);                
+        return $this->db->where('client_id = '.$this->client_id)
+            ->where('student.end_date IS NULL')
+            ->where('teacher.end_date IS NULL')
+            ->get()->result_array();   
+    }    
     
     public function delete($student_id, $contact_id) {
         $this->db->delete('family', 'student_id = '.$student_id.' AND contact_id = '.$contact_id);
-        if ($this->count_student_associated_with($contact_id) == 0)
-            $this->Contact_model->delete($contact_id);
         return $contact_id;        
+    }
+    
+    public function relate($family) {
+        $this->db->trans_start();
+        $this->db->insert('family', substract_fields($family, $this->FIELDS));
+        $this->db->trans_complete();
+        return $family['contact_id'];
     }
     
     public function add($family) {

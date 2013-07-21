@@ -270,9 +270,9 @@ akdm.model = (function () {
 
     var Family = function () {
         Contact.call(this);
-        this.contact_id = ko.observable("");
-        this.student_id = ko.observable("");
-        this.relationship_code = ko.observable("");
+        this.contact_id = ko.observable(null);
+        this.student_id = ko.observable(null);
+        this.relationship_code = ko.observable(null);
     };
 
     Family.fromJSON = function (familyJSON) {

@@ -273,7 +273,13 @@
                     <option value="<?php echo $relationship["code"] ?>"><?php echo $relationship["name"] ?></option>
                 <?php } ?>
             </select>
-        </div> 
+        </div>
+        <div class="span4" >
+            <label for="lbxAvailableFamily"><?php echo lang('form_existing_family'); ?></label>
+            <select id="lbxAvailableFamily" class="input-block-level" 
+                    data-bind="options: $root.availableFamily, value: $root.currentFamily, optionsText: function (item) { return item.full_name(); }">
+            </select>
+        </div>
     </div>
     <div class="row-fluid" data-bind="with: currentFamily">
         <?php

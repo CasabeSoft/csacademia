@@ -174,6 +174,7 @@ $lang['form_payment_type'] = "Payment type";
 $lang['form_number_months'] = "Number months";
 $lang['form_state'] = "State";
 $lang['form_attendance'] = "Attendance";
+$lang['form_existing_family'] = "Existing family";
 
 /* * *
  * Botones

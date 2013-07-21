@@ -99,6 +99,16 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
+    
+    public function family_get_available() {
+        $this->setup_ajax_response_headers();
+        try {
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->get_available());
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
 
     public function family_delete($student_id, $contact_id) {
         $this->setup_ajax_response_headers();
@@ -130,6 +140,17 @@ class Student extends Basic_controller {
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
+    }
+    
+    public function family_relate() {
+        $this->setup_ajax_response_headers();
+        try {
+            $family = $this->input->post();
+            $this->load->model('Family_model');
+            echo json_encode($this->Family_model->relate($family));
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }        
     }
 
     public function get_price_by_student($student_id) {
