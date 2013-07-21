@@ -9,6 +9,8 @@
 .container-first {
     margin-top: 43px;
     position: relative;
+    background-color: #fafafa;
+    padding: 0px 20px 0px 20px;
 }
 
 .form-first {
@@ -93,11 +95,3 @@ body
 {
     background-color: #ECE7CF;
 }
-
-.fondo{
-    background-color: #fafafa;
-    padding: 20px 20px 0px 20px;
-    margin-top: -0px;
-    position: relative;
-}
-
