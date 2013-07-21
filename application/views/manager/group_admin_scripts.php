@@ -25,7 +25,10 @@
             group_deleted: '<?php echo lang('subject_group') . lang('message_deleted') ?>',
             server_error: '<?php echo lang('message_server_error_details') ?>',
             validation_error: <?php echo json_encode(lang('message_validation_error')) ?>,
-            day_short_names: '<?php echo lang('day_short_names') ?>'
+            day_short_names: '<?php echo lang('day_short_names') ?>',
+            student_created: '<?php echo lang('subject_student') . lang('message_created') ?>',
+            student_updated: '<?php echo lang('subject_student') . lang('message_updated') ?>',
+            student_deleted: '<?php echo lang('subject_student') . lang('message_deleted') ?>'
         });
     });
 </script>

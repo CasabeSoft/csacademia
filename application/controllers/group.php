@@ -101,11 +101,11 @@ class Group extends Basic_controller {
         }
     }
     
-    public function student_add() {
+    public function student_add($student_id, $groups_id) {
         $this->setup_ajax_response_headers();
         try {
-            $student_id = $this->input->post('contact_id');
-            $groups_id = $this->input->post('group_id');
+            //$student_id = $this->input->post('contact_id');
+            //$groups_id = $this->input->post('group_id');
             
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
@@ -114,11 +114,11 @@ class Group extends Basic_controller {
         }
     }
     
-    public function student_update() {
+    public function student_update($student_id, $groups_id) {
         $this->setup_ajax_response_headers();
         try {
-            $student_id = $this->input->post('contact_id');
-            $groups_id = $this->input->post('group_id');
+            //$student_id = $this->input->post('contact_id');
+            //$groups_id = $this->input->post('group_id');
             
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));

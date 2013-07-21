@@ -74,6 +74,7 @@ $lang['subject_payment'] = "Payment";
 $lang['subject_payment_type'] = "Payment type";
 $lang['subject_filter'] = "Filter by";
 $lang['subject_financial'] = "Financial";
+$lang['subject_family'] = "Family";
 
 /* * *
  * Campos de los formularios

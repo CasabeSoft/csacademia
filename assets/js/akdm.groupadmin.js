@@ -13,7 +13,8 @@ ko.bindingHandlers.jqDatepicker = {
 
 akdm.GroupsViewModel = function() {
     var self = this;
-    var student_add = '/group/student_add';
+    var student_add = '/group/student_add/';
+    var student_update = '/group/student_update/';
     var student_delete = '/group/student_delete/';
     var get_attendance_for_month = '/group/get_attendance_for_month/';
     var add_student_attendance = '/group/add_student_attendance/';
@@ -202,7 +203,30 @@ akdm.GroupsViewModel = function() {
         }
 
         var student = self.currentStudent();
-        student.group_id(self.currentGroup().id());
+        //student.group_id(self.currentGroup().id());
+        console.log('Estudiante id grupo: ' + student.group_id());
+        if (student.group_id())
+            // Actualizar
+            $.get(student_update + student.contact_id() + '/' + self.currentGroup().id())
+                    .done(function() {
+                student.group_id(self.currentGroup().id());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.student_updated + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+            })
+                    .fail(self._showError);
+        else {
+            // Insertar
+            $.get(student_add + student.contact_id() + '/' + self.currentGroup().id())
+                    .done(function(newId) {
+                student.group_id(self.currentGroup().id());
+                self.studentList.push(self.currentStudent());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.student_created + '</strong>',
+                        akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
+            })
+                    .fail(self._showError);
+        }
+        
+        
     };
 
     self.removeStudent = function() {
@@ -211,7 +235,7 @@ akdm.GroupsViewModel = function() {
                 .done(function() {
                     self.studentList.remove(self.currentStudent());
                     self.currentStudent(new akdm.model.Student());
-                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.group_updated + '</strong>',
+                    akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.student_deleted + '</strong>',
                             akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
                 })
                 .fail(self._showError);

@@ -265,7 +265,7 @@ akdm.StudentViewModel = function () {
         if (family.id()) {
             // Actualizar
             $.post(family_update, family.toJSON()).done(function () {
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.family_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         } else {
@@ -274,7 +274,7 @@ akdm.StudentViewModel = function () {
             $.post(family_add, family.toJSON()).done(function (newId) {
                 family.id(newId);
                 self.familyList.push(self.currentFamily());
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.family_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         }
@@ -295,7 +295,7 @@ akdm.StudentViewModel = function () {
         if (payment.id()) {
             // Actualizar
             $.post(payment_update, payment.toJSON()).done(function () {
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_updated + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         } else {
@@ -304,7 +304,7 @@ akdm.StudentViewModel = function () {
             $.post(payment_add, payment.toJSON()).done(function (newId) {
                 payment.id(newId);
                 self.paymentList.push(self.currentPayment());
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_created + '</strong>',
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         }
@@ -315,7 +315,7 @@ akdm.StudentViewModel = function () {
         $.get(family_delete + family.student_id() + '/' + family.id()).done(function () {
             self.familyList.remove(self.currentFamily());
             self.currentFamily(new akdm.model.Family());
-            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
+            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.family_deleted + '</strong>',
                     akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
         }).fail(self._showError);
     };
@@ -325,7 +325,7 @@ akdm.StudentViewModel = function () {
         $.get(payment_delete + payment.id()).done(function () {
             self.paymentList.remove(self.currentPayment());
             self.currentPayment(new akdm.model.Payment());
-            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.contact_deleted + '</strong>',
+            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_deleted + '</strong>',
                     akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
         }).fail(self._showError);
     };
