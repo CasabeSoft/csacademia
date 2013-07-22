@@ -37,7 +37,6 @@ akdm.StudentViewModel = function () {
     self._family_get = '/student/family_get/';
     self._payments_get = '/student/payments_get/';
     self._get_price_by_student = '/student/get_price_by_student/';
-    self._filter = { "isActive": true };
     self.levelPrice = ko.observable();
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
@@ -215,16 +214,6 @@ akdm.StudentViewModel = function () {
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
         $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
         $.get(qualification_get + contact.id()).done(self.setQualifications).fail(self._showError);
-    };
-
-    self.filterByState = function (value, event) {
-        self._filter.isActive = value;
-        self.loadContacts();
-    };
-
-    self.loadContacts = function () {
-        self.newContact();
-        $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);
     };
 
     self.newQualification = function () {

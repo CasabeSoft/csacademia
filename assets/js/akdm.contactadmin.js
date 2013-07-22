@@ -79,7 +79,7 @@ akdm.ContactsViewModel = function() {
         server_error: 'Error interno del servidor. Detalles: ',
         validation_error: 'Algún valor indicado no es correcto. Verifique los datos.'
     };
-    
+    self._filter = { "isActive": true };
     self.contacts = ko.observableArray();
     self.filter = ko.observable();
     self.filteredContacts = ko.computed(function() {
@@ -90,6 +90,12 @@ akdm.ContactsViewModel = function() {
         });
     });
     self.currentContact = ko.observable();
+    
+    self.filterByState = function (value, event) {
+        self._filter.isActive = value;
+        self.loadContacts();
+    };
+    
     self.uploadUrl = function () { 
         return  '/picture/upload/contact/' + self.currentContact().id();
     };
@@ -103,8 +109,8 @@ akdm.ContactsViewModel = function() {
     };
 
     self.newContact = function () {
-        var newContact = new self._ContactPrototype();
-        self.currentContact(newContact);
+        var contact = new self._ContactPrototype();
+        self.currentContact(contact);
     };
 
     self.saveContact = function() {
@@ -168,9 +174,14 @@ akdm.ContactsViewModel = function() {
         }
     };
     
+    self.loadContacts = function () {
+        self.newContact();
+        $.post(self._get, self._filter).done(self.setContacts).fail(self._showError);
+    };
+    
     self.init = function (strings) {
         self.currentContact(new self._ContactPrototype());
-        $.get(self._get).done(self.setContacts).fail(self._showError);
+        self.loadContacts();
         self._strings = $.extend(self._strings, strings);
     };
 };
