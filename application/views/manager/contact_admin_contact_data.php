@@ -13,7 +13,7 @@
                        data-bind="value: last_name">
             </div>
         </div>
-        <div class="row-fluid">
+        <div class="row-fluid noSoImportant">
             <div class="span6">
                 <label><?php echo lang('form_date_of_birth'); ?></label>
                 <input type="text" class="input-block-level" 
@@ -72,14 +72,14 @@
                        data-bind="value: occupation">
             </div>
         </div>
-        <div class="row-fluid newComponentGroup">
+        <div class="row-fluid newComponentGroup noSoImportant">
             <div class="span*">
                 <label for="txtAddress"><?php echo lang('form_address'); ?></label>
                 <input type="text" id="txtAddress" placeholder="<?php echo lang('form_address_desc'); ?>" class="input-block-level"
                        data-bind="value: address">
             </div>
         </div>
-        <div class="row-fluid">
+        <div class="row-fluid noSoImportant">
             <div class="span2">
                 <label for="txtPostCode"><?php echo lang('form_p_c'); ?></label>
                 <input type="text" id="txtPostCode" placeholder="<?php echo lang('form_postal_code'); ?>" class="input-block-level"

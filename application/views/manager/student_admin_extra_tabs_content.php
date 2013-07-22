@@ -66,35 +66,6 @@
                    data-bind="value: end_date, jqDatepicker: end_date">
         </div> 
     </div>
-    <!-- Datos financieros -->
-    <!--div class="row-fluid newComponentGroup">
-        
-        <div class="span2">
-            <label for="rgrBankPayment"><?php echo lang('form_bank_payment'); ?></label>
-            <select id="rgrBankPayment" class="input-block-level" data-bind="value: bank_payment">
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-            </select>
-        </div>
-        <div class="span4">
-            <label for="txtBankAccountHolder"><?php echo lang('form_bank_account_holder'); ?></label>
-            <input type="text" id="txtBankAccountHolder" placeholder="<?php echo lang('form_first_name'); ?>" class="input-block-level"
-                   data-bind="value: bank_account_holder">
-        </div>
-        <div class="span2">
-            <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
-            <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format">
-                <option value="U">--</option>
-                <option value="CCC">CCC</option>
-                <option value="IBAN">IBAN</option>
-            </select>
-        </div>
-        <div class="span4">
-            <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
-            <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
-                   data-bind="value: bank_account_number">
-        </div>
-    </div-->
     <div class="row-fluid newComponentGroup">
         <!-- Datos escolares -->
         <div class="span4">
@@ -276,18 +247,18 @@
         </div>
         <div class="span4" >
             <label for="lbxAvailableFamily"><?php echo lang('form_existing_family'); ?></label>
-            <select id="lbxAvailableFamily" class="input-block-level" 
-                    data-bind="options: $root.availableFamily, value: $root.currentFamily, optionsText: function (item) { return item.full_name(); }">
+            <select id="lbxAvailableFamily" class="input-block-level"
+                    data-bind="options: $root.availableFamily, value: $root.selectedFamily, optionsText: function (item) { return item.full_name(); }, optionsCaption: '--'">
             </select>
         </div>
     </div>
-    <div class="row-fluid" data-bind="with: currentFamily">
+    <div id="currentFamilyDetails" class="row-fluid" data-bind="with: currentFamily">
         <?php
-        $data = [
+        $configData = [
             'pictureDialogId' => 'currentFamilyPicture',
             'pictureDialogBind' => '$root.currentFamily'
         ];
-        $this->load->view('manager/contact_admin_contact_data', $data);
+        $this->load->view('manager/contact_admin_contact_data', $configData);
         ?>
     </div>
 </div>

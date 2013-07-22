@@ -50,6 +50,14 @@ akdm.StudentViewModel = function () {
     self.availableFamily = ko.observableArray();
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
+    self.existingFamily = ko.observable();
+    self.selectedFamily = ko.computed({
+        read: self.existingFamily,
+        write: function (value) {
+            self.existingFamily(value);
+            if (value) self.currentFamily(new akdm.model.Family.fromJSON(value.toJSON()));
+        }
+    });
 
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
@@ -75,6 +83,7 @@ akdm.StudentViewModel = function () {
     self.newFamily = function () {
         var newFamily = new akdm.model.Family();
         self.currentFamily(newFamily);
+        self.selectedFamily(null);
     };
 
     self.saveFamily = function () {
@@ -96,8 +105,9 @@ akdm.StudentViewModel = function () {
                 ? family_update
                 : family_relate;
             $.post(family_action, family.toJSON()).done(function () {
-                if (family_action === family_relate) 
+                if (family_action === family_relate) {
                     addFamily(family);
+                }
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.family_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
@@ -262,13 +272,13 @@ akdm.StudentViewModel = function () {
         contacts.sort(function (a, b) {
             return a.first_name + a.last_name <= b.first_name + b.last_name ? -1 : +1;
         });
-        self.availableFamily.push(new akdm.model.Family());
+        // self.availableFamily.push(new akdm.model.Family());
         $(contacts).each(function (index, contact) {
-            var newFamily = familyIndex[contact.id]
-                ? familyIndex[contact.id]
-                : akdm.model.Family.fromJSON(contact);
-            newFamily.contact_id(contact.id);
-            self.availableFamily.push(newFamily);
+            if (!familyIndex[contact.id]) {
+                var newFamily = akdm.model.Family.fromJSON(contact);
+                newFamily.contact_id(contact.id);
+                    self.availableFamily.push(newFamily);
+            }
         });
     };
 
