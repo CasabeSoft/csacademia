@@ -11,7 +11,7 @@
             <select id="lbxClassroom" class="input-block-level" data-bind="value: classroom_id">
                 <option value="">--</option>
                 <?php foreach ($classrooms as $classroom) { ?>
-                    <option value="<?php echo $classroom["id"] ?>"><?php echo $classroom["id"] ?></option>
+                    <option value="<?php echo $classroom["id"] ?>"><?php echo $classroom["name"] ?></option>
                 <?php } ?>
             </select>            
         </div>
@@ -118,13 +118,13 @@
 </div>
 <div id="studentData" class="tab-pane" >
     <div class="row-fluid">
-        
+
         <ul class="family thumbnails">
             <!-- ko foreach: studentList -->
             <li class="span2">
                 <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
                     <img  alt="" 
-                          data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                          data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
                 </a>
                 <strong data-bind="text: full_name()"></strong>
             </li>
@@ -138,7 +138,7 @@
             </li>            
         </ul>
     </div>
-    
+
     <div class="row-fluid">
         <legend data-bind="with: currentStudent">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
@@ -161,7 +161,7 @@
             <select id="lbxRelationship" class="input-block-level" data-bind="value: contact_id">
                 <option value="">--</option>
                 <?php foreach ($students as $student) { ?>
-                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] . ' ' . $student["last_name"]?></option>
+                    <option value="<?php echo $student["contact_id"] ?>"><?php echo $student["first_name"] . ' ' . $student["last_name"] ?></option>
                 <?php } ?>
             </select>
         </div> 

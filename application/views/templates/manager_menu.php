@@ -34,7 +34,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/catalog/student"><?php echo lang('menu_student'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
-                                <li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php echo lang('menu_student') . ' / ' . lang('menu_group'); ?></a></li>
+                                <!--li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php //echo lang('menu_student') . ' / ' . lang('menu_group'); ?></a></li-->
                                 <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li> 
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>

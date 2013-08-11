@@ -367,7 +367,7 @@ class Admin_pages extends Crud_controller {
         $this->crud_view = $this->crud->render();
         $this->load_page();
     }
-    
+    /*
     public function students_by_groups() {
         $this->set_page_title('page_manage_students_by_group');
 
@@ -385,14 +385,14 @@ class Admin_pages extends Crud_controller {
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
-    }
+    }*/
 
     public function student() {
         $this->set_page_title('page_manage_students');
 
         $this->crud->set_table('student');
         $this->crud->set_subject(lang('subject_student'));
-        $this->crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code');
+        $this->crud->columns('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code', 'group_id');
         $this->crud->display_as('contact_id', lang('form_name'))
                 ->display_as('center_id', lang('form_center'))
                 ->display_as('start_date', lang('form_start_date'))
@@ -408,10 +408,10 @@ class Admin_pages extends Crud_controller {
                 ->display_as('bank_account_holder', lang('form_bank_account_holder'))
                 ->display_as('bank_payment', lang('form_bank_payment'))
                 ->display_as('leave_reason_code', lang('form_leave_reason'))
-                ->display_as('group', lang('form_group'));
+                ->display_as('group_id', lang('form_group'));
 
-        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'group');
-        $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code', 'group');
+        $this->crud->required_fields('contact_id', 'center_id', 'start_date', 'current_academic_period', 'group_id');
+        $this->crud->fields('contact_id', 'center_id', 'start_date', 'end_date', 'school_level', 'school_name', 'language_years', 'pref_start_time', 'pref_end_time', 'current_academic_period', 'bank_account_format', 'bank_account_number', 'bank_account_holder', 'bank_payment', 'leave_reason_code', 'group_id');
         $this->crud->field_type('start_date','date');
         $this->crud->field_type('end_date','date');
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
@@ -419,7 +419,8 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_relation('leave_reason_code', 'leave_reason', 'description');
         $this->crud->set_relation('current_academic_period', 'academic_period', 'name');
         $this->crud->set_relation('school_level', 'school_level', 'name');
-        $this->crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');
+        //$this->crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');
+        $this->crud->set_relation('group_id', 'group', 'name');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();

@@ -6,9 +6,9 @@
  * @author Leonardo Quintero
  */
 class Group_model extends CI_Model {
+
     private $client_id;
     private $center_id;
-
     public $FIELDS = [
         "id",
         "name",
@@ -37,10 +37,11 @@ class Group_model extends CI_Model {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
-                ->where('client_id ', $this->client_id);
+                ->where('client_id ', $this->client_id)
+                ->order_by("name", "asc");
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
-        return $this->db->get()->result_array(); 
+        return $this->db->get()->result_array();
     }
 
     public function delete($id) {

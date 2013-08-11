@@ -51,7 +51,8 @@ class Student_model extends CI_Model {
     public function get_all($filter = []) {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
-                ->where('client_id', $this->client_id);
+                ->where('client_id', $this->client_id)
+                ->order_by("first_name, last_name", "asc");
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {

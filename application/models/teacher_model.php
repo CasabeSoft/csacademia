@@ -37,7 +37,8 @@ class Teacher_model extends CI_Model {
     public function get_all($filter = []) {
         $this->db->from('contact')
                 ->join('teacher', 'contact.id = teacher.contact_id')
-                ->where('client_id', $this->client_id);
+                ->where('client_id', $this->client_id)
+                ->order_by("first_name, last_name", "asc");
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
             $value = array_key_exists($key, $filter) 
                     ? $filter[$key] 
