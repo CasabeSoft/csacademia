@@ -61,6 +61,7 @@ akdm.GroupsViewModel = function() {
         var weekDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
         var teachingDays = [];
         var attendance = {};
+        var newAttendanceDays = [];
         $(self.studentList()).each(function (index, student) {
             attendance[student.contact_id()] = [];
         });
@@ -78,8 +79,9 @@ akdm.GroupsViewModel = function() {
         for (var day = 1; day <= Date.getDaysInMonth(currYear, currMonth); day++) {
             var teachingDayIndex = teachingDays.indexOf(new Date(currYear, currMonth, day).getDay() - 1);
             if (teachingDayIndex >= 0)
-                self.attendanceDays.push({number: day, name: dayLetter[teachingDays[teachingDayIndex]]});
+                newAttendanceDays.push({number: day, name: dayLetter[teachingDays[teachingDayIndex]]});
         }
+        self.attendanceDays(newAttendanceDays);
     };
     
     self.updateAttendanceDays = function () {
@@ -134,10 +136,12 @@ akdm.GroupsViewModel = function() {
     };
 
     self.setStudentList = function(studentList) {
+        var newStudentList = [];
         self.studentList.removeAll();
         $(studentList).each(function(index, student) {
-            self.studentList.push(akdm.model.Student.fromJSON(student));
+            newStudentList.push(akdm.model.Student.fromJSON(student));
         });
+        self.studentList(newStudentList);
     };
 
     self.selectGroup = function(group) {
@@ -164,22 +168,18 @@ akdm.GroupsViewModel = function() {
         var group = self.currentGroup();
         if (group.id())
             // Actualizar
-            $.post(self._update, group.toJSON())
-                    .done(function() {
+            $.post(self._update, group.toJSON()).done(function() {
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.group_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
-            })
-                    .fail(self._showError);
+            }).fail(self._showError);
         else {
             // Insertar
-            $.post(self._add, group.toJSON())
-                    .done(function(newId) {
+            $.post(self._add, group.toJSON()).done(function(newId) {
                 group.id(newId);
                 self.groups.push(self.currentGroup());
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.group_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
-            })
-                    .fail(self._showError);
+            }).fail(self._showError);
         }
     };
 
@@ -216,14 +216,12 @@ akdm.GroupsViewModel = function() {
                     .fail(self._showError);
         else {
             // Insertar
-            $.get(student_add + student.contact_id() + '/' + self.currentGroup().id())
-                    .done(function(newId) {
+            $.get(student_add + student.contact_id() + '/' + self.currentGroup().id()).done(function(newId) {
                 student.group_id(self.currentGroup().id());
                 self.studentList.push(self.currentStudent());
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.student_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
-            })
-                    .fail(self._showError);
+            }).fail(self._showError);
         }
         
         
@@ -249,10 +247,12 @@ akdm.GroupsViewModel = function() {
     };
 
     self.setGroups = function(groups) {
+        var newGroups = [];
         self.groups.removeAll();
         $(groups).each(function(index, group) {
-            self.groups.push(self._GroupPrototype.fromJSON(group));
+            newGroups.push(self._GroupPrototype.fromJSON(group));
         });
+        self.groups(newGroups);
     };
 
     self._showError = function(jqXHR, textStatus, errorThrown) {

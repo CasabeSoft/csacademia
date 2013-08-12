@@ -160,10 +160,12 @@ akdm.ContactsViewModel = function() {
     };
     
     self.setContacts = function (contacts) {
+        var newContacts = [];
         self.contacts.removeAll();
         $(contacts).each(function (index, contact) {
-            self.contacts.push(self._ContactPrototype.fromJSON(contact));
+            newContacts.push(self._ContactPrototype.fromJSON(contact));
         });
+        self.contacts(newContacts);
     };
 
     self._showError = function (jqXHR, textStatus, errorThrown) {

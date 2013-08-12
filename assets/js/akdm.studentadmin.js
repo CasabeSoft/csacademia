@@ -199,10 +199,12 @@ akdm.StudentViewModel = function () {
     };
 
     self.setPaymentList = function (paymentList) {
+        var newPaypmentList = [];
         self.paymentList.removeAll();
         $(paymentList).each(function (index, payment) {
-            self.paymentList.push(akdm.model.Payment.fromJSON(payment));
+            newPaypmentList.push(akdm.model.Payment.fromJSON(payment));
         });
+        self.paymentList(newPaypmentList);
     };
 
     self.setLevelPrice = function (price) {
@@ -210,10 +212,12 @@ akdm.StudentViewModel = function () {
     };
 
     self.setQualifications = function (qualifications) {
+        var newQualifications = [];
         self.currentQualifications.removeAll();
         $(qualifications).each(function (index, qualification) {
-            self.currentQualifications.push(akdm.model.Qualification.fromJSON(qualification));
+            newQualifications.push(akdm.model.Qualification.fromJSON(qualification));
         });
+        self.currentQualifications(newQualifications);
     };
 
     self.selectContact = function (contact) {
@@ -268,18 +272,19 @@ akdm.StudentViewModel = function () {
     };
 
     self.setAvailableFamily = function (contacts) {
+        var newAvailableFamily = [];
         self.availableFamily.removeAll();
         contacts.sort(function (a, b) {
             return a.first_name + a.last_name <= b.first_name + b.last_name ? -1 : +1;
         });
-        // self.availableFamily.push(new akdm.model.Family());
         $(contacts).each(function (index, contact) {
             if (!familyIndex[contact.id]) {
                 var newFamily = akdm.model.Family.fromJSON(contact);
                 newFamily.contact_id(contact.id);
-                    self.availableFamily.push(newFamily);
+                newAvailableFamily.push(newFamily);
             }
         });
+        self.availableFamily(newFamilyList);
     };
 
     self.init = function (messages, relationships, paymentTypes, academicPeriods, levels) {
