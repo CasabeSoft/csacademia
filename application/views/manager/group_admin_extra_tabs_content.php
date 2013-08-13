@@ -68,6 +68,7 @@
     <div class="row-fluid">
         <div class="span2">
             <label for="lbxmonday"><?php echo lang('form_monday'); ?></label>
+            <input type="checkbox" data-bind="checked: monday">
             <select id="lbxmonday" class="input-block-level" data-bind="value: monday">
                 <option value="">--</option>
                 <option value="1"><?php echo lang('btn_yes'); ?></option>
@@ -76,6 +77,7 @@
         </div>
         <div class="span2">
             <label for="lbxtuesday"><?php echo lang('form_tuesday'); ?></label>
+            <input type="checkbox" data-bind="checked: tuesday">
             <select id="lbxtuesday" class="input-block-level" data-bind="value: tuesday">
                 <option value="">--</option>
                 <option value="1"><?php echo lang('btn_yes'); ?></option>

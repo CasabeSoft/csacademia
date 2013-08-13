@@ -21,7 +21,7 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                     <input id="appendedInputButtons" type="text" class="span*" placeholder="<?php echo lang('form_type_filter'); ?>" data-bind="value: filter">
                 </div>
 
-                <table id="tblGroups" class="table table-bordered table-hover table-condensed">
+                <table id="tblContacts" class="table table-bordered table-hover table-condensed">
                     <thead>
                         <tr>
                             <th><?php echo lang('form_name'); ?></th>

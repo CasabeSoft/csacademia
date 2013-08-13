@@ -25,7 +25,7 @@
         <li class="medium">
             <a href="#" class="thumbnail">
                 <input type="checkbox" data-bind="checked: $root.attended(contact_id(), $root.currentDate()), event: {change: function (data, event) { $root.onAttendanceDayChange(contact_id(), $root.currentDate(), event); }}">
-                <img data-bind="attr: {src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                <img data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
             <p data-bind="text: full_name()" class="name"></p>
         </li>
