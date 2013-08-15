@@ -284,7 +284,7 @@ akdm.StudentViewModel = function () {
                 newAvailableFamily.push(newFamily);
             }
         });
-        self.availableFamily(newFamilyList);
+        self.availableFamily(newAvailableFamily);
     };
 
     self.init = function (messages, relationships, paymentTypes, academicPeriods, levels) {
