@@ -95,3 +95,7 @@ body
 {
     background-color: #ECE7CF;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}

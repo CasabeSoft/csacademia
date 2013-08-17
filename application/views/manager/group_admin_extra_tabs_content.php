@@ -68,7 +68,7 @@
     <div class="row-fluid">
         <div class="span2">
             <label for="lbxmonday"><?php echo lang('form_monday'); ?></label>
-            <input type="checkbox" data-bind="checked: monday">
+            <!--input type="checkbox" data-bind="checked: monday"-->
             <select id="lbxmonday" class="input-block-level" data-bind="value: monday">
                 <option value="">--</option>
                 <option value="1"><?php echo lang('btn_yes'); ?></option>
@@ -77,7 +77,7 @@
         </div>
         <div class="span2">
             <label for="lbxtuesday"><?php echo lang('form_tuesday'); ?></label>
-            <input type="checkbox" data-bind="checked: tuesday">
+            <!--input type="checkbox" data-bind="checked: tuesday"-->
             <select id="lbxtuesday" class="input-block-level" data-bind="value: tuesday">
                 <option value="">--</option>
                 <option value="1"><?php echo lang('btn_yes'); ?></option>
@@ -121,23 +121,22 @@
 <div id="studentData" class="tab-pane" >
     <div class="row-fluid">
 
-        <ul class="family thumbnails">
+        <ul class="list thumbnails">
             <!-- ko foreach: studentList -->
-            <li class="span2">
+            <li class="medium">
                 <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
                     <img  alt="" 
                           data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
                 </a>
-                <strong data-bind="text: full_name()"></strong>
+                <p data-bind="text: full_name()" class="name"></p>
             </li>
             <!-- /ko -->
-            <li class="span2 add">
+            <!--li class="medium add">
                 <a href="#" class="thumbnail" data-bind="click: $root.newStudent">
                     <div><img src="/assets/img/personal.png" alt=""></div>
                 </a>
-                <strong><?php echo lang('btn_new'); ?></strong>
-                <p></p>
-            </li>            
+                <strong><?php //echo lang('btn_new'); ?></strong>                
+            </li-->            
         </ul>
     </div>
 
@@ -145,9 +144,9 @@
         <legend data-bind="with: currentStudent">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
             <div class="pull-right">
-                <!--button class="btn btn-small" data-bind="click: $root.newStudent">
+                <button class="btn btn-small" data-bind="click: $root.newStudent">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
-                </button-->
+                </button>
                 <button class="btn btn-small" data-bind="click: $root.saveStudent">
                     <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
                 </button>

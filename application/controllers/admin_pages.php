@@ -467,8 +467,8 @@ class Admin_pages extends Crud_controller {
         $this->crud->display_as('code', lang('form_id'))
                 ->display_as('name', lang('form_name'));
 
-        $this->crud->required_fields('code', 'name');
-        $this->crud->fields('code', 'name');
+        $this->crud->required_fields('name');
+        $this->crud->fields('name');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();

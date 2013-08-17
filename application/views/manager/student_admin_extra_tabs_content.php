@@ -110,7 +110,7 @@
                     <th>Ev. 3</th>
                     <th>Calificación</th>
                     <th>Trinity</th>
-                    <th>London</th>
+                    <th>Cambridge</th>
                     <th>Otras</th>
                 </tr>
             </thead>
@@ -180,7 +180,7 @@
                     <input type="text" class="input-block-level" data-bind="value: trinity">
                 </div>
                 <div class="span4">
-                    <label>London</label>
+                    <label>Cambridge</label>
                     <input type="text" class="input-block-level" data-bind="value: london">
                 </div>
                 <div class="span4">
@@ -208,7 +208,7 @@
             <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
                 <img data-bind="attr: {
                      alt: first_name,
-                     src: picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                     src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
             <strong data-bind="text: first_name"></strong>
             <p data-bind="text: $root.relationships[relationship_code()]"></p>
