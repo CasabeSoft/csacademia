@@ -120,26 +120,43 @@
 </div>
 <div id="studentData" class="tab-pane" >
     <div class="row-fluid">
-
-        <ul class="list thumbnails">
-            <!-- ko foreach: studentList -->
-            <li class="medium">
-                <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
-                    <img  alt="" 
-                          data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
-                </a>
-                <p data-bind="text: full_name()" class="name"></p>
-            </li>
-            <!-- /ko -->
-            <!--li class="medium add">
-                <a href="#" class="thumbnail" data-bind="click: $root.newStudent">
-                    <div><img src="/assets/img/personal.png" alt=""></div>
-                </a>
-                <strong><?php //echo lang('btn_new'); ?></strong>                
-            </li-->            
-        </ul>
+        <div class="span4">
+            <label><?php echo lang('form_view_as'); ?></label>
+            <div class="btn-group" data-toggle="buttons-radio">
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
+            </div>
+        </div>
     </div>
-
+    <ul class="list thumbnails" data-bind="foreach: studentList, visible: ! viewStudentsAsList()">        
+        <li class="medium">
+            <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
+                <img  alt="" 
+                      data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+            </a>
+            <p data-bind="text: full_name()" class="name"></p>
+        </li>
+        <!--li class="medium add">
+            <a href="#" class="thumbnail" data-bind="click: $root.newStudent">
+                <div><img src="/assets/img/personal.png" alt=""></div>
+            </a>
+            <strong><?php //echo lang('btn_new'); ?></strong>                
+        </li-->            
+    </ul>
+    <table class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: studentList">
+            <tr data-bind="click: $root.selectStudent">
+                <td data-bind="text: $index() + 1"></td>
+                <td data-bind="text: full_name()"></td>
+            </tr>
+        </tbody>
+    </table>
     <div class="row-fluid">
         <legend data-bind="with: currentStudent">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
