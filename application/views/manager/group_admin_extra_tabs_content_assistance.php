@@ -9,15 +9,15 @@
         <div class="span3">
             <label><?php echo lang('form_attendance'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
-                <button type="button" class="btn" data-bind="click: setViewDailyAttendance.bind($data, true), css: {active: viewDailyAttendance() }"><img src="/assets/img/icon-calendar-day.png" class="icon-"> Día</button>
-                <button type="button" class="btn" data-bind="click: setViewDailyAttendance.bind($data, false), css: {active: !viewDailyAttendance() }" ><i class="icon-calendar"></i> Mes</button>
+                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, true), css: {active: viewDailyAttendance() }"><img src="/assets/img/icon-calendar-day.png" class="icon-"> Día</button>
+                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, false), css: {active: !viewDailyAttendance() }" ><i class="icon-calendar"></i> Mes</button>
             </div>
         </div>        
         <div class="span4" data-bind="visible: viewDailyAttendance">
             <label><?php echo lang('form_view_as'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
-                <button type="button" class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
-                <button type="button" class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
             </div>
         </div>
     </div>
