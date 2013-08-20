@@ -72,7 +72,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_user'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
-                ->display_as('email', lang('form_email'))
+                ->display_as('email', lang('subject_user'))
                 ->display_as('password', lang('form_password'))
                 ->display_as('client_id', lang('form_client'))
                 ->display_as('role_code', lang('form_role'));

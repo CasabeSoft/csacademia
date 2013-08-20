@@ -312,7 +312,7 @@ table.list td, th {
         }
     }
 
-    public function payment_report($id) {
+    /*public function payment_report($id) {
 
         try {
             $this->load->model('Payment_model');
@@ -420,7 +420,30 @@ table.list td, th {
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
+    }*/
+    
+    public function payment_report($id) {
+
+        try {
+            $this->load->library('mpdf');
+            $header = 'Document header ' . $id;
+            $html1 = 'Your document content goes here';
+            $footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
+
+            //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
+            $mpdf = new mPDF('c', array(100, 100));
+            $mpdf->SetHTMLHeader($header);
+            $mpdf->SetHTMLFooter($footer);
+            $mpdf->SetJS('this.print();');
+            $mpdf->WriteHTML($html1);
+            $mpdf->Output();
+            
+         } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
     }
+    
+    
 
     public function qualification_get($student_id) {
         $this->setup_ajax_response_headers();

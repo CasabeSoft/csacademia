@@ -28,10 +28,10 @@
                     }
                     ?>
                     <p>
-                        Correo actual: <?php echo $this->session->userdata('email'); ?>
+                        <?php echo lang('subject_user'); ?> actual: <?php echo $this->session->userdata('email'); ?>
                     </p>
-                    <label for="email"><?php echo lang('form_email'); ?>: </label>
-                    <input class="span3" name="email" id="email" placeholder="<?php echo lang('form_email'); ?>" type="text" value="<?php echo set_value('email'); ?>">
+                    <label for="email"><?php echo lang('subject_user'); ?>: </label>
+                    <input class="span3" name="email" id="email" placeholder="<?php echo lang('subject_user'); ?>" type="text" value="<?php echo set_value('email'); ?>">
                     <span class="alert-error"><?php echo form_error('email'); ?></span>
                     <button type="submit" class="btn btn-primary"><?php echo lang('btn_enter'); ?></button>
                 </fieldset>

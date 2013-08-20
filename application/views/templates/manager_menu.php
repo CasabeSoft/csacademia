@@ -46,7 +46,9 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>   
                             <li class="<?php echo is_active($current_page, 'payment_type') ?>"><a href="/catalog/payment_type"><?php echo lang('menu_payment_type'); ?></a></li> 
                             <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
+                            <?php if ($this->role_id == ROLE_ADMINISTRATOR || $this->role_id == ROLE_MANAGER) { ?>
+                                <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                     <li class="<?php echo is_controller_active($current_controller, 'manage') ?> dropdown">
