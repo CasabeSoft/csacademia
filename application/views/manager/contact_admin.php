@@ -37,8 +37,8 @@
             <legend data-bind="with: currentContact">
                 <span data-bind="text: full_name() + '&nbsp;'"></span>
                 <div class="pull-right">
-                    <button class="btn btn-small" data-bind="click: $root.saveContact">
-                        <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                    <button class="btn btn-small btn-success" data-bind="click: $root.saveContact">
+                        <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                     </button>
                     <button class="btn btn-small btn-danger" data-bind="click: $root.removeContact">
                         <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>

@@ -194,7 +194,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-small" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign"></i> Guardar</button>
+            <button class="btn btn-small btn-success" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign icon-white"></i> Guardar</button>
             <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removeQualification, visible: student_id"><i class="icon-minus-sign icon-white"></i> Eliminar</button>
             <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i> Cancelar</button>
         </div>
@@ -226,8 +226,8 @@
         <legend data-bind="with: currentFamily">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
             <div class="pull-right">
-                <button class="btn btn-small" data-bind="click: $root.saveFamily">
-                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                <button class="btn btn-small btn-success" data-bind="click: $root.saveFamily">
+                    <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                 </button>
                 <button class="btn btn-small btn-danger" data-bind="click: $root.removeFamily">
                     <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
@@ -391,8 +391,8 @@
                 <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
                 <legend data-bind="with: $root.currentPayment">
                     <div class="pull-right">
-                        <button class="btn btn-small" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
-                            <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                        <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
+                            <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                         </button>                       
                         <button class="btn btn-small" aria-hidden="true" data-dismiss="modal">
                             <i class="icon-remove-sign"></i> <?php echo lang('btn_close'); ?>

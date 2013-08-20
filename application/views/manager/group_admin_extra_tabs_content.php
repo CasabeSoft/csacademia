@@ -164,8 +164,8 @@
                 <button class="btn btn-small" data-bind="click: $root.newStudent">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                 </button>
-                <button class="btn btn-small" data-bind="click: $root.saveStudent">
-                    <i class="icon-ok-sign"></i> <?php echo lang('btn_save'); ?>
+                <button class="btn btn-small btn-success" data-bind="click: $root.saveStudent">
+                    <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                 </button>
                 <button class="btn btn-small btn-danger" data-bind="click: $root.removeStudent">
                     <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
