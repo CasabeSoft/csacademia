@@ -20,24 +20,20 @@
                 <?php } ?>
             </select>            
         </div>
-        <div class="span3 hidden hide" >
-            <label for="lbxAcademicPeriod"><?php echo lang('form_academic_period'); ?></label>
-            <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: current_academic_period">
-                <option value="">--</option>
-                <?php foreach ($academicPeriods as $period) { ?>
-                    <option value="<?php echo $period["code"] ?>"><?php echo $period["name"] ?></option>
-                <?php } ?>
-            </select>            
+        <div class="span2">
+            <label for="tbxPrefStartTime"><?php echo lang('form_start_time'); ?></label>
+            <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
+                   data-bind="value: $root.currentStudentGroup().start_time" />
         </div>
-        <div class="span3">
-            <label for="tbxPrefStartTime"><?php echo lang('form_pref_start_time'); ?></label>
-            <input type="text" id="tbxPrefStartTime" placeholder="16:00" class="input-block-level" 
-                   data-bind="value: pref_start_time" />
+        <div class="span2">
+            <label for="tbxPrefEndTime"><?php echo lang('form_end_time'); ?></label>
+            <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
+                   data-bind="value: $root.currentStudentGroup().end_time" />
         </div>
-        <div class="span3">
-            <label for="tbxPrefEndTime"><?php echo lang('form_pref_end_time'); ?></label>
-            <input type="text" id="tbxPrefStartTime" placeholder="18:00" class="input-block-level" 
-                   data-bind="value: pref_end_time" />
+        <div class="span2">
+            <label for="lbxLevel"><?php echo lang('form_level'); ?></label>
+            <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
+                   data-bind="value: $root.levels[$root.currentStudentGroup().level_code]" />
         </div>        
     </div>
     <div class="row-fluid">

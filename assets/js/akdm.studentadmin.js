@@ -29,6 +29,7 @@ akdm.StudentViewModel = function () {
     var qualification_add = '/student/qualification_add/';
     var qualification_delete = '/student/qualification_delete/';
     var familyIndex = {};
+    var empty_group = (new akdm.model.Group()).toJSON();
     self._get = '/student/get';
     self._add = '/student/add';
     self._update = '/student/update';
@@ -45,6 +46,7 @@ akdm.StudentViewModel = function () {
     self.paymentTypes = {};
     self.academicPeriods = {};
     self.levels = {};
+    self.groups = {};
     self.currentQualifications = ko.observableArray();
     self.currentQualification = ko.observable();
     self.availableFamily = ko.observableArray();
@@ -56,6 +58,12 @@ akdm.StudentViewModel = function () {
         write: function (value) {
             self.existingFamily(value);
             if (value) self.currentFamily(new akdm.model.Family.fromJSON(value.toJSON()));
+        }
+    });
+    self.currentStudentGroup = ko.computed({
+        read: function () {
+            return self.currentContact() && self.groups[self.currentContact().group_id()] 
+                    || empty_group;
         }
     });
 
@@ -287,7 +295,7 @@ akdm.StudentViewModel = function () {
         self.availableFamily(newAvailableFamily);
     };
 
-    self.init = function (messages, relationships, paymentTypes, academicPeriods, levels) {
+    self.init = function (messages, relationships, paymentTypes, academicPeriods, levels, groups) {
         parent.init(messages);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
@@ -303,6 +311,9 @@ akdm.StudentViewModel = function () {
         });
         $(levels).each(function (index, level) {
             self.levels[level.code] = level.description;
+        });
+        $(groups).each(function (index, group) {
+            self.groups[group.id] = group;
         });
     };
 };
