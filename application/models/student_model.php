@@ -16,9 +16,6 @@ class Student_model extends CI_Model {
         "school_level",
         "school_name",
         "language_years",
-        "pref_start_time",
-        "pref_end_time",
-        "current_academic_period",
         "bank_account_format",
         "bank_account_number",
         "bank_account_holder",
@@ -29,7 +26,6 @@ class Student_model extends CI_Model {
     ];
     public $NULLABLES = [
         'language_years',
-        'current_academic_period',
         'leave_reason_code',
         'start_date',
         'end_date',

@@ -139,9 +139,6 @@ akdm.model = (function () {
         this.school_level = ko.observable("");
         this.school_name = ko.observable("");
         this.language_years = ko.observable("");
-        this.pref_start_time = ko.observable("");
-        this.pref_end_time = ko.observable("");
-        this.current_academic_period = ko.observable("");
         this.bank_account_format = ko.observable("");
         this.bank_account_number = ko.observable("");
         this.bank_account_holder = ko.observable("");
@@ -164,9 +161,6 @@ akdm.model = (function () {
                 "school_level": student.school_level(),
                 "school_name": student.school_name(),
                 "language_years": student.language_years(),
-                "pref_start_time": student.pref_start_time(),
-                "pref_end_time": student.pref_end_time(),
-                "current_academic_period": student.current_academic_period(),
                 "bank_account_format": student.bank_account_format(),
                 "bank_account_number": student.bank_account_number(),
                 "bank_account_holder": student.bank_account_holder(),
@@ -187,9 +181,6 @@ akdm.model = (function () {
         this.school_level(studentJSON.school_level);
         this.school_name(studentJSON.school_name);
         this.language_years(studentJSON.language_years);
-        this.pref_start_time(studentJSON.pref_start_time);
-        this.pref_end_time(studentJSON.pref_end_time);
-        this.current_academic_period(studentJSON.current_academic_period);
         this.bank_account_format(studentJSON.bank_account_format);
         this.bank_account_number(studentJSON.bank_account_number);
         this.bank_account_holder(studentJSON.bank_account_holder);
