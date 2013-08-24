@@ -24,7 +24,7 @@ class Group extends Basic_controller {
         $this->load->model('General_model');
         $this->load->model('Student_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name');
-        $this->classrooms = $this->General_model->get_fields('classroom', 'id, name');
+        $this->classrooms = $this->General_model->get_fields('classroom', 'id, name, capacity');
         $this->teachers = $this->General_model->get_fields('view_teacher', 'contact_id, full_name');
         $this->levels = $this->General_model->get_fields('level', 'code, description');
         $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');

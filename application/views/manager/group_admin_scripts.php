@@ -29,6 +29,6 @@
             student_created: '<?php echo lang('subject_student') . lang('message_created') ?>',
             student_updated: '<?php echo lang('subject_student') . lang('message_updated') ?>',
             student_deleted: '<?php echo lang('subject_student') . lang('message_deleted') ?>'
-        });
+        }, <?php echo json_encode($this->classrooms) ?>);
     });
 </script>

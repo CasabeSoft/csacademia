@@ -233,6 +233,7 @@ $lang['message_validation_error'] = "Some specified value isn't correct. Verify 
 $lang['message_qualification_created'] = "Qualification created successfully.";
 $lang['message_qualification_updated'] = "Qualification updated successfully.";
 $lang['message_qualification_deleted'] = "Qualification deleted.";
+$lang['message_warning_overbooking'] = "<strong>Warning!</strong> This group have more students than the current classroom capacity. Delete some students or change the classroom by one with a bigger capacity.";
 
 /* * *
  * Títulos de páginas

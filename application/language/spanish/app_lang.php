@@ -234,6 +234,7 @@ $lang['message_validation_error'] = "Algún valor indicado no es correcto. Verif
 $lang['message_qualification_created'] = "Evaluación creada satisfactoriamente.";
 $lang['message_qualification_updated'] = "Evaluación actualizada satisfactoriamente.";
 $lang['message_qualification_deleted'] = "Evaluación eliminada.";
+$lang['message_warning_overbooking'] = "<strong>¡Atención!</strong> Este grupo tiene más alumnos que la capacidad del aula. Elimine alumnos o cambie el aula por una de mayor capacidad.";
 
 /* * *
  * Títulos de páginas

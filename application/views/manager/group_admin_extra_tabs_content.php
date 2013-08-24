@@ -128,6 +128,10 @@
             </div>
         </div>
     </div>
+    <div class="alert" data-bind="visible: overbooking">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo lang('message_warning_overbooking') ?>
+    </div>
     <ul class="list thumbnails" data-bind="foreach: studentList, visible: ! viewStudentsAsList()">        
         <li class="medium">
             <a href="#" class="thumbnail" data-bind="click: $root.selectStudent">
@@ -161,10 +165,10 @@
         <legend data-bind="with: currentStudent">
             <span data-bind="text: full_name() + '&nbsp;'"></span>
             <div class="pull-right">
-                <button class="btn btn-small" data-bind="click: $root.newStudent">
+                <button class="btn btn-small" data-bind="click: $root.newStudent, visible: $root.canAddMoreStudents">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                 </button>
-                <button class="btn btn-small btn-success" data-bind="click: $root.saveStudent">
+                <button class="btn btn-small btn-success" data-bind="click: $root.saveStudent, visible: $root.canAddMoreStudents">
                     <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                 </button>
                 <button class="btn btn-small btn-danger" data-bind="click: $root.removeStudent">

@@ -21,6 +21,7 @@ akdm.GroupsViewModel = function() {
     var delete_student_attendance = '/group/delete_student_attendance/';
     var dayLetter = [];
     var lastDate = $.datepicker.formatDate(akdm.config.localeDateFormat, new Date());
+    var empty_classroom = {"id": 0, "name": "", "capacity": 0};
     self._get = '/group/get';
     self._add = '/group/add';
     self._update = '/group/update';
@@ -35,6 +36,7 @@ akdm.GroupsViewModel = function() {
         validation_error: 'Algún valor indicado no es correcto. Verifique los datos.',
         day_short_names: 'Lu,Ma,Mi,Ju,Vi,Sa'
     };
+    self.classrooms = {};
     self.studentList = ko.observableArray();
     self.currentStudent = ko.observable();
     self.viewStudentsAsList = ko.observable(false);
@@ -53,6 +55,18 @@ akdm.GroupsViewModel = function() {
     });
     self.attendanceDays = ko.observableArray();
     self.attendance = ko.observable();
+    self.canAddMoreStudents = ko.computed({
+        read: function () {
+            return self.currentGroup() && self.classrooms[self.currentGroup().classroom_id()] &&
+                    Number(self.classrooms[self.currentGroup().classroom_id()].capacity) > self.studentList().length;
+        }
+    });
+    self.overbooking = ko.computed({
+        read: function () {
+            return self.currentGroup() && self.classrooms[self.currentGroup().classroom_id()] &&
+                    Number(self.classrooms[self.currentGroup().classroom_id()].capacity) < self.studentList().length;
+        }
+    });
     
     var setAttendance = function(attendanceList) {
         var currDate = self.getCurrentDate();
@@ -288,7 +302,7 @@ akdm.GroupsViewModel = function() {
         }
     };
     
-    self.init = function(strings) {
+    self.init = function(strings, classrooms) {
         self.currentGroup(new self._GroupPrototype());
         $.get(self._get).done(self.setGroups).fail(self._showError);
         self._strings = $.extend(self._strings, strings);
@@ -304,5 +318,8 @@ akdm.GroupsViewModel = function() {
         });
         self.currentStudent(new akdm.model.Student());
         dayLetter = self._strings.day_short_names.split(',');
+        $(classrooms).each(function (index, classroom) {
+            self.classrooms[classroom.id] = classroom;
+        });
     };
 };
