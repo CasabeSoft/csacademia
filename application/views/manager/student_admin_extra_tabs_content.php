@@ -271,11 +271,11 @@
         <div class="span4">
             <label for="txtBankAccountHolder"><?php echo lang('form_bank_account_holder'); ?></label>
             <input type="text" id="txtBankAccountHolder" placeholder="<?php echo lang('form_first_name'); ?>" class="input-block-level"
-                   data-bind="value: bank_account_holder">
+                   data-bind="value: bank_account_holder, enable: bank_payment() == 1">
         </div>
         <div class="span2">
             <label for="lbxAccountFormat"><?php echo lang('form_bank_account_format'); ?></label>
-            <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format">
+            <select id="lbxAccountFormat" class="input-block-level" data-bind="value: bank_account_format, enable: bank_payment() == 1">
                 <option value="U">--</option>
                 <option value="CCC">CCC</option>
                 <option value="IBAN">IBAN</option>
@@ -284,7 +284,7 @@
         <div class="span4">
             <label for="txtAccountNumber"><?php echo lang('form_bank_account_number'); ?></label>
             <input type="text" id="txtAccountNumber" placeholder="<?php echo lang('form_account_numer_desc'); ?>" class="input-block-level"
-                   data-bind="value: bank_account_number">
+                   data-bind="value: bank_account_number, enable: bank_payment() == 1">
         </div>
     </div>
 
@@ -293,7 +293,7 @@
         <legend>
             <?php echo lang('menu_payment'); ?>
             <div class="pull-right">       
-                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id()>0, click: $root.newPayment">
+                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id() > 0 && $root.currentContact().bank_payment() != 1, click: $root.newPayment">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                 </button>
 
