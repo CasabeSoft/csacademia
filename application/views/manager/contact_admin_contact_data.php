@@ -41,7 +41,7 @@
     <div class="span4">
         <div id="picture">
             <img class="img-polaroid" 
-                 data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}" />
+                 data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : sex() == 'F' ? '/assets/img/personal-female.png' : '/assets/img/personal.png'}" />
             <a href="#" data-toggle="modal" data-target="#<?php echo $pictureDialogId ?>"><?php echo lang('lnk_chanche_picture'); ?></a>
         </div>
     </div>

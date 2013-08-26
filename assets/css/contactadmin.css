@@ -82,7 +82,7 @@
 
 .list.thumbnails .add:hover .thumbnail div {
     background-size: 110px;
-    background-image: url(/assets/img/personal_gray.png);
+    background-image: url(/assets/img/personal.png);
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
