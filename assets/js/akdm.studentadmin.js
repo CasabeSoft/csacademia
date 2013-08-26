@@ -240,6 +240,8 @@ akdm.StudentViewModel = function () {
 
     self.newQualification = function () {
         self.currentQualification(new akdm.model.Qualification());
+        self.currentQualification().academic_period(self.currentStudentGroup().academic_period);
+        self.currentQualification().level_code(self.currentStudentGroup().level_code);
     };
 
     self.saveQualification = function () {
