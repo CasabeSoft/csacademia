@@ -230,8 +230,11 @@ class Student extends Basic_controller {
           $R->render(); */
         try {
             $this->load->model('Payment_model');
+            $this->load->model('General_model');
+            $this->load->helper('Util_helper');
 
             $payments = $this->Payment_model->get_all($id);
+            $student = $this->General_model->get_where('contact', 'id = ' . $id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $html = '
@@ -260,7 +263,7 @@ class Student extends Basic_controller {
 
 table.list {
 	border:1px solid #000000;
-	font-family: sans-serif;
+	font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
 	font-size: 10pt;
 	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
 }
@@ -269,7 +272,9 @@ table.list td, th {
 	text-align: left;
 	font-weight: normal;
 }
+.title-font{
 
+}
 </style>
 <body>
 
@@ -277,27 +282,34 @@ table.list td, th {
 <tbody>
 <tr>
 <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-<td><p>Informe de Pagos</td>
+<td><p><b>Informe de Pagos</b></td>
 </tr>
 <tr>
-<td><p>Alumno: </p></td>
+<td><p>Alumno: ';
+$html .= $student[0]['first_name'] . ' ' .$student[0]['last_name'];            
+$html .= '</p></td>
 </tr>
 </tbody>
 </table>
 ';
-
+            
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
+            $html .= '<td class="td_center">#</td>';
             $html .= '<td class="td_center">Fecha</td>';
             $html .= '<td class="td_center">Tipo de pago</td>';
             $html .= '<td class="td_center">Periodo</td>';
             $html .= '<td class="td_right">Importe</td>';
             $html .= '</tr></thead><tbody>';
+            $count = 1;
             foreach ($payments AS $payment) {
-                $html .= '<tr><td class="td_center">' . $payment['date'] . '</td>';
+                $dateNormal = db_to_Local($payment['date']);
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td class="td_center">' . $dateNormal . '</td>';
                 $html .= '<td class="td_center">' . $payment['payment_type_name'] . '</td>';
                 $html .= '<td class="td_center">' . $payment['piriod'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $count++;
             }
             $html .='</tbody></table>
 <br />
@@ -426,24 +438,79 @@ table.list td, th {
 
         try {
             $this->load->library('mpdf');
-            $header = 'Document header ' . $id;
-            $html1 = 'Your document content goes here';
-            $footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
+            //$header = 'Document header ' . $id;
+            //$html1 = 'Your document content goes here';
+            //$footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
+            
+            $this->load->model('Payment_model');
+            $this->load->helper('Util_helper');
+            $payment = $this->Payment_model->get_payment_id($id);
+            
+            $dateDB = $payment['date'];
+            
+            $dateNormal = db_to_Local($dateDB);
+            
+            /*if (($dateDB == "") || ($dateDB == "0000-00-00")) {
+                $dateNormal = "";
+            } else {
+                $dateArray = explode("-", $dateDB);
+                $aux = $dateArray[2];
+                $dateArray[2] = $dateArray[0];
+                $dateArray[0] = $aux;
+                $dateNormal = implode("/", $dateArray);
+            }*/
+            
+            $html = '
+            <body>
+              <div class="gradient text rounded">
+              <table border="0" width="100%" >
+              <tbody>
+              <tr>
+              <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
+              <td><p style="font-size: 20px">RECIBO</td>
+              </tr>
+              <tr>
+              <td><p>
+              ';
+            $html .= 'Fecha: ' . $dateNormal;
+            $html .= '
+              </p></td>
+              </tr>
+              </tbody>
+              </table>
+              </div>
+              <div class="gradient text rounded">
+              ';
+            $html .= '<p> Recibí de: ' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
+            $html .= '  
+              
+              <p>Por: Pago
+              ';
+            //<p>La cantidad de euros: </p>
+            //<p class="code"> <br> <br></p>
+            $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
+            $html .= '</p>
+             
+              <p>Importe: €
+              ';
+            $html .= $payment['amount'];
+            $html .= '
+              </p><p>Firmado: ______________</p>
+              </div>
+              </body>';
 
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
             $mpdf = new mPDF('c', array(100, 100));
-            $mpdf->SetHTMLHeader($header);
-            $mpdf->SetHTMLFooter($footer);
+            //$mpdf->SetHTMLHeader($header);
+            //$mpdf->SetHTMLFooter($footer);
             $mpdf->SetJS('this.print();');
-            $mpdf->WriteHTML($html1);
+            $mpdf->WriteHTML($html);
             $mpdf->Output();
             
          } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
-    
 
     public function qualification_get($student_id) {
         $this->setup_ajax_response_headers();

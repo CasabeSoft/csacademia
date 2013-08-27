@@ -6,8 +6,8 @@
  * @author carlos
  */
 class Payment_model extends CI_Model {
-    private $client_id;
 
+    private $client_id;
     public $FIELDS = [
         "id",
         "date",
@@ -28,23 +28,24 @@ class Payment_model extends CI_Model {
                         ->from('payment')
                         ->join('payment_type', 'payment.payment_type_id = payment_type.id')
                         ->where('student_id', $student_id)
-                        ->get()->result_array(); 
+                        ->get()->result_array();
     }
-    
+
     public function get_payment_id($id) {
-        return $this->db->select("payment.*, payment_type.name AS payment_type_name")
+        return $this->db->select("payment.*, payment_type.name AS payment_type_name, contact.first_name, contact.last_name")
                         ->from('payment')
                         ->join('payment_type', 'payment.payment_type_id = payment_type.id')
+                        ->join('contact', 'payment.student_id = contact.id')
                         ->where('payment.id', $id)
-                        ->get()->row_array(); 
+                        ->get()->row_array();
     }
-    
+
     public function delete($id) {
         $this->db->delete('payment', 'id = ' . $id);
         return $id;
     }
 
-    public function add($payment) { 
+    public function add($payment) {
         $cleanPayment = substract_fields($payment, $this->FIELDS);
         unset($cleanPayment['id']);
         $this->db->insert('payment', $cleanPayment);
