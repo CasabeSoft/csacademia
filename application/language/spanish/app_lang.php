@@ -45,8 +45,6 @@ $lang['menu_change_password'] = "Cambiar Contraseña";
 $lang['menu_profile'] = "Perfil";
 $lang['menu_see_as_client'] = "Ver como cliente";
 
-$lang['menu_all_centers'] = "(Todos)";
-
 /* * *
  * Títulos de formularios
  */
@@ -288,3 +286,8 @@ $lang['page_change_password_content_info'] = "Importante!!!. Mantener siempre la
 $lang['date_format'] = 'dd/MM/yyyy';
 $lang['date_format_humans'] = 'dd/mm/aaaa, por ejemplo 31/03/1985';
 $lang['day_short_names'] = 'Lu,Ma,Mi,Ju,Vi,Sa';
+
+/***
+ * Varios
+ */
+$lang['filter_all'] = "(Todos)";

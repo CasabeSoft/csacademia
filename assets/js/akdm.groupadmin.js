@@ -36,6 +36,7 @@ akdm.GroupsViewModel = function() {
         validation_error: 'Algún valor indicado no es correcto. Verifique los datos.',
         day_short_names: 'Lu,Ma,Mi,Ju,Vi,Sa'
     };
+    self._filter = { "academicPeriod": null };
     self.classrooms = {};
     self.studentList = ko.observableArray();
     self.currentStudent = ko.observable();
@@ -65,6 +66,15 @@ akdm.GroupsViewModel = function() {
         read: function () {
             return self.currentGroup() && self.classrooms[self.currentGroup().classroom_id()] &&
                     Number(self.classrooms[self.currentGroup().classroom_id()].capacity) < self.studentList().length;
+        }
+    });
+    self.filterByAcademicPeriod = ko.computed({
+        read: function () {
+            return self._filter.academicPeriod;
+        },
+        write: function (data) {
+            self._filter.academicPeriod = data;
+            loadGroups();
         }
     });
     
@@ -302,9 +312,13 @@ akdm.GroupsViewModel = function() {
         }
     };
     
+    var loadGroups = function () {
+        self.newGroup();
+        $.post(self._get, self._filter).done(self.setGroups).fail(self._showError);
+    };
+    
     self.init = function(strings, classrooms) {
-        self.currentGroup(new self._GroupPrototype());
-        $.get(self._get).done(self.setGroups).fail(self._showError);
+        loadGroups();
         self._strings = $.extend(self._strings, strings);
         $("#frm").validate({
             ignore: '',

@@ -33,6 +33,33 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                         </tr>    
                     </tbody>
                 </table>
+                
+                <div class="row-fluid">
+                <legend><?php echo lang('subject_filter')?></legend>
+                <div class="accordion" id="acFilter">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#acFilter" href="#collapseOne">
+                                <?php echo lang('form_academic_period')?>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: filterByAcademicPeriod">
+                                    <option value=""><?php echo lang('filter_all')?></option>
+                                    <?php foreach ($academic_periods as $period) { ?>
+                                        <option value="<?php echo $period["code"] ?>" 
+                                            <?php echo $period["code"] == $defaultAcademicPeriod ? "selected" : "" ?>
+                                        >
+                                            <?php echo $period["name"] ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="span9">
                 <legend data-bind="with: currentGroup">

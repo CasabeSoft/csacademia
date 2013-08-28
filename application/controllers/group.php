@@ -22,13 +22,15 @@ class Group extends Basic_controller {
         $this->title = lang('page_manage_groups');
         $this->subject = lang('subject_group');
         $this->load->model('General_model');
+        $this->load->model('Teacher_model');
         $this->load->model('Student_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name');
         $this->classrooms = $this->General_model->get_fields('classroom', 'id, name, capacity');
-        $this->teachers = $this->General_model->get_fields('view_teacher', 'contact_id, full_name');
+        $this->teachers = $this->Teacher_model->get_all();
         $this->levels = $this->General_model->get_fields('level', 'code, description');
         $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
         $this->students = $this->Student_model->get_all();
+        $this->defaultAcademicPeriod = $this->General_model->get_default_academic_period();
         $this->load_page('group_admin');
     }
 
@@ -40,8 +42,11 @@ class Group extends Basic_controller {
     public function get() {
         $this->setup_ajax_response_headers();
         try {
+            $filter = $this->input->post();
+            if (!is_array($filter))
+                $filter = [];
             $this->load->model('Group_model');
-            echo json_encode($this->Group_model->get_all());
+            echo json_encode($this->Group_model->get_all($filter));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

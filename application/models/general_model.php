@@ -92,6 +92,17 @@ class General_model extends CI_Model {
                 ? $picture[0]['picture']
                 : NULL;
     }
+    
+    public function get_default_academic_period() {
+        $academic_period_id = $this->db->select('code')
+                ->from('academic_period')
+                ->limit(1)
+                ->order_by('name', 'desc')
+                ->get();
+        return $academic_period_id->num_rows() > 0
+                ? $academic_period_id->row()->code
+                : NULL; 
+    }
 }
 
 ?>

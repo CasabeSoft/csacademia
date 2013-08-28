@@ -27,20 +27,38 @@ class Group_model extends CI_Model {
         "end_time"
     ];
 
+    private $DEFAUL_FILTER = [
+        'academicPeriod' => NULL
+    ];
+    
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
     }
 
-    public function get_all() {
+    public function get_all($filter = []) {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
                 ->where('client_id ', $this->client_id)
-                ->order_by("name", "asc");
+                ->order_by('name', 'asc');
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
+        foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
+            $value = array_key_exists($key, $filter)
+                    ? $filter[$key]
+                    : $defaultValue;
+            switch ($key)
+            {
+                case 'academicPeriod':
+                    if (! empty($value))
+                        $this->db->where('academic_period', $value);
+                    break;
+                default :
+                    $this->db->where($key, $value);
+            }            
+        }
         return $this->db->get()->result_array();
     }
 

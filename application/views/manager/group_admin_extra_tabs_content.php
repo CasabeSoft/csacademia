@@ -30,7 +30,7 @@
             <select id="lbxTeacher" class="input-block-level" data-bind="value: teacher_id">
                 <option value="">--</option>
                 <?php foreach ($teachers as $teacher) { ?>
-                    <option value="<?php echo $teacher["contact_id"] ?>"><?php echo $teacher["full_name"] ?></option>
+                    <option value="<?php echo $teacher["contact_id"] ?>"><?php echo $teacher["first_name"].' '.$teacher["last_name"] ?></option>
                 <?php } ?>
             </select>            
         </div>

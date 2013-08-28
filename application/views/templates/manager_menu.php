@@ -77,16 +77,8 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo site_url('/manager/change_to_center/NULL') ?>"><?php echo lang('menu_all_centers') ?></a></li>
+                            <li><a href="<?php echo site_url('/manager/change_to_center/NULL') ?>"><?php echo lang('filter_all') ?></a></li>
                             <?php
-                            // HACK! Por algún motivo que no entiendo aquí no puedo llamar a la función get_all_centers
-                            // 
-                            // $this->load->model('General_model');
-                            // $centers = $this->General_model->get_all_centers($this->session->userdata('client_id'));
-                            /* $centers = $this->db->select('id, name')
-                              ->from('center')
-                              ->where('client_id', $this->session->userdata('client_id'))
-                              ->get()->result_array(); */
                             foreach ($this->centers as $center) {
                                 ?>
                                 <li><a href="<?php echo site_url('/manager/change_to_center/' . $center['id']) ?>"><?php echo $center['name'] ?></a></li>
