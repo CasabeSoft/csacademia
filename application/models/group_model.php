@@ -28,7 +28,7 @@ class Group_model extends CI_Model {
     ];
 
     private $DEFAUL_FILTER = [
-        'academicPeriod' => NULL
+        'academic_period' => NULL
     ];
     
     public function __construct() {
@@ -51,12 +51,9 @@ class Group_model extends CI_Model {
                     : $defaultValue;
             switch ($key)
             {
-                case 'academicPeriod':
+                default:
                     if (! empty($value))
-                        $this->db->where('academic_period', $value);
-                    break;
-                default :
-                    $this->db->where($key, $value);
+                        $this->db->where($key, $value);
             }            
         }
         return $this->db->get()->result_array();

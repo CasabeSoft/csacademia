@@ -34,7 +34,8 @@ class Student_model extends CI_Model {
     ];
     
     private $DEFAUL_FILTER = [
-        'isActive' => 'true'
+        'isActive' => 'true',
+        'group_id' => NULL
     ];
     
     public function __construct() {
@@ -63,8 +64,9 @@ class Student_model extends CI_Model {
                     else 
                         $this->db->where('end_date IS NOT NULL');
                     break;
-                default :
-                    $this->db->where($key, $value);
+                default:
+                    if (! empty($value))
+                        $this->db->where($key, $value);
             }            
         }
         return $this->db->get()->result_array();          

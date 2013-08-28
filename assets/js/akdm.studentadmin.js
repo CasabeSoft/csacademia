@@ -38,6 +38,7 @@ akdm.StudentViewModel = function () {
     self._family_get = '/student/family_get/';
     self._payments_get = '/student/payments_get/';
     self._get_price_by_student = '/student/get_price_by_student/';
+    self._filter = $.extend(self._filter, { "group_id": null });
     self.levelPrice = ko.observable();
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
@@ -64,6 +65,15 @@ akdm.StudentViewModel = function () {
         read: function () {
             return self.currentContact() && self.groups[self.currentContact().group_id()] 
                     || empty_group;
+        }
+    });
+    self.filterByGroup = ko.computed({
+        read: function () {
+            return self._filter.group_id;
+        },
+        write: function (data) {
+            self._filter.group_id = data;
+            self.loadContacts();
         }
     });
 

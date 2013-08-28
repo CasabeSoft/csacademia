@@ -45,7 +45,7 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                         </div>
                         <div id="collapseOne" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: filterByAcademicPeriod">
+                                <select class="input-block-level" data-bind="value: filterByAcademicPeriod">
                                     <option value=""><?php echo lang('filter_all')?></option>
                                     <?php foreach ($academic_periods as $period) { ?>
                                         <option value="<?php echo $period["code"] ?>" 

@@ -21,7 +21,6 @@ akdm.GroupsViewModel = function() {
     var delete_student_attendance = '/group/delete_student_attendance/';
     var dayLetter = [];
     var lastDate = $.datepicker.formatDate(akdm.config.localeDateFormat, new Date());
-    var empty_classroom = {"id": 0, "name": "", "capacity": 0};
     self._get = '/group/get';
     self._add = '/group/add';
     self._update = '/group/update';
@@ -36,7 +35,7 @@ akdm.GroupsViewModel = function() {
         validation_error: 'Algún valor indicado no es correcto. Verifique los datos.',
         day_short_names: 'Lu,Ma,Mi,Ju,Vi,Sa'
     };
-    self._filter = { "academicPeriod": null };
+    self._filter = { "academic_period": null };
     self.classrooms = {};
     self.studentList = ko.observableArray();
     self.currentStudent = ko.observable();
@@ -70,10 +69,10 @@ akdm.GroupsViewModel = function() {
     });
     self.filterByAcademicPeriod = ko.computed({
         read: function () {
-            return self._filter.academicPeriod;
+            return self._filter.academic_period;
         },
         write: function (data) {
-            self._filter.academicPeriod = data;
+            self._filter.academic_period = data;
             loadGroups();
         }
     });
