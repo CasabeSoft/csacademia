@@ -28,7 +28,7 @@ akdm.model = (function () {
     };
 
     Contact.prototype.full_name = function () {
-        return this.first_name() + " " + this.last_name();
+        return (this.first_name() || "") + " " + (this.last_name() || "");
     };
 
     Contact.prototype.toJSON = function () {
