@@ -1,7 +1,7 @@
 <div id="generalData" class="tab-pane active" data-bind="with: currentGroup">
     <input type="hidden" id="cnt_id" data-bind="value: id" />
     <div class="row-fluid">
-        <div class="span2 control-group">
+        <div class="span2">
             <label for="txtName" class="control-label"><?php echo lang('form_name'); ?></label>
             <input type="text" id="txtName" placeholder="<?php echo lang('form_name'); ?>" class="input-block-level"
                    data-bind="value: name" required >
@@ -15,7 +15,7 @@
                 <?php } ?>
             </select>            
         </div>
-        <div class="span3">
+        <div class="span4">
             <label for="lbxCenter"><?php echo lang('form_center'); ?></label>
             <select id="lbxCenter" class="input-block-level" data-bind="value: center_id">
                 <option value="">--</option>
@@ -25,7 +25,7 @@
             </select>            
         </div>
 
-        <div class="span5">
+        <div class="span4">
             <label for="lbxTeacher"><?php echo lang('form_teacher'); ?></label>
             <select id="lbxTeacher" class="input-block-level" data-bind="value: teacher_id">
                 <option value="">--</option>
@@ -46,7 +46,7 @@
             <input type="text" id="txtend_time" placeholder="<?php echo lang('form_end_time'); ?>" class="input-block-level"
                    data-bind="value: end_time">
         </div>                    
-        <div class="span3">
+        <div class="span4">
             <label for="lbxAcademicPeriod"><?php echo lang('form_academic_period'); ?></label>
             <select id="lbxAcademicPeriod" class="input-block-level" data-bind="value: academic_period">
                 <option value="">--</option>
@@ -55,7 +55,7 @@
                 <?php } ?>
             </select>            
         </div>
-        <div class="span5">
+        <div class="span4">
             <label for="lbxLevel"><?php echo lang('form_level'); ?></label>
             <select id="lbxLevel" class="input-block-level" data-bind="value: level_code">
                 <option value="">--</option>
@@ -65,56 +65,43 @@
             </select>            
         </div>
     </div>
+    <label><?php echo lang('form_classes_x_week'); ?></label>
     <div class="row-fluid">
         <div class="span2">
-            <label for="lbxmonday"><?php echo lang('form_monday'); ?></label>
-            <!--input type="checkbox" data-bind="checked: monday"-->
-            <select id="lbxmonday" class="input-block-level" data-bind="value: monday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select> 
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: monday() == 1, event: {change: function (data, event) { $root.changeDay(monday, event);} }">
+                <?php echo lang('form_monday'); ?>
+            </label>
         </div>
         <div class="span2">
-            <label for="lbxtuesday"><?php echo lang('form_tuesday'); ?></label>
-            <!--input type="checkbox" data-bind="checked: tuesday"-->
-            <select id="lbxtuesday" class="input-block-level" data-bind="value: tuesday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select>
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: tuesday() == 1, event: {change: function (data, event) { $root.changeDay(tuesday, event);} }">
+                <?php echo lang('form_tuesday'); ?>
+            </label>
         </div>
         <div class="span2">
-            <label for="lbxwednesday"><?php echo lang('form_wednesday'); ?></label>
-            <select id="lbxwednesday" class="input-block-level" data-bind="value: wednesday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select>
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: wednesday() == 1, event: {change: function (data, event) { $root.changeDay(wednesday, event);} }">
+                <?php echo lang('form_wednesday'); ?>
+            </label>
         </div>
         <div class="span2">
-            <label for="lbxthursday"><?php echo lang('form_thursday'); ?></label>
-            <select id="lbxthursday" class="input-block-level" data-bind="value: thursday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select>
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: thursday() == 1, event: {change: function (data, event) { $root.changeDay(thursday, event);} }">
+                <?php echo lang('form_thursday'); ?>
+            </label>
         </div>
         <div class="span2">
-            <label for="lbxfriday"><?php echo lang('form_friday'); ?></label>
-            <select id="lbxfriday" class="input-block-level" data-bind="value: friday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select>
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: friday() == 1, event: {change: function (data, event) { $root.changeDay(friday, event);} }">
+                <?php echo lang('form_friday'); ?>
+            </label>
         </div>
         <div class="span2">
-            <label for="lbxsaturday"><?php echo lang('form_saturday'); ?></label>
-            <select id="lbxsaturday" class="input-block-level" data-bind="value: saturday">
-                <option value="">--</option>
-                <option value="1"><?php echo lang('btn_yes'); ?></option>
-                <option value="0"><?php echo lang('btn_no'); ?></option>
-            </select>
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: saturday() == 1, event: {change: function (data, event) { $root.changeDay(saturday, event);} }">
+                <?php echo lang('form_saturday'); ?>
+            </label>
         </div>
     </div>
 </div>
@@ -140,12 +127,6 @@
             </a>
             <p data-bind="text: full_name()" class="name"></p>
         </li>
-        <!--li class="medium add">
-            <a href="#" class="thumbnail" data-bind="click: $root.newStudent">
-                <div><img src="/assets/img/personal.png" alt=""></div>
-            </a>
-            <strong><?php //echo lang('btn_new'); ?></strong>                
-        </li-->            
     </ul>
     <table class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
         <thead>

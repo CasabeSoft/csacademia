@@ -174,6 +174,7 @@ $lang['form_number_months'] = "Number months";
 $lang['form_state'] = "State";
 $lang['form_attendance'] = "Attendance";
 $lang['form_existing_family'] = "Existing family";
+$lang['form_classes_x_week'] = "Classes per wekk";
 
 /* * *
  * Botones

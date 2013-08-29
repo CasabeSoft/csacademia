@@ -2,7 +2,7 @@
     <div class="span8">
         <input type="hidden" id="cnt_id" data-bind="value: id" />
         <div class="row-fluid">
-            <div class="span6 control-group">
+            <div class="span6">
                 <label for="txtFirstname" class="control-label"><?php echo lang('form_first_name'); ?></label>
                 <input type="text" id="txtFirstname" placeholder="<?php echo lang('form_first_name'); ?>" class="input-block-level"
                        data-bind="value: first_name" required minlength="2">
