@@ -76,6 +76,9 @@ akdm.GroupsViewModel = function() {
             loadGroups();
         }
     });
+    self.changeDay = function (day, event) {
+        day($(event.target).prop('checked') ? 1 : 0); 
+    };
     
     var setAttendance = function(attendanceList) {
         var currDate = self.getCurrentDate();
