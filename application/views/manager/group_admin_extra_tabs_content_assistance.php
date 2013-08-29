@@ -1,24 +1,33 @@
 <div id="groupAssistance" class="tab-pane" data-bind="">
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span3">
             <label><?php echo lang('form_date'); ?></label>
             <input type="text" class="input-block-level" 
                 placeholder="<?php echo lang('date_format_humans') ?>"
                 data-bind="value: currentDate, jqDatepicker: new Date(), event: {change: onCurrentDateChange}">
         </div>
+        
         <div class="span3">
             <label><?php echo lang('form_attendance'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
                 <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, true), css: {active: viewDailyAttendance() }"><img src="/assets/img/icon-calendar-day.png" class="icon-"> Día</button>
                 <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, false), css: {active: !viewDailyAttendance() }" ><i class="icon-calendar"></i> Mes</button>
             </div>
-        </div>        
-        <div class="span4" data-bind="visible: viewDailyAttendance">
+        </div>   
+        
+        <div class="span3" data-bind="visible: viewDailyAttendance">
             <label><?php echo lang('form_view_as'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
                 <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
                 <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
             </div>
+        </div>
+        <div class="span2" data-bind="visible: ! viewDailyAttendance()">
+            <label>&nbsp;</label>
+            <button type="button" class="btn btn-small " data-target="_blank" 
+                data-bind="enable: $root.currentGroup().id()>0, click: $root.printAttendance">
+                <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
+            </button>
         </div>
     </div>
     <ul class="list thumbnails" data-bind="foreach: studentList, visible: viewDailyAttendance() && ! viewStudentsAsList()">

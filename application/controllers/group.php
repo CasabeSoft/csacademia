@@ -170,6 +170,92 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
+    
+        public function report_attendance($group_id, $month, $year) {
+
+        try {
+           // $this->load->model('Payment_model');
+           // $this->load->model('General_model');
+           // $this->load->helper('Util_helper');
+
+           // $payments = $this->Payment_model->get_all($id);
+          //  $student = $this->General_model->get_where('contact', 'id = ' . $id);
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $html = '
+<style>
+.td_center{
+        text-align:center; 
+        padding: 0 0.5em;
+}
+.td_right{
+        text-align:right; 
+        padding: 0 0.5em;
+}
+
+table.list {
+	border:1px solid #000000;
+	font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+	font-size: 10pt;
+	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+}
+table.list td, th {
+	border:1px solid #000000;
+	text-align: left;
+	font-weight: normal;
+}
+.title-font{
+
+}
+</style>
+<body>
+
+<table border="0" width="100%" >
+<tbody>
+<tr>
+<td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+<td><p><b>Informe de Asistencia</b></td>
+</tr>
+<tr>
+<td><p>Grupo: ';
+$html .= $group_id . ' Mes: ' . $month . '/' . $year;            
+$html .= '</p></td>
+</tr>
+</tbody>
+</table>
+';
+            
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<td class="td_center">#</td>';
+            $html .= '<td class="td_center">Fecha</td>';
+            $html .= '<td class="td_center">Tipo de pago</td>';
+            $html .= '<td class="td_center">Periodo</td>';
+            $html .= '<td class="td_right">Importe</td>';
+            $html .= '</tr></thead><tbody>';
+            /*$count = 1;
+            foreach ($payments AS $payment) {
+                $dateNormal = db_to_Local($payment['date']);
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td class="td_center">' . $dateNormal . '</td>';
+                $html .= '<td class="td_center">' . $payment['payment_type_name'] . '</td>';
+                $html .= '<td class="td_center">' . $payment['piriod'] . '</td>';
+                $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $count++;
+            }*/
+            $html .='</tbody></table>
+<br />
+<body>';
+            //$this->setup_ajax_response_headers();
+            //header("Content-Type: text/plain");
+            //header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos.pdf', 'I'); //exit;
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
 }
 
 /* End of file group.php */

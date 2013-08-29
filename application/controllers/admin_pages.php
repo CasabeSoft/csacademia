@@ -110,11 +110,11 @@ class Admin_pages extends Crud_controller {
 
     public function center() {
         $this->set_page_title('page_manage_centers');
-        $fields = array('id', 'client_id', 'name');
+        $fields = array('id', 'client_id', 'name', 'notes');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
-            $fields = array('name');
+            $fields = array('name', 'notes');
         }
 
         $this->crud->set_table('center');
@@ -122,10 +122,11 @@ class Admin_pages extends Crud_controller {
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
                 ->display_as('client_id', lang('form_client'))
-                ->display_as('name', lang('form_name'));
+                ->display_as('name', lang('form_name'))
+                ->display_as('notes', lang('form_notes'));
 
         $this->crud->required_fields('name');
-        $this->crud->fields('client_id', 'name');
+        $this->crud->fields('client_id', 'name', 'notes');
         $this->crud->set_relation('client_id', 'client', 'name');
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);
