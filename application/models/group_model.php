@@ -58,6 +58,17 @@ class Group_model extends CI_Model {
         }
         return $this->db->get()->result_array();
     }
+    
+     public function get_by_id($id) {
+        $this->db->select('group.*, center.name as center, contact.first_name, contact.last_name')
+                ->from('group')
+                ->join('contact', 'group.teacher_id = contact.id')
+                ->join('center', 'group.center_id = center.id')
+                ->where('center.client_id', $this->client_id)
+                ->where('group.id', $id);
+
+        return $this->db->get()->row_array(); //result_array();
+    }
 
     public function delete($id) {
         $this->db->delete('group', 'id = ' . $id);

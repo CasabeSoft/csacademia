@@ -28,6 +28,7 @@ akdm.StudentViewModel = function () {
     var qualification_update = '/student/qualification_update/';
     var qualification_add = '/student/qualification_add/';
     var qualification_delete = '/student/qualification_delete/';
+    var qualifications_report = '/student/qualifications_report/';
     var familyIndex = {};
     var empty_group = (new akdm.model.Group()).toJSON();
     self._get = '/student/get';
@@ -285,6 +286,11 @@ akdm.StudentViewModel = function () {
     self.selectQualification = function (qualification) {
         self.currentQualification(qualification);
         $('#dlgQualification').modal('show');
+    };
+    
+    self.printQualifications = function () {
+        var myWindow = window.open(qualifications_report + self.currentContact().id(), '_blank');
+        myWindow.document.title = 'Informe de Calificaciones';
     };
 
     self.onExistingFamilyChange = function (family) {

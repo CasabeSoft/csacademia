@@ -114,6 +114,13 @@
                 <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
             </div>
         </div>
+        <div class="span2" data-bind="visible: viewStudentsAsList()">
+            <label>&nbsp;</label>
+            <button type="button" class="btn btn-small " data-target="_blank" 
+                data-bind="enable: $root.currentGroup().id()>0, click: $root.printStudents">
+                <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
+            </button>
+        </div>
     </div>
     <div class="alert" data-bind="visible: overbooking">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -83,7 +83,7 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function students_get($groups_id) {
         $this->setup_ajax_response_headers();
         try {
@@ -93,38 +93,38 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function student_delete($student_id) {
         $this->setup_ajax_response_headers();
         try {
             $groups_id = 'NULL';
-            
+
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function student_add($student_id, $groups_id) {
         $this->setup_ajax_response_headers();
         try {
             //$student_id = $this->input->post('contact_id');
             //$groups_id = $this->input->post('group_id');
-            
+
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function student_update($student_id, $groups_id) {
         $this->setup_ajax_response_headers();
         try {
             //$student_id = $this->input->post('contact_id');
             //$groups_id = $this->input->post('group_id');
-            
+
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
@@ -141,7 +141,7 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
- 
+
     public function get_attendance_for_month($group_id, $year, $month) {
         $this->setup_ajax_response_headers();
         try {
@@ -150,7 +150,8 @@ class Group extends Basic_controller {
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
-    }   
+    }
+
     public function add_student_attendance($student_id, $date) {
         $this->setup_ajax_response_headers();
         try {
@@ -160,7 +161,7 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function delete_student_attendance($student_id, $date) {
         $this->setup_ajax_response_headers();
         try {
@@ -170,87 +171,201 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
-        public function report_attendance($group_id, $month, $year) {
+
+    public function report_attendance($group_id, $month, $year) {
 
         try {
-           // $this->load->model('Payment_model');
-           // $this->load->model('General_model');
-           // $this->load->helper('Util_helper');
+            $this->load->model('Student_model');
+            $this->load->model('General_model');
+            $this->load->model('Group_model');
 
-           // $payments = $this->Payment_model->get_all($id);
-          //  $student = $this->General_model->get_where('contact', 'id = ' . $id);
+            $students = $this->Student_model->get_by_group($group_id);
+            $group = $this->Group_model->get_by_id($group_id);
+
+            $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            $teachingDays = array();
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+            $index = 1;
+            foreach ($weekDays as $day) {
+                if ($group[$day] === "1")
+                    $teachingDays[] = $index;
+                $index++;
+            }
+
+            //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $html = '
 <style>
-.td_center{
-        text-align:center; 
-        padding: 0 0.5em;
-}
-.td_right{
-        text-align:right; 
-        padding: 0 0.5em;
-}
+    .td_center{
+            text-align:center; 
+            padding: 0 0.5em;
+    }
+    .td_right{
+            text-align:right; 
+            padding: 0 0.5em;
+    }
 
-table.list {
-	border:1px solid #000000;
-	font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-	font-size: 10pt;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-}
-table.list td, th {
-	border:1px solid #000000;
-	text-align: left;
-	font-weight: normal;
-}
-.title-font{
-
-}
+    table.list {
+            border:1px solid #000000;
+            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+            font-size: 10pt;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    }
+    table.list td, th {
+            border:1px solid #000000;
+            text-align: left;
+            font-weight: normal;
+    }
+    .title-font{
+           font-size: 16pt;       
+    }
 </style>
 <body>
 
-<table border="0" width="100%" >
-<tbody>
-<tr>
-<td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-<td><p><b>Informe de Asistencia</b></td>
-</tr>
-<tr>
-<td><p>Grupo: ';
-$html .= $group_id . ' Mes: ' . $month . '/' . $year;            
-$html .= '</p></td>
-</tr>
-</tbody>
-</table>
-';
-            
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td><p class="title-font"><b>Informe de Asistencia</b></td>
+        </tr>
+        <tr>
+        <td><p><b>Grupo: </b>';
+            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Mes: </b>' . $month . '/' . $year . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= '</p></td>
+        </tr>
+        </tbody>
+    </table>
+    ';
+
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<td rowspan="2" class="td_center">#</td>';
+            $html .= '<td  rowspan="2">Nombre</td>';
+            for ($day = 1; $day <= $daysInMonth; $day++) {
+                $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                if (in_array($daysInWeek, $teachingDays)) {
+                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                    $html .= '<td class="td_center">' . $dayLetter . '</td>';
+                }
+            }
+            $html .= '</tr><tr>';
+            for ($day = 1; $day <= $daysInMonth; $day++) {
+                $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                if (in_array($daysInWeek, $teachingDays)) {
+                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                    $html .= '<td class="td_center">' . $day . '</td>';
+                }
+            }
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($students AS $student) {
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                for ($day = 1; $day <= $daysInMonth; $day++) {
+                    $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                    if (in_array($daysInWeek, $teachingDays)) {
+                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                        $html .= '<td class="td_center"><input type="checkbox"></td>';
+                    }
+                }
+                $count++;
+                $html .= '</tr>';
+            }
+            $html .='</tbody></table>
+    <br />
+<body>';
+            $this->setup_ajax_response_headers();
+            header("Content-Type: text/plain");
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('Asistencia.pdf', 'I');
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
+    public function report_students($group_id) {
+
+        try {
+            $this->load->model('Student_model');
+            $this->load->model('General_model');
+            $this->load->model('Group_model');
+
+            $students = $this->Student_model->get_by_group($group_id);
+            $group = $this->Group_model->get_by_id($group_id);
+
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
+            //$mpdf->SetFooter('|Página {PAGENO}|');
+            $html = '
+<style>
+    .td_center{
+            text-align:center; 
+            padding: 0 0.5em;
+    }
+    .td_right{
+            text-align:right; 
+            padding: 0 0.5em;
+    }
+
+    table.list {
+            border:1px solid #000000;
+            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+            font-size: 10pt;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    }
+    table.list td, th {
+            border:1px solid #000000;
+            text-align: left;
+            font-weight: normal;
+    }
+    .title-font{
+           font-size: 16pt;       
+    }
+</style>
+<body>
+
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td><p class="title-font"><b>Alumnos</b></td>
+        </tr>
+        <tr>
+        <td><p><b>Grupo: </b>';
+            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= '</p></td>
+        </tr>
+        </tbody>
+    </table>
+    ';
+
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
             $html .= '<td class="td_center">#</td>';
-            $html .= '<td class="td_center">Fecha</td>';
-            $html .= '<td class="td_center">Tipo de pago</td>';
-            $html .= '<td class="td_center">Periodo</td>';
-            $html .= '<td class="td_right">Importe</td>';
+            $html .= '<td>Nombre</td>';
             $html .= '</tr></thead><tbody>';
-            /*$count = 1;
-            foreach ($payments AS $payment) {
-                $dateNormal = db_to_Local($payment['date']);
+            $count = 1;
+            foreach ($students AS $student) {
+                //$dateNormal = db_to
+                //_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                $html .= '<td class="td_center">' . $dateNormal . '</td>';
-                $html .= '<td class="td_center">' . $payment['payment_type_name'] . '</td>';
-                $html .= '<td class="td_center">' . $payment['piriod'] . '</td>';
-                $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                $html .= '</tr>';
                 $count++;
-            }*/
+            }
             $html .='</tbody></table>
-<br />
+    <br />
 <body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
-            //header('Content-type: application/pdf');
+            $this->setup_ajax_response_headers();
+            header("Content-Type: text/plain");
+            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
-            $mpdf->Output('pagos.pdf', 'I'); //exit;
+            $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

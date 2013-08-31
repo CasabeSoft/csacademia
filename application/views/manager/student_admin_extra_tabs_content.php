@@ -89,7 +89,7 @@
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                 </button>
                 <button type="button" class="btn btn-small " data-target="_blank" 
-                        data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments">
+                        data-bind="enable: $root.currentContact().id()>0, click: $root.printQualifications">
                     <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                 </button>
             </div>

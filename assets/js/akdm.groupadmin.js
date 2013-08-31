@@ -20,6 +20,7 @@ akdm.GroupsViewModel = function() {
     var add_student_attendance = '/group/add_student_attendance/';
     var delete_student_attendance = '/group/delete_student_attendance/';
     var report_attendance = '/group/report_attendance/';
+    var report_students = '/group/report_students/';
     var dayLetter = [];
     var lastDate = $.datepicker.formatDate(akdm.config.localeDateFormat, new Date());
     self._get = '/group/get';
@@ -128,6 +129,11 @@ akdm.GroupsViewModel = function() {
         var currMonth = currDate.getMonth();
         var myWindow = window.open(report_attendance + self.currentGroup().id() +'/' + (currMonth + 1) + '/' + currYear, '_blank');
         myWindow.document.title = 'Asistencia';
+    };
+        
+    self.printStudents = function () {
+        var myWindow = window.open(report_students + self.currentGroup().id(), '_blank');
+        myWindow.document.title = 'Alumnos';
     };
     
     self.attended = function (student_id, date) {

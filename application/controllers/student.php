@@ -99,7 +99,7 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function family_get_available() {
         $this->setup_ajax_response_headers();
         try {
@@ -141,7 +141,7 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function family_relate() {
         $this->setup_ajax_response_headers();
         try {
@@ -150,7 +150,7 @@ class Student extends Basic_controller {
             echo json_encode($this->Family_model->relate($family));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
-        }        
+        }
     }
 
     public function get_price_by_student($student_id) {
@@ -239,60 +239,59 @@ class Student extends Basic_controller {
             $mpdf = new mPDF('c', 'A4');
             $html = '
 <style>
-.td_center{
-        text-align:center; 
-        padding: 0 0.5em;
-}
-.td_right{
-        text-align:right; 
-        padding: 0 0.5em;
-}
-.gradient {
-	border:0.1mm solid #220044; 
-	background-color: #f0f2ff;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-	box-shadow: 0.3em 0.3em #888888;
-}
-.rounded {
-	border:0.1mm solid #220044; 
-	background-color: #f0f2ff;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-	border-radius: 2mm;
-	background-clip: border-box;
-}
+    .td_center{
+            text-align:center; 
+            padding: 0 0.5em;
+    }
+    .td_right{
+            text-align:right; 
+            padding: 0 0.5em;
+    }
+    .gradient {
+            border:0.1mm solid #220044; 
+            background-color: #f0f2ff;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+            box-shadow: 0.3em 0.3em #888888;
+    }
+    .rounded {
+            border:0.1mm solid #220044; 
+            background-color: #f0f2ff;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+            border-radius: 2mm;
+            background-clip: border-box;
+    }
 
-table.list {
-	border:1px solid #000000;
-	font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-	font-size: 10pt;
-	background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-}
-table.list td, th {
-	border:1px solid #000000;
-	text-align: left;
-	font-weight: normal;
-}
-.title-font{
-
+    table.list {
+            border:1px solid #000000;
+            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+            font-size: 10pt;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    }
+    table.list td, th {
+            border:1px solid #000000;
+            text-align: left;
+            font-weight: normal;
+    }
+    .title-font{
+            font-size: 16pt;
 }
 </style>
 <body>
-
-<table border="0" width="100%" >
-<tbody>
-<tr>
-<td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-<td><p><b>Informe de Pagos</b></td>
-</tr>
-<tr>
-<td><p>Alumno: ';
-$html .= $student[0]['first_name'] . ' ' .$student[0]['last_name'];            
-$html .= '</p></td>
-</tr>
-</tbody>
-</table>
+    <table border="0" width="100%" >
+        <tbody>
+            <tr>
+                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Pagos</b></td>
+            </tr>
+            <tr>
+                <td><p><b>Alumno: </b>';
+            $html .= $student[0]['first_name'] . ' ' . $student[0]['last_name'];
+            $html .= '</p></td>
+            </tr>
+        </tbody>
+    </table>
 ';
-            
+
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
             $html .= '<td class="td_center">#</td>';
@@ -324,116 +323,116 @@ $html .= '</p></td>
         }
     }
 
-    /*public function payment_report($id) {
+    /* public function payment_report($id) {
 
-        try {
-            $this->load->model('Payment_model');
+      try {
+      $this->load->model('Payment_model');
 
-            $payment = $this->Payment_model->get_payment_id($id);
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', array(100, 100));
+      $payment = $this->Payment_model->get_payment_id($id);
+      $this->load->library('mpdf');
+      $mpdf = new mPDF('c', array(100, 100));
 
-            $html = '
-              <style>
-              .td_center{
-              text-align:center;
-              padding: 0 0.5em;
-              }
-              .td_right{
-              text-align:right;
-              padding: 0 0.5em;
-              }
+      $html = '
+      <style>
+      .td_center{
+      text-align:center;
+      padding: 0 0.5em;
+      }
+      .td_right{
+      text-align:right;
+      padding: 0 0.5em;
+      }
 
-              .gradient {
-              border:0.1mm solid #220044;
-              background-color: #f0f2ff;
-              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-              box-shadow: 0.3em 0.3em #888888;
-              }
-              .rounded {
-              border:0.1mm solid #220044;
-              background-color: #f0f2ff;
-              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-              border-radius: 2mm;
-              background-clip: border-box;
-              }
-              div.text {
-              padding:0.8em;
-              margin-bottom: 0.7em;
-              }
-              p {
-              margin: 0.25em 0;
-              }
-              table.list {
-              border:1px solid #000000;
-              font-family: sans-serif;
-              font-size: 10pt;
-              background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-              }
-              table.list td, th {
-              border:1px solid #000000;
-              text-align: left;
-              font-weight: normal;
-              }
-              .code {
-              font-family: monospace;
-              font-size: 9pt;
-              background-color: #d5d5d5;
-              margin: 0.5em 0 0.5cm 0;
-              padding: 0 0.3cm;
-              border:0.2mm solid #000088;
-              box-shadow: 0.3em 0.3em #888888;
-              }
-              </style>
-              <body>
+      .gradient {
+      border:0.1mm solid #220044;
+      background-color: #f0f2ff;
+      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+      box-shadow: 0.3em 0.3em #888888;
+      }
+      .rounded {
+      border:0.1mm solid #220044;
+      background-color: #f0f2ff;
+      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+      border-radius: 2mm;
+      background-clip: border-box;
+      }
+      div.text {
+      padding:0.8em;
+      margin-bottom: 0.7em;
+      }
+      p {
+      margin: 0.25em 0;
+      }
+      table.list {
+      border:1px solid #000000;
+      font-family: sans-serif;
+      font-size: 10pt;
+      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+      }
+      table.list td, th {
+      border:1px solid #000000;
+      text-align: left;
+      font-weight: normal;
+      }
+      .code {
+      font-family: monospace;
+      font-size: 9pt;
+      background-color: #d5d5d5;
+      margin: 0.5em 0 0.5cm 0;
+      padding: 0 0.3cm;
+      border:0.2mm solid #000088;
+      box-shadow: 0.3em 0.3em #888888;
+      }
+      </style>
+      <body>
 
-              <div class="gradient text rounded">
-              <table border="0" width="100%" >
-              <tbody>
-              <tr>
-              <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
-              <td><p style="font-size: 20px">RECIBO</td>
-              </tr>
-              <tr>
-              <td><p>
-              ';
-            $html .= 'Fecha: ' . $payment['date'];
-            $html .= '
-              </p></td>
-              </tr>
-              </tbody>
-              </table>
-              </div>
+      <div class="gradient text rounded">
+      <table border="0" width="100%" >
+      <tbody>
+      <tr>
+      <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
+      <td><p style="font-size: 20px">RECIBO</td>
+      </tr>
+      <tr>
+      <td><p>
+      ';
+      $html .= 'Fecha: ' . $payment['date'];
+      $html .= '
+      </p></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
 
-              <div class="gradient text rounded">
-              <p> Recibí de: </p>
-              
-              <p> </p>
-              
-              <p>Por: Pago
-              ';
-            //<p>La cantidad de euros: </p>
-            //<p class="code"> <br> <br></p>
-            $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
-            $html .= '</p>
-              <p > </p>
-              <p>€
-              ';
-            $html .= $payment['amount'];
-            $html .= '
-              Firmado: ______________</p>
-              </div>
-              </body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
-            //header('Content-type: application/pdf');
-            $mpdf->WriteHTML($html);
-            $mpdf->Output('pagos.pdf', 'I'); //exit;
-        } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
-        }
-    }*/
-    
+      <div class="gradient text rounded">
+      <p> Recibí de: </p>
+
+      <p> </p>
+
+      <p>Por: Pago
+      ';
+      //<p>La cantidad de euros: </p>
+      //<p class="code"> <br> <br></p>
+      $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
+      $html .= '</p>
+      <p > </p>
+      <p>€
+      ';
+      $html .= $payment['amount'];
+      $html .= '
+      Firmado: ______________</p>
+      </div>
+      </body>';
+      //$this->setup_ajax_response_headers();
+      //header("Content-Type: text/plain");
+      //header('Content-type: application/pdf');
+      $mpdf->WriteHTML($html);
+      $mpdf->Output('pagos.pdf', 'I'); //exit;
+      } catch (Exception $e) {
+      $this->_echo_json_error($e->getMessage());
+      }
+      } */
+
     public function payment_report($id) {
 
         try {
@@ -441,25 +440,25 @@ $html .= '</p></td>
             //$header = 'Document header ' . $id;
             //$html1 = 'Your document content goes here';
             //$footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
-            
+
             $this->load->model('Payment_model');
             $this->load->helper('Util_helper');
             $payment = $this->Payment_model->get_payment_id($id);
-            
+
             $dateDB = $payment['date'];
-            
+
             $dateNormal = db_to_Local($dateDB);
-            
-            /*if (($dateDB == "") || ($dateDB == "0000-00-00")) {
-                $dateNormal = "";
-            } else {
-                $dateArray = explode("-", $dateDB);
-                $aux = $dateArray[2];
-                $dateArray[2] = $dateArray[0];
-                $dateArray[0] = $aux;
-                $dateNormal = implode("/", $dateArray);
-            }*/
-            
+
+            /* if (($dateDB == "") || ($dateDB == "0000-00-00")) {
+              $dateNormal = "";
+              } else {
+              $dateArray = explode("-", $dateDB);
+              $aux = $dateArray[2];
+              $dateArray[2] = $dateArray[0];
+              $dateArray[0] = $aux;
+              $dateNormal = implode("/", $dateArray);
+              } */
+
             $html = '
             <body>
               <div class="gradient text rounded">
@@ -506,8 +505,7 @@ $html .= '</p></td>
             $mpdf->SetJS('this.print();');
             $mpdf->WriteHTML($html);
             $mpdf->Output();
-            
-         } catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
@@ -515,12 +513,12 @@ $html .= '</p></td>
     public function qualification_get($student_id) {
         $this->setup_ajax_response_headers();
         try {
-            echo json_encode($this->General_model->get_where('qualification', "student_id = '".$student_id."'"));
+            echo json_encode($this->General_model->get_where('qualification', "student_id = '" . $student_id . "'"));
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
-        }       
+        }
     }
-    
+
     public function qualification_add() {
         $this->setup_ajax_response_headers();
         try {
@@ -531,12 +529,12 @@ $html .= '</p></td>
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function qualification_update() {
         $this->setup_ajax_response_headers();
         try {
             $qualification = $this->input->post();
-            $where = ['student_id' => $qualification['student_id'], 
+            $where = ['student_id' => $qualification['student_id'],
                 'academic_period' => $qualification['academic_period']];
             unset($qualification['student_id']);
             unset($qualification['academic_period']);
@@ -546,11 +544,11 @@ $html .= '</p></td>
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
-        public function qualification_delete($student_id, $academic_period) {
+
+    public function qualification_delete($student_id, $academic_period) {
         $this->setup_ajax_response_headers();
         try {
-            $where = ['student_id' => $student_id, 
+            $where = ['student_id' => $student_id,
                 'academic_period' => $academic_period];
             $this->General_model->delete('qualification', $where);
             echo true;
@@ -558,6 +556,114 @@ $html .= '</p></td>
             $this->_echo_json_error($e->getMessage());
         }
     }
+
+    public function qualifications_report($student_id) {
+
+        try {
+            $this->load->model('Qualification_model');
+            $this->load->model('General_model');
+            $this->load->helper('Util_helper');
+
+            //$qualifications = $this->General_model->get_where('qualification', "student_id = '" . $student_id . "'");
+            $qualifications = $this->Qualification_model->get_all($student_id);
+            $student = $this->General_model->get_where('contact', 'id = ' . $student_id);
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $html = '
+<style>
+    .td_center{
+            text-align:center; 
+            padding: 0 0.5em;
+    }
+    .td_right{
+            text-align:right; 
+            padding: 0 0.5em;
+    }
+    .gradient {
+            border:0.1mm solid #220044; 
+            background-color: #f0f2ff;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+            box-shadow: 0.3em 0.3em #888888;
+    }
+    .rounded {
+            border:0.1mm solid #220044; 
+            background-color: #f0f2ff;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+            border-radius: 2mm;
+            background-clip: border-box;
+    }
+
+    table.list {
+            border:1px solid #000000;
+            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+            font-size: 10pt;
+            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    }
+    table.list td, th {
+            border:1px solid #000000;
+            text-align: left;
+            font-weight: normal;
+    }
+    .title-font{
+            font-size: 16pt;
+}
+</style>
+<body>
+    <table border="0" width="100%" >
+        <tbody>
+            <tr>
+                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Evaluaciones</b></td>
+            </tr>
+            <tr>
+                <td><p><b>Alumno: </b>';
+            $html .= $student[0]['first_name'] . ' ' . $student[0]['last_name'];
+            $html .= '</p></td>
+            </tr>
+        </tbody>
+    </table>
+';
+
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<td class="td_center">#</td>';
+            $html .= '<td>Periodo</td>';
+            $html .= '<td>Nivel</td>';
+            $html .= '<td>Ev. 1</td>';
+            $html .= '<td>Ev. 2</td>';
+            $html .= '<td>Ev. 3</td>';
+            $html .= '<td>Calificación</td>';
+            $html .= '<td>Trinity</td>';
+            $html .= '<td>Cambridge</td>';
+            $html .= '<td>Otras</td>';
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($qualifications AS $qualification) {
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $qualification['period'] . '</td>';
+                $html .= '<td>' . $qualification['level'] . '</td>';
+                $html .= '<td>' . $qualification['eval1'] . '</td>';
+                $html .= '<td>' . $qualification['eval2'] . '</td>';
+                $html .= '<td>' . $qualification['eval3'] . '</td>';
+                $html .= '<td>' . $qualification['qualification'] . '</td>';
+                $html .= '<td>' . $qualification['trinity'] . '</td>';
+                $html .= '<td>' . $qualification['london'] . '</td>';
+                $html .= '<td>' . $qualification['others'] . '</td></tr>';
+                $count++;
+            }
+            $html .='</tbody></table>
+<br />
+<body>';
+            //$this->setup_ajax_response_headers();
+            //header("Content-Type: text/plain");
+            //header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos.pdf', 'I'); //exit;
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
 }
 
 /* End of file teacher.php */
