@@ -27,7 +27,7 @@
                     <select class="input-block-level" data-bind="value: filterByGroup">
                         <option value=""><?php echo lang('filter_all')?></option>
                         <?php foreach ($groups as $group) { ?>
-                            <option value="<?php echo $group["id"] ?>"><?php echo $group["name"] ?></option>
+                            <option value="<?php echo $group["id"] ?>"><?php echo $group["name"] ?> (<?php echo $group["academic_period_name"] ?>)</option>
                         <?php } ?>
                     </select>  
                 </div>

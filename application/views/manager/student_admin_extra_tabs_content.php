@@ -16,7 +16,7 @@
             <select id="lbxCurrentGroupId" class="input-block-level" data-bind="value: group_id">
                 <option value="">--</option>
                 <?php foreach ($groups as $group) { ?>
-                    <option value="<?php echo $group["id"] ?>"><?php echo $group["name"] ?></option>
+                    <option value="<?php echo $group["id"] ?>"><?php echo $group["name"] ?> (<?php echo $group["academic_period_name"] ?>)</option>
                 <?php } ?>
             </select>            
         </div>
