@@ -91,8 +91,9 @@ class Group_model extends CI_Model {
     }
 
     public function get_by_id($id) {
-        $this->db->select('group.*, center.name as center, contact.first_name, contact.last_name')
+        $this->db->select('group.*, center.name as center, contact.first_name, contact.last_name, level.description as level')
                 ->from('group')
+                ->join('level', 'group.level_code = level.code and level.client_id = ' . $this->client_id)
                 ->join('contact', 'group.teacher_id = contact.id')
                 ->join('center', 'group.center_id = center.id')
                 ->where('center.client_id', $this->client_id)

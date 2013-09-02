@@ -211,7 +211,7 @@ class Group extends Basic_controller {
         </tr>
         <tr>
         <td><p><b>Grupo: </b>';
-            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Mes: </b>' . $month . '/' . $year . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Mes: </b>' . $month . '/' . $year . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -384,12 +384,12 @@ class Group extends Basic_controller {
                 $html .= '<td>' . $group['teacher'] . '</td>';
                 $html .= '<td>' . $group['level'] . '</td>';
                 $html .= '<td>' . $group['period'] . '</td>';
-                $html .= '<td>' . $group['monday'] . '</td>';
-                $html .= '<td>' . $group['tuesday'] . '</td>';
-                $html .= '<td>' . $group['wednesday'] . '</td>';
-                $html .= '<td>' . $group['thursday'] . '</td>';
-                $html .= '<td>' . $group['friday'] . '</td>';
-                $html .= '<td>' . $group['saturday'] . '</td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['monday']==1 ? 'checked="checked"' : '') . '></td>'; 
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['tuesday']==1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['wednesday']==1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['thursday']==1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['friday']==1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['saturday']==1 ? 'checked="checked"' : '') . '></td>';
                 $html .= '<td>' . $group['start_time'] . '</td>';
                 $html .= '<td>' . $group['end_time'] . '</td>';
                 $html .= '</tr>';
