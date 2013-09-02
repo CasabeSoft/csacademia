@@ -196,33 +196,11 @@ class Group extends Basic_controller {
 
             //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
             $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new mPDF('c', 'A4-L');
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            
             $html = '
-<style>
-    .td_center{
-            text-align:center; 
-            padding: 0 0.5em;
-    }
-    .td_right{
-            text-align:right; 
-            padding: 0 0.5em;
-    }
-
-    table.list {
-            border:1px solid #000000;
-            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-            font-size: 10pt;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-    }
-    table.list td, th {
-            border:1px solid #000000;
-            text-align: left;
-            font-weight: normal;
-    }
-    .title-font{
-           font-size: 16pt;       
-    }
-</style>
 <body>
 
     <table border="0" width="100%" >
@@ -277,8 +255,8 @@ class Group extends Basic_controller {
             $html .='</tbody></table>
     <br />
 <body>';
-            $this->setup_ajax_response_headers();
-            header("Content-Type: text/plain");
+            //$this->setup_ajax_response_headers();
+            //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Asistencia.pdf', 'I');
@@ -299,34 +277,12 @@ class Group extends Basic_controller {
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             //$mpdf->SetFooter('|Página {PAGENO}|');
+            
             $html = '
-<style>
-    .td_center{
-            text-align:center; 
-            padding: 0 0.5em;
-    }
-    .td_right{
-            text-align:right; 
-            padding: 0 0.5em;
-    }
-
-    table.list {
-            border:1px solid #000000;
-            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-            font-size: 10pt;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-    }
-    table.list td, th {
-            border:1px solid #000000;
-            text-align: left;
-            font-weight: normal;
-    }
-    .title-font{
-           font-size: 16pt;       
-    }
-</style>
 <body>
 
     <table border="0" width="100%" >
@@ -351,8 +307,6 @@ class Group extends Basic_controller {
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
-                //$dateNormal = db_to
-                //_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                 $html .= '</tr>';
@@ -361,8 +315,90 @@ class Group extends Basic_controller {
             $html .='</tbody></table>
     <br />
 <body>';
-            $this->setup_ajax_response_headers();
-            header("Content-Type: text/plain");
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('Alumnos.pdf', 'I');
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function report_groups($filter) {
+
+        try {
+            //$filter = $this->input->post();
+            //if (!is_array($filter))
+             //   $filter = [];
+            $this->load->model('Group_model');
+            $groups = $this->Group_model->get_group_report(["academic_period" => $filter]);
+            
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
+            $mpdf->SetFooter('|Página {PAGENO}|');
+            
+            $html = '
+<body>
+
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td><p class="title-font"><b>Grupos</b></td>
+        </tr>
+        <tr>
+        <td>';
+           // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= /*'</p></td>*/ '
+        </tr>
+        </tbody>
+    </table>
+    ';
+
+            $html .= '<table class="list1" border="1" width="100%" style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th>Grupo</td>';
+            $html .= '<th>Centro</td>';
+            $html .= '<th>Aula</td>';
+            $html .= '<th>Profesor</td>';
+            $html .= '<th>Nivel</td>';
+            $html .= '<th>Periodo</td>';
+            $html .= '<th>Lu</td>';
+            $html .= '<th>Ma</td>';
+            $html .= '<th>Mi</td>';
+            $html .= '<th>Ju</td>';
+            $html .= '<th>Vi</td>';
+            $html .= '<th>Sa</td>';
+            $html .= '<th>Hora Inicio</td>';
+            $html .= '<th>Hora Fin</td>';
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($groups AS $group) {
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $group['name'] . '</td>';
+                $html .= '<td>' . $group['center'] . '</td>';
+                $html .= '<td>' . $group['classroom'] . '</td>';
+                $html .= '<td>' . $group['teacher'] . '</td>';
+                $html .= '<td>' . $group['level'] . '</td>';
+                $html .= '<td>' . $group['period'] . '</td>';
+                $html .= '<td>' . $group['monday'] . '</td>';
+                $html .= '<td>' . $group['tuesday'] . '</td>';
+                $html .= '<td>' . $group['wednesday'] . '</td>';
+                $html .= '<td>' . $group['thursday'] . '</td>';
+                $html .= '<td>' . $group['friday'] . '</td>';
+                $html .= '<td>' . $group['saturday'] . '</td>';
+                $html .= '<td>' . $group['start_time'] . '</td>';
+                $html .= '<td>' . $group['end_time'] . '</td>';
+                $html .= '</tr>';
+                $count++;
+            }
+            $html .='</tbody></table>
+    <br />
+<body>';
+            
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
@@ -372,6 +408,5 @@ class Group extends Basic_controller {
     }
 
 }
-
 /* End of file group.php */
 /* Location: ./application/controllers/group.php */

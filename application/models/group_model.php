@@ -59,6 +59,33 @@ class Group_model extends CI_Model {
         return $this->db->get()->result_array();
     }
     
+        public function get_group_report($filter = []) {
+        $this->db->select('group.*, center.name as center,  classroom.name as classroom, academic_period.name as period, level.description as level, contact.first_name as teacher')
+                ->from('group')
+                ->join('contact', 'group.teacher_id = contact.id and contact.client_id = ' . $this->client_id)
+                ->join('level', 'group.level_code = level.code and level.client_id = ' . $this->client_id)
+                ->join('academic_period', 'group.academic_period = academic_period.code')
+                ->join('classroom', 'group.classroom_id = classroom.id and group.center_id = classroom.center_id')
+                ->join('center', 'group.center_id = center.id')
+                ->where('center.client_id ', $this->client_id)
+                ->order_by('period, center, name', 'asc');
+        if ($this->center_id != NULL)
+            $this->db->where('group.center_id', $this->center_id);
+        foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
+            $value = array_key_exists($key, $filter)
+                    ? $filter[$key]
+                    : $defaultValue;
+            switch ($key)
+            {
+                default:
+                    if (! empty($value))
+                        $this->db->where($key, $value);
+            }            
+        }
+        return $this->db->get()->result_array();
+    }
+
+    
      public function get_by_id($id) {
         $this->db->select('group.*, center.name as center, contact.first_name, contact.last_name')
                 ->from('group')
@@ -67,7 +94,7 @@ class Group_model extends CI_Model {
                 ->where('center.client_id', $this->client_id)
                 ->where('group.id', $id);
 
-        return $this->db->get()->row_array(); //result_array();
+        return $this->db->get()->row_array();
     }
 
     public function delete($id) {

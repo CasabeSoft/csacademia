@@ -1,0 +1,59 @@
+/* 
+    Document   : report
+    Created on : 01-sep-2013, 10:46:58
+    Author     : Leo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+td {
+    padding-left: 1mm;
+    padding-right: 1mm;
+}
+
+th{
+    background-color: #f0f2ff; 
+}
+
+.td_center{
+    text-align:center; 
+    padding: 0 0.5em;
+}
+.td_right{
+    text-align:right; 
+    padding: 0 0.5em;
+}
+.gradient {
+    border:0.1mm solid #220044; 
+    background-color: #f0f2ff;
+    background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    box-shadow: 0.3em 0.3em #888888;
+}
+.rounded {
+    border:0.1mm solid #220044; 
+    background-color: #f0f2ff;
+    background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+    border-radius: 2mm;
+    background-clip: border-box;
+}
+
+table.list {
+    border:1px solid #000000;
+    font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
+    font-size: 10pt;
+    background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
+}
+table.list td, th {
+    border:1px solid #000000;
+    text-align: left;
+    font-weight: normal;
+}
+.title-font{
+    font-size: 16pt;
+}
+
+table.birthday td {
+    width: 70mm;
+    height: 30;
+    text-align: center;
+    vertical-align: central;
+}

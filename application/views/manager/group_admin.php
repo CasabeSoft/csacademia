@@ -1,4 +1,4 @@
-<?php 
+<?php
 $extra_tabs = 'manager/group_admin_extra_tabs';
 $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
 ?>
@@ -33,33 +33,33 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                         </tr>    
                     </tbody>
                 </table>
-                
+
                 <div class="row-fluid">
-                <legend><?php echo lang('subject_filter')?></legend>
-                <div class="accordion" id="acFilter">
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#acFilter" href="#collapseOne">
-                                <?php echo lang('form_academic_period')?>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="accordion-body collapse">
-                            <div class="accordion-inner">
-                                <select class="input-block-level" data-bind="value: filterByAcademicPeriod">
-                                    <option value=""><?php echo lang('filter_all')?></option>
-                                    <?php foreach ($academic_periods as $period) { ?>
-                                        <option value="<?php echo $period["code"] ?>" 
+                    <legend><?php echo lang('subject_filter') ?></legend>
+                    <div class="accordion" id="acFilter">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#acFilter" href="#collapseOne">
+                                    <?php echo lang('form_academic_period') ?>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <select class="input-block-level" data-bind="value: filterByAcademicPeriod">
+                                        <option value=""><?php echo lang('filter_all') ?></option>
+                                        <?php foreach ($academic_periods as $period) { ?>
+                                            <option value="<?php echo $period["code"] ?>" 
                                             <?php echo $period["code"] == $defaultAcademicPeriod ? "selected" : "" ?>
-                                        >
-                                            <?php echo $period["name"] ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>   
+                                                    >
+                                                        <?php echo $period["name"] ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>   
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
             <div class="span9">
                 <legend data-bind="with: currentGroup">
@@ -70,6 +70,10 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                         </button>
                         <button class="btn btn-small btn-danger" data-bind="click: $root.removeGroup">
                             <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                        </button>
+                       <button type="button" class="btn btn-small " data-target="_blank" 
+                                data-bind="click: $root.printGroups">
+                            <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                         </button>
                     </div>
                 </legend>

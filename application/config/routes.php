@@ -55,6 +55,7 @@ $route['teacher/(:any)'] = 'teacher/$1';
 $route['student/(:any)'] = 'student/$1';
 $route['group/(:any)'] = 'group/$1';
 $route['picture/(:any)'] = 'picture/$1';
+$route['report/birthday'] = 'student/birthday_report';
 
 $route['login'] = 'user_pages/login';
 $route['change_password'] = 'user_pages/change_password';

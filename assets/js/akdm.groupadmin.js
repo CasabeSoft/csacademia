@@ -21,6 +21,7 @@ akdm.GroupsViewModel = function() {
     var delete_student_attendance = '/group/delete_student_attendance/';
     var report_attendance = '/group/report_attendance/';
     var report_students = '/group/report_students/';
+    var report_groups = '/group/report_groups/';
     var dayLetter = [];
     var lastDate = $.datepicker.formatDate(akdm.config.localeDateFormat, new Date());
     self._get = '/group/get';
@@ -135,7 +136,7 @@ akdm.GroupsViewModel = function() {
         var myWindow = window.open(report_students + self.currentGroup().id(), '_blank');
         myWindow.document.title = 'Alumnos';
     };
-    
+       
     self.attended = function (student_id, date) {
         if (! self.attendance()) return false;
         var attendance = self.attendance()[student_id];
@@ -332,6 +333,11 @@ akdm.GroupsViewModel = function() {
     var loadGroups = function () {
         self.newGroup();
         $.post(self._get, self._filter).done(self.setGroups).fail(self._showError);
+    };
+    
+    self.printGroups = function () {
+        var myWindow = window.open(report_groups + self._filter.academic_period, '_blank'); 
+        myWindow.document.title = 'Grupos';
     };
     
     self.init = function(strings, classrooms) {

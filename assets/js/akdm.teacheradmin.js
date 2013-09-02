@@ -7,7 +7,7 @@ akdm.TeachersViewModel = function() {
     self._add = '/teacher/add';
     self._update = '/teacher/update';
     self._delete = '/teacher/delete/';
-    self._ContactPrototype = akdm.model.Teacher;
+    self._ContactPrototype = akdm.model.Teacher;    
 };
 
 akdm.TeachersViewModel.prototype = new akdm.ContactsViewModel();

@@ -79,6 +79,10 @@ akdm.ContactsViewModel = function() {
         server_error: 'Error interno del servidor. Detalles: ',
         validation_error: 'Algún valor indicado no es correcto. Verifique los datos.'
     };
+    var teachers_report = '/teacher/teachers_report/';
+    var students_report = '/student/students_report/';
+    var contacts_report = '/contact/contacts_report/';
+    
     self._filter = { "isActive": true };
     self.contacts = ko.observableArray();
     self.filter = ko.observable();
@@ -174,6 +178,21 @@ akdm.ContactsViewModel = function() {
                 self._strings.server_error + jqXHR.responseText, 
                 akdm.ui.Feedback.ERROR);
         }
+    };
+    
+    self.printTeachers = function () {
+        var myWindow = window.open(teachers_report + self._filter.isActive, '_blank');
+        myWindow.document.title = 'Profesores';
+    };
+    
+    self.printStudents = function () {
+        var myWindow = window.open(students_report + self._filter.isActive + '/' + self._filter.group_id, '_blank');
+        myWindow.document.title = 'Alumnos';
+    };
+    
+    self.printContacts = function () {
+        var myWindow = window.open(contacts_report + self._filter.isActive, '_blank');
+        myWindow.document.title = 'Contactos';
     };
     
     self.loadContacts = function () {

@@ -237,45 +237,10 @@ class Student extends Basic_controller {
             $student = $this->General_model->get_where('contact', 'id = ' . $id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
-            $html = '
-<style>
-    .td_center{
-            text-align:center; 
-            padding: 0 0.5em;
-    }
-    .td_right{
-            text-align:right; 
-            padding: 0 0.5em;
-    }
-    .gradient {
-            border:0.1mm solid #220044; 
-            background-color: #f0f2ff;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-            box-shadow: 0.3em 0.3em #888888;
-    }
-    .rounded {
-            border:0.1mm solid #220044; 
-            background-color: #f0f2ff;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-            border-radius: 2mm;
-            background-clip: border-box;
-    }
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
 
-    table.list {
-            border:1px solid #000000;
-            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-            font-size: 10pt;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-    }
-    table.list td, th {
-            border:1px solid #000000;
-            text-align: left;
-            font-weight: normal;
-    }
-    .title-font{
-            font-size: 16pt;
-}
-</style>
+            $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
@@ -294,11 +259,11 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<td class="td_center">#</td>';
-            $html .= '<td class="td_center">Fecha</td>';
-            $html .= '<td class="td_center">Tipo de pago</td>';
-            $html .= '<td class="td_center">Periodo</td>';
-            $html .= '<td class="td_right">Importe</td>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th class="td_center">Fecha</td>';
+            $html .= '<th class="td_center">Tipo de pago</td>';
+            $html .= '<th class="td_center">Periodo</td>';
+            $html .= '<th class="td_right">Importe</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($payments AS $payment) {
@@ -313,9 +278,8 @@ class Student extends Basic_controller {
             $html .='</tbody></table>
 <br />
 <body>';
-            //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
-            //header('Content-type: application/pdf');
+            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
@@ -424,8 +388,8 @@ class Student extends Basic_controller {
       </div>
       </body>';
       //$this->setup_ajax_response_headers();
-      //header("Content-Type: text/plain");
-      //header('Content-type: application/pdf');
+      header("Content-Type: text/plain");
+      header('Content-type: application/pdf');
       $mpdf->WriteHTML($html);
       $mpdf->Output('pagos.pdf', 'I'); //exit;
       } catch (Exception $e) {
@@ -448,16 +412,6 @@ class Student extends Basic_controller {
             $dateDB = $payment['date'];
 
             $dateNormal = db_to_Local($dateDB);
-
-            /* if (($dateDB == "") || ($dateDB == "0000-00-00")) {
-              $dateNormal = "";
-              } else {
-              $dateArray = explode("-", $dateDB);
-              $aux = $dateArray[2];
-              $dateArray[2] = $dateArray[0];
-              $dateArray[0] = $aux;
-              $dateNormal = implode("/", $dateArray);
-              } */
 
             $html = '
             <body>
@@ -500,6 +454,8 @@ class Student extends Basic_controller {
 
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
             $mpdf = new mPDF('c', array(100, 100));
+            //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            //$mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHTMLHeader($header);
             //$mpdf->SetHTMLFooter($footer);
             $mpdf->SetJS('this.print();');
@@ -562,52 +518,15 @@ class Student extends Basic_controller {
         try {
             $this->load->model('Qualification_model');
             $this->load->model('General_model');
-            $this->load->helper('Util_helper');
 
-            //$qualifications = $this->General_model->get_where('qualification', "student_id = '" . $student_id . "'");
             $qualifications = $this->Qualification_model->get_all($student_id);
             $student = $this->General_model->get_where('contact', 'id = ' . $student_id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
-            $html = '
-<style>
-    .td_center{
-            text-align:center; 
-            padding: 0 0.5em;
-    }
-    .td_right{
-            text-align:right; 
-            padding: 0 0.5em;
-    }
-    .gradient {
-            border:0.1mm solid #220044; 
-            background-color: #f0f2ff;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-            box-shadow: 0.3em 0.3em #888888;
-    }
-    .rounded {
-            border:0.1mm solid #220044; 
-            background-color: #f0f2ff;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-            border-radius: 2mm;
-            background-clip: border-box;
-    }
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
 
-    table.list {
-            border:1px solid #000000;
-            font-family: sans-serif; /*sans-serif; Arial Unicode MS;*/
-            font-size: 10pt;
-            background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-    }
-    table.list td, th {
-            border:1px solid #000000;
-            text-align: left;
-            font-weight: normal;
-    }
-    .title-font{
-            font-size: 16pt;
-}
-</style>
+            $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
@@ -626,16 +545,16 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<td class="td_center">#</td>';
-            $html .= '<td>Periodo</td>';
-            $html .= '<td>Nivel</td>';
-            $html .= '<td>Ev. 1</td>';
-            $html .= '<td>Ev. 2</td>';
-            $html .= '<td>Ev. 3</td>';
-            $html .= '<td>Calificación</td>';
-            $html .= '<td>Trinity</td>';
-            $html .= '<td>Cambridge</td>';
-            $html .= '<td>Otras</td>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th>Periodo</td>';
+            $html .= '<th>Nivel</td>';
+            $html .= '<th>Ev. 1</td>';
+            $html .= '<th>Ev. 2</td>';
+            $html .= '<th>Ev. 3</td>';
+            $html .= '<th>Calificación</td>';
+            $html .= '<th>Trinity</td>';
+            $html .= '<th>Cambridge</td>';
+            $html .= '<th>Otras</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($qualifications AS $qualification) {
@@ -654,11 +573,144 @@ class Student extends Basic_controller {
             $html .='</tbody></table>
 <br />
 <body>';
-            //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
-            //header('Content-type: application/pdf');
+            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
+    public function students_report($isActive, $group) {
+
+        try {
+            /*$filter = $this->input->post();
+            if (!is_array($filter))
+                $filter = [];*/
+            $this->load->model('Student_model');
+            $this->load->helper('Util_helper');
+            $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
+
+
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
+            $mpdf->SetFooter('|Página {PAGENO}|');
+
+            $html = '
+<body>
+
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td><p class="title-font"><b>Alumnos</b></td>
+        </tr>
+        <tr>
+        <td>';
+            // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= /* '</p></td> */ '
+        </tr>
+        </tbody>
+    </table>
+    ';
+
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th>Nombre</td>';
+            $html .= '<th>Teléfono</td>';
+            $html .= '<th>Fecha Nac.</td>';
+            $html .= '<th>Dirección</td>';
+            //$html .= '<th>start_time</td>';
+            //$html .= '<th>end_time</td>';
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($students AS $student) {
+                $dateNormal = db_to_Local($student['date_of_birth']);
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                $html .= '<td>' . $student['phone'] . '</td>';
+                $html .= '<td>' . $dateNormal . '</td>';
+                $html .= '<td>' . $student['address'] . '</td>';
+                //$html .= '<td>' . $teacher['start_time'] . '</td>';
+                //$html .= '<td>' . $teacher['end_time'] . '</td>';
+                $html .= '</tr>';
+                $count++;
+            }
+            $html .='</tbody></table>
+    <br />
+<body>';
+            //$this->setup_ajax_response_headers();
+            //header("Content-Type: text/plain");
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('Alumnos.pdf', 'I');
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
+    public function birthday_report($filter = []) {
+
+        try {
+            //$filter = $this->input->post();
+            if (!is_array($filter))
+                $filter = [];
+            $this->load->model('Student_model');
+            $this->load->helper('Util_helper');
+            $students = $this->Student_model->get_all($filter);
+
+
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c','A4','',14,0,0,16,16,9,9,'');
+
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
+            //$mpdf->SetFooter('|Página {PAGENO}|');
+
+            $html = '
+<body>
+
+    ';
+
+            $html .= '<table class="birthday" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<tbody>';
+            $count = 1;
+            $col = 1;
+            foreach ($students AS $student) {
+
+                if ($col == 1) {
+                    $html .= '<tr><td>';
+                } else {
+                    $html .= '<td>';
+                }
+
+                $dateNormal = db_to_Local($student['date_of_birth']);
+                $html .= "<br>" . $student['first_name'] . ' ' . $student['last_name'] . "<br>";
+                $html .= $student['address'] . "<br>";
+                $html .= $student['postal_code'] . ' ' . $student['town'] . "<br>";
+                $html .= $dateNormal . "<br> ";
+
+                $count++;
+                if ($col == 3) {
+                    $html .= '</td></tr>';
+                    $col = 0;
+                } else {
+                    $html .= '</td>';
+                }
+                $col++;
+            }
+            $html .='</tbody></table>
+    <br />
+<body>';
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
