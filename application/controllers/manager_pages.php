@@ -13,7 +13,7 @@ class Manager_pages extends Basic_controller {
     public function __construct() {
         parent::__construct();
         if (!isLogged()) {
-            redirect('denied');
+            redirect('/login');
             exit;
         }
         $this->location = 'manager/';

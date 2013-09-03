@@ -14,6 +14,10 @@ class Admin_pages extends Crud_controller {
    
     public function __construct() {
         parent::__construct();
+        if (!isLogged()) {
+            redirect('/login');
+            exit;
+        }
         $this->template = 'templates/crud_template';
         $this->description = 'Página de administración general';
         $this->menu_template = 'templates/manager_menu';       

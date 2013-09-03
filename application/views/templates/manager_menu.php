@@ -100,7 +100,11 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </a>
                         <ul class="dropdown-menu">
                             <li class="disabled">
-                                <a href="#"><img tabindex="-1" src="/assets/img/personal.png" class="profilePhoto medium"><span><?php echo $this->session->userdata('email'); ?></span>
+                                <a href="#"><img tabindex="-1" src="/assets/img/personal.png" class="profilePhoto medium">
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a href="#"><span><?php echo $this->session->userdata('email'); ?></span>
                                 </a>
                             </li>
                             <li>

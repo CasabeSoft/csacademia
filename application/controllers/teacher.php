@@ -12,6 +12,10 @@ if (!defined('BASEPATH'))
 class Teacher extends Basic_controller {
     public function __construct() {
         parent::__construct();
+        if (!isLogged()) {
+            redirect('/login');
+            exit;
+        }
         $this->template = 'templates/manager_page';
         $this->location = 'manager/';
         $this->menu_template = 'templates/manager_menu'; 

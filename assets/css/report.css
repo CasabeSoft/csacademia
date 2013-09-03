@@ -5,13 +5,14 @@
     Description:
         Purpose of the stylesheet follows.
 */
-td {
+td, th {
     padding-left: 1mm;
     padding-right: 1mm;
 }
 
 th{
     background-color: #f0f2ff; 
+    font-weight: bold;
 }
 
 .td_center{

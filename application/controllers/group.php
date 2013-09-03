@@ -12,6 +12,10 @@ class Group extends Basic_controller {
 
     public function __construct() {
         parent::__construct();
+        if (!isLogged()) {
+            redirect('/login');
+            exit;
+        }
         $this->template = 'templates/manager_page';
         $this->location = 'manager/';
         $this->menu_template = 'templates/manager_menu';
@@ -220,13 +224,13 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<td rowspan="2" class="td_center">#</td>';
-            $html .= '<td  rowspan="2">Nombre</td>';
+            $html .= '<th rowspan="2" class="td_center">#</td>';
+            $html .= '<th  rowspan="2">Nombre</td>';
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                 if (in_array($daysInWeek, $teachingDays)) {
                     $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
-                    $html .= '<td class="td_center">' . $dayLetter . '</td>';
+                    $html .= '<th class="td_center">' . $dayLetter . '</td>';
                 }
             }
             $html .= '</tr><tr>';
@@ -234,7 +238,7 @@ class Group extends Basic_controller {
                 $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                 if (in_array($daysInWeek, $teachingDays)) {
                     $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
-                    $html .= '<td class="td_center">' . $day . '</td>';
+                    $html .= '<th class="td_center">' . $day . '</td>';
                 }
             }
             $html .= '</tr></thead><tbody>';
@@ -302,8 +306,8 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<td class="td_center">#</td>';
-            $html .= '<td>Nombre</td>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th>Nombre</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
