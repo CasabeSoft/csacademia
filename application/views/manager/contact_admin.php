@@ -8,7 +8,7 @@
                 <legend>
                     <?php echo $subject; ?>
                     <div class="btn-toolbar pull-right">
-                        <button class="btn btn-small pull-right" data-bind="click: newContact, visible: <?php echo $editMode ?>">
+                        <button class="btn btn-small pull-right" data-bind="click: newContact <?php // , visible: echo $editMode ?>">
                             <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                         </button>
                     </div>
