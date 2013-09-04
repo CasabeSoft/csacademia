@@ -45,7 +45,7 @@ class User_pages extends Basic_controller {
                 $client_id = $isAdmin
                         ? $this->General_model->get_first_client()
                         : $result->client_id;
-                $center = $this->General_model->get_first_center($client_id);
+                $center = NULL;//$this->General_model->get_first_center($client_id);
                 
                 if ($isAdmin) {
                     $user = array(
