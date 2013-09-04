@@ -21,6 +21,11 @@
             </select>            
         </div>
         <div class="span2">
+            <label for="txtStartDate"><?php echo lang('form_start_date'); ?></label>
+            <input type="text" id="txtStartDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
+                   data-bind="value: start_date, jqDatepicker: start_date">
+        </div>
+        <div class="span2">
             <label for="tbxPrefStartTime"><?php echo lang('form_start_time'); ?></label>
             <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
                    data-bind="value: $root.currentStudentGroup().start_time" />
@@ -30,24 +35,15 @@
             <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
                    data-bind="value: $root.currentStudentGroup().end_time" />
         </div>
-        <div class="span2">
-            <label for="lbxLevel"><?php echo lang('form_level'); ?></label>
-            <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
-                   data-bind="value: $root.levels[$root.currentStudentGroup().level_code]" />
-        </div>        
+
     </div>
     <div class="row-fluid">
         <div class="span2">
             <label for="lbxLanguageYears"><?php echo lang('form_language_years'); ?></label>
             <input type="text" id="lbxLanguageYears" placeholder="<?php echo lang('form_language_years'); ?>" class="input-block-level" 
                    data-bind="value: language_years" />
-        </div>
+        </div>                 
         <div class="span4">
-            <label for="txtStartDate"><?php echo lang('form_start_date'); ?></label>
-            <input type="text" id="txtStartDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
-                   data-bind="value: start_date, jqDatepicker: start_date">
-        </div>        
-        <div class="span2">
             <label for="lbxLeaveReason"><?php echo lang('form_leave_reason'); ?></label>
             <select id="lbxLeaveReason" class="input-block-level" data-bind="value: leave_reason_code">
                 <option value="">--</option>
@@ -56,10 +52,15 @@
                 <?php } ?>
             </select>
         </div>
-        <div class="span4">
+        <div class="span2">
             <label for="txtEndDate"><?php echo lang('form_end_date'); ?></label>
             <input type="text" id="txtEndDate" placeholder="<?php echo lang('date_format_humans'); ?>" class="input-block-level"
                    data-bind="value: end_date, jqDatepicker: end_date">
+        </div> 
+        <div class="span4">
+            <label for="lbxLevel"><?php echo lang('form_level'); ?></label>
+            <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
+                   data-bind="value: $root.levels[$root.currentStudentGroup().level_code]" />
         </div> 
     </div>
     <div class="row-fluid newComponentGroup">
