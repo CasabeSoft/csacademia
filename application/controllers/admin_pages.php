@@ -367,7 +367,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_primary_key('contact_id','view_teacher');
         $this->crud->set_relation('teacher_id', 'view_teacher', 'full_name');
         $this->crud->set_relation('level_code', 'level', 'description');
-        $this->crud->set_relation('academic_period', 'academic_period', 'name');
+        $this->crud->set_relation('academic_period', 'academic_period', 'name', null, 'name desc');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
