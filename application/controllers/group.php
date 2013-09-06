@@ -381,7 +381,8 @@ class Group extends Basic_controller {
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($groups AS $group) {
-                //$html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<tr>';
+                //$html .= '<td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $group['name'] . '</td>';
                 $html .= '<td>' . $group['center'] . '</td>';
                 $html .= '<td>' . $group['classroom'] . '</td>';
