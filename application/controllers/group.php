@@ -363,7 +363,7 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%" style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
+            //$html .= '<th class="td_center">#</td>';
             $html .= '<th>Grupo</td>';
             $html .= '<th>Centro</td>';
             $html .= '<th>Aula</td>';
@@ -381,7 +381,7 @@ class Group extends Basic_controller {
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($groups AS $group) {
-                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                //$html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $group['name'] . '</td>';
                 $html .= '<td>' . $group['center'] . '</td>';
                 $html .= '<td>' . $group['classroom'] . '</td>';
