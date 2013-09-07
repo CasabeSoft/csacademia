@@ -286,6 +286,17 @@ class Group extends Basic_controller {
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             //$mpdf->SetFooter('|Página {PAGENO}|');
             
+            $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            
+            $count1 = 1;
+            $dayLetter = '';
+            foreach ($weekDays as $day) {
+                if ($group[$day])
+                    $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                $count1++;
+            }
+                      
             $html = '
 <body>
 
@@ -293,11 +304,11 @@ class Group extends Basic_controller {
         <tbody>
         <tr>
             <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Alumnos</b></td>
+            <td><p class="title-font"><b>Alumnos del Grupo: ' . $group['name'] . ' - ' .  $group['center'] . '</b></td>
         </tr>
         <tr>
-        <td><p><b>Grupo: </b>';
-            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+        <td>';
+            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'] ;
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -306,8 +317,8 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
-            $html .= '<th>Nombre</td>';
+            $html .= '<th class="td_center"><b>#</b></td>';
+            $html .= '<th><b>Nombre</b></td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
