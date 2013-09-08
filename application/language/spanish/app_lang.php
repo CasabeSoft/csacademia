@@ -41,6 +41,8 @@ $lang['menu_help'] = "Ayuda";
 $lang['menu_tools'] = "Herramientas";
 $lang['menu_billing'] = "Facturación";
 
+$lang['menu_birthdays'] = "Etiquetas para cumpleaños";
+
 $lang['menu_change_password'] = "Cambiar Contraseña";
 $lang['menu_profile'] = "Perfil";
 $lang['menu_see_as_client'] = "Ver como cliente";
@@ -73,6 +75,9 @@ $lang['subject_payment_type'] = "Tipo de pago";
 $lang['subject_filter'] = "Filtrar por";
 $lang['subject_financial'] = "Financieros";
 $lang['subject_family'] = "Familiar";
+$lang['subject_select_month'] = "Seleccionar mes";
+$lang['subject_select_center'] = "Seleccionar centro";
+$lang['subject_select_state'] = "Seleccionar estado de los alumnos";
 
 /* * *
  * Campos de los formularios
@@ -174,6 +179,19 @@ $lang['form_state'] = "Estado";
 $lang['form_attendance'] = "Asistencia";
 $lang['form_existing_family'] = "Familiar existente";
 $lang['form_classes_x_week'] = "Clases por semana";
+$lang['form_month'] = "Mes";
+$lang['form_january'] = "Enero";
+$lang['form_february'] = "Febrero";
+$lang['form_march'] = "Marzo";
+$lang['form_april'] = "Abril";
+$lang['form_may'] = "Mayo";
+$lang['form_june'] = "Junio";
+$lang['form_july'] = "Julio";
+$lang['form_august'] = "Agosto";
+$lang['form_september'] = "Septiembre";
+$lang['form_october'] = "Octubre";
+$lang['form_november'] = "Noviembre";
+$lang['form_december'] = "Deciembre";
 
 /* * *
  * Botones
@@ -258,6 +276,8 @@ $lang['page_manage_academic_period'] = "Gestión de periodos académicos";
 $lang['page_manage_main'] = "Sistema de gestión académica";
 $lang['page_manage_payments'] = "Gestión de pagos";
 $lang['page_manage_payment_types'] = "Gestión de tipos de pagos";
+
+$lang['page_manage_birthday'] = "Filtrar etiquetas para cumpleaños";
 
 $lang['page_login_title'] = "Acceder a CS Academia";
 $lang['page_login_title_info'] = "Accede y obtén la información que buscas, gestiona datos y mucho más...";

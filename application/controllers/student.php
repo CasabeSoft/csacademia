@@ -44,6 +44,15 @@ class Student extends Basic_controller {
         $this->load_page('student_admin');
     }
 
+    public function birthday() {
+        $this->current_page();
+        $this->title = lang('page_manage_birthday');
+        $this->subject = lang('subject_student');        
+        $this->load->model('General_model');
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));        
+        $this->load_page('student_birthday');
+    }
+
     protected function _echo_json_error($error) {
         http_response_code(500);
         echo json_encode($error);
@@ -423,8 +432,10 @@ class Student extends Basic_controller {
               <table border="0" width="100%" >
               <tbody>
               <tr>
-              <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
-              <td><p style="font-size: 20px">RECIBO</td>
+                <td><img src="/assets/img/logo.png" width="140" /></td>              
+              </tr>
+              <tr>
+              <td><p style="font-size: 20px"></td>
               </tr>
               <tr>
               <td><p>
@@ -438,7 +449,7 @@ class Student extends Basic_controller {
               </div>
               <div class="gradient text rounded">
               ';
-            $html .= '<p> Recibí de: ' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
+            $html .= '<p> Recibí de: <br>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
             $html .= '  
               
               <p>Por: Pago
@@ -452,12 +463,12 @@ class Student extends Basic_controller {
               ';
             $html .= $payment['amount'];
             $html .= '
-              </p><p>Firmado: ______________</p>
+             
               </div>
               </body>';
-
+            // </p><p>Firmado: ______________</p>
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
-            $mpdf = new mPDF('c', array(100, 100));
+            $mpdf = new mPDF('c',  array(76, 100), 14, 5, 5, 13, 13, 0, 0, '');
             //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
             //$mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHTMLHeader($header);
@@ -589,9 +600,9 @@ class Student extends Basic_controller {
     public function students_report($isActive, $group) {
 
         try {
-            /*$filter = $this->input->post();
-            if (!is_array($filter))
-                $filter = [];*/
+            /* $filter = $this->input->post();
+              if (!is_array($filter))
+              $filter = []; */
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
@@ -658,32 +669,29 @@ class Student extends Basic_controller {
         }
     }
 
-    public function birthday_report($filter = []) {
+    public function birthday_report() {
 
         try {
-            //$filter = $this->input->post();
-            if (!is_array($filter))
-                $filter = [];
+            $isActive = $this->input->post('state');
+            $center = $this->input->post('center');
+            $month = $this->input->post('month');
+            
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
-            $students = $this->Student_model->get_all($filter);
-
+            $students = $this->Student_model->get_birthday($isActive, $center, $month);
 
             $this->load->library('mpdf');
-            $mpdf = new mPDF('c','A4','',14,0,0,16,16,9,9,'');
+            $mpdf = new mPDF('c', 'A4', '', 14, 0, 0, 13, 13, 0, 0, '');
+            $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
-            //$mpdf->SetFooter('|Página {PAGENO}|');
 
             $html = '
 <body>
-
-    ';
-
-            $html .= '<table class="birthday" border="1" width="100%"  style="border-collapse: collapse">';
-            $html .= '<tbody>';
+    <table class="birthday" border="0" width="100%" style="border-collapse: collapse">
+        <tbody>
+';
             $count = 1;
             $col = 1;
             foreach ($students AS $student) {
@@ -694,11 +702,11 @@ class Student extends Basic_controller {
                     $html .= '<td>';
                 }
 
-                $dateNormal = db_to_Local($student['date_of_birth']);
+                $dateNormal = substr($student['date_of_birth'], 8, 2) . '/' . substr($student['date_of_birth'], 5, 2);  //db_to_Local($student['date_of_birth']);
                 $html .= "<br>" . $student['first_name'] . ' ' . $student['last_name'] . "<br>";
                 $html .= $student['address'] . "<br>";
                 $html .= $student['postal_code'] . ' ' . $student['town'] . "<br>";
-                $html .= $dateNormal . "<br> ";
+                $html .= $dateNormal;
 
                 $count++;
                 if ($col == 3) {
@@ -709,8 +717,9 @@ class Student extends Basic_controller {
                 }
                 $col++;
             }
-            $html .='</tbody></table>
-    <br />
+            $html .='
+         </tbody>
+     </table>
 <body>';
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);

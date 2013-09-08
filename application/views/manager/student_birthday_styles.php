@@ -1,8 +1,4 @@
-<?php $this->load->view('manager/contact_admin_styles'); ?>
 <style>
-    #currentFamilyDetails .noSoImportant { display: none }
-    #currentFamilyDetails #txtNotes { min-height: 95px; }
-    
     fieldset.scheduler-border {
         border: 1px groove #ddd !important;
         padding: 0 1.4em 1.4em 1.4em !important;

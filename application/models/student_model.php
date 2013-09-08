@@ -32,19 +32,18 @@ class Student_model extends CI_Model {
         'school_level',
         'group_id'
     ];
-    
     private $DEFAUL_FILTER = [
         'isActive' => 'true',
         'group_id' => NULL
     ];
-    
+
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
         $this->load->model('Contact_model');
     }
-    
+
     public function get_all($filter = []) {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
@@ -53,23 +52,40 @@ class Student_model extends CI_Model {
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
-            $value = array_key_exists($key, $filter)
-                    ? $filter[$key]
-                    : $defaultValue;
-            switch ($key)
-            {
+            $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
+            switch ($key) {
                 case 'isActive':
                     if ($value == 'true')
                         $this->db->where('end_date IS NULL');
-                    else 
+                    else
                         $this->db->where('end_date IS NOT NULL');
                     break;
                 default:
-                    if (! empty($value))
+                    if (!empty($value))
                         $this->db->where($key, $value);
-            }            
+            }
         }
-        return $this->db->get()->result_array();          
+        return $this->db->get()->result_array();
+    }
+
+    public function get_birthday($isActive = NULL, $center = 0, $month = 0) {
+        $this->db->from('contact')
+                ->join('student', 'contact.id = student.contact_id')
+                ->where('client_id', $this->client_id)
+                ->order_by("first_name, last_name", "asc");
+        if ($isActive != NULL) {
+            if ($isActive == 'true')
+                $this->db->where('end_date IS NULL');
+            else
+                $this->db->where('end_date IS NOT NULL');
+        }
+        if ($center != 0)
+            $this->db->where('center_id', $center);
+        
+        if ($month != 0) {
+            $this->db->where('MONTH(date_of_birth)', $month);
+        }
+        return $this->db->get()->result_array();
     }
 
     public function get_by_group($groups_id) {
@@ -80,7 +96,7 @@ class Student_model extends CI_Model {
             $this->db->where('center_id', $this->center_id);
         return $this->db->get()->result_array();
     }
-    
+
     public function get_price_by_student($student_id) {
         $level = $this->db->select('price')
                 ->from('student')
@@ -88,36 +104,28 @@ class Student_model extends CI_Model {
                 ->join('level', 'level.code = group.level_code')
                 ->where('contact_id', $student_id)
                 ->get();
-        return $level->num_rows() > 0
-                ? $level->row()->price
-                : NULL;   
+        return $level->num_rows() > 0 ? $level->row()->price : NULL;
     }
-    
+
     public function get_group_by_student($student_id) {
         $level = $this->db->select('group_id')->from('student')
                 ->where('contact_id', $student_id)
                 ->get();
-        return $level->num_rows() > 0
-                ? $level->row()->group_id
-                : NULL;   
+        return $level->num_rows() > 0 ? $level->row()->group_id : NULL;
     }
-    
+
     public function get_level_by_group($groups_id) {
         $level = $this->db->select('level_code')->from('group')
                 ->where('id', $groups_id)
                 ->get();
-        return $level->num_rows() > 0
-                ? $level->row()->level_code
-                : NULL;   
+        return $level->num_rows() > 0 ? $level->row()->level_code : NULL;
     }
-    
+
     public function get_price_by_level($level_code) {
         $level = $this->db->select('price')->from('level')
                 ->where('code', $level_code)
                 ->get();
-        return $level->num_rows() > 0
-                ? $level->row()->price
-                : NULL;   
+        return $level->num_rows() > 0 ? $level->row()->price : NULL;
     }
 
     public function delete($id) {

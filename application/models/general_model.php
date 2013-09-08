@@ -22,9 +22,12 @@ class General_model extends CI_Model {
         return $this->db->get($table)->result_array();
     }
     
-    public function get_fields($table, $fields = '') {
+    public function get_fields($table, $fields = '', $where = '') {
         if (!empty($fields)) {
             $this->db->select($fields);
+        }
+        if (!empty($where)) {
+            $this->db->where($where);
         }
         return $this->db->get($table)->result_array();
     }

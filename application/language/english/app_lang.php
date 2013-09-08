@@ -41,6 +41,8 @@ $lang['menu_help'] = "Help";
 $lang['menu_tools'] = "Tools";
 $lang['menu_billing'] = "Billing";
 
+$lang['menu_birthdays'] = "Labels for birthdays";
+
 $lang['menu_change_password'] = "Change Password";
 $lang['menu_profile'] = "Profile";
 $lang['menu_see_as_client'] = "See as client";
@@ -74,6 +76,9 @@ $lang['subject_payment_type'] = "Payment type";
 $lang['subject_filter'] = "Filter by";
 $lang['subject_financial'] = "Financial";
 $lang['subject_family'] = "Family";
+$lang['subject_select_month'] = "Select month";
+$lang['subject_select_center'] = "Select center";
+$lang['subject_select_state'] = "Select status of learners";
 
 /* * *
  * Campos de los formularios
@@ -122,7 +127,7 @@ $lang['form_type'] = "Type";
 $lang['form_start_date'] = "Start Date";
 $lang['form_end_date'] = "End Date";
 $lang['form_state'] = "State";
-$lang['form_bank_account_format'] = "Bank Account Format";
+$lang['form_bank_account_format'] = "Bank Acc. Format";
 $lang['form_bank_account_number'] = "Bank Account Number";
 $lang['form_classroom'] = "Classroom";
 $lang['form_teacher'] = "Teacher";
@@ -175,6 +180,19 @@ $lang['form_state'] = "State";
 $lang['form_attendance'] = "Attendance";
 $lang['form_existing_family'] = "Existing family";
 $lang['form_classes_x_week'] = "Classes per wekk";
+$lang['form_month'] = "Month";
+$lang['form_january'] = "January";
+$lang['form_february'] = "February";
+$lang['form_march'] = "March";
+$lang['form_april'] = "April";
+$lang['form_may'] = "May";
+$lang['form_june'] = "June";
+$lang['form_july'] = "July";
+$lang['form_august'] = "August";
+$lang['form_september'] = "September";
+$lang['form_october'] = "October";
+$lang['form_november'] = "November";
+$lang['form_december'] = "December";
 
 /* * *
  * Botones
@@ -199,6 +217,7 @@ $lang['btn_yes'] = "Yes";
 $lang['btn_no'] = "No";
 $lang['btn_active'] = "Active";
 $lang['btn_inactive'] = "Inactive";
+$lang['btn_print'] = "Print";
 
 /***
  * Enlaces
@@ -256,9 +275,10 @@ $lang['page_manage_teachers'] = "Teacher managment";
 $lang['page_manage_users'] = "User managment";
 $lang['page_manage_academic_period'] = "Academic period managment";
 $lang['page_manage_main'] = "Academic managment system";
-
 $lang['page_manage_payments'] = "Payment managment";
 $lang['page_manage_payment_types'] = "Payment types managment";
+
+$lang['page_manage_birthday'] = "Filter labels for birthdays";
 
 $lang['page_login_title'] = "Access to CSAcademia";
 $lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";

@@ -15,6 +15,17 @@ th{
     font-weight: bold;
 }
 
+thead {	
+    /*font-weight: bold; 
+    vertical-align: bottom; */
+}
+tfoot {	
+    font-weight: bold; 
+    /*vertical-align: top;*/ 
+}
+thead th { font-weight: bold; }
+tfoot td { font-weight: bold; }
+
 .td_center{
     text-align:center; 
     padding: 0 0.5em;
@@ -54,7 +65,8 @@ table.list td, th {
 
 table.birthday td {
     width: 70mm;
-    height: 30;
+    height: 30mm;
     text-align: center;
     vertical-align: central;
+    font-size: 10pt;
 }
