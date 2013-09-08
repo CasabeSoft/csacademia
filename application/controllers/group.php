@@ -197,10 +197,20 @@ class Group extends Basic_controller {
                     $teachingDays[] = $index;
                 $index++;
             }
+            
+            $count1 = 1;
+            $dayLetter = '';
+            foreach ($weekDays as $day) {
+                if ($group[$day])
+                    $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                $count1++;
+            }
 
             //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             
@@ -211,11 +221,11 @@ class Group extends Basic_controller {
         <tbody>
         <tr>
             <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Informe de Asistencia</b></td>
+            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' .$group['name'] . '</b></td>
         </tr>
         <tr>
-        <td><p><b>Grupo: </b>';
-            $html .= $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Mes: </b>' . $month . '/' . $year . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+        <td><p>';
+            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] .  ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $month . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -281,6 +291,8 @@ class Group extends Basic_controller {
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
@@ -299,12 +311,11 @@ class Group extends Basic_controller {
                       
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
         <tr>
             <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Alumnos del Grupo: ' . $group['name'] . ' - ' .  $group['center'] . '</b></td>
+            <td><p class="title-font"><b>Grupo: ' . $group['name'] . ' - ' .  $group['center'] . '</b></td>
         </tr>
         <tr>
         <td>';
@@ -348,7 +359,9 @@ class Group extends Basic_controller {
             $groups = $this->Group_model->get_group_report(["academic_period" => $filter]);
             
             $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
@@ -356,18 +369,12 @@ class Group extends Basic_controller {
             
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
-        <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Grupos</b></td>
-        </tr>
-        <tr>
-        <td>';
-           // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= /*'</p></td>*/ '
-        </tr>
+            <tr>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Grupos</b></td>
+            </tr>
         </tbody>
     </table>
     ';
@@ -397,7 +404,7 @@ class Group extends Basic_controller {
                 $html .= '<td>' . $group['name'] . '</td>';
                 $html .= '<td>' . $group['center'] . '</td>';
                 $html .= '<td>' . $group['classroom'] . '</td>';
-                $html .= '<td>' . $group['teacher'] . '</td>';
+                $html .= '<td>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>';
                 $html .= '<td>' . $group['level'] . '</td>';
                 $html .= '<td>' . $group['period'] . '</td>';
                 $html .= '<td>' . '<input type="checkbox" ' . ($group['monday']==1 ? 'checked="checked"' : '') . '></td>'; 

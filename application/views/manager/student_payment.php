@@ -1,21 +1,9 @@
-<form id="frm" action="<?php echo site_url('report/birthday'); ?>" method="POST" target="_blank">
+<form id="frm" action="<?php echo site_url('report/payments'); ?>" method="POST" target="_blank">
     <div class="container container-first">
         <div id="msgFeedback" class="feedback top">
         </div>
         <h1><?php echo $title; ?></h1>
-        <div class="row">
-            <div class="span4">
-                <fieldset class="scheduler-border">
-                    <legend class="scheduler-border">
-                        <?php echo lang('subject_select_state'); ?>
-                    </legend>
-                    <!--label for="lbxState"><?php echo lang('form_state'); ?></label-->
-                    <select id="status" name="state" class="input-block-level">
-                        <option value="true"><?php echo lang('btn_active'); ?></option>
-                        <option value="false"><?php echo lang('btn_inactive'); ?></option>
-                    </select>
-                </fieldset>
-            </div>
+        <div class="row">            
             <div class="span4">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
@@ -28,6 +16,20 @@
                             <option value="<?php echo $center["id"] ?>">
                                 <?php echo $center["name"] ?>
                             </option>
+                        <?php } ?>
+                    </select>
+                </fieldset>
+            </div>
+            <div class="span4">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        <?php echo lang('subject_select_payment_type'); ?>
+                    </legend>
+                    <!--label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label-->
+                    <select id="lbxRelationship" name="payment_type" class="input-block-level" data-bind="value: payment_type_id">
+                        <!--option value="">--</option-->
+                        <?php foreach ($payments_types as $payment_type) { ?>
+                            <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
                         <?php } ?>
                     </select>
                 </fieldset>

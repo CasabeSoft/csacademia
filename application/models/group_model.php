@@ -68,7 +68,7 @@ class Group_model extends CI_Model {
     }
 
     public function get_group_report($filter = []) {
-        $this->db->select('group.*, center.name as center,  classroom.name as classroom, academic_period.name as period, level.description as level, contact.first_name as teacher')
+        $this->db->select('group.*, center.name as center,  classroom.name as classroom, academic_period.name as period, level.description as level, contact.first_name, contact.last_name')
                 ->from('group')
                 ->join('contact', 'group.teacher_id = contact.id and contact.client_id = ' . $this->client_id)
                 ->join('level', 'group.level_code = level.code and level.client_id = ' . $this->client_id)

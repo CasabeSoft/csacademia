@@ -91,6 +91,8 @@ class Teacher extends Basic_controller {
             
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
@@ -102,7 +104,7 @@ class Teacher extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
         <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
             <td><p class="title-font"><b>Profesores</b></td>
         </tr>
         <tr>

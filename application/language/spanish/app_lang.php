@@ -78,6 +78,7 @@ $lang['subject_family'] = "Familiar";
 $lang['subject_select_month'] = "Seleccionar mes";
 $lang['subject_select_center'] = "Seleccionar centro";
 $lang['subject_select_state'] = "Seleccionar estado de los alumnos";
+$lang['subject_select_payment_type'] = "Seleccionar tipo de pago";
 
 /* * *
  * Campos de los formularios
@@ -277,7 +278,8 @@ $lang['page_manage_main'] = "Sistema de gestión académica";
 $lang['page_manage_payments'] = "Gestión de pagos";
 $lang['page_manage_payment_types'] = "Gestión de tipos de pagos";
 
-$lang['page_manage_birthday'] = "Filtrar etiquetas para cumpleaños";
+$lang['page_report_birthday'] = "Filtrar etiquetas para cumpleaños";
+$lang['page_report_payments'] = "Filtrar pagos";
 
 $lang['page_login_title'] = "Acceder a CS Academia";
 $lang['page_login_title_info'] = "Accede y obtén la información que buscas, gestiona datos y mucho más...";

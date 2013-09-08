@@ -99,18 +99,12 @@ class Contact extends Basic_controller {
             
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
-        <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Contactos</b></td>
-        </tr>
-        <tr>
-        <td>';
-            // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= /* '</p></td> */ '
-        </tr>
+            <tr>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Contactos</b></td>
+            </tr>
         </tbody>
     </table>
     ';

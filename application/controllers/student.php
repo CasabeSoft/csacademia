@@ -46,11 +46,21 @@ class Student extends Basic_controller {
 
     public function birthday() {
         $this->current_page();
-        $this->title = lang('page_manage_birthday');
+        $this->title = lang('page_report_birthday');
         $this->subject = lang('subject_student');        
         $this->load->model('General_model');
-        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));        
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));         
         $this->load_page('student_birthday');
+    }
+    
+    public function payment() {
+        $this->current_page();
+        $this->title = lang('page_report_payments');
+        $this->subject = lang('subject_student');        
+        $this->load->model('General_model');
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
+        $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
+        $this->load_page('student_payment');
     }
 
     protected function _echo_json_error($error) {
@@ -250,6 +260,8 @@ class Student extends Basic_controller {
             $student = $this->General_model->get_where('contact', 'id = ' . $id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
 
@@ -538,6 +550,8 @@ class Student extends Basic_controller {
             $student = $this->General_model->get_where('contact', 'id = ' . $student_id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
 
@@ -610,6 +624,8 @@ class Student extends Basic_controller {
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
@@ -620,15 +636,10 @@ class Student extends Basic_controller {
 
     <table border="0" width="100%" >
         <tbody>
-        <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Alumnos</b></td>
-        </tr>
-        <tr>
-        <td>';
-            // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= /* '</p></td> */ '
-        </tr>
+            <tr>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Alumnos</b></td>
+            </tr>
         </tbody>
     </table>
     ';
@@ -724,6 +735,80 @@ class Student extends Basic_controller {
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function payments_general_report() {
+
+        try {
+            $payment_type = $this->input->post('payment_type');
+            $center = $this->input->post('center');
+            $month = $this->input->post('month');
+            
+            //$this->load->model('Payment_model');
+            //$this->load->model('General_model');
+            //$this->load->helper('Util_helper');
+            
+            $this->load->model('Student_model');
+            $this->load->helper('Util_helper');
+            $payments = $this->Student_model->get_payments($center, $payment_type, $month);
+
+            //$payments = $this->Payment_model->get_all($id);
+            //$student = $this->General_model->get_where('contact', 'id = ' . $id);
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+            
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+
+            $html = '
+<body>
+    <table border="0" width="100%" >
+        <tbody>
+            <tr>
+                <td width="50%" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>Pagos</b></td>
+            </tr>';
+            //<tr>
+             //   <td><p><b> </b>
+            //$html .= $student[0]['first_name'] . ' ' . $student[0]['last_name']; //rowspan="2"
+            $html .= //'</p></td>
+            //</tr>
+            '
+        </tbody>
+    </table>
+';
+
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<th class="td_center">#</td>';
+            $html .= '<th>Nombre y Apellidos</td>';
+            $html .= '<th>Fecha</td>';
+            $html .= '<th>Tipo de pago</td>';
+            $html .= '<th>Periodo</td>';
+            $html .= '<th class="td_right">Importe</td>';
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($payments AS $payment) {
+                $dateNormal = db_to_Local($payment['date']);
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</td>';
+                $html .= '<td>' . $dateNormal . '</td>';
+                $html .= '<td>' . $payment['payment_type_name'] . '</td>';
+                $html .= '<td>' . $payment['piriod'] . '</td>';
+                $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $count++;
+            }
+            $html .='</tbody></table>
+<br />
+<body>';
+            //header("Content-Type: text/plain");
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

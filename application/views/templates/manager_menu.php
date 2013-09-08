@@ -72,6 +72,8 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </a>
                         <ul class="dropdown-menu">
                             <li class="<?php echo is_active($current_page, 'birthday') ?>"><a href="/student/birthday"><?php echo lang('menu_birthdays'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/student/payment"><?php echo lang('menu_payment'); ?></a></li>
+                     
                         </ul>
                     </li>
                     <!--li class="<?php echo is_controller_active($current_controller, 'billing') ?>"><a href="/manager/main"><?php echo lang('menu_billing'); ?></a></li-->
