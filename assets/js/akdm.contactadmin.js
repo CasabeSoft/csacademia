@@ -114,7 +114,7 @@ akdm.ContactsViewModel = function() {
 
     self.newContact = function () {
         var contact = new self._ContactPrototype();
-        self.currentContact(contact);
+        self.selectContact(contact);
     };
 
     self.saveContact = function() {
