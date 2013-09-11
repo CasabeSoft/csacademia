@@ -69,10 +69,12 @@ class Student_model extends CI_Model {
     }
 
     public function get_birthday($isActive = NULL, $center = 0, $month = 0) {
-        $this->db->from('contact')
+        $this->db->select('contact.*, group.name')
+                ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
+                ->join('group', 'student.group_id = group.id')
                 ->where('client_id', $this->client_id)
-                ->order_by("first_name, last_name", "asc");
+                ->order_by("group.name, first_name, last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
                 $this->db->where('end_date IS NULL');
@@ -80,7 +82,7 @@ class Student_model extends CI_Model {
                 $this->db->where('end_date IS NOT NULL');
         }
         if ($center != 0)
-            $this->db->where('center_id', $center);
+            $this->db->where('student.center_id', $center);
         
         if ($month != 0) {
             $this->db->where('MONTH(date_of_birth)', $month);
