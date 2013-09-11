@@ -717,7 +717,7 @@ class Student extends Basic_controller {
                 $html .= "<br>" . $student['first_name'] . ' ' . $student['last_name'] . "<br>";
                 $html .= $student['address'] . "<br>";
                 $html .= $student['postal_code'] . ' ' . $student['town'] . "<br>";
-                $html .= $dateNormal;
+                $html .= $dateNormal; // . ' Grupo: ' .  $student['name'];
 
                 $count++;
                 if ($col == 3) {
