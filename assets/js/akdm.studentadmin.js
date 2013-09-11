@@ -29,6 +29,7 @@ akdm.StudentViewModel = function () {
     var qualification_add = '/student/qualification_add/';
     var qualification_delete = '/student/qualification_delete/';
     var qualifications_report = '/student/qualifications_report/';
+    var levelPriceColumns = {1: "price_1", 2: "price_2", 3: "price_3", 4: "price_4", 6: "price_6", 12: "price_12"};
     var familyIndex = {};
     var empty_group = (new akdm.model.Group()).toJSON();
     self._get = '/student/get';
@@ -40,7 +41,7 @@ akdm.StudentViewModel = function () {
     self._payments_get = '/student/payments_get/';
     self._get_price_by_student = '/student/get_price_by_student/';
     self._filter = $.extend(self._filter, { "group_id": null });
-    self.levelPrice = ko.observable();
+    // self.levelPrice = ko.observable();
     self.paymentList = ko.observableArray();
     self.currentPayment = ko.observable();
     self.currentDate = ko.observable($.datepicker.formatDate(akdm.config.localeDateFormat, new Date()));
@@ -77,13 +78,51 @@ akdm.StudentViewModel = function () {
             self.loadContacts();
         }
     });
+    self.suggestedPeriods = ko.computed({
+        read: function () {
+            if (! self.currentPayment() || ! self.currentPayment().payment_type_id()) return;
+            
+            var index = 0;
+            var found = false;
+            var periods = akdm.model.PaymentPeriods;
+            var payment_type_id = Number(self.currentPayment().payment_type_id());
+            for(; index < periods.length && ! found; index++) {
+                found = periods[index].id === payment_type_id;
+            }
+            return found ? periods[index-1].periods : [];
+        }
+    });
+    self.selectedPeriod = ko.computed({
+        read: function () { 
+            return self.currentPayment() 
+                ? self.currentPayment().payment_type_id()
+                : null; 
+            },
+        write: function (value) {
+            if (!value) return;
+            
+            self.currentPayment().payment_type_id(value.id);
+        }
+    });
+
+    self.suggestPaymentPrice = function () {
+        if (! self.currentPayment() || ! self.currentPayment().payment_type_id()) return;
+
+        var priceColumn = levelPriceColumns[self.currentPayment().payment_type_id()];
+        self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
+        self.currentPayment().piriod("");
+    };
 
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
+        $('#dlgPayments').modal('show');
     };
 
     self.newPayment = function () {
         var newPayment = new akdm.model.Payment();
+        newPayment.date(self.currentDate());
+        self.currentPayment(newPayment);
+        /*
         $.get(self._get_price_by_student + self.currentContact().id()).done(function (price) {
             self.levelPrice(price);
             if (!price)
@@ -93,6 +132,7 @@ akdm.StudentViewModel = function () {
             self.currentPayment(newPayment);
             $('#lbxPiriod').focus();
         }).fail(self._showError);
+        */
     };
 
     self.selectFamily = function (family) {
@@ -142,7 +182,15 @@ akdm.StudentViewModel = function () {
     };
 
     self.savePayment = function () {
+        var payment = self.currentPayment();
+
         // TODO: Implementar validación de datos del pago.
+        if (payment.payment_type_id() == "") {
+            akdm.ui.Feedback.show('#msgFeedback',
+                    self._strings.validation_error,
+                    akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
+            return;
+        }
         /*
         if (!$('#frm').valid()) {
             akdm.ui.Feedback.show('#msgFeedback',
@@ -152,7 +200,6 @@ akdm.StudentViewModel = function () {
         }
         */
 
-        var payment = self.currentPayment();
         if (payment.id()) {
             // Actualizar
             $.post(payment_update, payment.toJSON()).done(function () {
@@ -226,10 +273,11 @@ akdm.StudentViewModel = function () {
         self.paymentList(newPaypmentList);
     };
 
+/*
     self.setLevelPrice = function (price) {
         self.levelPrice(price);
     };
-
+*/
     self.setQualifications = function (qualifications) {
         var newQualifications = [];
         self.currentQualifications.removeAll();
@@ -245,7 +293,7 @@ akdm.StudentViewModel = function () {
         $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         self.currentPayment(new akdm.model.Payment());
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
-        $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
+        // $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
         $.get(qualification_get + contact.id()).done(self.setQualifications).fail(self._showError);
     };
 
@@ -328,7 +376,7 @@ akdm.StudentViewModel = function () {
             self.academicPeriods[period.code] = period.name;
         });
         $(levels).each(function (index, level) {
-            self.levels[level.code] = level.description;
+            self.levels[level.code] = level;
         });
         $(groups).each(function (index, group) {
             self.groups[group.id] = group;

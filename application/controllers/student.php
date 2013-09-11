@@ -34,7 +34,7 @@ class Student extends Basic_controller {
         $this->load->model('Group_model');
         $this->load->model('General_model');
         $this->editMode = is_null($this->session->userdata('current_center')['id']) ? 'false' : 'true';
-        $this->levels = $this->db->select("code, description")->from('level')->get()->result_array();
+        $this->levels = $this->db->select("*")->from('level')->get()->result_array();
         $this->groups = $this->Group_model->get_all_with_academic_period();
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
         $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();

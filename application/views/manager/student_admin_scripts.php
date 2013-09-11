@@ -11,6 +11,7 @@
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
+<script type="text/javascript" src="/assets/js/akdm.model.<?php echo $this->lang_code ?>.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.contactadmin.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.studentadmin.js"></script>
 <script>

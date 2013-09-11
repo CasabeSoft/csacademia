@@ -17,4 +17,12 @@
         padding:0 10px; /* To give a bit of padding on the left and right */
         border-bottom:none;
     } 
+    
+    #lbxPeriod > input {
+        margin-bottom: 0;
+    }
+    #lbxPeriod > ul {
+        max-height: 120px;
+        overflow-y: scroll;
+    }
 </style>

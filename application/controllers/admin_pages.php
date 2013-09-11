@@ -142,11 +142,11 @@ class Admin_pages extends Crud_controller {
 
     public function level() {
         $this->set_page_title('page_manage_levels');
-        $fields = array('code', 'description', 'price', 'client_id');
+        $fields = array('code', 'description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
-            $fields = array('description', 'price');
+            $fields = array('description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12');
         }
 
         $this->crud->set_table('level');
@@ -158,7 +158,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('client_id', lang('form_client'));
 
         $this->crud->required_fields('code', 'description', 'client_id');
-        $this->crud->fields('description', 'price', 'client_id');
+        $this->crud->fields('description', 'price', 'client_id', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12');
         $this->crud->set_relation('client_id', 'client', 'name');
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->field_type('client_id', 'hidden', $this->client_id);

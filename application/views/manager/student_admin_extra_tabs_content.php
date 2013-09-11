@@ -60,7 +60,7 @@
         <div class="span4">
             <label for="lbxLevel"><?php echo lang('form_level'); ?></label>
             <input type="text" id="tbxPrefStartTime" class="input-block-level" readonly
-                   data-bind="value: $root.levels[$root.currentStudentGroup().level_code]" />
+                   data-bind="value: $root.levels[$root.currentStudentGroup().level_code] ? $root.levels[$root.currentStudentGroup().level_code].description : ''" />
         </div> 
     </div>
     <div class="row-fluid newComponentGroup">
@@ -114,7 +114,7 @@
             <tbody data-bind="foreach: $root.currentQualifications">
                 <tr data-bind="click: $root.selectQualification">
                     <td data-bind="text: $root.academicPeriods[academic_period()]"></td>
-                    <td data-bind="text: $root.levels[level_code()]"></td>
+                    <td data-bind="text: $root.levels[level_code()].description"></td>
                     <td data-bind="text: eval1"></td>
                     <td data-bind="text: eval2"></td>
                     <td data-bind="text: eval3"></td>
@@ -353,23 +353,29 @@
 
             <div class="row-fluid" data-bind="with: $root.currentPayment">
                 <div class="span3">
-                    <label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label>
-                    <select id="lbxRelationship" class="input-block-level" data-bind="value: payment_type_id">
-                        <!--option value="">--</option-->
-                        <?php foreach ($payments_types as $payment_type) { ?>
-                            <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
-                        <?php } ?>
+                    <label for="lbxPaymentType"><?php echo lang('subject_payment_type'); ?></label>
+                    <select id="lbxPaymentType" class="input-block-level" data-bind="value: payment_type_id, event: {change: $root.suggestPaymentPrice}">
+                        <option value="">--</option>
+                        <?php foreach ($payments_types as $payment) { ?>
+                            <option value="<?php echo $payment["id"] ?>"><?php echo $payment["name"] ?></option>
+                        <?php } ?>                        
                     </select>
                 </div>
                 <div class="span4">
-                    <label for="lbxPiriod"><?php echo lang('form_piriod'); ?></label>
-                    <input type="text" id="lbxPiriod" placeholder="" class="input-block-level" 
+                    <label for="lbxPeriod"><?php echo lang('form_piriod'); ?></label>
+                    <div class="dropdown" id="lbxPeriod">
+                        <input type="text" id="tbxPeriod" class="input-block-level dropdown-toggle" data-toggle="dropdown" 
                            data-bind="value: piriod" />
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="lbxPeriod"
+                            data-bind="foreach: $root.suggestedPeriods">
+                            <li><a tabindex="-1" href="#" data-bind="text: $data, click: function() { $root.currentPayment().piriod($data); }"></a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="span2">
                     <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
                     <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
-                           data-bind="value:  amount" />
+                           data-bind="value: amount" />
                 </div>
                 <div class="span3">
                     <label for="txtDate"><?php echo lang('form_date'); ?></label>
