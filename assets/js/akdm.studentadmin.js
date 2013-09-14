@@ -239,12 +239,13 @@ akdm.StudentViewModel = function () {
         }).fail(self._showError);
     };
 
-    self.printPayments = function () {
+    self.printPayments = function () {        
         var myWindow = window.open(payments_report + self.currentContact().id(), '_blank');
         myWindow.document.title = 'Informe de pagos';
     };
 
-    self.printPayment = function () {
+    self.printPayment = function (payment) {
+        self.currentPayment(payment);
         var myWindow = window.open(payment_report + self.currentPayment().id(), '_blank');
         myWindow.document.title = 'Pago';
     };

@@ -440,47 +440,51 @@ class Student extends Basic_controller {
 
             $html = '
             <body>
-              <div class="gradient text rounded">
-              <table border="0" width="100%" >
+              <table  style="text-align: center" border="0" width="100%" >
               <tbody>
-              <tr>
-                <td><img src="/assets/img/logo.png" width="140" /></td>              
-              </tr>
-              <tr>
-              <td><p style="font-size: 20px"></td>
-              </tr>
-              <tr>
-              <td><p>
-              ';
-            $html .= 'Fecha: ' . $dateNormal;
-            $html .= '
-              </p></td>
-              </tr>
+                  <tr>
+                      <td ><img src="/assets/img/logo.png" width="150" /></td>              
+                  </tr>
+                  <tr>
+                      <td>
+                         <p style="font-size: 12px">Avda. J.Carlos I,92-2.14 
+                         <p style="font-size: 12px">Avda. J.Carlos I,79-8B
+                         <p style="font-size: 12px">28916 LEGANES
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                         <p style="font-size: 12px">CIF: B79907044 
+                         <p style="font-size: 12px">TELEF: 91 680 10 44 / 91 680 80 82                         
+                      </td>
+                  </tr>                 
               </tbody>
               </table>
-              </div>
-              <div class="gradient text rounded">
-              ';
-            $html .= '<p> Recibí de: <br>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
+
+              <div>
+              '; //style="border:1px solid #000000;"
+            $html .= '<p>FECHA: ' . $dateNormal;
+            $html .= '<p>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
             $html .= '  
               
-              <p>Por: Pago
+              <p>PAGO: 
               ';
             //<p>La cantidad de euros: </p>
             //<p class="code"> <br> <br></p>
             $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
             $html .= '</p>
              
-              <p>Importe: €
+              <p>IMPORTE: €
               ';
             $html .= $payment['amount'];
-            $html .= '
-             
+            $html .= '<br><br>
+                   <p style="text-align: center">www.dundeeschool.com</p>
               </div>
               </body>';
             // </p><p>Firmado: ______________</p>
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
-            $mpdf = new mPDF('c',  array(76, 100), 14, 5, 5, 13, 13, 0, 0, '');
+            $mpdf = new mPDF('c',  array(80, 120), '10', 1, 8, 13, 13, 0, 0, '');
+            $mpdf->SetDisplayMode('fullpage');
             //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
             //$mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHTMLHeader($header);

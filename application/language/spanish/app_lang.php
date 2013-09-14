@@ -218,6 +218,7 @@ $lang['btn_no'] = "No";
 $lang['btn_active'] = "Activo";
 $lang['btn_inactive'] = "Baja";
 $lang['btn_print'] = "Imprimir";
+$lang['btn_cancel'] = "Cancelar";
 
 /***
  * Enlaces

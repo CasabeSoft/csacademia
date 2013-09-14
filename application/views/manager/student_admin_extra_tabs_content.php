@@ -193,7 +193,7 @@
         <div class="modal-footer">
             <button class="btn btn-small btn-success" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign icon-white"></i> Guardar</button>
             <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removeQualification, visible: student_id"><i class="icon-minus-sign icon-white"></i> Eliminar</button>
-            <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i> Cancelar</button>
+            <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i><?php echo lang('btn_cancel'); ?></button>
         </div>
     </div>
 
@@ -297,8 +297,10 @@
                 <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id() > 0 && $root.currentContact().bank_payment() != 1, click: $root.newPayment">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                 </button>
-
-                <div class="btn-group">
+                <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments">
+                    <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
+                </button>
+                <!--div class="btn-group">
                     <button class="btn" data-target="_blank" data-bind="enable: $root.currentContact().id()>0, click: $root.printPayments"><i class="icon-print"></i> <?php echo lang('btn_print'); ?></button>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -306,15 +308,14 @@
                     <ul class="dropdown-menu" data-bind="visible: $root.paymentList().length > 0 && $root.currentPayment().id() > 0">
                         <li><a href="#" data-bind="click: $root.printPayment">Imprimir activo</a></li>
                     </ul>
-                </div>
-
-                <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
+                </div-->
+                <!--button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0" title="<?php echo lang('btn_edit'); ?>">
                     <i class="icon-edit"></i> <?php echo lang('btn_edit'); ?>
                 </button>
 
                 <button class="btn btn-small btn-danger" data-bind="enable: $root.paymentList().length > 0 && $root.currentPayment().id() > 0, click: $root.removePayment" title="<?php echo lang('btn_delete'); ?>">
                     <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
-                </button>
+                </button-->
             </div>
         </legend>
         <div class="row-fluid">
@@ -327,17 +328,19 @@
                         <th><?php echo lang('form_amount'); ?></th>
                         <th><?php echo lang('form_date'); ?></th>
                         <th><?php echo lang('form_notes'); ?></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: $root.paymentList">
-                    <tr data-bind="click: $root.selectPayment" >
-                        <td data-bind="text: $root.paymentTypes[payment_type_id()]">
+                    <tr data-bind="" >
+                        <td data-bind="text: $root.paymentTypes[payment_type_id()], click: $root.selectPayment">
                             <!--input type="text" data-bind="visible: $root.isInEditRowMode(id)"-->
                         </td>
-                        <td data-bind="text: piriod"></td>
-                        <td data-bind="text: amount"></td>
-                        <td data-bind="text: date"></td>
-                        <td data-bind="text: notes"></td>    
+                        <td data-bind="text: piriod, click: $root.selectPayment"></td>
+                        <td data-bind="text: amount, click: $root.selectPayment"></td>
+                        <td data-bind="text: date, click: $root.selectPayment"></td>
+                        <td data-bind="text: notes, click: $root.selectPayment"></td> 
+                        <td style="text-align: center" data-bind="click: $root.printPayment"><i class="icon-print"></i></td>
                     </tr>
                 </tbody>
             </table>        
@@ -365,7 +368,7 @@
                     <label for="lbxPeriod"><?php echo lang('form_piriod'); ?></label>
                     <div class="dropdown" id="lbxPeriod">
                         <input type="text" id="tbxPeriod" class="input-block-level dropdown-toggle" data-toggle="dropdown" 
-                           data-bind="value: piriod" />
+                               data-bind="value: piriod" />
                         <ul class="dropdown-menu" role="menu" aria-labelledby="lbxPeriod"
                             data-bind="foreach: $root.suggestedPeriods">
                             <li><a tabindex="-1" href="#" data-bind="text: $data, click: function() { $root.currentPayment().piriod($data); }"></a></li>
@@ -394,11 +397,17 @@
                 <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
                 <legend data-bind="with: $root.currentPayment">
                     <div class="pull-right">
+                        <button class="btn btn-small" data-dismiss="modal" data-bind="click: $root.printPayment, visible: student_id">
+                            <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
+                        </button>
                         <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
                             <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
-                        </button>                       
+                        </button> 
+                        <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removePayment, visible: student_id">
+                            <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                        </button>
                         <button class="btn btn-small" aria-hidden="true" data-dismiss="modal">
-                            <i class="icon-remove-sign"></i> <?php echo lang('btn_close'); ?>
+                            <i class="icon-remove-sign"></i> <?php echo lang('btn_cancel'); ?>
                         </button>                
                     </div>
                 </legend>

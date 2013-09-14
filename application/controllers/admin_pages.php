@@ -527,8 +527,8 @@ class Admin_pages extends Crud_controller {
                 ->display_as('name', lang('form_name'))
                 ->display_as('number_months', lang('form_number_months'));
 
-        $this->crud->required_fields('name', 'number_months');
-        $this->crud->fields('name', 'number_months');
+        $this->crud->required_fields('id','name', 'number_months');
+        $this->crud->fields('id','name', 'number_months');
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
