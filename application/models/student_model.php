@@ -118,9 +118,18 @@ class Student_model extends CI_Model {
     }
 
     public function get_by_group($groups_id) {
-        $this->db->from('student')
+        $isActive = 'true';
+        $this->db->select('student.*, contact.*, school_level.name')
+                ->from('student')
                 ->join('contact', 'contact.id = student.contact_id')
+                ->join('school_level', 'school_level.id = student.school_level')
                 ->where('group_id', $groups_id);
+        if ($isActive != NULL) {
+            if ($isActive == 'true')
+                $this->db->where('end_date IS NULL');
+            else
+                $this->db->where('end_date IS NOT NULL');
+        }
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
         return $this->db->get()->result_array();

@@ -236,6 +236,7 @@ class Group extends Basic_controller {
             $html .= '<thead><tr>';
             $html .= '<th rowspan="2" class="td_center">#</td>';
             $html .= '<th  rowspan="2">Nombre</td>';
+            $html .= '<th  rowspan="2">Nivel Escolar</td>';
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                 if (in_array($daysInWeek, $teachingDays)) {
@@ -256,6 +257,7 @@ class Group extends Basic_controller {
             foreach ($students AS $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                $html .= '<td>' . $student['name'] . '</td>';
                 for ($day = 1; $day <= $daysInMonth; $day++) {
                     $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                     if (in_array($daysInWeek, $teachingDays)) {
@@ -330,11 +332,13 @@ class Group extends Basic_controller {
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"><b>#</b></td>';
             $html .= '<th><b>Nombre</b></td>';
+            $html .= '<th><b>Nivel escolar</b></td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                $html .= '<td>' . $student['name'] . '</td>';
                 $html .= '</tr>';
                 $count++;
             }
