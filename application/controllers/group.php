@@ -186,6 +186,9 @@ class Group extends Basic_controller {
             $students = $this->Student_model->get_by_group($group_id);
             $group = $this->Group_model->get_by_id($group_id);
 
+            $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'), 
+                lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'), 
+                lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
             $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
             $teachingDays = array();
@@ -225,7 +228,7 @@ class Group extends Basic_controller {
         </tr>
         <tr>
         <td><p>';
-            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] .  ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $month . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] .  ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $months[intval($month-1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>

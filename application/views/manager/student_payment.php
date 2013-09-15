@@ -27,7 +27,7 @@
                     </legend>
                     <!--label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label-->
                     <select id="lbxRelationship" name="payment_type" class="input-block-level" data-bind="value: payment_type_id">
-                        <!--option value="">--</option-->
+                        <option value="0">--</option>
                         <?php foreach ($payments_types as $payment_type) { ?>
                             <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
                         <?php } ?>
