@@ -228,7 +228,7 @@ class Group extends Basic_controller {
         </tr>
         <tr>
         <td><p>';
-            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] .  ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $months[intval($month-1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $months[intval($month-1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -324,7 +324,7 @@ class Group extends Basic_controller {
         </tr>
         <tr>
         <td>';
-            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'] ;
+            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'] ;
             $html .= '</p></td>
         </tr>
         </tbody>
