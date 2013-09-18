@@ -41,7 +41,7 @@ if (!defined('BASEPATH'))
   |
  */
 
-$route['default_controller'] = 'public_pages/home';
+$route['default_controller'] = 'user_pages/login'; //public_pages/home
 
 $route['user/(:any)'] = 'user_pages/$1';
 $route['manage/contact'] = 'contact/admin';
@@ -66,7 +66,8 @@ $route['close'] = 'user_pages/close';
 
 $route["lang/(:any)"] = "public_pages/lang/$1";
 
-$route['(:any)'] = 'public_pages/$1';
+//$route['(:any)'] = 'public_pages/$1';
+$route['(:any)'] = 'user_pages/login';
 
 //$route['404_override'] = '';
 

@@ -29,13 +29,14 @@ class Public_pages extends Basic_controller {
             $this->session->set_userdata(array('language' => TRUE, 'lang' => 'es'));
             $current_url = $this->session->userdata('current_url');
         }
-
+       
         if (isset($current_url) && $current_url != '') {
             //redireccionamos a la url desde donde se hizo el cambio de idioma
             redirect($this->session->userdata('current_url'));
         } else {
             //cargamos la funcion index de este controller.
-            redirect('/home');
+            //redirect('/home');
+            redirect('/login');
         }
     }
 

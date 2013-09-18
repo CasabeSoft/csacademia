@@ -291,6 +291,7 @@ class Student extends Basic_controller {
             $html .= '<th class="td_right">Importe</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
+            $amount = 0;
             foreach ($payments AS $payment) {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
@@ -298,8 +299,11 @@ class Student extends Basic_controller {
                 $html .= '<td class="td_center">' . $payment['payment_type_name'] . '</td>';
                 $html .= '<td class="td_center">' . $payment['piriod'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $amount += $payment['amount'];
                 $count++;
             }
+            $html .= '<tr><td colspan="4" class="td_center"><b>TOTAL</b></td>';
+            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
             $html .='</tbody></table>
 <br />
 <body>';
@@ -796,6 +800,7 @@ class Student extends Basic_controller {
             $html .= '<th class="td_right">Importe</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
+            $amount = 0;
             foreach ($payments AS $payment) {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
@@ -804,8 +809,11 @@ class Student extends Basic_controller {
                 $html .= '<td>' . $payment['payment_type_name'] . '</td>';
                 $html .= '<td>' . $payment['piriod'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
+                $amount += $payment['amount'];
                 $count++;
             }
+            $html .= '<tr><td colspan="5" class="td_center"><b>TOTAL</b></td>';
+            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
             $html .='</tbody></table>
 <br />
 <body>';
