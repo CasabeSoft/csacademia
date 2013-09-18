@@ -63,7 +63,7 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
             </div>
             <div class="span9">
                 <legend data-bind="with: currentGroup">
-                    <span data-bind="text: name() + '&nbsp;'"></span>
+                    <span class="title-item-select" data-bind="text: name() + '&nbsp;'"></span>
                     <div class="pull-right">
                         <button class="btn btn-small btn-success" data-bind="click: $root.saveGroup">
                             <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
