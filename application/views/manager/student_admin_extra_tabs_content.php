@@ -288,6 +288,14 @@
                    data-bind="value: bank_account_number, enable: bank_payment() == 1">
         </div>
     </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <label><?php echo lang('form_notes'); ?></label>
+            <textarea id="txtBankNotes" class="input-block-level" 
+                      data-bind="value: bank_notes">
+            </textarea>
+        </div>
+    </div>
 
     <div class="row-fluid newComponentGroup">
         <!-- Pagos -->

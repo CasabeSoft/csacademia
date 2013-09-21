@@ -22,7 +22,8 @@ class Student_model extends CI_Model {
         "bank_payment",
         "leave_reason_code",
         "end_date",
-        "group_id"
+        "group_id",
+        "bank_notes"
     ];
     public $NULLABLES = [
         'language_years',

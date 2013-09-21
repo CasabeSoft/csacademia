@@ -146,6 +146,7 @@ akdm.model = (function () {
         this.leave_reason_code = ko.observable("");
         this.end_date = ko.observable("");
         this.group_id = ko.observable("");
+        this.bank_notes = ko.observable("");
     };
 
     Student.fromJSON = function (studentJSON) {
@@ -167,7 +168,8 @@ akdm.model = (function () {
                 "bank_payment": student.bank_payment(),
                 "leave_reason_code": student.leave_reason_code(),
                 "end_date": akdm.tools.locale2dbDateStr(student.end_date()),
-                "group_id": student.group_id()
+                "group_id": student.group_id(),
+                "bank_notes": student.bank_notes()
             });
     };
 
@@ -188,6 +190,7 @@ akdm.model = (function () {
         this.leave_reason_code(studentJSON.leave_reason_code);
         this.end_date(akdm.tools.db2LocaleDateStr(studentJSON.end_date || ""));
         this.group_id(studentJSON.group_id);
+        this.bank_notes(studentJSON.bank_notes);
         return this;
     };
     Student.prototype.toJSON = function () {

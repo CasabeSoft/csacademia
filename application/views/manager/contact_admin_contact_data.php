@@ -100,7 +100,7 @@
     <div class="span4">
         <label><?php echo lang('form_notes'); ?></label>
         <textarea id="txtNotes" class="input-block-level" 
-                  data-bind="html: notes">
+                  data-bind="value: notes">
         </textarea>
     </div>
 </div>
