@@ -751,6 +751,7 @@ class Student extends Basic_controller {
     public function payments_general_report() {
 
         try {
+            $state = $this->input->post('state');
             $payment_type = $this->input->post('payment_type');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
@@ -761,7 +762,7 @@ class Student extends Basic_controller {
             
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
-            $payments = $this->Student_model->get_payments($center, $payment_type, $month);
+            $payments = $this->Student_model->get_payments($center, $payment_type, $month, $state);
 
             //$payments = $this->Payment_model->get_all($id);
             //$student = $this->General_model->get_where('contact', 'id = ' . $id);

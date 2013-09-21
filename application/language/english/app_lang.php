@@ -78,9 +78,11 @@ $lang['subject_financial'] = "Financial";
 $lang['subject_family'] = "Family";
 $lang['subject_select_month'] = "Select month";
 $lang['subject_select_center'] = "Select center";
-$lang['subject_select_state'] = "Select status of learners";
+$lang['subject_select_state'] = "Select status";
 $lang['subject_select_payment_type'] = "Select payment type";
 $lang['subject_select_academic_period'] = "Select academic period";
+$lang['subject_select_state_student'] = "Select status of learners";
+$lang['subject_select_type'] = "Select type";
 
 /* * *
  * Campos de los formularios
@@ -221,6 +223,8 @@ $lang['btn_active'] = "Active";
 $lang['btn_inactive'] = "Inactive";
 $lang['btn_print'] = "Print";
 $lang['btn_cancel'] = "Cancel";
+$lang['btn_paid'] = "Paid";
+$lang['btn_unpaid'] = "Unpaid";
 
 /***
  * Enlaces

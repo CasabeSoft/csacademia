@@ -9,7 +9,7 @@
             <div class="span4">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
-                        <?php echo lang('subject_select_state'); ?>
+                        <?php echo lang('subject_select_state_student'); ?>
                     </legend>
                     <!--label for="lbxState"><?php echo lang('form_state'); ?></label-->
                     <select id="status" name="state" class="input-block-level">

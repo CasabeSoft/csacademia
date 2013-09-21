@@ -6,7 +6,7 @@
             <h1><?php echo $title; ?></h1>
         </div>
         <div class="row">            
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
                         <?php echo lang('subject_select_center'); ?>
@@ -22,10 +22,10 @@
                     </select>
                 </fieldset>
             </div>
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
-                        <?php echo lang('subject_select_payment_type'); ?>
+                        <?php echo lang('subject_select_type'); ?>
                     </legend>
                     <!--label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label-->
                     <select id="lbxRelationship" name="payment_type" class="input-block-level" data-bind="value: payment_type_id">
@@ -36,7 +36,7 @@
                     </select>
                 </fieldset>
             </div>
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
                         <?php echo lang('subject_select_month'); ?>
@@ -56,6 +56,19 @@
                         <option value="10"><?php echo lang('form_october'); ?></option>
                         <option value="11"><?php echo lang('form_november'); ?></option>
                         <option value="12"><?php echo lang('form_december'); ?></option>
+                    </select>
+                </fieldset>
+            </div>
+            <div class="span3">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        <?php echo lang('subject_select_state'); ?>
+                    </legend>
+                    <!--label for="lbxState"><?php echo lang('form_state'); ?></label-->
+                    <select id="status" name="state" class="input-block-level">
+                        <option value="0">--</option>
+                        <option value="1"><?php echo lang('btn_paid'); ?></option>
+                        <option value="2"><?php echo lang('btn_unpaid'); ?></option>
                     </select>
                 </fieldset>
             </div>

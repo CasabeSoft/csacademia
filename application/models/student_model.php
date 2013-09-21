@@ -84,20 +84,31 @@ class Student_model extends CI_Model {
         }
         if ($center != 0)
             $this->db->where('student.center_id', $center);
-        
+
         if ($month != 0) {
             $this->db->where('MONTH(date_of_birth)', $month);
         }
         return $this->db->get()->result_array();
     }
-    
-    public function get_payments($center = 0, $payment_type=0, $month = 0) {
+
+    public function get_payments($center = 0, $payment_type = 0, $month = 0, $state = 0) {
         $isActive = 'true';
+        $filter_month = '';
+        $filter_payment_type = '';
+        $filter_bank_payment = ' AND student.bank_payment = 0';
+        if ($month != 0) {
+            //$this->db->where('MONTH(date)', $month);
+            $filter_month = ' AND MONTH(date) = ' . $month;
+        }
+        if ($payment_type != 0) {
+            //$this->db->where('payment_type_id', $payment_type);
+            $filter_payment_type = ' AND payment_type_id = ' . $payment_type;
+        }
         $this->db->select('contact.*, payment.*, payment_type.name as payment_type_name ')
                 ->from('contact')
-                ->join('student', 'contact.id = student.contact_id')
-                ->join('payment', 'payment.student_id = student.contact_id', 'left outer') //
-                ->join('payment_type', 'payment.payment_type_id = payment_type.id')
+                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment)
+                ->join('payment', 'payment.student_id = student.contact_id ' . $filter_month . $filter_payment_type, 'left outer')
+                ->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left outer')
                 ->where('client_id', $this->client_id)
                 ->order_by("date, first_name, last_name", "asc");
         if ($isActive != NULL) {
@@ -108,12 +119,11 @@ class Student_model extends CI_Model {
         }
         if ($center != 0)
             $this->db->where('center_id', $center);
-        
-        if ($payment_type != 0) {
-            $this->db->where('payment_type_id', $payment_type);
-        }
-        if ($month != 0) {
-            $this->db->where('MONTH(date)', $month);
+        if ($state != 0) {
+            if ($state == 1)
+                $this->db->where('date IS NOT NULL');
+            else
+                $this->db->where('date IS NULL');
         }
         return $this->db->get()->result_array();
     }
