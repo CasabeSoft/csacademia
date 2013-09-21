@@ -53,7 +53,7 @@ class Student extends Basic_controller {
         $this->load_page('student_birthday');
     }
     
-    public function payment() {
+    public function payments() {
         $this->current_page();
         $this->title = lang('page_report_payments');
         $this->subject = lang('subject_student');        

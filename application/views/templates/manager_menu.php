@@ -65,15 +65,15 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/manage/group"><?php echo lang('menu_group'); ?></a></li>
                         </ul>
                     </li>
-                    <li class="<?php echo is_controller_active($current_controller, 'reports') ?> dropdown">
+                    <li class="<?php echo is_controller_active($current_controller, 'report') ?> dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <?php echo lang('menu_reports'); ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="<?php echo is_active($current_page, 'birthday') ?>"><a href="/student/birthday"><?php echo lang('menu_birthdays'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/student/payment"><?php echo lang('menu_payment'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'attendance') ?>"><a href="/group/attendance"><?php echo lang('menu_assistance'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'birthday') ?>"><a href="/report/birthday"><?php echo lang('menu_birthdays'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'payments') ?>"><a href="/report/payments"><?php echo lang('menu_payment'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'attendance') ?>"><a href="/report/attendance"><?php echo lang('menu_assistance'); ?></a></li>
                         </ul>
                     </li>
                     <!--li class="<?php echo is_controller_active($current_controller, 'billing') ?>"><a href="/manager/main"><?php echo lang('menu_billing'); ?></a></li-->

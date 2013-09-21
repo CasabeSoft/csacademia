@@ -1,4 +1,4 @@
-<form id="frm" action="<?php echo site_url('report/payments'); ?>" method="POST" target="_blank">
+<form id="frm" action="<?php echo site_url('student/payments_general_report'); ?>" method="POST" target="_blank">
     <div class="container container-first">
         <div class="title-bar">
             <div id="msgFeedback" class="feedback top">

@@ -1,4 +1,4 @@
-<form id="frm" action="<?php echo site_url('report/attendance'); ?>" method="POST" target="_blank">
+<form id="frm" action="<?php echo site_url('group/attendances_report'); ?>" method="POST" target="_blank">
     <div class="container container-first">
         <div class="title-bar">
             <div id="msgFeedback" class="feedback top">
