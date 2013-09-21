@@ -80,6 +80,7 @@ $lang['subject_select_month'] = "Select month";
 $lang['subject_select_center'] = "Select center";
 $lang['subject_select_state'] = "Select status of learners";
 $lang['subject_select_payment_type'] = "Select payment type";
+$lang['subject_select_academic_period'] = "Select academic period";
 
 /* * *
  * Campos de los formularios
@@ -282,6 +283,7 @@ $lang['page_manage_payment_types'] = "Payment types managment";
 
 $lang['page_report_birthday'] = "Filter labels for birthdays";
 $lang['page_report_payments'] = "Filter payments";
+$lang['page_report_attendance'] = "Filter attendance";
 
 $lang['page_login_title'] = "Access to CSAcademia";
 $lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";

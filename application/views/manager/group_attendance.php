@@ -1,11 +1,28 @@
-<form id="frm" action="<?php echo site_url('report/payments'); ?>" method="POST" target="_blank">
+<form id="frm" action="<?php echo site_url('report/attendance'); ?>" method="POST" target="_blank">
     <div class="container container-first">
         <div class="title-bar">
             <div id="msgFeedback" class="feedback top">
             </div>
             <h1><?php echo $title; ?></h1>
         </div>
-        <div class="row">            
+        <div class="row">
+            <div class="span4">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        <?php echo lang('subject_select_academic_period'); ?>
+                    </legend>
+                    <!--label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label-->
+                    <select id="lbxRelationship" name="period" class="input-block-level" data-bind="value: payment_type_id">
+                        <?php foreach ($academic_periods as $period) { ?>
+                            <option value="<?php echo $period["code"] ?>" 
+                            <?php echo $period["code"] == $defaultAcademicPeriod ? "selected" : "" ?>
+                                    >
+                                        <?php echo $period["name"] ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </fieldset>
+            </div>
             <div class="span4">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
@@ -21,21 +38,7 @@
                         <?php } ?>
                     </select>
                 </fieldset>
-            </div>
-            <div class="span4">
-                <fieldset class="scheduler-border">
-                    <legend class="scheduler-border">
-                        <?php echo lang('subject_select_payment_type'); ?>
-                    </legend>
-                    <!--label for="lbxRelationship"><?php echo lang('subject_payment_type'); ?></label-->
-                    <select id="lbxRelationship" name="payment_type" class="input-block-level" data-bind="value: payment_type_id">
-                        <option value="0">--</option>
-                        <?php foreach ($payments_types as $payment_type) { ?>
-                            <option value="<?php echo $payment_type["id"] ?>"><?php echo $payment_type["name"] ?></option>
-                        <?php } ?>
-                    </select>
-                </fieldset>
-            </div>
+            </div>    
             <div class="span4">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
@@ -43,7 +46,7 @@
                     </legend>
                     <!--label for="lbxMonth"><?php echo lang('form_month'); ?></label-->                    
                     <select id="month" name="month" class="input-block-level">
-                        <option value="0">--</option>
+                        <!--option value="0">--</option-->
                         <option value="1"><?php echo lang('form_january'); ?></option>
                         <option value="2"><?php echo lang('form_february'); ?></option>
                         <option value="3"><?php echo lang('form_march'); ?></option>
@@ -73,5 +76,5 @@
 </form>
 
 <style>
-      
+
 </style>

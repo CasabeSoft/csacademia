@@ -98,7 +98,7 @@ class Student_model extends CI_Model {
                 ->join('payment', 'payment.student_id = student.contact_id', 'left outer') //
                 ->join('payment_type', 'payment.payment_type_id = payment_type.id')
                 ->where('client_id', $this->client_id)
-                ->order_by("first_name, last_name", "asc");
+                ->order_by("date, first_name, last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
                 $this->db->where('end_date IS NULL');

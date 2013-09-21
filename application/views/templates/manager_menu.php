@@ -20,7 +20,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
             </button>           
             <a class="brand" href="/manager/main"><img src="/assets/img/logo.png" class="logo_client"></a>
             <div class="nav-collapse collapse">
-                <ul class="nav">
+                <ul class="nav menu-font">
                     <li class="<?php echo is_controller_active($current_controller, 'catalog') ?> dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <?php echo lang('menu_catalog'); ?>
@@ -73,7 +73,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         <ul class="dropdown-menu">
                             <li class="<?php echo is_active($current_page, 'birthday') ?>"><a href="/student/birthday"><?php echo lang('menu_birthdays'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/student/payment"><?php echo lang('menu_payment'); ?></a></li>
-                     
+                            <li class="<?php echo is_active($current_page, 'attendance') ?>"><a href="/group/attendance"><?php echo lang('menu_assistance'); ?></a></li>
                         </ul>
                     </li>
                     <!--li class="<?php echo is_controller_active($current_controller, 'billing') ?>"><a href="/manager/main"><?php echo lang('menu_billing'); ?></a></li-->

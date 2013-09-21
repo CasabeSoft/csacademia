@@ -5,9 +5,33 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+@font-face {
+    font-family: "broadway";
+    src: url(broadw__.ttf) format("truetype");
+}
+.menu-font{
+    font-family: broadway;
+    font-size: 18px;
+}
+.menu-font ul li{
+    font-family: Arial;
+    font-size: 14px;
+}
+.navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
+    color: #F5E496;
+    background-color: transparent;
+}
 .title-item-select{
     color: #880000 !important;
+    font-weight: bold;
+}
+.title-bar{
+    /*background-color: #f1f1f1;*/
+    border-bottom: 1px #DDD solid; 
+    /*padding: 0px 20px 0px 20px;*/
+    /*left: 10pX;*/
+    
+    /*position: relative;*/
 }
 .logo_client{
     /*float: left;*/
@@ -15,8 +39,75 @@
     /*width: 150px;*/
     height: 55px;
 }
+/*#tblContacts{
+    background-color: #7D2428;
+    color: #FFF;
+}*/
+#tblContacts th{
+    background-color: #7D2428;
+    color: #FFF;
+    /*text-align: center;*/
+}
+#tblContacts tr:nth-child(even) {
+    background: #FFF1D0;
+    /*color: #000;*/
+}
+#tblContacts tr:nth-child(odd) {
+    background: #FFF6BB;
+    /*color: #000;*/
+}
+#tblContacts tr:hover>td{
+    background: #B4B293;
+    /*color: #FFF;*/
+}
+/*.selected { background-color: #ddd !important; }*/
+/*#tblContacts tr:visited>td{
+    background: #B4B293;
+
+}
+
+#tblContacts tbody tr.selected td {
+    background: none repeat scroll 0 0 #FFCF8B;
+    color: #000000;
+}
+
+tr.clicked {
+      background-color: #abc;
+}
+
+.bg{background-color:#ff0000 !important;}​
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: transparent;
+}*/
+/*$('#tblContacts').click(function() {
+         //alert('entro');
+         $(this).toggleClass("clicked");
+         });
+         
+         $('table.table tbody tr').on('click', function() {
+         $(this).closest('table').find('td').removeClass('bg');
+         $(this).find('td').addClass('bg');
+         });
+         $('.table > tr').click(function() {
+         alert('entro');
+         });
+        $(this).closest('tr td').css("background-color","#ffffff");
+        $(this).parent().parent().children('td').each(function() {
+            alert('entro');
+            $(this).addClass("selected");
+        });*/
 /*
 #B4B293
 #563F49
 #5A1119
+
+granate
+#7D2428
+#530D0F
+
+crema
+#F5E496
+#E3D6B4
+#FFF6BB
+#FFF1D0
 */

@@ -176,6 +176,17 @@ class Group extends Basic_controller {
         }
     }
 
+    public function attendance() {
+        $this->current_page();
+        $this->title = lang('page_report_attendance');
+        $this->subject = lang('subject_student');
+        $this->load->model('General_model');
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
+        $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->defaultAcademicPeriod = $this->General_model->get_default_academic_period();
+        $this->load_page('group_attendance');
+    }
+
     public function report_attendance($group_id, $month, $year) {
 
         try {
@@ -186,8 +197,8 @@ class Group extends Basic_controller {
             $students = $this->Student_model->get_by_group($group_id);
             $group = $this->Group_model->get_by_id($group_id);
 
-            $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'), 
-                lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'), 
+            $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'),
+                lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
                 lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
             $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
@@ -200,7 +211,7 @@ class Group extends Basic_controller {
                     $teachingDays[] = $index;
                 $index++;
             }
-            
+
             $count1 = 1;
             $dayLetter = '';
             foreach ($weekDays as $day) {
@@ -213,10 +224,10 @@ class Group extends Basic_controller {
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
-            
+
             $html = '
 <body>
 
@@ -224,11 +235,11 @@ class Group extends Basic_controller {
         <tbody>
         <tr>
             <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' .$group['name'] . '</b></td>
+            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' . $group['name'] . '</b></td>
         </tr>
         <tr>
         <td><p>';
-            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . ' <b> Mes: </b>' . $months[intval($month-1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . ' <b> Mes: </b>' . $months[intval($month - 1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -237,7 +248,7 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th rowspan="2" class="td_center">#</td>';
+            $html .= '<th rowspan="2" class="td_center"></td>';
             $html .= '<th  rowspan="2">Nombre</td>';
             $html .= '<th  rowspan="2">Nivel Escolar</td>';
             for ($day = 1; $day <= $daysInMonth; $day++) {
@@ -284,6 +295,126 @@ class Group extends Basic_controller {
         }
     }
 
+    public function attendances_report() {
+
+        try {
+            $piriod = $this->input->post('period');
+            $center = $this->input->post('center');
+            $month = $this->input->post('month');
+            $year = date("Y");//2013;
+
+            $this->load->model('Student_model');
+            $this->load->model('Group_model');
+
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf->SetDisplayMode('fullpage');
+
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+
+            $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'),
+                lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
+                lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
+            $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+            $groups = $this->Group_model->get_all_with_filter($piriod, $center);
+
+            foreach ($groups as $group_id) {
+                //echo 'id ' . $group_id;                exit();
+                $html = '';
+                
+                $students = $this->Student_model->get_by_group($group_id['id']);
+                $group = $this->Group_model->get_by_id($group_id['id']);
+                //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
+
+                $teachingDays = array();
+                
+
+                $index = 1;
+                foreach ($weekDays as $day) {
+                    if ($group[$day] === "1")
+                        $teachingDays[] = $index;
+                    $index++;
+                }
+
+                $count1 = 1;
+                $dayLetter = '';
+                foreach ($weekDays as $day) {
+                    if ($group[$day])
+                        $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                    $count1++;
+                }
+
+                $html .= '
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' . $group['name'] . '</b></td>
+        </tr>
+        <tr>
+        <td><p>';
+                $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . ' <b> Mes: </b>' . $months[intval($month - 1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
+                $html .= '</p></td>
+        </tr>
+        </tbody>
+    </table>
+    ';
+
+                $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+                $html .= '<thead><tr>';
+                $html .= '<th rowspan="2" class="td_center"></th>';
+                $html .= '<th  rowspan="2">Nombre</th>';
+                $html .= '<th  rowspan="2">Nivel Escolar</th>';
+                for ($day = 1; $day <= $daysInMonth; $day++) {
+                    $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                    if (in_array($daysInWeek, $teachingDays)) {
+                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                        $html .= '<th class="td_center">' . $dayLetter . '</th>';
+                    }
+                }
+                $html .= '</tr><tr>';
+                for ($day = 1; $day <= $daysInMonth; $day++) {
+                    $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                    if (in_array($daysInWeek, $teachingDays)) {
+                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                        $html .= '<th class="td_center">' . $day . '</th>';
+                    }
+                }
+                $html .= '</tr></thead><tbody>';
+                $count = 1;
+                foreach ($students AS $student) {
+                    $html .= '<tr><td class="td_center">' . $count . '</td>';
+                    $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                    $html .= '<td>' . $student['name'] . '</td>';
+                    for ($day = 1; $day <= $daysInMonth; $day++) {
+                        $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
+                        if (in_array($daysInWeek, $teachingDays)) {
+                            $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                            $html .= '<td class="td_center"><input type="checkbox"></td>';
+                        }
+                    }
+                    $count++;
+                    $html .= '</tr>';
+                }
+                $html .='</tbody></table>
+';
+                $mpdf->AddPage();
+                $mpdf->WriteHTML($html);
+
+            }
+
+            header('Content-type: application/pdf');
+            $mpdf->Output('Asistencia.pdf', 'I');
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+
     public function report_students($group_id) {
 
         try {
@@ -297,15 +428,15 @@ class Group extends Basic_controller {
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             //$mpdf->SetFooter('|Página {PAGENO}|');
-            
+
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
             $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
-            
+
             $count1 = 1;
             $dayLetter = '';
             foreach ($weekDays as $day) {
@@ -313,18 +444,18 @@ class Group extends Basic_controller {
                     $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
                 $count1++;
             }
-                      
+
             $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
         <tr>
             <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Grupo: ' . $group['name'] . ' - ' .  $group['center'] . '</b></td>
+            <td><p class="title-font"><b>Grupo: ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
         </tr>
         <tr>
         <td>';
-            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' .  $group['end_time']  . ' <b>Días: </b>' .$dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'] ;
+            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
             $html .= '</p></td>
         </tr>
         </tbody>
@@ -333,7 +464,7 @@ class Group extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"><b>#</b></td>';
+            $html .= '<th class="td_center"><b></b></td>';
             $html .= '<th><b>Nombre</b></td>';
             $html .= '<th><b>Nivel escolar</b></td>';
             $html .= '</tr></thead><tbody>';
@@ -355,25 +486,25 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function report_groups($filter) {
 
         try {
             //$filter = $this->input->post();
             //if (!is_array($filter))
-             //   $filter = [];
+            //   $filter = [];
             $this->load->model('Group_model');
             $groups = $this->Group_model->get_group_report(["academic_period" => $filter]);
-            
+
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
-            
+
             $html = '
 <body>
     <table border="0" width="100%" >
@@ -414,12 +545,12 @@ class Group extends Basic_controller {
                 $html .= '<td>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>';
                 $html .= '<td>' . $group['level'] . '</td>';
                 $html .= '<td>' . $group['period'] . '</td>';
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['monday']==1 ? 'checked="checked"' : '') . '></td>'; 
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['tuesday']==1 ? 'checked="checked"' : '') . '></td>';
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['wednesday']==1 ? 'checked="checked"' : '') . '></td>';
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['thursday']==1 ? 'checked="checked"' : '') . '></td>';
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['friday']==1 ? 'checked="checked"' : '') . '></td>';
-                $html .= '<td>' . '<input type="checkbox" ' . ($group['saturday']==1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['monday'] == 1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['tuesday'] == 1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['wednesday'] == 1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['thursday'] == 1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['friday'] == 1 ? 'checked="checked"' : '') . '></td>';
+                $html .= '<td>' . '<input type="checkbox" ' . ($group['saturday'] == 1 ? 'checked="checked"' : '') . '></td>';
                 $html .= '<td>' . $group['start_time'] . '</td>';
                 $html .= '<td>' . $group['end_time'] . '</td>';
                 $html .= '</tr>';
@@ -428,7 +559,7 @@ class Group extends Basic_controller {
             $html .='</tbody></table>
     <br />
 <body>';
-            
+
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
@@ -438,5 +569,6 @@ class Group extends Basic_controller {
     }
 
 }
+
 /* End of file group.php */
 /* Location: ./application/controllers/group.php */

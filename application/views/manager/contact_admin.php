@@ -1,14 +1,16 @@
 <form id="frm" action="" method="POST">
     <div class="container container-first">
-        <div id="msgFeedback" class="feedback top">
+        <div class="title-bar">
+            <div id="msgFeedback" class="feedback top">
+            </div>
+            <h1><?php echo $title; ?></h1>
         </div>
-        <h1><?php echo $title; ?></h1>
         <div class="row">
             <div class="span3">
                 <legend>
                     <?php echo $subject; ?>
                     <div class="btn-toolbar pull-right">
-                        <button class="btn btn-small pull-right" data-bind="click: newContact <?php // , visible: echo $editMode ?>">
+                        <button class="btn btn-small pull-right" data-bind="click: newContact <?php // , visible: echo $editMode    ?>">
                             <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
                         </button>
                     </div>
@@ -53,7 +55,6 @@
                         } else {
                             $print = '$root.printContacts';
                         }
-                        
                         ?>
                         <button type="button" class="btn btn-small " data-target="_blank" 
                                 data-bind="click: <?php echo $print ?>">

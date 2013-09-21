@@ -54,6 +54,19 @@ class Group_model extends CI_Model {
         }
         return $this->db->get()->result_array();
     }
+    
+    public function get_all_with_filter($piriod = 0, $center = 0) {
+        $this->db->select('group.*')
+                ->from('group')
+                ->join('center', 'group.center_id = center.id')
+                ->where('client_id ', $this->client_id)
+                ->order_by('name', 'asc');
+        if ($piriod != 0)
+            $this->db->where('academic_period', $piriod);
+        if ($center != 0)
+            $this->db->where('center_id', $center);              
+        return $this->db->get()->result_array();
+    }
 
     public function get_all_with_academic_period() {
         $this->db->select('group.*, academic_period.name academic_period_name')

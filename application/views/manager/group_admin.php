@@ -4,9 +4,11 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
 ?>
 <form id="frm" action="" method="POST">
     <div class="container container-first">
-        <div id="msgFeedback" class="feedback top">
+        <div class="title-bar">
+            <div id="msgFeedback" class="feedback top">
+            </div>
+            <h1><?php echo $title; ?></h1>
         </div>
-        <h1><?php echo $title; ?></h1>
         <div class="row">
             <div class="span3">
                 <legend>
@@ -71,7 +73,7 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                         <button class="btn btn-small btn-danger" data-bind="click: $root.removeGroup">
                             <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
                         </button>
-                       <button type="button" class="btn btn-small " data-target="_blank" 
+                        <button type="button" class="btn btn-small " data-target="_blank" 
                                 data-bind="click: $root.printGroups">
                             <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                         </button>

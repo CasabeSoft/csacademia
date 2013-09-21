@@ -1,8 +1,8 @@
 <script type="text/javascript" src="/assets/lib/knockout/knockout-2.2.1.js"></script>
 <script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/jquery.validate.js"></script>
 <?php if ($this->lang_code != 'en') { ?>
-<script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/i18n/jquery.ui.datepicker-<?php echo $this->lang_code ?>.js"></script>
-<script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/localization/messages_<?php echo $this->lang_code ?>.js"></script>
+    <script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/i18n/jquery.ui.datepicker-<?php echo $this->lang_code ?>.js"></script>
+    <script type="text/javascript" src="/assets/lib/jquery/plugins/jquery-validation/1.11.1/localization/messages_<?php echo $this->lang_code ?>.js"></script>
 <?php } ?>
 <script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/vendor/jquery.ui.widget.js"></script>
 <script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/jquery.iframe-transport.js"></script>
@@ -13,12 +13,12 @@
 <script type="text/javascript" src="/assets/js/akdm.model.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.contactadmin.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         akdm.setConfig({
             locale: '<?php echo $this->lang_code ?>',
             localeDateFormat: ($.datepicker.regional['<?php echo $this->lang_code ?>'] || $.datepicker.regional['']).dateFormat
         });
-        
+
         var cvm = new akdm.ContactsViewModel();
         ko.applyBindings(cvm);
         cvm.init({

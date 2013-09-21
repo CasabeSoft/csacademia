@@ -1,8 +1,10 @@
 <form id="frm" action="<?php echo site_url('report/birthday'); ?>" method="POST" target="_blank">
     <div class="container container-first">
-        <div id="msgFeedback" class="feedback top">
+        <div class="title-bar">
+            <div id="msgFeedback" class="feedback top">
+            </div>
+            <h1><?php echo $title; ?></h1>
         </div>
-        <h1><?php echo $title; ?></h1>
         <div class="row">
             <div class="span4">
                 <fieldset class="scheduler-border">

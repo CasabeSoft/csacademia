@@ -270,7 +270,7 @@ class Student extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo_print.png" width="140" /></td>
                 <td><p class="title-font"><b>Pagos</b></td>
             </tr>
             <tr>
@@ -284,7 +284,7 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
+            $html .= '<th class="td_center"></td>';
             $html .= '<th class="td_center">Fecha</td>';
             $html .= '<th class="td_center">Tipo de pago</td>';
             $html .= '<th class="td_center">Periodo</td>';
@@ -447,12 +447,12 @@ class Student extends Basic_controller {
               <table  style="text-align: center" border="0" width="100%" >
               <tbody>
                   <tr>
-                      <td ><img src="/assets/img/logo.png" width="150" /></td>              
+                      <td ><img src="/assets/img/logo_print.png" width="150" /></td>              
                   </tr>
                   <tr>
                       <td>
-                         <p style="font-size: 12px">Avda. J.Carlos I,92-2.14 
-                         <p style="font-size: 12px">Avda. J.Carlos I,79-8B
+                         <p style="font-size: 12px">Avda. Juan Carlos I, 92-2.14 
+                         <p style="font-size: 12px">Avda. Juan Carlos I, 79-8 B&nbsp;&nbsp;
                          <p style="font-size: 12px">28916 LEGANES
                       </td>
                   </tr>
@@ -461,10 +461,10 @@ class Student extends Basic_controller {
                          <p style="font-size: 12px">CIF: B79907044 
                          <p style="font-size: 12px">TELEF: 91 680 10 44 / 91 680 80 82                         
                       </td>
-                  </tr>                 
+                  </tr>                  
               </tbody>
               </table>
-
+              <hr>
               <div>
               '; //style="border:1px solid #000000;"
             $html .= '<p>FECHA: ' . $dateNormal;
@@ -487,7 +487,7 @@ class Student extends Basic_controller {
               </body>';
             // </p><p>Firmado: ______________</p>
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
-            $mpdf = new mPDF('c',  array(80, 120), '10', 1, 8, 13, 13, 0, 0, '');
+            $mpdf = new mPDF('c',  array(80, 125), '10', 1, 8, 13, 13, 0, 0, '');
             $mpdf->SetDisplayMode('fullpage');
             //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
             //$mpdf->WriteHTML($stylesheet, 1);
@@ -582,7 +582,7 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
+            $html .= '<th class="td_center"></td>';
             $html .= '<th>Periodo</td>';
             $html .= '<th>Nivel</td>';
             $html .= '<th>Ev. 1</td>';
@@ -654,7 +654,7 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
+            $html .= '<th class="td_center"></td>';
             $html .= '<th>Nombre</td>';
             $html .= '<th>Teléfono</td>';
             $html .= '<th>Fecha Nac.</td>';
@@ -792,7 +792,7 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
+            $html .= '<th class="td_center"></td>';
             $html .= '<th>Nombre y Apellidos</td>';
             $html .= '<th>Fecha</td>';
             $html .= '<th>Tipo de pago</td>';
