@@ -201,7 +201,7 @@ class Group extends Basic_controller {
                 lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
                 lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
-            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            $weekDaysLetters = explode(',', lang('day_short_names'));
             $teachingDays = array();
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
@@ -212,7 +212,7 @@ class Group extends Basic_controller {
                 $index++;
             }
 
-            $count1 = 1;
+            $count1 = 0;
             $dayLetter = '';
             foreach ($weekDays as $day) {
                 if ($group[$day])
@@ -230,40 +230,45 @@ class Group extends Basic_controller {
 
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
         <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' . $group['name'] . '</b></td>
+            <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+            <td colspan="4"><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
         </tr>
         <tr>
-        <td><p>';
-            $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . ' <b> Mes: </b>' . $months[intval($month - 1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= '</p></td>
+            <td width="360px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+            <td width="190px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+            <td width="150px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+            <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
+        </tr>
+        <tr>
+            <td><b>' . lang('form_teacher') . ': </b>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>
+            <td><b>' . lang('form_center') . ': </b>' . $group['center'] . '</td>
+            <td><b>' . lang('form_month') . ': </b>' .$months[intval($month - 1)] . '</td>
+            <td><b>' . lang('form_academic_period') . ': </b>' . $group['academic_period'] . '</td>               
         </tr>
         </tbody>
     </table>
-    ';
-
+';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th rowspan="2" class="td_center"></td>';
-            $html .= '<th  rowspan="2">Nombre</td>';
-            $html .= '<th  rowspan="2">Nivel Escolar</td>';
+            $html .= '<th rowspan="2" class="td_center"></th>';
+            $html .= '<th rowspan="2" width="340px">' . lang('form_name') . '</th>';
+            $html .= '<th rowspan="2" width="150px">' . lang('form_school_level') . '</th>';
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                 if (in_array($daysInWeek, $teachingDays)) {
-                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
-                    $html .= '<th class="td_center">' . $dayLetter . '</td>';
+                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))-1];
+                    $html .= '<th class="td_center">' . $dayLetter . '</th>';
                 }
             }
             $html .= '</tr><tr>';
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                 if (in_array($daysInWeek, $teachingDays)) {
-                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
-                    $html .= '<th class="td_center">' . $day . '</td>';
+                    $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))-1];
+                    $html .= '<th class="td_center">' . $day . '</th>';
                 }
             }
             $html .= '</tr></thead><tbody>';
@@ -275,7 +280,6 @@ class Group extends Basic_controller {
                 for ($day = 1; $day <= $daysInMonth; $day++) {
                     $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                     if (in_array($daysInWeek, $teachingDays)) {
-                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
                         $html .= '<td class="td_center"><input type="checkbox"></td>';
                     }
                 }
@@ -283,7 +287,6 @@ class Group extends Basic_controller {
                 $html .= '</tr>';
             }
             $html .='</tbody></table>
-    <br />
 <body>';
             //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
@@ -317,7 +320,8 @@ class Group extends Basic_controller {
                 lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
                 lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
-            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            //$weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            $weekDaysLetters = explode(',', lang('day_short_names'));
             
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
@@ -331,8 +335,7 @@ class Group extends Basic_controller {
                 $group = $this->Group_model->get_by_id($group_id['id']);
                 //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
 
-                $teachingDays = array();
-                
+                $teachingDays = array();                
 
                 $index = 1;
                 foreach ($weekDays as $day) {
@@ -341,7 +344,7 @@ class Group extends Basic_controller {
                     $index++;
                 }
 
-                $count1 = 1;
+                $count1 = 0;
                 $dayLetter = '';
                 foreach ($weekDays as $day) {
                     if ($group[$day])
@@ -350,30 +353,36 @@ class Group extends Basic_controller {
                 }
 
                 $html .= '
-    <table border="0" width="100%" >
-        <tbody>
-        <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Informe de Asistencia Grupo: ' . $group['name'] . '</b></td>
-        </tr>
-        <tr>
-        <td><p>';
-                $html .= '<b>Centro: </b>' . $group['center'] . ' <b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . ' <b> Mes: </b>' . $months[intval($month - 1)] . '/' . $year . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-                $html .= '</p></td>
-        </tr>
-        </tbody>
-    </table>
-    ';
-
+<table border="0" width="100%" >
+    <tbody>
+    <tr>
+        <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+        <td colspan="4"><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
+    </tr>
+    <tr>
+        <td width="360px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+        <td width="190px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+        <td width="150px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+        <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
+    </tr>
+    <tr>
+        <td><b>' . lang('form_teacher') . ': </b>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>
+        <td><b>' . lang('form_center') . ': </b>' . $group['center'] . '</td>
+        <td><b>' . lang('form_month') . ': </b>' .$months[intval($month - 1)] . '</td>
+        <td><b>' . lang('form_academic_period') . ': </b>' . $group['academic_period'] . '</td>               
+    </tr>
+    </tbody>
+</table>
+';
                 $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
                 $html .= '<thead><tr>';
-                $html .= '<th rowspan="2" class="td_center"></th>';
-                $html .= '<th  rowspan="2">Nombre</th>';
-                $html .= '<th  rowspan="2">Nivel Escolar</th>';
+                $html .= '<th rowspan="2"></th>';
+                $html .= '<th rowspan="2" width="340px">' . lang('form_name') . '</th>';
+                $html .= '<th rowspan="2" width="150px">' . lang('form_school_level') . '</th>';
                 for ($day = 1; $day <= $daysInMonth; $day++) {
                     $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                     if (in_array($daysInWeek, $teachingDays)) {
-                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))-1];
                         $html .= '<th class="td_center">' . $dayLetter . '</th>';
                     }
                 }
@@ -381,7 +390,7 @@ class Group extends Basic_controller {
                 for ($day = 1; $day <= $daysInMonth; $day++) {
                     $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                     if (in_array($daysInWeek, $teachingDays)) {
-                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
+                        $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))-1];
                         $html .= '<th class="td_center">' . $day . '</th>';
                     }
                 }
@@ -394,7 +403,6 @@ class Group extends Basic_controller {
                     for ($day = 1; $day <= $daysInMonth; $day++) {
                         $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
                         if (in_array($daysInWeek, $teachingDays)) {
-                            $dayLetter = $weekDaysLetters[intval(date("w", mktime(0, 0, 0, $month, $day, $year)))];
                             $html .= '<td class="td_center"><input type="checkbox"></td>';
                         }
                     }
@@ -405,9 +413,7 @@ class Group extends Basic_controller {
 ';
                 $mpdf->AddPage();
                 $mpdf->WriteHTML($html);
-
             }
-
             header('Content-type: application/pdf');
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
@@ -435,9 +441,10 @@ class Group extends Basic_controller {
             //$mpdf->SetFooter('|Página {PAGENO}|');
 
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
-            $weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            //$weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
+            $weekDaysLetters = explode(',', lang('day_short_names'));
 
-            $count1 = 1;
+            $count1 = 0;
             $dayLetter = '';
             foreach ($weekDays as $day) {
                 if ($group[$day])
@@ -446,27 +453,31 @@ class Group extends Basic_controller {
             }
 
             $html = '
-<body>
-    <table border="0" width="100%" >
-        <tbody>
-        <tr>
-            <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Grupo: ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
-        </tr>
-        <tr>
-        <td>';
-            $html .= '<b>Nivel: </b>' . $group['level'] . ' <b>Aula: </b>' . $group['classroom'] . ' <b>Horario: </b>' . $group['start_time'] . ' - ' . $group['end_time'] . ' <b>Días: </b>' . $dayLetter . '<br> <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= '</p></td>
-        </tr>
-        </tbody>
-    </table>
+<body> 
+<table border="0" width="100%" >
+    <tbody>
+    <tr>
+        <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+        <td colspan="4"><p class="title-font"><b>' . lang('form_group') . ': ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
+    </tr>
+    <tr>
+        <td width="280px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+        <td width="120px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+        <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
+    </tr>
+    <tr>
+        <td><b>' . lang('form_teacher') . ': </b>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>
+        <td><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+        <td><b>' . lang('form_academic_period') . ': </b>' . $group['academic_period'] . '</td>               
+    </tr>
+    </tbody>
+</table>
     ';
-
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"><b></b></td>';
-            $html .= '<th><b>Nombre</b></td>';
-            $html .= '<th><b>Nivel escolar</b></td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_school_level') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
@@ -477,7 +488,6 @@ class Group extends Basic_controller {
                 $count++;
             }
             $html .='</tbody></table>
-    <br />
 <body>';
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
@@ -504,6 +514,8 @@ class Group extends Basic_controller {
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
+            
+            $weekDaysLetters = explode(',', lang('day_short_names'));
 
             $html = '
 <body>
@@ -511,29 +523,28 @@ class Group extends Basic_controller {
         <tbody>
             <tr>
                 <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-                <td><p class="title-font"><b>Grupos</b></td>
+                <td><p class="title-font"><b>' . lang('menu_group') . '</b></td>
             </tr>
         </tbody>
     </table>
     ';
-
             $html .= '<table class="list1" border="1" width="100%" style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            //$html .= '<th class="td_center">#</td>';
-            $html .= '<th>Grupo</td>';
-            $html .= '<th>Centro</td>';
-            $html .= '<th>Aula</td>';
-            $html .= '<th>Profesor</td>';
-            $html .= '<th>Nivel</td>';
-            $html .= '<th>Periodo</td>';
-            $html .= '<th>Lu</td>';
-            $html .= '<th>Ma</td>';
-            $html .= '<th>Mi</td>';
-            $html .= '<th>Ju</td>';
-            $html .= '<th>Vi</td>';
-            $html .= '<th>Sa</td>';
-            $html .= '<th>Hora Inicio</td>';
-            $html .= '<th>Hora Fin</td>';
+            //$html .= '<th class="td_center">#</th>';
+            $html .= '<th>' . lang('form_group') . '</th>';
+            $html .= '<th>' . lang('form_center') . '</th>';
+            $html .= '<th>' . lang('form_classroom') . '</th>';
+            $html .= '<th>' . lang('form_teacher') . '</th>';
+            $html .= '<th>' . lang('form_level') . '</th>';
+            $html .= '<th>' . lang('form_academic_period') . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(0)] . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(1)] . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(2)] . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(3)] . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(4)] . '</th>';
+            $html .= '<th>' . $weekDaysLetters[intval(5)] . '</th>';
+            $html .= '<th>' . lang('form_start_time') . '</th>';
+            $html .= '<th>' . lang('form_end_time') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($groups AS $group) {
@@ -557,9 +568,7 @@ class Group extends Basic_controller {
                 $count++;
             }
             $html .='</tbody></table>
-    <br />
 <body>';
-
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');

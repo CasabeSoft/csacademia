@@ -136,7 +136,7 @@ $lang['form_bank_account_number'] = "Bank Account Number";
 $lang['form_classroom'] = "Classroom";
 $lang['form_teacher'] = "Teacher";
 $lang['form_level'] = "Level";
-$lang['form_academic_period'] = "Academic Period";
+$lang['form_academic_period'] = "Course";
 $lang['form_monday'] = "Monday";
 $lang['form_tuesday'] = "Tuesday";
 $lang['form_wednesday'] = "Wednesday";
@@ -157,10 +157,10 @@ $lang['form_school_level'] = "School level";
 $lang['form_qualification'] = "Qualification";
 $lang['form_others'] = "Others";
 $lang['form_trinity'] = "Trinity";
-$lang['form_london'] = "London";
-$lang['form_eval1'] = "Eval1";
-$lang['form_eval2'] = "Eval2";
-$lang['form_eval3'] = "Eval3";
+$lang['form_london'] = "Cambridge";
+$lang['form_eval1'] = "Qual1";
+$lang['form_eval2'] = "Qual2";
+$lang['form_eval3'] = "Qual3";
 $lang['form_sex_male'] = "Male";
 $lang['form_sex_female'] = "Female";
 $lang['form_id_card'] = "DNI/NIE";
@@ -197,6 +197,8 @@ $lang['form_september'] = "September";
 $lang['form_october'] = "October";
 $lang['form_november'] = "November";
 $lang['form_december'] = "December";
+$lang['form_days'] = "Days";
+$lang['form_schedule'] = "Schedule";
 
 /* * *
  * Botones
@@ -306,11 +308,16 @@ $lang['page_home_text_why'] = "Improve management";
 $lang['page_home_text_what'] = "Increase efficiency";
 $lang['page_home_text_how'] = "Computerizing";
 
-
 $lang['page_profile_content'] = "Update profile information";
 $lang['page_profile_content_info'] = "The email account will be used to login and contact the user.";
 $lang['page_change_password_content'] = "You can change your password whenever you need";
 $lang['page_change_password_content_info'] = "Important!. Always maintain the security of your user account.";
+
+/***
+ * Títulos reportes
+ */
+
+$lang['report_attendance'] = "Attendance Report";
 
 /***
  * Números y fechas

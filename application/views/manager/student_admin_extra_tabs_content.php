@@ -100,15 +100,15 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Período</th>
-                    <th>Nivel</th>
-                    <th>Ev. 1</th>
-                    <th>Ev. 2</th>
-                    <th>Ev. 3</th>
-                    <th>Calificación</th>
-                    <th>Trinity</th>
-                    <th>Cambridge</th>
-                    <th>Otras</th>
+                    <th><?php echo lang('form_piriod'); ?></th>
+                    <th><?php echo lang('form_level'); ?></th>
+                    <th><?php echo lang('form_eval1'); ?></th>
+                    <th><?php echo lang('form_eval2'); ?></th>
+                    <th><?php echo lang('form_eval3'); ?></th>
+                    <th><?php echo lang('form_qualification'); ?></th>
+                    <th><?php echo lang('form_trinity'); ?></th>
+                    <th><?php echo lang('form_london'); ?></th>
+                    <th><?php echo lang('form_others'); ?></th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: $root.currentQualifications">

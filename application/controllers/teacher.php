@@ -100,31 +100,22 @@ class Teacher extends Basic_controller {
             
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
-        <tr>
-            <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td><p class="title-font"><b>Profesores</b></td>
-        </tr>
-        <tr>
-        <td>';
-           // $html .= '<p><b>Grupo: </b>' . $group['name'] . ' <b>Centro: </b>' . $group['center'] . ' <b>Profesor: </b>' . $group['first_name'] . ' ' . $group['last_name'];
-            $html .= /*'</p></td>*/ '
-        </tr>
+            <tr>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>' . lang('menu_teacher') . '</b></td>
+            </tr>
         </tbody>
     </table>
     ';
-
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
-            $html .= '<th>Nombre</td>';
-            $html .= '<th>Teléfono</td>';
-            $html .= '<th>Fecha Nac.</td>';
-            $html .= '<th>Dirección</td>';
-            //$html .= '<th>start_time</td>';
-            //$html .= '<th>end_time</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_phone') . '</th>';
+            $html .= '<th>' . lang('form_date_of_birth') . '</th>';
+            $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($teachers AS $teacher) {
@@ -134,16 +125,11 @@ class Teacher extends Basic_controller {
                 $html .= '<td>' . $teacher['phone_mobile'] . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $teacher['address'] . '</td>';
-                //$html .= '<td>' . $teacher['start_time'] . '</td>';
-                //$html .= '<td>' . $teacher['end_time'] . '</td>';
                 $html .= '</tr>';
                 $count++;
             }
             $html .='</tbody></table>
-    <br />
 <body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Profesores.pdf', 'I');

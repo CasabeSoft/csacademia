@@ -135,7 +135,7 @@ $lang['form_bank_account_number'] = "Número Cuenta Bancaria";
 $lang['form_classroom'] = "Aula";
 $lang['form_teacher'] = "Profesor";
 $lang['form_level'] = "Nivel";
-$lang['form_academic_period'] = "Período Académico";
+$lang['form_academic_period'] = "Curso";
 $lang['form_monday'] = "Lunes";
 $lang['form_tuesday'] = "Martes";
 $lang['form_wednesday'] = "Miércoles";
@@ -154,9 +154,9 @@ $lang['form_leave_reason'] = "Causa Baja";
 $lang['form_school_academic_period'] = "Período Académico Escuela"; // TODO: Eliminar, cuando se haya actualizado la gestión en GroceryCRUD
 $lang['form_school_level'] = "Nivel escolar";
 $lang['form_qualification'] = "Calificación";
-$lang['form_others'] = "Otros";
+$lang['form_others'] = "Otras";
 $lang['form_trinity'] = "Trinity";
-$lang['form_london'] = "London";
+$lang['form_london'] = "Cambridge";
 $lang['form_eval1'] = "Eval1";
 $lang['form_eval2'] = "Eval2";
 $lang['form_eval3'] = "Eval3";
@@ -196,6 +196,8 @@ $lang['form_september'] = "Septiembre";
 $lang['form_october'] = "Octubre";
 $lang['form_november'] = "Noviembre";
 $lang['form_december'] = "Deciembre";
+$lang['form_days'] = "Días";
+$lang['form_schedule'] = "Horario";
 
 /* * *
  * Botones
@@ -309,6 +311,12 @@ $lang['page_profile_content'] = "Actualizar información del perfil";
 $lang['page_profile_content_info'] = "La cuenta de correo se utilizará para el inicio de sesión y contactar con el usuario.";
 $lang['page_change_password_content'] = "Puedes cambiar la contraseña siempre que lo necesite";
 $lang['page_change_password_content_info'] = "Importante!!!. Mantener siempre la seguridad de su cuenta de usuario.";
+
+/***
+ * Títulos reportes
+ */
+
+$lang['report_attendance'] = "Informe de asistencia";
 
 /***
  * Números y fechas

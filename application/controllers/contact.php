@@ -103,40 +103,29 @@ class Contact extends Basic_controller {
         <tbody>
             <tr>
                 <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-                <td><p class="title-font"><b>Contactos</b></td>
+                <td><p class="title-font"><b>' . lang('menu_contact') . '</b></td>
             </tr>
         </tbody>
     </table>
     ';
-
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center">#</td>';
-            $html .= '<th>Nombre</td>';
-            $html .= '<th>Teléfono</td>';
-            $html .= '<th>Fecha Nac.</td>';
-            $html .= '<th>Dirección</td>';
-            //$html .= '<th>start_time</td>';
-            //$html .= '<th>end_time</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_phone') . '</th>';
+            $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($contacts AS $contact) {
-                $dateNormal = db_to_Local($contact['date_of_birth']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $contact['first_name'] . ' ' . $contact['last_name'] . '</td>';
                 $html .= '<td>' . $contact['phone_mobile'] . '</td>';
-                $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $contact['address'] . '</td>';
-                //$html .= '<td>' . $teacher['start_time'] . '</td>';
-                //$html .= '<td>' . $teacher['end_time'] . '</td>';
                 $html .= '</tr>';
                 $count++;
             }
             $html .='</tbody></table>
-    <br />
 <body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Contactos.pdf', 'I');

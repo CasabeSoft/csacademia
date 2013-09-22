@@ -271,10 +271,10 @@ class Student extends Basic_controller {
         <tbody>
             <tr>
                 <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo_print.png" width="140" /></td>
-                <td><p class="title-font"><b>Pagos</b></td>
+                <td><p class="title-font"><b>' . lang('menu_payment') . '</b></td>
             </tr>
             <tr>
-                <td><p><b>Alumno: </b>';
+                <td><p><b>' . lang('form_student') . ': </b>';
             $html .= $student[0]['first_name'] . ' ' . $student[0]['last_name'];
             $html .= '</p></td>
             </tr>
@@ -284,20 +284,20 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"></td>';
-            $html .= '<th class="td_center">Fecha</td>';
-            $html .= '<th class="td_center">Tipo de pago</td>';
-            $html .= '<th class="td_center">Periodo</td>';
-            $html .= '<th class="td_right">Importe</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_date') . '</th>';
+            $html .= '<th>' . lang('form_payment_type') . '</th>';
+            $html .= '<th>' . lang('form_piriod') . '</td>';
+            $html .= '<th class="td_right">' . lang('form_amount') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             $amount = 0;
             foreach ($payments AS $payment) {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                $html .= '<td class="td_center">' . $dateNormal . '</td>';
-                $html .= '<td class="td_center">' . $payment['payment_type_name'] . '</td>';
-                $html .= '<td class="td_center">' . $payment['piriod'] . '</td>';
+                $html .= '<td>' . $dateNormal . '</td>';
+                $html .= '<td>' . $payment['payment_type_name'] . '</td>';
+                $html .= '<td>' . $payment['piriod'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
                 $amount += $payment['amount'];
                 $count++;
@@ -305,7 +305,6 @@ class Student extends Basic_controller {
             $html .= '<tr><td colspan="4" class="td_center"><b>TOTAL</b></td>';
             $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
             $html .='</tbody></table>
-<br />
 <body>';
             //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
@@ -569,10 +568,10 @@ class Student extends Basic_controller {
         <tbody>
             <tr>
                 <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-                <td><p class="title-font"><b>Evaluaciones</b></td>
+                <td><p class="title-font"><b>' . lang('menu_qualification') . '</b></td>
             </tr>
             <tr>
-                <td><p><b>Alumno: </b>';
+                <td><p><b>' . lang('form_student') . ': </b>';
             $html .= $student[0]['first_name'] . ' ' . $student[0]['last_name'];
             $html .= '</p></td>
             </tr>
@@ -582,16 +581,16 @@ class Student extends Basic_controller {
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"></td>';
-            $html .= '<th>Periodo</td>';
-            $html .= '<th>Nivel</td>';
-            $html .= '<th>Ev. 1</td>';
-            $html .= '<th>Ev. 2</td>';
-            $html .= '<th>Ev. 3</td>';
-            $html .= '<th>Calificación</td>';
-            $html .= '<th>Trinity</td>';
-            $html .= '<th>Cambridge</td>';
-            $html .= '<th>Otras</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_academic_period') . '</th>';
+            $html .= '<th>' . lang('form_level') . '</th>';
+            $html .= '<th>' . lang('form_eval1') . '</th>';
+            $html .= '<th>' . lang('form_eval2') . '</th>';
+            $html .= '<th>' . lang('form_eval3') . '</th>';
+            $html .= '<th>' . lang('form_qualification') . '</th>';
+            $html .= '<th>' . lang('form_trinity') . '</th>';
+            $html .= '<th>' . lang('form_london') . '</th>';
+            $html .= '<th>' . lang('form_others') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($qualifications AS $qualification) {
@@ -608,7 +607,6 @@ class Student extends Basic_controller {
                 $count++;
             }
             $html .='</tbody></table>
-<br />
 <body>';
             //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
@@ -619,7 +617,7 @@ class Student extends Basic_controller {
         }
     }
 
-    public function students_report($isActive, $group) {
+    public function students_report($isActive = NULL, $group = '') {
 
         try {
             /* $filter = $this->input->post();
@@ -646,21 +644,18 @@ class Student extends Basic_controller {
         <tbody>
             <tr>
                 <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-                <td><p class="title-font"><b>Alumnos</b></td>
+                <td><p class="title-font"><b>' . lang('menu_student') . '</b></td>
             </tr>
         </tbody>
     </table>
     ';
-
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"></td>';
-            $html .= '<th>Nombre</td>';
-            $html .= '<th>Teléfono</td>';
-            $html .= '<th>Fecha Nac.</td>';
-            $html .= '<th>Dirección</td>';
-            //$html .= '<th>start_time</td>';
-            //$html .= '<th>end_time</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_phone') . '</th>';
+            $html .= '<th>' . lang('form_date_of_birth') . '</th>';
+            $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($students AS $student) {
@@ -670,16 +665,11 @@ class Student extends Basic_controller {
                 $html .= '<td>' . $student['phone'] . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $student['address'] . '</td>';
-                //$html .= '<td>' . $teacher['start_time'] . '</td>';
-                //$html .= '<td>' . $teacher['end_time'] . '</td>';
                 $html .= '</tr>';
                 $count++;
             }
             $html .='</tbody></table>
-    <br />
 <body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
@@ -779,26 +769,20 @@ class Student extends Basic_controller {
         <tbody>
             <tr>
                 <td width="50%" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-                <td><p class="title-font"><b>Pagos</b></td>
-            </tr>';
-            //<tr>
-             //   <td><p><b> </b>
-            //$html .= $student[0]['first_name'] . ' ' . $student[0]['last_name']; //rowspan="2"
-            $html .= //'</p></td>
-            //</tr>
-            '
+                <td><p class="title-font"><b>' . lang('menu_payment') . '</b></td>
+            </tr>
         </tbody>
     </table>
 ';
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            $html .= '<th class="td_center"></td>';
-            $html .= '<th>Nombre y Apellidos</td>';
-            $html .= '<th>Fecha</td>';
-            $html .= '<th>Tipo de pago</td>';
-            $html .= '<th>Periodo</td>';
-            $html .= '<th class="td_right">Importe</td>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_date') . '</th>';
+            $html .= '<th>' . lang('form_payment_type') . '</th>';
+            $html .= '<th>' . lang('form_piriod') . '</th>';
+            $html .= '<th class="td_right">' . lang('form_amount') . '</th>';            
             $html .= '</tr></thead><tbody>';
             $count = 1;
             $amount = 0;
@@ -816,7 +800,6 @@ class Student extends Basic_controller {
             $html .= '<tr><td colspan="5" class="td_center"><b>TOTAL</b></td>';
             $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
             $html .='</tbody></table>
-<br />
 <body>';
             //header("Content-Type: text/plain");
             header('Content-type: application/pdf');
