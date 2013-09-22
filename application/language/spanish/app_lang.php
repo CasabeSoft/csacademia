@@ -32,8 +32,8 @@ $lang['menu_assistance'] = "Asistencia";
 $lang['menu_payment'] = "Pagos";
 $lang['menu_payment_type'] = "Tipos de pago";
 
-$lang['menu_catalog'] = "Catálogo";
-$lang['menu_management'] = "Gestión";
+$lang['menu_catalog'] = "Catálogo"; //"CATÁLOGO";
+$lang['menu_management'] = "Gestión"; //"GESTIÓN";
 $lang['menu_close'] = "Salir";
 $lang['menu_admin'] = "Administrar";
 $lang['menu_reports'] = "Reportes";
@@ -65,15 +65,16 @@ $lang['subject_teacher'] = "Profesor";
 $lang['subject_student'] = "Alumno";
 $lang['subject_contact'] = "Contacto";
 $lang['subject_qualification'] = "Calificación";
+$lang['subject_qualifications'] = "EVALUACIONES"; //Evaluaciones EVALUATIONS
 $lang['subject_academic_period'] = "Período Académico";
-$lang['subject_general_data'] = "Datos generales";
-$lang['subject_academic_data'] = "Académicos";
-$lang['subject_professional_data'] = "Profesionales y financieros";
-$lang['subject_family_data'] = "Familiares";
+$lang['subject_general_data'] = "DATOS GENERALES"; //"Datos generales";
+$lang['subject_academic_data'] = "ACADÉMICOS";//"Académicos";
+$lang['subject_professional_data'] = "PROFECIONALES Y FINANCIEROS";//"Profesionales y financieros";
+$lang['subject_family_data'] = "FAMILIARES"; //"Familiares";
 $lang['subject_payment'] = "Pago";
 $lang['subject_payment_type'] = "Tipo de pago";
-$lang['subject_filter'] = "Filtrar por";
-$lang['subject_financial'] = "Financieros";
+$lang['subject_filter'] = "FILTRAR POR:"; //"Filtrar por";
+$lang['subject_financial'] = "FINANCIEROS"; //"Financieros";
 $lang['subject_family'] = "Familiar";
 $lang['subject_select_month'] = "Seleccionar mes";
 $lang['subject_select_center'] = "Seleccionar centro";
@@ -82,6 +83,13 @@ $lang['subject_select_payment_type'] = "Seleccionar tipo de pago";
 $lang['subject_select_academic_period'] = "Seleccionar período académico";
 $lang['subject_select_state_student'] = "Seleccionar estado de los alumnos";
 $lang['subject_select_type'] = "Seleccionar tipo";
+$lang['title_payments'] = "PAGOS";
+$lang['title_teacher'] = "PROFESOR";
+$lang['title_student'] = "ALUMNO";
+$lang['title_contact'] = "CONTACTO";
+$lang['title_group'] = "GRUPO";
+$lang['title_students'] = "ALUMNOS";
+$lang['title_attendance'] = "ASISTENCIA";
 
 /* * *
  * Campos de los formularios

@@ -24,7 +24,7 @@ class Group extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_groups');
-        $this->subject = lang('subject_group');
+        $this->subject = lang('title_group');
         $this->load->model('General_model');
         $this->load->model('Teacher_model');
         $this->load->model('Student_model');

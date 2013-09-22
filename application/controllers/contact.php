@@ -28,7 +28,7 @@ class Contact extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_contacts');
-        $this->subject = lang('subject_contact');
+        $this->subject = lang('title_contact');
         $this->editMode = 'true';
         $this->load_page('contact_admin');
     }

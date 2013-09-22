@@ -66,15 +66,16 @@ $lang['subject_teacher'] = "Teacher";
 $lang['subject_student'] = "Student";
 $lang['subject_contact'] = "Contact";
 $lang['subject_qualification'] = "Qualification";
+$lang['subject_qualifications'] = "EVALUATIONS"; //Evaluations 
 $lang['subject_academic_period'] = "Academic Period";
-$lang['subject_general_data'] = "General data";
-$lang['subject_academic_data'] = "Academic";
-$lang['subject_professional_data'] = "Professional & financial";
-$lang['subject_family_data'] = "Family";
+$lang['subject_general_data'] =  "GENERAL DATA"; //"General data";
+$lang['subject_academic_data'] = "ACADEMIC"; //"Academic";
+$lang['subject_professional_data'] = "PROFESSIONAL & FINANCIAL"; //"Professional & financial";
+$lang['subject_family_data'] = "FAMILY"; //"Family";
 $lang['subject_payment'] = "Payment";
 $lang['subject_payment_type'] = "Payment type";
-$lang['subject_filter'] = "Filter by";
-$lang['subject_financial'] = "Financial";
+$lang['subject_filter'] = "FILTER BY:"; //"Filter by";
+$lang['subject_financial'] = "FINANCIAL"; //"Financial";
 $lang['subject_family'] = "Family";
 $lang['subject_select_month'] = "Select month";
 $lang['subject_select_center'] = "Select center";
@@ -83,6 +84,13 @@ $lang['subject_select_payment_type'] = "Select payment type";
 $lang['subject_select_academic_period'] = "Select academic period";
 $lang['subject_select_state_student'] = "Select status of learners";
 $lang['subject_select_type'] = "Select type";
+$lang['title_payments'] = "PAYMENTS";
+$lang['title_teacher'] = "TEACHER";
+$lang['title_student'] = "STUDENT";
+$lang['title_contact'] = "CONTACT";
+$lang['title_group'] = "GROUP";
+$lang['title_students'] = "STUDENTS";
+$lang['title_attendance'] = "ATTENDANCE";
 
 /* * *
  * Campos de los formularios

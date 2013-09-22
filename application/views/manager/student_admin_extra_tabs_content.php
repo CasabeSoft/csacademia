@@ -82,7 +82,7 @@
     </div>
     <div class="row-fluid newComponentGroup">
         <legend>
-            Evaluaciones
+            <?php echo lang('subject_qualifications'); ?>
             <div class="pull-right">                
                 <button type="button" class="btn btn-small " 
                         data-toggle="modal" data-target="#dlgQualification" 
@@ -130,7 +130,7 @@
     <div id="dlgQualification" class="modal hide fade" data-bind="with: $root.currentQualification">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Evaluación</h3>
+            <h3><?php echo lang('form_qualification'); ?></h3>
         </div>
         <div class="modal-body">
             <div class="row-fluid">
@@ -153,45 +153,45 @@
                     </select>
                 </div>
                 <div class="span4">
-                    <label>Calificación</label>
+                    <label><?php echo lang('form_qualification'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: qualification">
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span4">
-                    <label>Evaluación 1</label>
+                    <label><?php echo lang('form_eval1'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: eval1">
                 </div>
                 <div class="span4">
-                    <label>Evaluación 2</label>
+                    <label><?php echo lang('form_eval2'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: eval2">
                 </div>
                 <div class="span4">
-                    <label>Evaluación 3</label>
+                    <label><?php echo lang('form_eval3'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: eval3">
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span4">
-                    <label>Trinity</label>
+                    <label><?php echo lang('form_trinity'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: trinity">
                 </div>
                 <div class="span4">
-                    <label>Cambridge</label>
+                    <label><?php echo lang('form_london'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: london">
                 </div>
                 <div class="span4">
-                    <label>Otras</label>
+                    <label><?php echo lang('form_others'); ?></label>
                     <input type="text" class="input-block-level" data-bind="value: others">
                 </div>
             </div>
             <div class="row-fuid">
-                <label>Descripción</label>
+                <label><?php echo lang('form_description'); ?></label>
                 <textarea class="input-block-level" data-bind="value: description"></textarea>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-small btn-success" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign icon-white"></i> Guardar</button>
+            <button class="btn btn-small btn-success" data-dismiss="modal" data-bind="click: $root.saveQualification"><i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?></button>
             <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removeQualification, visible: student_id"><i class="icon-minus-sign icon-white"></i> Eliminar</button>
             <button class="btn btn-small" data-dismiss="modal"><i class="icon-ban-circle"></i><?php echo lang('btn_cancel'); ?></button>
         </div>
@@ -300,7 +300,7 @@
     <div class="row-fluid newComponentGroup">
         <!-- Pagos -->
         <legend>
-            <?php echo lang('menu_payment'); ?>
+            <?php echo lang('title_payments'); ?>
             <div class="pull-right">       
                 <button class="btn btn-small"  data-toggle="modal" data-target="#dlgPayments" data-bind="enable: $root.currentContact().id() > 0 && $root.currentContact().bank_payment() != 1, click: $root.newPayment">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>
@@ -358,7 +358,7 @@
         <!-- Dialogo de pagos -->
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Datos del pago</h3>
+            <h3><?php echo lang('subject_payment'); ?></h3>
         </div>
         <div class="modal-body">
 

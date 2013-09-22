@@ -30,7 +30,7 @@ class Student extends Basic_controller {
     public function admin() {
         $this->current_page();
         $this->title = lang('page_manage_students');
-        $this->subject = lang('subject_student');
+        $this->subject = lang('title_student');
         $this->load->model('Group_model');
         $this->load->model('General_model');
         $this->editMode = is_null($this->session->userdata('current_center')['id']) ? 'false' : 'true';
