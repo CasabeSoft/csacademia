@@ -90,6 +90,10 @@ $lang['title_contact'] = "CONTACTO";
 $lang['title_group'] = "GRUPO";
 $lang['title_students'] = "ALUMNOS";
 $lang['title_attendance'] = "ASISTENCIA";
+$lang['title_date'] = "FECHA";
+$lang['title_payment'] = "PAGO";
+$lang['title_amount'] = "IMPORTE";
+$lang['title_phone'] = "TELEF";
 
 /* * *
  * Campos de los formularios

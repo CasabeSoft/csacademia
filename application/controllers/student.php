@@ -458,7 +458,7 @@ class Student extends Basic_controller {
                   <tr>
                       <td>
                          <p style="font-size: 12px">CIF: B79907044 
-                         <p style="font-size: 12px">TELEF: 91 680 10 44 / 91 680 80 82                         
+                         <p style="font-size: 12px">' . lang('title_phone') . ': 91 680 10 44 / 91 680 80 82                         
                       </td>
                   </tr>                  
               </tbody>
@@ -466,18 +466,18 @@ class Student extends Basic_controller {
               <hr>
               <div>
               '; //style="border:1px solid #000000;"
-            $html .= '<p>FECHA: ' . $dateNormal;
+            $html .= '<p>' . lang('title_date') . ': ' . $dateNormal;
             $html .= '<p>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</p>';
             $html .= '  
               
-              <p>PAGO: 
+              <p>' . lang('title_payment') . ': 
               ';
             //<p>La cantidad de euros: </p>
             //<p class="code"> <br> <br></p>
             $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
             $html .= '</p>
              
-              <p>IMPORTE: €
+              <p>' . lang('title_amount') . ': €
               ';
             $html .= $payment['amount'];
             $html .= '<br><br>
