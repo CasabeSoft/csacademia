@@ -35,11 +35,15 @@
 }
 #tblContacts tbody {
     display: block;
-    max-height: 320px;
+    max-height: 349px;
     overflow-y: auto;
 }
-#tblContacts, #tblContacts tr, #tblContacts td {
+/*#tblContacts, */
+#tblContacts tbody tr, #tblContacts tbody td {
     display: block;
+}
+#tblContacts th {
+    display: list-item;
 }
 #studentData .row-fluid:first-child {
     margin-bottom: 10px;

@@ -135,11 +135,11 @@
             <p data-bind="text: full_name()" class="name"></p>
         </li>
     </ul>
-    <table class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
+                <th></th>
+                <th><?php echo lang('form_name'); ?></th>
             </tr>
         </thead>
         <tbody data-bind="foreach: studentList">

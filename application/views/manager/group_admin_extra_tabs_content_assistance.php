@@ -39,12 +39,12 @@
             <p data-bind="text: full_name()" class="name"></p>
         </li>
     </ul>
-    <table class="table table-bordered table-hover table-condensed" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Asistencia</th>
+                <th></th>
+                <th><?php echo lang('form_name'); ?></th>
+                <th><?php echo lang('form_attendance'); ?></th>
             </tr>
         </thead>
         <tbody data-bind="foreach: studentList">
@@ -55,12 +55,12 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-bordered table-hover table-condensed" data-bind="visible: ! viewDailyAttendance()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: ! viewDailyAttendance()">
         <thead>
             <tr>
-                <th rowspan="3">#</th>
-                <th rowspan="3">Nombre</th>
-                <th data-bind="attr: {colspan: attendanceDays().length}">Asistencia <span data-bind="text: getCurrentMonth()"></span></th>
+                <th rowspan="3"></th>
+                <th rowspan="3"><?php echo lang('form_name'); ?></th>
+                <th data-bind="attr: {colspan: attendanceDays().length}"><?php echo lang('form_attendance'); ?> <span data-bind="text: getCurrentMonth()"></span></th>
             </tr>
             <tr data-bind="foreach: attendanceDays">
                 <th data-bind="text: name"></th>

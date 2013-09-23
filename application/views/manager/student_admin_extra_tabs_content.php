@@ -97,7 +97,7 @@
         </legend>
     </div>
     <div class="row-fluid">
-        <table class="table table-bordered table-hover">
+        <table id="tblInternal" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th><?php echo lang('form_piriod'); ?></th>
@@ -328,7 +328,7 @@
         </legend>
         <div class="row-fluid">
 
-            <table class="table table-striped table-bordered table-hover ">
+            <table id="tblInternal" class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th><?php echo lang('form_payment_type'); ?></th>

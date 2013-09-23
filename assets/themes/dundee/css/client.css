@@ -17,6 +17,10 @@
     font-family: Arial;
     font-size: 14px;
 }
+h1{
+    font-size: 32px;
+    text-align: center;
+}
 .navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
     color: #F5E496;
     background-color: transparent;
@@ -30,7 +34,7 @@
     border-bottom: 1px #DDD solid; 
     /*padding: 0px 20px 0px 20px;*/
     /*left: 10pX;*/
-    
+
     /*position: relative;*/
 }
 .logo_client{
@@ -43,6 +47,30 @@
     background-color: #7D2428;
     color: #FFF;
 }*/
+#tblInternal th{
+    /*background-color: #BBB;*/
+    background-color: #7D2428;
+    color: #FFF;
+}
+
+#tblInternal tr:nth-child(even) {
+    background: #FFF1D0;
+    /*background: #F1F1F1;*/
+    /*color: #000;*/
+}
+
+#tblInternal tr:nth-child(odd) {
+    background: #FFF6BB;
+    /*background: #F5F5F5;*/
+    /*color: #000;*/
+}
+
+#tblInternal tr:hover>td{
+    background: #B4B293;
+    /*background: #DDD;*/
+    /*color: #FFF;*/
+}
+
 #tblContacts th{
     background-color: #7D2428;
     color: #FFF;
@@ -60,6 +88,10 @@
     background: #B4B293;
     /*color: #FFF;*/
 }
+/*#tblContacts a:active{
+    background-color: #7D2428;
+    color: #FFF;
+}*/
 /*.selected { background-color: #ddd !important; }*/
 /*#tblContacts tr:visited>td{
     background: #B4B293;
