@@ -36,7 +36,7 @@
                 <input type="checkbox" data-bind="checked: $root.attended(contact_id(), $root.currentDate()), event: {change: function (data, event) { $root.onAttendanceDayChange(contact_id(), $root.currentDate(), event); }}">
                 <img data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
-            <p data-bind="text: full_name()" class="name"></p>
+            <p data-bind="text: full_name_lastname()" class="name"></p>
         </li>
     </ul>
     <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
@@ -50,7 +50,7 @@
         <tbody data-bind="foreach: studentList">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
-                <td data-bind="text: full_name()"></td>
+                <td data-bind="text: full_name_lastname()"></td>
                 <td><input type="checkbox" data-bind="checked: $root.attended(contact_id(), $root.currentDate()), event: {change: function (data, event) { $root.onAttendanceDayChange(contact_id(), $root.currentDate(), event); }}"></td>
             </tr>
         </tbody>
@@ -72,7 +72,7 @@
         <tbody data-bind="foreach: studentList">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
-                <td data-bind="text: full_name()"></td>
+                <td data-bind="text: full_name_lastname()"></td>
                 <!-- ko foreach: $root.attendanceDays -->
                 <td><input type="checkbox" data-bind="checked: $root.attended($parent.contact_id(), $root.genAttendanceDate(number)), event: {change: function (data, event) { $root.onAttendanceDayChange($parent.contact_id(), $root.genAttendanceDate(number), event); }}"></td>
                 <!-- /ko -->

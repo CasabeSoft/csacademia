@@ -30,6 +30,11 @@ akdm.model = (function () {
     Contact.prototype.full_name = function () {
         return (this.first_name() || "") + " " + (this.last_name() || "");
     };
+    
+    Contact.prototype.full_name_lastname = function () {
+        if (this.last_name() === "" && this.first_name() === "") return "";
+        return (this.last_name() || "") + ", " + (this.first_name() || "");
+    };
 
     Contact.prototype.toJSON = function () {
         return Contact.toJSON(this);

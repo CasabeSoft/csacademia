@@ -132,7 +132,7 @@
                 <img  alt="" 
                       data-bind="attr: {src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
             </a>
-            <p data-bind="text: full_name()" class="name"></p>
+            <p data-bind="text: full_name_lastname()" class="name"></p>
         </li>
     </ul>
     <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
@@ -145,13 +145,13 @@
         <tbody data-bind="foreach: studentList">
             <tr data-bind="click: $root.selectStudent">
                 <td data-bind="text: $index() + 1"></td>
-                <td data-bind="text: full_name()"></td>
+                <td data-bind="text: full_name_lastname()"></td>
             </tr>
         </tbody>
     </table>
     <div class="row-fluid">
         <legend data-bind="with: currentStudent">
-            <span data-bind="text: full_name() + '&nbsp;'"></span>
+            <span data-bind="text: full_name_lastname() + '&nbsp;'"></span>
             <div class="pull-right">
                 <button class="btn btn-small" data-bind="click: $root.newStudent, visible: $root.canAddMoreStudents">
                     <i class="icon-plus-sign"></i> <?php echo lang('btn_new'); ?>

@@ -5,6 +5,17 @@
     Description:
         Purpose of the stylesheet follows.
 */
+body
+{
+    /*background-color: #B46C19;/*#ECE7cF;*/
+    background-color:#ECE7cF;
+    background-image:-moz-linear-gradient(top,#B46C19,#ECE7cF);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#B46C19),to(#ECE7cF));
+    background-image:-webkit-linear-gradient(top,#B46C19,#ECE7cF);
+    background-image:-o-linear-gradient(top,#B46C19,#ECE7cF);
+    background-image:linear-gradient(to bottom,#B46C19,#ECE7cF);
+    background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#880000',endColorstr='#7D2428',GradientType=0)
+}
 @font-face {
     font-family: "broadway";
     src: url(broadw__.ttf) format("truetype");
@@ -25,7 +36,32 @@ h1{
     color: #F5E496;
     background-color: transparent;
 }
+.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-submenu:hover>a,.dropdown-submenu:focus>a{
+    color:#fff;text-decoration:none;background-color:#7D2428;
+    background-image:-moz-linear-gradient(top,#B03443,#7D2428);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#B03443),to(#7D2428));
+    background-image:-webkit-linear-gradient(top,#B03443,#7D2428);
+    background-image:-o-linear-gradient(top,#B03443,#7D2428);
+    background-image:linear-gradient(to bottom,#B03443,#7D2428);
+    background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#B03443',endColorstr='#7D2428',GradientType=0)
+}
+.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus{
+    color:#fff;text-decoration:none;background-color:#7D2428;
+    background-image:-moz-linear-gradient(top,#B03443,#7D2428);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#B03443),to(#7D2428));
+    background-image:-webkit-linear-gradient(top,#B03443,#7D2428);
+    background-image:-o-linear-gradient(top,#B03443,#7D2428);
+    background-image:linear-gradient(to bottom,#B03443,#7D2428);
+    background-repeat:repeat-x;outline:0;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#B03443',endColorstr='#7D2428',GradientType=0)
+}
+a, a:hover{
+    color: #880000;
+}
 .title-item-select{
+    color: #880000 !important;
+    font-weight: bold;
+}
+.font-important{
     color: #880000 !important;
     font-weight: bold;
 }
@@ -42,6 +78,11 @@ h1{
     /*margin-left: 10px;*/
     /*width: 150px;*/
     height: 55px;
+    
+}
+.line-bottom {
+    border-bottom: 1px #DDD solid !important;
+    margin-bottom: 10px;
 }
 /*#tblContacts{
     background-color: #7D2428;

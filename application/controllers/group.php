@@ -250,6 +250,7 @@ class Group extends Basic_controller {
         </tr>
         </tbody>
     </table>
+    <br>
 ';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
@@ -275,7 +276,8 @@ class Group extends Basic_controller {
             $count = 1;
             foreach ($students AS $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
                 $html .= '<td>' . $student['name'] . '</td>';
                 for ($day = 1; $day <= $daysInMonth; $day++) {
                     $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
@@ -373,6 +375,7 @@ class Group extends Basic_controller {
     </tr>
     </tbody>
 </table>
+<br>
 ';
                 $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
                 $html .= '<thead><tr>';
@@ -398,7 +401,8 @@ class Group extends Basic_controller {
                 $count = 1;
                 foreach ($students AS $student) {
                     $html .= '<tr><td class="td_center">' . $count . '</td>';
-                    $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                    //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
+                    $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
                     $html .= '<td>' . $student['name'] . '</td>';
                     for ($day = 1; $day <= $daysInMonth; $day++) {
                         $daysInWeek = date("w", mktime(0, 0, 0, $month, $day, $year));
@@ -472,6 +476,7 @@ class Group extends Basic_controller {
     </tr>
     </tbody>
 </table>
+<br>
     ';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';

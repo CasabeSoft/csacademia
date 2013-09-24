@@ -291,7 +291,7 @@
     <div class="row-fluid">
         <div class="span12">
             <label><?php echo lang('form_notes'); ?></label>
-            <textarea id="txtBankNotes" class="input-block-level" 
+            <textarea id="txtBankNotes" class="input-block-level title-item-select" 
                       data-bind="value: bank_notes">
             </textarea>
         </div>

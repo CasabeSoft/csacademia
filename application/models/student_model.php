@@ -135,7 +135,8 @@ class Student_model extends CI_Model {
                 ->join('contact', 'contact.id = student.contact_id')
                 ->join('school_level', 'school_level.id = student.school_level')
                 ->where('group_id', $groups_id)
-                ->order_by("contact.first_name, contact.last_name", "asc");
+                ->order_by("contact.last_name, contact.first_name", "asc");
+                //->order_by("contact.first_name, contact.last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
                 $this->db->where('end_date IS NULL');

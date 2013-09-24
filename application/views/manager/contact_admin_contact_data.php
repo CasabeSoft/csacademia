@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div class="row-fluid line-bottom">
     <div class="span8">
         <input type="hidden" id="cnt_id" data-bind="value: id" />
         <div class="row-fluid">
@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-<div class="row-fluid newComponentGroup">
+<div class="row-fluid">
     <div class="span8">
         <div class="row-fluid">
             <div class="span6">
