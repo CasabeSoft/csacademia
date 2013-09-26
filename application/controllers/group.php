@@ -31,7 +31,7 @@ class Group extends Basic_controller {
         $this->centers = $this->General_model->get_fields('center', 'id, name');
         $this->classrooms = $this->General_model->get_fields('classroom', 'id, name, capacity');
         $this->teachers = $this->Teacher_model->get_all();
-        $this->levels = $this->General_model->get_fields('level', 'code, description');
+        $this->levels = $this->General_model->get_fields('level', 'code, description', array('state' => 'A'));
         $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
         $this->students = $this->Student_model->get_all();
         $this->defaultAcademicPeriod = $this->General_model->get_default_academic_period();
