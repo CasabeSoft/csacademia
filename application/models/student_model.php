@@ -93,12 +93,15 @@ class Student_model extends CI_Model {
 
     public function get_payments($center = 0, $payment_type = 0, $month = 0, $state = 0) {
         $isActive = 'true';
+        //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
+        $start_date = '';
         $filter_month = '';
         $filter_payment_type = '';
         $filter_bank_payment = ' AND student.bank_payment = 0';
         if ($month != 0) {
             //$this->db->where('MONTH(date)', $month);
             $filter_month = ' AND MONTH(date) = ' . $month;
+            $start_date = ' AND ' . $month . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
         }
         if ($payment_type != 0) {
             //$this->db->where('payment_type_id', $payment_type);
@@ -106,11 +109,12 @@ class Student_model extends CI_Model {
         }
         $this->db->select('contact.*, payment.*, payment_type.name as payment_type_name ')
                 ->from('contact')
-                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment)
+                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment . $start_date)
                 ->join('payment', 'payment.student_id = student.contact_id ' . $filter_month . $filter_payment_type, 'left outer')
                 ->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left outer')
-                ->where('client_id', $this->client_id)
+                ->where('client_id', $this->client_id)                
                 ->order_by("date, first_name, last_name", "asc");
+                //->order_by("first_name, last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
                 $this->db->where('end_date IS NULL');
@@ -133,7 +137,7 @@ class Student_model extends CI_Model {
         $this->db->select('student.*, contact.*, school_level.name')
                 ->from('student')
                 ->join('contact', 'contact.id = student.contact_id')
-                ->join('school_level', 'school_level.id = student.school_level')
+                ->join('school_level', 'school_level.id = student.school_level', 'left outer')
                 ->where('group_id', $groups_id)
                 ->order_by("contact.last_name, contact.first_name", "asc");
                 //->order_by("contact.first_name, contact.last_name", "asc");

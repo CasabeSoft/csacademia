@@ -243,7 +243,7 @@ $lang['btn_inactive'] = "Baja";
 $lang['btn_print'] = "Imprimir";
 $lang['btn_cancel'] = "Cancelar";
 $lang['btn_paid'] = "Pagado";
-$lang['btn_unpaid'] = "No pagado";
+$lang['btn_unpaid'] = "Impago";
 
 /***
  * Enlaces
