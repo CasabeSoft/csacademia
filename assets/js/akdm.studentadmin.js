@@ -117,6 +117,11 @@ akdm.StudentViewModel = function () {
         self.currentPayment(payment);
         $('#dlgPayments').modal('show');
     };
+    
+    self.confirmRemovePayment = function (payment) {
+        $('#message_show').html('¿Está seguro que desea eliminar el pago de ' + payment.piriod() + '?');
+        $('#dlgConfirm').modal('show');
+    };
 
     self.newPayment = function () {
         var newPayment = new akdm.model.Payment();
@@ -211,7 +216,8 @@ akdm.StudentViewModel = function () {
             payment.student_id(self.currentContact().id());
             $.post(payment_add, payment.toJSON()).done(function (newId) {
                 payment.id(newId);
-                self.paymentList.push(self.currentPayment());
+                //self.paymentList.push(self.currentPayment());
+                self.paymentList.splice(0,0,self.currentPayment());
                 akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_created + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
@@ -229,14 +235,18 @@ akdm.StudentViewModel = function () {
         }).fail(self._showError);
     };
 
-    self.removePayment = function () {
+    self.removePayment = function() {
         var payment = self.currentPayment();
-        $.get(payment_delete + payment.id()).done(function () {
-            self.paymentList.remove(self.currentPayment());
-            self.currentPayment(new akdm.model.Payment());
-            akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_deleted + '</strong>',
-                    akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
-        }).fail(self._showError);
+        // TODO: implementar como confirmar borrado
+        //if (confirm("Estas seguro de borrar el pago " + payment.piriod()))
+        //{
+            $.get(payment_delete + payment.id()).done(function() {
+                self.paymentList.remove(self.currentPayment());
+                self.currentPayment(new akdm.model.Payment());
+                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_deleted + '</strong>',
+                        akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
+            }).fail(self._showError);
+        //}
     };
 
     self.printPayments = function () {        

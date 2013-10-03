@@ -28,6 +28,7 @@ class Payment_model extends CI_Model {
                         ->from('payment')
                         ->join('payment_type', 'payment.payment_type_id = payment_type.id')
                         ->where('student_id', $student_id)
+                        ->order_by("date", "desc")
                         ->get()->result_array();
     }
 

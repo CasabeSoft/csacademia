@@ -422,4 +422,31 @@
             </div>
         </div>
     </div>
+    <!-- TODO: Implementar como confirmar borrado -->       
+    <div id="dlgConfirm" class="modal hide fade">
+        <!-- Dialogo para confirmar borrado -->
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3><?php echo 'Confirmar'//lang('subject_payment');   ?></h3>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid">
+                <p id="message_show"></p>
+                <div class="row-fluid">
+                    <span data-bind="text: '&nbsp;' + '&nbsp;'"></span>
+                    <legend data-bind="with: $root.currentPayment">
+                        <div class="pull-right">
+                            <button class="btn btn-small btn-danger" aria-hidden="true" data-dismiss="modal" data-bind="click: $root.removePayment, visible: student_id">
+                                <i class="icon-minus-sign icon-white"></i> <?php echo lang('btn_delete'); ?>
+                            </button>
+                            <button class="btn btn-small" aria-hidden="true" data-dismiss="modal">
+                                <i class="icon-remove-sign"></i> <?php echo lang('btn_cancel'); ?>
+                            </button>                
+                        </div>
+                    </legend>
+                </div>
+            </div>
+        </div>
+    </div>
+                
 </div>
