@@ -46,8 +46,11 @@ class Student_model extends CI_Model {
     }
 
     public function get_all($filter = []) {
-        $this->db->from('contact')
+        $this->db->select('contact.*, student.*, group.name as group_name, academic_period.name as course')
+                ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
+                ->join('group', 'group.id = student.group_id', 'left outer')
+                ->join('academic_period', 'academic_period.code = group.academic_period', 'left outer')
                 ->where('client_id', $this->client_id)
                 ->order_by("first_name, last_name", "asc");
         if ($this->center_id != NULL)
@@ -101,7 +104,7 @@ class Student_model extends CI_Model {
         if ($month != 0) {
             //$this->db->where('MONTH(date)', $month);
             $filter_month = ' AND MONTH(date) = ' . $month;
-            $start_date = ' AND ' . $month . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
+            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $month . ') )';
         }
         if ($payment_type != 0) {
             //$this->db->where('payment_type_id', $payment_type);

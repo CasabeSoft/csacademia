@@ -654,6 +654,8 @@ class Student extends Basic_controller {
             $html .= '<th class="td_center"></th>';
             $html .= '<th>' . lang('form_name') . '</th>';
             $html .= '<th>' . lang('form_start_date') . '</th>';
+            $html .= '<th>' . lang('form_group') . '</th>';
+            $html .= '<th>' . lang('form_academic_period') . '</th>';
             $html .= '<th>' . lang('form_date_of_birth') . '</th>';
             $html .= '<th>' . lang('form_phone') . '</th>';
             $html .= '<th>' . lang('form_address') . '</th>';
@@ -665,6 +667,8 @@ class Student extends Basic_controller {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                 $html .= '<td>' . $start_date . '</td>';
+                $html .= '<td>' . $student['group_name'] . '</td>';
+                $html .= '<td>' . $student['course'] . '</td>';
                 $html .= '<td>' . $birth_date . '</td>';
                 $html .= '<td>' . $student['phone'] . '</td>';
                 $html .= '<td>' . $student['address'] . '</td>';
