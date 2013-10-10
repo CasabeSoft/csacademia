@@ -26,7 +26,7 @@ function is_active($current_page, $page_name = 'home') {
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-        <link rel="shortcut icon" href="../assets/ico/favicon.png">    
+        <link rel="shortcut icon" href="../assets/img/favicon.ico">    
         <link rel="stylesheet" type="text/css" href="../assets/css/public.css">
         <!-- Start page style -->
         <?php echo $styles ?>
