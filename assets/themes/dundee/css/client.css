@@ -29,8 +29,10 @@ body
     font-size: 14px;
 }
 h1{
-    font-size: 32px;
+    font-size: 26px;
     text-align: center;
+    font-family: broadway;
+    color: #880000;
 }
 .navbar-inverse .navbar-inner {
     
@@ -69,7 +71,7 @@ a, a:hover{
     color: #880000;
 }
 .title-item-select{
-    color: #880000 !important;
+    /*color: #880000 !important;*/
     font-weight: bold;
 }
 .font-important{

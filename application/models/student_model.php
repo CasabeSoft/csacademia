@@ -51,10 +51,10 @@ class Student_model extends CI_Model {
                 ->join('student', 'contact.id = student.contact_id')
                 ->join('group', 'group.id = student.group_id', 'left outer')
                 ->join('academic_period', 'academic_period.code = group.academic_period', 'left outer')
-                ->where('client_id', $this->client_id)
+                ->where('contact.client_id', $this->client_id)
                 ->order_by("first_name, last_name", "asc");
         if ($this->center_id != NULL)
-            $this->db->where('center_id', $this->center_id);
+            $this->db->where('student.center_id', $this->center_id);
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
             $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
             switch ($key) {

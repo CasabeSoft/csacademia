@@ -232,14 +232,19 @@ class Group extends Basic_controller {
 <body>
     <table border="0" width="100%" >
         <tbody>
+            <tr>
+                <td  width="400px" style="text-align: right;"><img src="/assets/img/logo.png" width="120" /></td>
+                <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>  
+    <table border="0" width="100%" >
+        <tbody>
         <tr>
-            <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-            <td colspan="4"><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
-        </tr>
-        <tr>
-            <td width="360px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
-            <td width="190px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
-            <td width="150px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+            <td width="350px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+            <td width="200px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+            <td width="200px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
             <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
         </tr>
         <tr>
@@ -250,7 +255,7 @@ class Group extends Basic_controller {
         </tr>
         </tbody>
     </table>
-    <br>
+    <br><br>
 ';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
@@ -289,6 +294,12 @@ class Group extends Basic_controller {
                 $html .= '</tr>';
             }
             $html .='</tbody></table>
+                <br>
+                <br>
+                <p style="text-align: right;">Firma Profesor: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 <body>';
             //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
@@ -357,14 +368,19 @@ class Group extends Basic_controller {
                 $html .= '
 <table border="0" width="100%" >
     <tbody>
+        <tr>
+            <td  width="400px" style="text-align: right;"><img src="/assets/img/logo.png" width="120" /></td>
+            <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
+        </tr>
+    </tbody>
+</table>
+<br>     
+<table border="0" width="100%" >
+    <tbody>
     <tr>
-        <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
-        <td colspan="4"><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
-    </tr>
-    <tr>
-        <td width="360px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
-        <td width="190px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
-        <td width="150px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+        <td width="350px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+        <td width="200px"><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+        <td width="200px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
         <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
     </tr>
     <tr>
@@ -375,6 +391,7 @@ class Group extends Basic_controller {
     </tr>
     </tbody>
 </table>
+<br>
 <br>
 ';
                 $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
@@ -414,6 +431,12 @@ class Group extends Basic_controller {
                     $html .= '</tr>';
                 }
                 $html .='</tbody></table>
+                    <br>
+                    <br>
+                    <p style="text-align: right;">Firma Profesor: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 ';
                 $mpdf->AddPage();
                 $mpdf->WriteHTML($html);
