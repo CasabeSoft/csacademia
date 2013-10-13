@@ -47,19 +47,20 @@ class Student extends Basic_controller {
     public function birthday() {
         $this->current_page();
         $this->title = lang('page_report_birthday');
-        $this->subject = lang('subject_student');        
+        $this->subject = lang('subject_student');
         $this->load->model('General_model');
-        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));         
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
         $this->load_page('student_birthday');
     }
-    
+
     public function payments() {
         $this->current_page();
         $this->title = lang('page_report_payments');
-        $this->subject = lang('subject_student');        
+        $this->subject = lang('subject_student');
         $this->load->model('General_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
         $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
+        $this->piriods_used = $this->General_model->get_fields('payment', 'DISTINCT piriod');
         $this->load_page('student_payment');
     }
 
@@ -261,7 +262,7 @@ class Student extends Basic_controller {
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
 
@@ -303,7 +304,7 @@ class Student extends Basic_controller {
                 $count++;
             }
             $html .= '<tr><td colspan="4" class="td_center"><b>TOTAL</b></td>';
-            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
+            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '') . '</b></td></tr>';
             $html .='</tbody></table>
 <body>';
             //header("Content-Type: text/plain");
@@ -486,7 +487,7 @@ class Student extends Basic_controller {
               </body>';
             // </p><p>Firmado: ______________</p>
             //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
-            $mpdf = new mPDF('c',  array(80, 125), '10', 1, 8, 13, 13, 0, 0, '');
+            $mpdf = new mPDF('c', array(80, 125), '10', 1, 8, 13, 13, 0, 0, '');
             $mpdf->SetDisplayMode('fullpage');
             //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
             //$mpdf->WriteHTML($stylesheet, 1);
@@ -558,7 +559,7 @@ class Student extends Basic_controller {
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
 
@@ -631,7 +632,7 @@ class Student extends Basic_controller {
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
@@ -691,7 +692,7 @@ class Student extends Basic_controller {
             $isActive = $this->input->post('state');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
-            
+
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $students = $this->Student_model->get_birthday($isActive, $center, $month);
@@ -744,7 +745,7 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
+
     public function payments_general_report() {
 
         try {
@@ -752,21 +753,37 @@ class Student extends Basic_controller {
             $payment_type = $this->input->post('payment_type');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
-            
-            //$this->load->model('Payment_model');
-            //$this->load->model('General_model');
-            //$this->load->helper('Util_helper');
-            
+            $filter = '';
+            $this->load->model('General_model');
+
+            if ($center != '0') {
+                $center_value = $this->General_model->get_fields('center', 'name', array('id' => $center));
+                $filter .= '<b>' . lang('form_center') . ':</b> ' . $center_value[0]['name'] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            if ($payment_type != '0') {
+                $payment_type_value = $this->General_model->get_fields('payment_type', 'name', array('id' => $payment_type));
+                $filter .= '<b>' . lang('subject_payment_type') . ':</b> ' . $payment_type_value[0]['name'] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            if ($month != '0') {
+                $filter .= '<b>' . lang('form_piriod') . ':</b> ' . $month . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+
+            if ($state != 0) {
+                if ($state == 1) {
+                    $state_value = lang('btn_paid');
+                } else {
+                    $state_value = lang('btn_unpaid');
+                }
+                $filter .= '<b>' . lang('form_state') . ':</b> ' . $state_value . ' ';
+            }
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $payments = $this->Student_model->get_payments($center, $payment_type, $month, $state);
 
-            //$payments = $this->Payment_model->get_all($id);
-            //$student = $this->General_model->get_where('contact', 'id = ' . $id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
-            
+
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
 
@@ -780,6 +797,7 @@ class Student extends Basic_controller {
             </tr>
         </tbody>
     </table>
+    <p> ' . $filter . '</p>
 ';
 
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
@@ -789,7 +807,7 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_date') . '</th>';
             $html .= '<th>' . lang('form_payment_type') . '</th>';
             $html .= '<th>' . lang('form_piriod') . '</th>';
-            $html .= '<th class="td_right">' . lang('form_amount') . '</th>';            
+            $html .= '<th class="td_right">' . lang('form_amount') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             $amount = 0;
@@ -805,7 +823,7 @@ class Student extends Basic_controller {
                 $count++;
             }
             $html .= '<tr><td colspan="5" class="td_center"><b>TOTAL</b></td>';
-            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '')  . '</b></td></tr>';
+            $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '') . '</b></td></tr>';
             $html .='</tbody></table>
 <body>';
             //header("Content-Type: text/plain");

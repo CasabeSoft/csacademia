@@ -39,12 +39,15 @@
             <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
-                        <?php echo lang('subject_select_month'); ?>
+                        <?php echo lang('subject_select_piriod'); ?>
                     </legend>
                     <!--label for="lbxMonth"><?php echo lang('form_month'); ?></label-->                    
                     <select id="month" name="month" class="input-block-level">
                         <option value="0">--</option>
-                        <option value="1"><?php echo lang('form_january'); ?></option>
+                        <?php foreach ($piriods_used as $piriod) { ?>
+                            <option value="<?php echo $piriod["piriod"] ?>"><?php echo $piriod["piriod"] ?></option>
+                        <?php } ?>
+                        <!--option value="1"><?php echo lang('form_january'); ?></option>
                         <option value="2"><?php echo lang('form_february'); ?></option>
                         <option value="3"><?php echo lang('form_march'); ?></option>
                         <option value="4"><?php echo lang('form_april'); ?></option>
@@ -55,7 +58,7 @@
                         <option value="9"><?php echo lang('form_september'); ?></option>
                         <option value="10"><?php echo lang('form_october'); ?></option>
                         <option value="11"><?php echo lang('form_november'); ?></option>
-                        <option value="12"><?php echo lang('form_december'); ?></option>
+                        <option value="12"><?php echo lang('form_december'); ?></option-->
                     </select>
                 </fieldset>
             </div>

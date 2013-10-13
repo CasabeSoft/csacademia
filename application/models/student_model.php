@@ -101,13 +101,16 @@ class Student_model extends CI_Model {
         $filter_month = '';
         $filter_payment_type = '';
         $filter_bank_payment = ' AND student.bank_payment = 0';
-        if ($month != 0) {
-            //$this->db->where('MONTH(date)', $month);
-            $filter_month = ' AND MONTH(date) = ' . $month;
-            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $month . ') )';
+        if ($month != '0') {
+            $filter_month = " AND piriod = '" . $month . "'";
+            $months = array(1 => lang('form_january'), 2 => lang('form_february'), 3 => lang('form_march'), 4 => lang('form_april'),
+                5 => lang('form_may'), 6 => lang('form_june'), 7 => lang('form_july'), 8 => lang('form_august'),
+                9 => lang('form_september'), 10 => lang('form_october'), 11 => lang('form_november'), 12 => lang('form_december'));
+            $key = array_search($month, $months);
+            //$filter_month = ' AND MONTH(date) = ' . $month;
+            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $key . ') )';
         }
         if ($payment_type != 0) {
-            //$this->db->where('payment_type_id', $payment_type);
             $filter_payment_type = ' AND payment_type_id = ' . $payment_type;
         }
         $this->db->select('contact.*, payment.*, payment_type.name as payment_type_name ')

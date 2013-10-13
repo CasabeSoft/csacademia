@@ -82,6 +82,7 @@ $lang['subject_select_center'] = "By center";
 $lang['subject_select_state'] = "By status";
 $lang['subject_select_payment_type'] = "By payment type";
 $lang['subject_select_academic_period'] = "By academic period";
+$lang['subject_select_piriod'] = "By period";
 $lang['subject_select_state_student'] = "By status of learners";
 $lang['subject_select_type'] = "By type";
 $lang['title_payments'] = "PAYMENTS";

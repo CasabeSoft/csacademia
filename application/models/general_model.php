@@ -22,13 +22,16 @@ class General_model extends CI_Model {
         return $this->db->get($table)->result_array();
     }
     
-    public function get_fields($table, $fields = '', $where = '') {
+    public function get_fields($table, $fields = '', $where = '', $orderby = '') {
         if (!empty($fields)) {
-            $this->db->select($fields);
+            $this->db->select($fields, FALSE);
         }
         if (!empty($where)) {
             $this->db->where($where);
         }
+        if (!empty($orderby)) {
+            $this->db->order_by($orderby);
+        }       
         return $this->db->get($table)->result_array();
     }
 
