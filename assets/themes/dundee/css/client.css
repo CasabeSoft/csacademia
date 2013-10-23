@@ -17,8 +17,12 @@ body
     background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bA7119',endColorstr='#ECE7cF',GradientType=0)
 }
 @font-face {
+ font-family: "broadway";
+ src: url("broadw__.eot") /* EOT file for IE */
+}
+@font-face {
     font-family: "broadway";
-    src: url(broadw__.ttf) format("truetype");
+    src: url(broadw__.ttf) format("truetype"); /* TTF file for CSS3 browsers */
 }
 .menu-font{
     font-family: broadway;
