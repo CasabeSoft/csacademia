@@ -13,7 +13,7 @@
                        data-bind="value: last_name">
             </div>
         </div>
-        <div class="row-fluid noSoImportant">
+        <div class="row-fluid">
             <div class="span6">
                 <label><?php echo lang('form_date_of_birth'); ?></label>
                 <input type="text" class="input-block-level" 

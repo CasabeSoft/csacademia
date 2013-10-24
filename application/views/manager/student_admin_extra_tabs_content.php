@@ -205,9 +205,9 @@
             <a href="#" class="thumbnail" data-bind="click: $root.selectFamily">
                 <img data-bind="attr: {
                      alt: first_name,
-                     src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : '/assets/img/personal.png'}">
+                     src: picture() && picture() != '' ? '/assets/uploads/files/contact/' + picture() : sex() == 'F' ? '/assets/img/personal-female.png' : '/assets/img/personal.png'}">
             </a>
-            <strong data-bind="text: first_name"></strong>
+             <strong data-bind="text: first_name"></strong>
             <p data-bind="text: $root.relationships[relationship_code()]"></p>
         </li>
         <!-- /ko -->
