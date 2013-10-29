@@ -63,6 +63,15 @@ class Student extends Basic_controller {
         $this->piriods_used = $this->General_model->get_fields('payment', 'DISTINCT piriod');
         $this->load_page('student_payment');
     }
+    
+    public function payments_bank() {
+        $this->current_page();
+        $this->title = lang('page_report_payments_bank');
+        $this->subject = lang('subject_student');
+        $this->load->model('General_model');
+        $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
+        $this->load_page('student_payment_bank');
+    }
 
     protected function _echo_json_error($error) {
         http_response_code(500);
@@ -830,6 +839,64 @@ class Student extends Basic_controller {
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function payments_bank_report() {
+
+        try {
+            $center = $this->input->post('center');
+            $filter = '';
+            $this->load->model('General_model');
+
+            if ($center != '0') {
+                $center_value = $this->General_model->get_fields('center', 'name', array('id' => $center));
+                $filter .= '<b>' . lang('form_center') . ':</b> ' . $center_value[0]['name'] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            $this->load->model('Student_model');
+            $this->load->helper('Util_helper');
+            $payments = $this->Student_model->get_payments_bank($center);
+
+            $this->load->library('mpdf');
+            $mpdf = new mPDF('c', 'A4');
+            $mpdf->SetDisplayMode('fullpage');
+
+            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+
+            $html = '
+<body>
+    <table border="0" width="100%" >
+        <tbody>
+            <tr>
+                <td width="50%" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td><p class="title-font"><b>' . lang('menu_payment_bank') . '</b></td>
+            </tr>
+        </tbody>
+    </table>
+    <p> ' . $filter . '</p>
+';
+
+            $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
+            $html .= '<thead><tr>';
+            $html .= '<th class="td_center"></th>';
+            $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_notes') . '</th>';
+            $html .= '</tr></thead><tbody>';
+            $count = 1;
+            foreach ($payments AS $payment) {
+                $html .= '<tr><td class="td_center">' . $count . '</td>';
+                $html .= '<td>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</td>';
+                $html .= '<td>' . $payment['bank_notes'] . '</td></tr>';
+                $count++;
+            }
+            $html .='</tbody></table>
+<body>';
+            header('Content-type: application/pdf');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('pagos_bancarios.pdf', 'I');
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }

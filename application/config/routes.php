@@ -57,6 +57,7 @@ $route['group/(:any)'] = 'group/$1';
 $route['picture/(:any)'] = 'picture/$1';
 $route['report/birthday'] = 'student/birthday';
 $route['report/payments'] = 'student/payments';
+$route['report/payments_bank'] = 'student/payments_bank';
 $route['report/attendance'] = 'group/attendance';
 
 $route['login'] = 'user_pages/login';

@@ -75,6 +75,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR || $this->role_id == ROLE_MANAGER) { ?>
                                 <li class="<?php echo is_active($current_page, 'payments') ?>"><a href="/report/payments"><?php echo lang('menu_payment'); ?></a></li>
                             <?php } ?>
+                            <li class="<?php echo is_active($current_page, 'payments_bank') ?>"><a href="/report/payments_bank"><?php echo lang('menu_payment_bank'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'attendance') ?>"><a href="/report/attendance"><?php echo lang('menu_assistance'); ?></a></li>
                         </ul>
                     </li>

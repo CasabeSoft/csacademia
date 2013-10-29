@@ -30,6 +30,7 @@ $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
 $lang['menu_assistance'] = "Attendance";
 $lang['menu_payment'] = "Payments";
+$lang['menu_payment_bank'] = "Banks payments";
 $lang['menu_payment_type'] = "Payment types";
 
 $lang['menu_catalog'] = "Catalog";
@@ -308,6 +309,7 @@ $lang['page_manage_payment_types'] = "Payment types managment";
 
 $lang['page_report_birthday'] = "Filter labels for birthdays";
 $lang['page_report_payments'] = "Filter payments";
+$lang['page_report_payments_bank'] = "Filter banks payments";
 $lang['page_report_attendance'] = "Filter attendance";
 
 $lang['page_login_title'] = "Access to Dundee Managment";

@@ -137,6 +137,49 @@ class Student_model extends CI_Model {
         }
         return $this->db->get()->result_array();
     }
+    
+    public function get_payments_bank($center = 0) {
+        $isActive = 'true';
+        //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
+        $start_date = '';
+        //$filter_month = '';
+        //$filter_payment_type = '';
+        $filter_bank_payment = ' AND student.bank_payment = 1';
+        /*if ($month != '0') {
+            $filter_month = " AND piriod = '" . $month . "'";
+            $months = array(1 => lang('form_january'), 2 => lang('form_february'), 3 => lang('form_march'), 4 => lang('form_april'),
+                5 => lang('form_may'), 6 => lang('form_june'), 7 => lang('form_july'), 8 => lang('form_august'),
+                9 => lang('form_september'), 10 => lang('form_october'), 11 => lang('form_november'), 12 => lang('form_december'));
+            $key = array_search($month, $months);
+            //$filter_month = ' AND MONTH(date) = ' . $month;
+            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $key . ') )';
+        }
+        if ($payment_type != 0) {
+            $filter_payment_type = ' AND payment_type_id = ' . $payment_type;
+        }*/
+        $this->db->select('contact.*, student.bank_notes')
+                ->from('contact')
+                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment . $start_date)
+                //->join('payment', 'payment.student_id = student.contact_id ' . $filter_month . $filter_payment_type, 'left outer')
+                //->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left outer')
+                ->where('client_id', $this->client_id)                
+                ->order_by("first_name, last_name", "asc");
+        if ($isActive != NULL) {
+            if ($isActive == 'true')
+                $this->db->where('end_date IS NULL');
+            else
+                $this->db->where('end_date IS NOT NULL');
+        }
+        if ($center != 0)
+            $this->db->where('center_id', $center);
+        /*if ($state != 0) {
+            if ($state == 1)
+                $this->db->where('date IS NOT NULL');
+            else
+                $this->db->where('date IS NULL');
+        }*/
+        return $this->db->get()->result_array();
+    }
 
     public function get_by_group($groups_id) {
         $isActive = 'true';

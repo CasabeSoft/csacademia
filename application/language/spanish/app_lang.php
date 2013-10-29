@@ -30,6 +30,7 @@ $lang['menu_qualification'] = "Calificaciones";
 $lang['menu_academic_period'] = "Períodos Académicos";
 $lang['menu_assistance'] = "Asistencia";
 $lang['menu_payment'] = "Pagos";
+$lang['menu_payment_bank'] = "Pagos bancarios";
 $lang['menu_payment_type'] = "Tipos de pago";
 
 $lang['menu_catalog'] = "Catálogo"; //"CATÁLOGO";
@@ -307,6 +308,7 @@ $lang['page_manage_payment_types'] = "Gestión de tipos de pagos";
 
 $lang['page_report_birthday'] = "Filtrar etiquetas para cumpleaños";
 $lang['page_report_payments'] = "Filtrar pagos";
+$lang['page_report_payments_bank'] = "Filtrar pagos bancarios";
 $lang['page_report_attendance'] = "Filtrar asistencia";
 
 $lang['page_login_title'] = "Acceder a Dundee Gestión";
