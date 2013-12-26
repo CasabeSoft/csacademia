@@ -32,6 +32,9 @@ $lang['menu_assistance'] = "Attendance";
 $lang['menu_payment'] = "Payments";
 $lang['menu_payment_bank'] = "Banks payments";
 $lang['menu_payment_type'] = "Payment types";
+$lang['menu_task_type'] = "Task types";
+$lang['menu_task_state'] = "Task states";
+$lang['menu_tasks'] = "Tasks";
 
 $lang['menu_catalog'] = "Catalog";
 $lang['menu_management'] = "Management";
@@ -66,6 +69,9 @@ $lang['subject_user'] = "User";
 $lang['subject_teacher'] = "Teacher";
 $lang['subject_student'] = "Student";
 $lang['subject_contact'] = "Contact";
+$lang['subject_task'] = "Task";
+$lang['subject_task_type'] = "Task type";
+$lang['subject_task_state'] = "Task_state";
 $lang['subject_qualification'] = "Qualification";
 $lang['subject_qualifications'] = "EVALUATIONS"; //Evaluations 
 $lang['subject_academic_period'] = "Academic Period";
@@ -84,7 +90,8 @@ $lang['subject_select_state'] = "By status";
 $lang['subject_select_payment_type'] = "By payment type";
 $lang['subject_select_academic_period'] = "By academic period";
 $lang['subject_select_piriod'] = "By period";
-$lang['subject_select_state_student'] = "By status of learners";
+$lang['subject_select_state_student'] = "By student";
+$lang['subject_select_to_display'] = "Show";
 $lang['subject_select_type'] = "By type";
 $lang['title_payments'] = "PAYMENTS";
 $lang['title_teacher'] = "TEACHER";
@@ -97,6 +104,7 @@ $lang['title_date'] = "DATE";
 $lang['title_payment'] = "PAYMENT";
 $lang['title_amount'] = "AMOUNT";
 $lang['title_phone'] = "PHONE";
+$lang['title_tasks'] = "TASKS";
 
 /* * *
  * Campos de los formularios
@@ -219,6 +227,10 @@ $lang['form_november'] = "November";
 $lang['form_december'] = "December";
 $lang['form_days'] = "Days";
 $lang['form_schedule'] = "Schedule";
+$lang['form_task'] = "Task";
+$lang['form_importance'] = "Importance";
+$lang['form_task_type'] = "Task type";
+$lang['form_task_state'] = "Task_state";
 
 /* * *
  * Botones
@@ -306,6 +318,9 @@ $lang['page_manage_academic_period'] = "Academic period managment";
 $lang['page_manage_main'] = "Academic managment system";
 $lang['page_manage_payments'] = "Payment managment";
 $lang['page_manage_payment_types'] = "Payment types managment";
+$lang['page_manage_task_types'] = "Task types managment";
+$lang['page_manage_task_states'] = "Task states managment";
+$lang['page_manage_tasks'] = "Tasks managment";
 
 $lang['page_report_birthday'] = "Filter labels for birthdays";
 $lang['page_report_payments'] = "Filter payments";

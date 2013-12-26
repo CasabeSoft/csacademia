@@ -701,6 +701,7 @@ class Student extends Basic_controller {
             $isActive = $this->input->post('state');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
+            $text_to_display = $this->input->post('text_to_display');
 
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
@@ -728,11 +729,16 @@ class Student extends Basic_controller {
                     $html .= '<td>';
                 }
 
-                $dateNormal = substr($student['date_of_birth'], 8, 2) . '/' . substr($student['date_of_birth'], 5, 2);  //db_to_Local($student['date_of_birth']);
+                if ($text_to_display == 1) {
+                   $dateNormal = substr($student['date_of_birth'], 8, 2) . '/' . substr($student['date_of_birth'], 5, 2);  //db_to_Local($student['date_of_birth']); 
+                } else {
+                   $dateNormal = $student['name'];
+                }
+                                
                 $html .= "<br>" . $student['first_name'] . ' ' . $student['last_name'] . "<br>";
                 $html .= $student['address'] . "<br>";
                 $html .= $student['postal_code'] . ' ' . $student['town'] . "<br>";
-                $html .= $dateNormal; // . ' Grupo: ' .  $student['name'];
+                $html .= $dateNormal;
 
                 $count++;
                 if ($col == 3) {

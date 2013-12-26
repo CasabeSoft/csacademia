@@ -33,7 +33,7 @@ class Crud_controller extends Basic_controller {
 
     protected function set_page_title($title = '') {
         $this->page_header = lang($title);
-        $this->title = "CasabeSoft Academia - " . $this->page_header;
+        $this->title = "Dundee - " . $this->page_header;
     }
 
 }

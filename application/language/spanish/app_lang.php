@@ -32,6 +32,9 @@ $lang['menu_assistance'] = "Asistencia";
 $lang['menu_payment'] = "Pagos";
 $lang['menu_payment_bank'] = "Pagos bancarios";
 $lang['menu_payment_type'] = "Tipos de pago";
+$lang['menu_task_type'] = "Tipos de tarea";
+$lang['menu_task_state'] = "Estado de la tarea";
+$lang['menu_tasks'] = "Tareas";
 
 $lang['menu_catalog'] = "Catálogo"; //"CATÁLOGO";
 $lang['menu_management'] = "Gestión"; //"GESTIÓN";
@@ -65,6 +68,9 @@ $lang['subject_user'] = "Usuario";
 $lang['subject_teacher'] = "Profesor";
 $lang['subject_student'] = "Alumno";
 $lang['subject_contact'] = "Contacto";
+$lang['subject_task'] = "Tarea";
+$lang['subject_task_type'] = "Tipo de tarea";
+$lang['subject_task_state'] = "Estado de la tarea";
 $lang['subject_qualification'] = "Calificación";
 $lang['subject_qualifications'] = "EVALUACIONES"; //Evaluaciones EVALUATIONS
 $lang['subject_academic_period'] = "Período Académico";
@@ -83,7 +89,8 @@ $lang['subject_select_state'] = "Por estado";
 $lang['subject_select_payment_type'] = "Por tipo de pago";
 $lang['subject_select_academic_period'] = "Por período académico";
 $lang['subject_select_piriod'] = "Por período";
-$lang['subject_select_state_student'] = "Por estado de los alumnos";
+$lang['subject_select_state_student'] = "Por alumnos";
+$lang['subject_select_to_display'] = "A mostrar";
 $lang['subject_select_type'] = "Por tipo";
 $lang['title_payments'] = "PAGOS";
 $lang['title_teacher'] = "PROFESOR";
@@ -96,6 +103,7 @@ $lang['title_date'] = "FECHA";
 $lang['title_payment'] = "PAGO";
 $lang['title_amount'] = "IMPORTE";
 $lang['title_phone'] = "TELEF";
+$lang['title_tasks'] = "TAREAS";
 
 /* * *
  * Campos de los formularios
@@ -215,9 +223,13 @@ $lang['form_august'] = "Agosto";
 $lang['form_september'] = "Septiembre";
 $lang['form_october'] = "Octubre";
 $lang['form_november'] = "Noviembre";
-$lang['form_december'] = "Deciembre";
+$lang['form_december'] = "Diciembre";
 $lang['form_days'] = "Días";
 $lang['form_schedule'] = "Horario";
+$lang['form_task'] = "Tarea";
+$lang['form_importance'] = "Importancia";
+$lang['form_task_type'] = "Tipo de tarea";
+$lang['form_task_state'] = "Estado de la tarea";
 
 /* * *
  * Botones
@@ -305,6 +317,9 @@ $lang['page_manage_academic_period'] = "Gestión de periodos académicos";
 $lang['page_manage_main'] = "Sistema de gestión académica";
 $lang['page_manage_payments'] = "Gestión de pagos";
 $lang['page_manage_payment_types'] = "Gestión de tipos de pagos";
+$lang['page_manage_task_types'] = "Gestión de tipos de tares";
+$lang['page_manage_task_states'] = "Gestión de estados de las tareas";
+$lang['page_manage_tasks'] = "Gestión de tareas";
 
 $lang['page_report_birthday'] = "Filtrar etiquetas para cumpleaños";
 $lang['page_report_payments'] = "Filtrar pagos";

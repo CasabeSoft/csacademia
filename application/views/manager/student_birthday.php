@@ -6,7 +6,7 @@
             <h1><?php echo $title; ?></h1>
         </div>
         <div class="row">
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
                         <?php echo lang('subject_select_state_student'); ?>
@@ -18,7 +18,7 @@
                     </select>
                 </fieldset>
             </div>
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
                         <?php echo lang('subject_select_center'); ?>
@@ -34,7 +34,7 @@
                     </select>
                 </fieldset>
             </div>
-            <div class="span4">
+            <div class="span3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
                         <?php echo lang('subject_select_month'); ?>
@@ -54,6 +54,18 @@
                         <option value="10"><?php echo lang('form_october'); ?></option>
                         <option value="11"><?php echo lang('form_november'); ?></option>
                         <option value="12"><?php echo lang('form_december'); ?></option>
+                    </select>
+                </fieldset>
+            </div>
+            <div class="span3">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        <?php echo lang('subject_select_to_display'); ?>
+                    </legend>
+                    <!--label for="lbxMonth"><?php echo lang('form_month'); ?></label-->                    
+                    <select id="text_to_display" name="text_to_display" class="input-block-level">
+                        <option value="1"><?php echo lang('form_date'); ?></option>
+                        <option value="2"><?php echo lang('form_group'); ?></option>
                     </select>
                 </fieldset>
             </div>

@@ -545,6 +545,88 @@ class Admin_pages extends Crud_controller {
         $this->crud_view = $this->crud->render();
         $this->load_page();
     }
+    
+    public function task_type() {
+        $this->set_page_title('page_manage_task_types');
+
+        $fields = array('id', 'name');
+
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $fields = array('name');
+        }
+
+        $this->crud->set_table('task_type');
+        $this->crud->set_subject(lang('subject_task_type'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'));
+
+        $this->crud->required_fields('name');
+        $this->crud->fields('name');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
+    
+    public function task_state() {
+        $this->set_page_title('page_manage_payment_types');
+
+        $fields = array('id', 'name', 'color');
+
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $fields = array('name', 'color');
+        }
+
+        $this->crud->set_table('task_state');
+        $this->crud->set_subject(lang('subject_task_state'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'))
+                ->display_as('color', lang('form_number_months'));
+
+        $this->crud->required_fields('name', 'color');
+        $this->crud->fields('name', 'color');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
+    
+    public function task() {
+        $this->set_page_title('page_manage_payments');
+
+        $fields = array('id', 'start_date', 'end_date', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $fields = array('start_date', 'end_date', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+        }
+
+        $this->crud->set_table('task');
+        $this->crud->set_subject(lang('subject_task'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('start_date', lang('form_start_date'))
+                ->display_as('end_date', lang('form_end_date'))
+                ->display_as('task', lang('form_task'))
+                ->display_as('description', lang('form_description'))
+                ->display_as('importance', lang('form_importance'))
+                ->display_as('task_type_id', lang('form_task_type'))
+                ->display_as('task_state_id', lang('form_task_state'))
+                ->display_as('login_id', lang('form_username'));
+
+        $this->crud->required_fields('start_date', 'end_date', 'task', 'description', 'importance', 'task_type_id', 'task_state_id');
+        $this->crud->fields('start_date', 'end_date', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+        //$this->crud->field_type('start_date', 'date');
+        //$this->crud->field_type('end_date', 'date');
+        $this->crud->field_type('importance','dropdown', array('1' => '1', '2' => '2','3' => '3' , '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'));
+        $this->crud->field_type('login_id', 'hidden', $this->session->userdata('id'));
+
+        $this->crud->set_relation('task_type_id', 'task_type', 'name');
+        $this->crud->set_relation('task_state_id', 'task_state', 'name');
+        $this->crud->set_relation('login_id', 'login', 'email');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
 
 }
 

@@ -93,7 +93,7 @@ class User_pages extends Basic_controller {
                         break;
                 }*/
                 // De momento y hasta que se defina el bloque anterior:
-                 redirect('manager/main');
+                 redirect('manage/tasks');
                 //}
             } else {
                 // Si no existe el usuario envio el mensaje de error.
@@ -104,7 +104,7 @@ class User_pages extends Basic_controller {
             $this->message = $this->session->flashdata('message');
         }
 
-        $this->title = "CasabeSoft Academia - " . lang('menu_login');
+        $this->title = lang('menu_login');
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
         $this->load_page('login');
     }
@@ -122,7 +122,7 @@ class User_pages extends Basic_controller {
      */
     function denied() {
         $this->current_page();
-        $this->title = "CasabeSoft Academia - " . lang('menu_login');
+        $this->title = lang('menu_login');
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
         $this->load_page('denied');
     }
@@ -167,7 +167,7 @@ class User_pages extends Basic_controller {
             }
         }
 
-        $this->title = "CasabeSoft Academia - " . lang('menu_change_password');
+        $this->title = lang('menu_change_password');
         $this->description = "Cambiar contraseña para el usuario de CasabeSoft Academia.";
         $this->load_page('change_password');
     }
@@ -205,7 +205,7 @@ class User_pages extends Basic_controller {
             }
         }
 
-        $this->title = "CasabeSoft Academia - " . lang('menu_profile');
+        $this->title = lang('menu_profile');
         $this->description = "Cambiar contraseña para el usuario de CasabeSoft Academia.";
         $this->load_page('profile');
     }

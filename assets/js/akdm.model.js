@@ -422,7 +422,63 @@ akdm.model = (function () {
     Qualification.fromJSON = function (qualificationJSON) {
         return new Qualification().fromJSON(qualificationJSON);
     };
+           
+    var Task = function () {
+        this.id = ko.observable("");
+        this.start_date = ko.observable("");
+        this.end_date = ko.observable("");
+        this.task = ko.observable("");
+        this.description = ko.observable("");       
+        this.importance = ko.observable("");
+        this.task_type_id = ko.observable("");
+        this.task_type_name = ko.observable("");
+        this.task_state_id = ko.observable("");
+        this.task_state_name = ko.observable("");
+        this.login_id = ko.observable("");
+        this.login_email = ko.observable("");
+    };
 
+    Task.prototype.toJSON = function () {
+        return Task.toJSON(this);
+    };
+
+    Task.prototype.fromJSON = function (taskJSON) {
+        this.id(taskJSON.id);
+        this.start_date(akdm.tools.db2LocaleDateStr(taskJSON.start_date || ""));
+        this.end_date(akdm.tools.db2LocaleDateStr(taskJSON.end_date || ""));
+        this.task(taskJSON.task);
+        this.description(taskJSON.description);
+        this.importance(taskJSON.importance);
+        this.task_type_id(taskJSON.task_type_id);
+        this.task_type_name(taskJSON.task_type_name);
+        this.task_state_id(taskJSON.task_state_id);
+        this.task_state_name(taskJSON.task_state_name);
+        this.login_id(taskJSON.login_id);
+        this.login_email(taskJSON.login_email);
+        return this;
+    };
+
+    Task.fromJSON = function (taskJSON) {
+        return new Task().fromJSON(taskJSON);
+    };
+
+    Task.toJSON = function (task) {
+        return {
+            "id": task.id(),
+            "start_date": akdm.tools.locale2dbDateStr(task.start_date()),
+            "end_date": akdm.tools.locale2dbDateStr(task.end_date()),
+            "task": task.task(),
+            "description": task.description(),
+            "importance": task.importance(),
+            "task_type_id": task.task_type_id(),
+            "task_type_name": task.task_type_name(),
+            "task_state_id": task.task_state_id(),
+            "task_state_name": task.task_state_name(),
+            "login_id": task.login_id(),
+            "login_email": task.login_email()
+        };
+    };
+                   
     return {
         Contact: Contact,
         Teacher: Teacher,
@@ -431,6 +487,7 @@ akdm.model = (function () {
         Family: Family,
         Students_by_groups: Students_by_groups,
         Payment: Payment,
-        Qualification: Qualification
+        Qualification: Qualification,
+        Task: Task
     };
 })();
