@@ -10,7 +10,9 @@ class Task_model extends CI_Model {
     public $FIELDS = [
         "id",
         "start_date",
+        "start_time",
         "end_date",
+        "end_time",
         "task",
         "description",
         "imporance",
@@ -18,9 +20,9 @@ class Task_model extends CI_Model {
         "task_state_id",
         "login_id"
     ];
-    
     private $DEFAUL_FILTER = [
-        'start_date' => NULL
+        'start_date' => NULL,
+        'dialy' => true
     ];
 
     public function __construct() {
@@ -33,16 +35,30 @@ class Task_model extends CI_Model {
                 ->join('task_type', 'task.task_type_id = task_type.id')
                 ->join('task_state', 'task.task_state_id = task_state.id')
                 ->join('login', 'task.login_id = login.id')
-                ->order_by('start_date', 'asc');        
-        foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
-            $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
-            switch ($key) {
-                default:
-                    if (!empty($value))
-                        $this->db->where($key, $value);
+                ->order_by('start_date, start_time', 'asc');
+
+        $dialy = array_key_exists('dialy', $filter) ? $filter['dialy'] : $this->DEFAUL_FILTER['dialy'];
+        $start_date = array_key_exists('start_date', $filter) ? $filter['start_date'] : $this->DEFAUL_FILTER['start_date'];
+        if ($dialy == 'true') {
+            if (!empty($start_date))
+                $this->db->where('start_date', $start_date);
+        } else {
+            if (!empty($start_date)) {
+                $date = explode('-', $start_date);
+                $this->db->where('YEAR(start_date)', $date[0]);
+                $this->db->where('MONTH(start_date)', $date[1]);
             }
         }
-        $where = "(task_type_id = 1 OR login_id = " . $this->session->userdata('id') . ")"; 
+        /* foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
+          $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
+          switch ($key) {
+
+          default:
+          if (!empty($value))
+          $this->db->where($key, $value);
+          }
+          } */
+        $where = "(task_type_id = 1 OR login_id = " . $this->session->userdata('id') . ")";
         $this->db->where($where);
         return $this->db->get()->result_array();
     }

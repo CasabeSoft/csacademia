@@ -426,16 +426,15 @@ akdm.model = (function () {
     var Task = function () {
         this.id = ko.observable("");
         this.start_date = ko.observable("");
+        this.start_time = ko.observable("");
         this.end_date = ko.observable("");
+        this.end_time = ko.observable("");
         this.task = ko.observable("");
         this.description = ko.observable("");       
         this.importance = ko.observable("");
         this.task_type_id = ko.observable("");
-        this.task_type_name = ko.observable("");
         this.task_state_id = ko.observable("");
-        this.task_state_name = ko.observable("");
         this.login_id = ko.observable("");
-        this.login_email = ko.observable("");
     };
 
     Task.prototype.toJSON = function () {
@@ -445,16 +444,15 @@ akdm.model = (function () {
     Task.prototype.fromJSON = function (taskJSON) {
         this.id(taskJSON.id);
         this.start_date(akdm.tools.db2LocaleDateStr(taskJSON.start_date || ""));
+        this.start_time(taskJSON.start_time);
         this.end_date(akdm.tools.db2LocaleDateStr(taskJSON.end_date || ""));
+        this.end_time(taskJSON.end_time);
         this.task(taskJSON.task);
         this.description(taskJSON.description);
         this.importance(taskJSON.importance);
         this.task_type_id(taskJSON.task_type_id);
-        this.task_type_name(taskJSON.task_type_name);
         this.task_state_id(taskJSON.task_state_id);
-        this.task_state_name(taskJSON.task_state_name);
         this.login_id(taskJSON.login_id);
-        this.login_email(taskJSON.login_email);
         return this;
     };
 
@@ -466,16 +464,15 @@ akdm.model = (function () {
         return {
             "id": task.id(),
             "start_date": akdm.tools.locale2dbDateStr(task.start_date()),
+            "start_time": task.start_time(),
             "end_date": akdm.tools.locale2dbDateStr(task.end_date()),
+            "end_time": task.end_time(),
             "task": task.task(),
             "description": task.description(),
             "importance": task.importance(),
             "task_type_id": task.task_type_id(),
-            "task_type_name": task.task_type_name(),
             "task_state_id": task.task_state_id(),
-            "task_state_name": task.task_state_name(),
-            "login_id": task.login_id(),
-            "login_email": task.login_email()
+            "login_id": task.login_id()
         };
     };
                    

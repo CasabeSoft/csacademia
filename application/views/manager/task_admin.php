@@ -17,24 +17,23 @@
                 </legend>
                 <div class="row-fluid">                     
                     <div class="btn-group" data-toggle="buttons-radio">
-                        <button class="btn" ><i class="icon-list"></i> Día</button>
-                        <button class="btn" ><img src="/assets/img/icon-calendar-day.png" class="icon-"> Semana</button>
-                        <button class="btn" ><i class="icon-calendar"></i> Mes</button>
+                        <button class="btn" data-bind="click: setViewDaily.bind($data, true)"><img src="/assets/img/icon-calendar-day.png" class="icon-"> Día</button>
+                        <button class="btn" data-bind="click: setViewDaily.bind($data, false)"><i class="icon-calendar"></i> Mes</button>
                     </div>
                     <label id="text_date">&nbsp; </label>
                     <span type="text" class="input-block-level" id="my_date"
                           placeholder="<?php echo lang('date_format_humans') ?>"
                           data-bind="value: currentDate, jqDatepicker: new Date(), event: {change: onCurrentDateChange}"></span>
-                    <label>&nbsp; </label>
+                    <label>&nbsp; </label>                   
                 </div>
             </div>
             <div class="span9">
                 <legend data-bind="with: currentDate">
-                    <span class="title-item-select" data-bind="text: $root.currentDate() + '&nbsp;'"></span>
+                    <span class="title-item-select" data-bind="text: $root.currentDateText() + '&nbsp;'"></span>
                     <div class="pull-right">                   
                         <?php
                         $page = $this->uri->segment(2);
-                        $print = '$root.printTasks';                      
+                        $print = '$root.printTasks';
                         ?>
                         <button type="button" class="btn btn-small " data-target="_blank" 
                                 data-bind="click: <?php echo $print ?>">
@@ -46,28 +45,26 @@
                     <table id="tblInternal" class="table table-bordered table-hover table-condensed" >
                         <thead>
                             <tr>
-                                <th></th>
-                                <th><?php echo lang('form_date'); ?></th>
-                                <th><?php echo lang('form_date'); ?></th>
+                                <th></th>                                                                
+                                <th data-bind="visible: !$root.viewDaily()"><?php echo lang('form_date'); ?></th>
+                                <th><?php echo lang('form_time'); ?></th>
                                 <th><?php echo lang('form_task'); ?></th>
-                                <th><?php echo lang('form_description'); ?></th>
                                 <th><?php echo lang('form_importance'); ?></th>
                                 <th><?php echo lang('form_type'); ?></th>
                                 <th><?php echo lang('form_state'); ?></th>
-                                <th><?php echo lang('form_username'); ?></th>
+                                <th><?php echo lang('subject_user'); ?></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: tasks">
                             <tr>
                                 <td data-bind="text: $index() + 1, click: $root.selectTask"></td>
-                                <td data-bind="text: start_date(), click: $root.selectTask"></td>
-                                <td data-bind="text: end_date(), click: $root.selectTask"></td>
+                                <td data-bind="text: start_date(), click: $root.selectTask, visible: !$root.viewDaily()"></td>
+                                <td data-bind="text: start_time(), click: $root.selectTask"></td>                                
                                 <td data-bind="text: task(), click: $root.selectTask"></td>
-                                <td data-bind="text: description(), click: $root.selectTask"></td>
                                 <td data-bind="text: importance(), click: $root.selectTask"></td>
                                 <td data-bind="text: $root.taskTypes[task_type_id()], click: $root.selectTask"></td>
-                                <td data-bind="text: $root.taskStates[task_state_id()], click: $root.selectTask"></td>
-                                <td data-bind="text: login_email(), click: $root.selectTask"></td>
+                                <td data-bind="text: $root.taskStates[task_state_id()].name, click: $root.selectTask, style: {backgroundColor: $root.taskStates[task_state_id()].color}"></td>
+                                <td data-bind="text: $root.users[login_id()], click: $root.selectTask"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -80,20 +77,30 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3><?php echo lang('subject_task'); ?></h3>
-        </div>
+        </div>        
         <div class="modal-body">
-            <div class="row-fluid" data-bind="with: $root.currentTask">              
+            <div class="row-fluid" data-bind="with: $root.currentTask">                  
                 <div class="span3">
-                    <label for="txtDate"><?php echo lang('form_date'); ?></label>
+                    <label for="lbxStartDate"><?php echo lang('form_task_start_date'); ?></label>
                     <input type="text" id="start_date" placeholder="dd/mm/aaaa" class="input-block-level"
                            data-bind="value: start_date, jqDatepicker: start_date">
                 </div>
                 <div class="span3">
-                    <label for="txtDate"><?php echo lang('form_date'); ?></label>
+                    <label for="lbxStartTime"><?php echo lang('form_task_start_time'); ?></label>
+                    <input type="text" id="start_time" placeholder="HH:mm" class="input-block-level" 
+                           data-bind="value: start_time, timepicker: start_time, timepickerOptions: {timeFormat: 'H:i:s', step: 15}"/>
+                </div>                
+                <div class="span3">
+                    <label for="txtDate"><?php echo lang('form_task_end_date'); ?></label>
                     <input type="text" id="end_date" placeholder="dd/mm/aaaa" class="input-block-level"
                            data-bind="value: end_date, jqDatepicker: end_date">
+                </div>
+                <div class="span3">
+                    <label for="lbxEndTime"><?php echo lang('form_task_end_time'); ?></label>
+                    <input type="text" id="end_time" placeholder="HH:mm" class="input-block-level" 
+                           data-bind="value: end_time, timepicker: end_time, timepickerOptions: {timeFormat: 'H:i:s', step: 15}"/>
                 </div> 
-                <input type="hidden" id="login_id" name="login_id" data-bind="value: login_id(1)"/>
+                <input type="hidden" id="login_id" name="login_id" data-bind="value: login_id()"/>
             </div>
             <div class="row-fluid" data-bind="with: $root.currentTask">               
                 <div class="span12">
@@ -106,7 +113,7 @@
                 <div class="span12">
                     <label for="lbxNotes"><?php echo lang('form_description'); ?></label>
                     <textarea id="description" placeholder="" class="input-block-level" 
-                               data-bind="value: description" ></textarea>
+                              data-bind="value: description" ></textarea>
                 </div>                
             </div>
             <div class="row-fluid" data-bind="with: $root.currentTask">               

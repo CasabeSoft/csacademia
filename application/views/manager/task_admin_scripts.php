@@ -7,6 +7,9 @@
 <script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/vendor/jquery.ui.widget.js"></script>
 <script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/jquery.iframe-transport.js"></script>
 <script src="/assets/lib/jquery/plugins/jquery-file-upload/20130521/js/jquery.fileupload.js"></script>
+<script src="/assets/lib/jquery/plugins/jquery-timepicker/jquery.timepicker.js"></script>
+<!--script src="/assets/lib/jquery/plugins/jquery-timepicker-addon/jquery-ui-timepicker-addon.js"></script>
+<script src="/assets/lib/jquery/plugins/jquery-timepicker-addon/jquery-ui-sliderAccess.js"></script-->
 <script type="text/javascript" src="/assets/js/akdm.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.tools.js"></script>
 <script type="text/javascript" src="/assets/js/akdm.ui.js"></script>
@@ -27,14 +30,24 @@
             task_deleted: '<?php echo lang('message_deleted') ?>',
             server_error: '<?php echo lang('message_server_error_details') ?>',
             validation_error: <?php echo json_encode(lang('message_validation_error')) ?>
-        },          
-            <?php echo json_encode($this->tasks_types) ?>,
-            <?php echo json_encode($this->tasks_states) ?>
+        },
+<?php echo json_encode($this->current_user) ?>,
+<?php echo json_encode($this->tasks_types) ?>,
+<?php echo json_encode($this->tasks_states) ?>,
+<?php echo json_encode($this->users) ?>
         );
 
         /*$('#my_date').change(function() {
-            console.log('cambio ' + $(this).val());
-            $('#text_date').html($(this).val());
-        });*/
+         console.log('cambio ' + $(this).val());
+         $('#text_date').html($(this).val());
+         });*/
+        $('#my_time').timepicker({
+            hour: 9,
+            hourGrid: 4,
+            minuteGrid: 10,
+            format: 'HH:mm',
+            defaultTimezone: '+0100'
+        });
     });
+
 </script>

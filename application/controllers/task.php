@@ -30,7 +30,7 @@ class Task extends Basic_controller {
         $this->current_user = $this->session->userdata('id');
         $this->tasks_types = $this->General_model->get_fields('task_type', 'id, name');
         $this->tasks_states = $this->General_model->get_fields('task_state', 'id, name, color');
-        //$this->tasks = $this->Task_model->get_all();
+        $this->users = $this->General_model->get_fields('login', 'id, email');
         $this->load_page('task_admin');
     }
 
@@ -77,6 +77,7 @@ class Task extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $task = $this->input->post();
+            
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->update($task));
         } catch (Exception $e) {
@@ -84,19 +85,29 @@ class Task extends Basic_controller {
         }
     }
 
-    public function tasks_report() {
+    public function tasks_report($date, $dialy) {
         try {
             $this->load->model('Task_model');
             $this->load->model('General_model');
             $this->load->helper('Util_helper');
+            
+            $filter = array('start_date' => $date, 'dialy' => $dialy);
 
-            $tasks = $this->Task_model->get_all();
+            $tasks = $this->Task_model->get_all($filter);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
+            
+            $start_date = explode('-', $date);
+            
+            if ($dialy == 'true') {
+                $text_date = '<b>' . lang('form_date') . ': </b>' . $start_date[2] . '/' . $start_date[1] . '/' .  $start_date[0];
+            } else {
+                $text_date = '<b>' . lang('form_month') . ': </b>' . $start_date[1] . '/' .  $start_date[0];
+            }
 
             $html = '
 <body>
@@ -107,8 +118,8 @@ class Task extends Basic_controller {
                 <td><p class="title-font"><b>' . lang('menu_tasks') . '</b></td>
             </tr>
             <tr>
-                <td><p><b>' . lang('form_date') . ': </b>';
-            $html .= '</p></td>
+                <td><p>';
+            $html .= $text_date . '</p></td>
             </tr>
         </tbody>
     </table>
@@ -117,21 +128,27 @@ class Task extends Basic_controller {
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
-            $html .= '<th>' . lang('form_date') . '</th>';
-            $html .= '<th>' . lang('form_date') . '</th>';
+            if ($dialy == 'false') {
+                $html .= '<th>' . lang('form_date') . '</th>';
+            }
+            $html .= '<th>' . lang('form_time') . '</th>';
             $html .= '<th>' . lang('form_task') . '</td>';
+            $html .= '<th>' . lang('form_importance') . '</td>';
             $html .= '<th>' . lang('form_type') . '</td>';
             $html .= '<th>' . lang('form_state') . '</td>';
-            $html .= '<th>' . lang('form_name') . '</td>';
+            $html .= '<th>' . lang('subject_user') . '</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             foreach ($tasks AS $task) {
-                $start_date = db_to_Local($task['start_date']);
+                $start_date_text = db_to_Local($task['start_date']);
                 $end_date = db_to_Local($task['end_date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                $html .= '<td>' . $start_date . '</td>';
-                $html .= '<td>' . $end_date . '</td>';
+                if ($dialy == 'false') {
+                    $html .= '<td>' . $start_date_text . '</td>';
+                }
+                $html .= '<td>' . $task['start_time'] . '</td>';
                 $html .= '<td>' . $task['task'] . '</td>';
+                $html .= '<td>' . $task['importance'] . '</td>';
                 $html .= '<td>' . $task['task_type_name'] . '</td>';
                 $html .= '<td>' . $task['task_state_name'] . '</td>';
                 $html .= '<td>' . $task['login_email'] . '</td>';
