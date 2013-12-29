@@ -211,7 +211,7 @@ akdm.TasksViewModel = function() {
         } else {
             var currDate = self.getCurrentDate();
             var currYear = currDate.getFullYear();
-            var currMonth = currDate.getMonth();
+            var currMonth = currDate.getMonth() + 1;
             self.currentDateText('MES: ' + currMonth + '/' + currYear);
         }
     };
@@ -219,9 +219,11 @@ akdm.TasksViewModel = function() {
     self.newTask = function() {
         var task = new self._TaskPrototype();
         task.start_date(self.currentDate());
-        task.start_time('09:00:00'); //$.timepicker.setTime(new Date())
+        var currDate = new Date();
+        var currTime = currDate.getHours() + ':' + currDate.getMinutes() + ':00';
+        task.start_time(currTime);
         task.end_date(self.currentDate());
-        task.end_time('09:00:00'); //$.timePicker.timeFormat('H:i:s', new Date().getTime())
+        task.end_time(currTime);
         task.login_id(self._currentUser);
         self.selectTask(task);
     };
