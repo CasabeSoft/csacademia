@@ -29,6 +29,7 @@ class Task extends Basic_controller {
         $this->load->model('Task_model');
         $this->current_user = $this->session->userdata('id');
         $this->tasks_types = $this->General_model->get_fields('task_type', 'id, name');
+        $this->tasks_importances = $this->General_model->get_fields('task_importance', 'id, name');
         $this->tasks_states = $this->General_model->get_fields('task_state', 'id, name, color');
         $this->users = $this->General_model->get_fields('login', 'id, email');
         $this->load_page('task_admin');
@@ -106,7 +107,9 @@ class Task extends Basic_controller {
             if ($dialy == 'true') {
                 $text_date = '<b>' . lang('form_date') . ': </b>' . $start_date[2] . '/' . $start_date[1] . '/' .  $start_date[0];
             } else {
-                $text_date = '<b>' . lang('form_month') . ': </b>' . $start_date[1] . '/' .  $start_date[0];
+                $months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                $text_date = '<b>' . lang('form_month') . ': </b>' . $months[intval($start_date[1])-1] . '/' .  $start_date[0];
             }
 
             $html = '
@@ -124,15 +127,16 @@ class Task extends Basic_controller {
         </tbody>
     </table>
 ';
-
+            $html .= '<br>';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
-            if ($dialy == 'false') {
+            //if ($dialy == 'false') {
                 $html .= '<th>' . lang('form_date') . '</th>';
-            }
+            //}
             $html .= '<th>' . lang('form_time') . '</th>';
             $html .= '<th>' . lang('form_task') . '</td>';
+            $html .= '<th>' . lang('form_description') . '</td>';
             $html .= '<th>' . lang('form_importance') . '</td>';
             $html .= '<th>' . lang('form_type') . '</td>';
             $html .= '<th>' . lang('form_state') . '</td>';
@@ -143,12 +147,13 @@ class Task extends Basic_controller {
                 $start_date_text = db_to_Local($task['start_date']);
                 $end_date = db_to_Local($task['end_date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                if ($dialy == 'false') {
+                //if ($dialy == 'false') {
                     $html .= '<td>' . $start_date_text . '</td>';
-                }
-                $html .= '<td>' . $task['start_time'] . '</td>';
+                //}
+                $html .= '<td>' . substr($task['start_time'], 0, 5) . '</td>';
                 $html .= '<td>' . $task['task'] . '</td>';
-                $html .= '<td>' . $task['importance'] . '</td>';
+                $html .= '<td>' . $task['task'] . '</td>';
+                $html .= '<td>' . $task['task_importance_name'] . '</td>';
                 $html .= '<td>' . $task['task_type_name'] . '</td>';
                 $html .= '<td>' . $task['task_state_name'] . '</td>';
                 $html .= '<td>' . $task['login_email'] . '</td>';

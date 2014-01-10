@@ -93,7 +93,7 @@ class User_pages extends Basic_controller {
                         break;
                 }*/
                 // De momento y hasta que se defina el bloque anterior:
-                 redirect('manage/tasks');
+                 redirect('tools/tasks');
                 //}
             } else {
                 // Si no existe el usuario envio el mensaje de error.

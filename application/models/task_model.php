@@ -30,9 +30,10 @@ class Task_model extends CI_Model {
     }
 
     public function get_all($filter = []) {
-        $this->db->select('task.*, task_type.name AS task_type_name, task_state.name AS task_state_name, login.email AS login_email')
+        $this->db->select('task.*, task_type.name AS task_type_name, task_importance.name AS task_importance_name, task_state.name AS task_state_name, login.email AS login_email')
                 ->from('task')
                 ->join('task_type', 'task.task_type_id = task_type.id')
+                ->join('task_importance', 'task.task_importance_id = task_importance.id')
                 ->join('task_state', 'task.task_state_id = task_state.id')
                 ->join('login', 'task.login_id = login.id')
                 ->order_by('start_date, start_time', 'asc');
@@ -40,8 +41,11 @@ class Task_model extends CI_Model {
         $dialy = array_key_exists('dialy', $filter) ? $filter['dialy'] : $this->DEFAUL_FILTER['dialy'];
         $start_date = array_key_exists('start_date', $filter) ? $filter['start_date'] : $this->DEFAUL_FILTER['start_date'];
         if ($dialy == 'true') {
-            if (!empty($start_date))
-                $this->db->where('start_date', $start_date);
+            if (!empty($start_date)) {
+                $this->db->where('start_date <= ', $start_date);
+                $this->db->where('end_date >= ', $start_date);               
+                //$this->db->where('start_date', $start_date);
+            }
         } else {
             if (!empty($start_date)) {
                 $date = explode('-', $start_date);

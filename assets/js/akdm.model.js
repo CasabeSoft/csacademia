@@ -431,10 +431,17 @@ akdm.model = (function () {
         this.end_time = ko.observable("");
         this.task = ko.observable("");
         this.description = ko.observable("");       
-        this.importance = ko.observable("");
+        this.task_importance_id = ko.observable("");
         this.task_type_id = ko.observable("");
         this.task_state_id = ko.observable("");
         this.login_id = ko.observable("");
+    };
+    
+    Task.prototype.short_start_time = function () {
+        return (this.start_time().substr(0,5) );
+    };
+    Task.prototype.short_end_time = function () {
+        return (this.end_time().substr(0,5) );
     };
 
     Task.prototype.toJSON = function () {
@@ -449,7 +456,7 @@ akdm.model = (function () {
         this.end_time(taskJSON.end_time);
         this.task(taskJSON.task);
         this.description(taskJSON.description);
-        this.importance(taskJSON.importance);
+        this.task_importance_id(taskJSON.task_importance_id);
         this.task_type_id(taskJSON.task_type_id);
         this.task_state_id(taskJSON.task_state_id);
         this.login_id(taskJSON.login_id);
@@ -469,7 +476,7 @@ akdm.model = (function () {
             "end_time": task.end_time(),
             "task": task.task(),
             "description": task.description(),
-            "importance": task.importance(),
+            "task_importance_id": task.task_importance_id(),
             "task_type_id": task.task_type_id(),
             "task_state_id": task.task_state_id(),
             "login_id": task.login_id()

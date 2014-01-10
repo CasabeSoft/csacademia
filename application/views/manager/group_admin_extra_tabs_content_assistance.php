@@ -10,16 +10,16 @@
         <div class="span3">
             <label><?php echo lang('form_attendance'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
-                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, true), css: {active: viewDailyAttendance() }"><img src="/assets/img/icon-calendar-day.png" class="icon-"> Día</button>
-                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, false), css: {active: !viewDailyAttendance() }" ><i class="icon-calendar"></i> Mes</button>
+                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, true), css: {active: viewDailyAttendance() }"><img src="/assets/img/icon-calendar-day.png" class="icon-"> <?php echo lang('subject_day'); ?></button>
+                <button class="btn" data-bind="click: setViewDailyAttendance.bind($data, false), css: {active: !viewDailyAttendance() }" ><i class="icon-calendar"></i> <?php echo lang('subject_month'); ?></button>
             </div>
         </div>   
         
         <div class="span3" data-bind="visible: viewDailyAttendance">
             <label><?php echo lang('form_view_as'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
-                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
-                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> <?php echo lang('subject_photo'); ?></button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> <?php echo lang('subject_listing'); ?></button>
             </div>
         </div>
         <div class="span2" data-bind="visible: ! viewDailyAttendance()">

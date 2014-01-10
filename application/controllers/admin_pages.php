@@ -568,6 +568,28 @@ class Admin_pages extends Crud_controller {
         $this->load_page();
     }
     
+    public function task_importance() {
+        $this->set_page_title('page_manage_task_importances');
+
+        $fields = array('id', 'name');
+
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $fields = array('name');
+        }
+
+        $this->crud->set_table('task_importance');
+        $this->crud->set_subject(lang('subject_task_importance'));
+        $this->crud->columns($fields);
+        $this->crud->display_as('id', lang('form_id'))
+                ->display_as('name', lang('form_name'));
+
+        $this->crud->required_fields('name');
+        $this->crud->fields('name');
+
+        $this->crud_view = $this->crud->render();
+        $this->load_page();
+    }
+    
     public function task_state() {
         $this->set_page_title('page_manage_payment_types');
 
@@ -592,12 +614,12 @@ class Admin_pages extends Crud_controller {
     }
     
     public function task() {
-        $this->set_page_title('page_manage_payments');
+        $this->set_page_title('page_manage_tasks');
 
-        $fields = array('id', 'start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+        $fields = array('id', 'start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
-            $fields = array('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+            $fields = array('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
         }
 
         $this->crud->set_table('task');
@@ -610,19 +632,20 @@ class Admin_pages extends Crud_controller {
                 ->display_as('end_time', lang('form_task_end_time'))
                 ->display_as('task', lang('form_task'))
                 ->display_as('description', lang('form_description'))
-                ->display_as('importance', lang('form_importance'))
+                ->display_as('task_importance_id', lang('form_importance'))
                 ->display_as('task_type_id', lang('form_type'))
                 ->display_as('task_state_id', lang('form_state'))
                 ->display_as('login_id', lang('subject_user'));
 
-        $this->crud->required_fields('start_date', 'start_time', 'task', 'importance', 'task_type_id', 'task_state_id');
-        $this->crud->fields('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'importance', 'task_type_id', 'task_state_id', 'login_id');
+        $this->crud->required_fields('start_date', 'start_time', 'task', 'task_importance_id', 'task_type_id', 'task_state_id');
+        $this->crud->fields('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
         $this->crud->field_type('start_date', 'date');
         $this->crud->field_type('end_date', 'date');
-        $this->crud->field_type('importance','dropdown', array('0' => '0',  '1' => '1', '2' => '2','3' => '3' , '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'));
+        //$this->crud->field_type('importance','dropdown', array('0' => '0',  '1' => '1', '2' => '2','3' => '3' , '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'));
         $this->crud->field_type('login_id', 'hidden', $this->session->userdata('id'));
 
         $this->crud->set_relation('task_type_id', 'task_type', 'name');
+        $this->crud->set_relation('task_importance_id', 'task_importance', 'name');
         $this->crud->set_relation('task_state_id', 'task_state', 'name');
         $this->crud->set_relation('login_id', 'login', 'email');
 

@@ -48,7 +48,6 @@ $route['manage/contact'] = 'contact/admin';
 $route['manage/teacher'] = 'teacher/admin';
 $route['manage/student'] = 'student/admin';
 $route['manage/group'] = 'group/admin';
-$route['manage/tasks'] = 'task/admin';
 $route['catalog/(:any)'] = 'admin_pages/$1';
 $route['manager/(:any)'] = 'manager_pages/$1';
 $route['contact/(:any)'] = 'contact/$1';
@@ -61,6 +60,8 @@ $route['report/birthday'] = 'student/birthday';
 $route['report/payments'] = 'student/payments';
 $route['report/payments_bank'] = 'student/payments_bank';
 $route['report/attendance'] = 'group/attendance';
+$route['tools/tasks'] = 'task/admin';
+$route['help/about'] = 'manager_pages/main';
 
 $route['login'] = 'user_pages/login';
 $route['change_password'] = 'user_pages/change_password';

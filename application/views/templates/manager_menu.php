@@ -18,7 +18,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>           
-            <a class="brand" href="/manage/tasks"><img src="/assets/img/logo.png" class="logo_client"></a>
+            <a class="brand" href="/tools/tasks"><img src="/assets/img/logo.png" class="logo_client"></a>
             <div class="nav-collapse collapse">
                 <ul class="nav menu-font">
                     <li class="<?php echo is_controller_active($current_controller, 'catalog') ?> dropdown">
@@ -35,7 +35,9 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
                                 <!--li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php //echo lang('menu_student') . ' / ' . lang('menu_group');   ?></a></li-->
-                                <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li> 
+                                <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'task_type') ?>"><a href="/catalog/task_type"><?php echo lang('menu_task_type'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'task') ?>"><a href="/catalog/task"><?php echo lang('menu_tasks'); ?></a></li>
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
@@ -45,10 +47,9 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>   
                             <li class="<?php echo is_active($current_page, 'payment_type') ?>"><a href="/catalog/payment_type"><?php echo lang('menu_payment_type'); ?></a></li> 
-                            <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'task_type') ?>"><a href="/catalog/task_type"><?php echo lang('menu_task_type'); ?></a></li>
+                            <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>                           
+                            <li class="<?php echo is_active($current_page, 'task_importance') ?>"><a href="/catalog/task_importance"><?php echo lang('menu_task_importance'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'task_state') ?>"><a href="/catalog/task_state"><?php echo lang('menu_task_state'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'task') ?>"><a href="/catalog/task"><?php echo lang('menu_tasks'); ?></a></li>
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR || $this->role_id == ROLE_MANAGER) { ?>
                                 <li class="<?php echo is_active($current_page, 'user') ?>"><a href="/catalog/user"><?php echo lang('menu_user'); ?></a></li>
                             <?php } ?>
@@ -63,7 +64,6 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/manage/contact"><?php echo lang('menu_contact'); ?></a></li>                            
                             <?php } ?>
-                            <li class="<?php echo is_active($current_page, 'tasks') ?>"><a href="/manage/tasks"><?php echo lang('menu_tasks'); ?></a></li>    
                             <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/manage/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/manage/student"><?php echo lang('menu_student'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/manage/group"><?php echo lang('menu_group'); ?></a></li>
@@ -84,8 +84,25 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </ul>
                     </li>
                     <!--li class="<?php echo is_controller_active($current_controller, 'billing') ?>"><a href="/manager/main"><?php echo lang('menu_billing'); ?></a></li-->
-                    <li class="<?php echo is_controller_active($current_controller, 'tools') ?>"><a href="/manager/main"><?php echo lang('menu_tools'); ?></a></li>
-                    <li class="<?php echo is_controller_active($current_controller, 'help') ?>"><a href="/manager/main"><?php echo lang('menu_help'); ?></a></li>
+                    <li class="<?php echo is_controller_active($current_controller, 'tools') ?> dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <?php echo lang('menu_tools'); ?>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="<?php echo is_active($current_page, 'tasks') ?>"><a href="/tools/tasks"><?php echo lang('menu_tasks'); ?></a></li>    
+                        </ul>
+                    </li>
+                    <!--li class="<?php echo is_controller_active($current_controller, 'help') ?>"><a href="/manager/main"><?php echo lang('menu_help'); ?></a></li-->
+                    <li class="<?php echo is_controller_active($current_controller, 'help') ?> dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <?php echo lang('menu_help'); ?>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/help/about"><?php echo lang('menu_help'); ?></a></li>    
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown"><!-- currentSchool -->

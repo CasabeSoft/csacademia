@@ -110,8 +110,8 @@
         <div class="span4">
             <label><?php echo lang('form_view_as'); ?></label>
             <div class="btn-group" data-toggle="buttons-radio">
-                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> Fotos</button>
-                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> Listado</button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, false), css: {active: ! viewStudentsAsList() }"><i class="icon-th"></i> <?php echo lang('subject_photo'); ?></button>
+                <button class="btn" data-bind="click: setViewStudentsAsList.bind($data, true), css: {active: viewStudentsAsList() }" ><i class="icon-th-list"></i> <?php echo lang('subject_listing'); ?></button>
             </div>
         </div>
         <div class="span2" data-bind="visible: viewStudentsAsList()">

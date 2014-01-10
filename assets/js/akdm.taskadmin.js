@@ -4,11 +4,12 @@ ko.bindingHandlers.jqDatepicker = {
     init: function(element) {
         var currentYear = new Date().getFullYear();
         $(element).datepicker({
-            inline: true,
+            //inline: true,
             //showWeek: true,
             changeMonth: true,
             changeYear: true,
-            yearRange: (currentYear - 10) + ':' + (currentYear + 10)
+            yearRange: (currentYear - 10) + ':' + (currentYear + 10),
+            autoSize: true
         });
     }
 };
@@ -175,6 +176,7 @@ akdm.TasksViewModel = function() {
     };
 
     self.taskTypes = {};
+    self.taskImportances = {};
     self.taskStates = {};
     self.users = {};
     self._currentUser = '';
@@ -209,9 +211,11 @@ akdm.TasksViewModel = function() {
         if (viewDaily) {
             self.currentDateText('FECHA: ' + self.currentDate());
         } else {
+            var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             var currDate = self.getCurrentDate();
             var currYear = currDate.getFullYear();
-            var currMonth = currDate.getMonth() + 1;
+            var currMonth = months[currDate.getMonth()];
             self.currentDateText('MES: ' + currMonth + '/' + currYear);
         }
     };
@@ -310,12 +314,15 @@ akdm.TasksViewModel = function() {
         $.post(self._get, self._filter).done(self.setTasks).fail(self._showError);
     };
 
-    self.init = function(strings, current_user, taskTypes, taskStates, users) {
+    self.init = function(strings, current_user, taskTypes, taskImportances, taskStates, users) {
         self.loadTasks();
         self._strings = $.extend(self._strings, strings);
         self._currentUser = current_user;
         $(taskTypes).each(function(index, task) {
             self.taskTypes[task.id] = task.name;
+        });
+        $(taskImportances).each(function(index, task) {
+            self.taskImportances[task.id] = task.name;
         });
         $(taskStates).each(function(index, task) {
             self.taskStates[task.id] = {'name': task.name, 'color': task.color};

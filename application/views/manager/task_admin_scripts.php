@@ -33,6 +33,7 @@
         },
 <?php echo json_encode($this->current_user) ?>,
 <?php echo json_encode($this->tasks_types) ?>,
+<?php echo json_encode($this->tasks_importances) ?>,            
 <?php echo json_encode($this->tasks_states) ?>,
 <?php echo json_encode($this->users) ?>
         );

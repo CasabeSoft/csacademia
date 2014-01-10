@@ -43,7 +43,7 @@ label.error {
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) { 
     .container-first { margin-top: 0; }
-    
+
     .feedback.top {
         margin-left: -37.5%; 
         width: 75%;
@@ -91,4 +91,11 @@ body
 
 .cursor-pointer{
     cursor: pointer;
+}
+.fixed {
+    min-width: 250px;
+}
+
+.ui-datepicker {
+    width: 16em !important;
 }
