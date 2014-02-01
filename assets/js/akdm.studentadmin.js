@@ -297,8 +297,8 @@ akdm.StudentViewModel = function () {
     self.selectContact = function (contact) {
         parent.selectContact(contact);
         self.currentFamily(new akdm.model.Family());
-        $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         self.currentPayment(new akdm.model.Payment());
+        $.get(self._family_get + contact.id()).done(self.setFamilyList).fail(self._showError);
         $.get(self._payments_get + contact.id()).done(self.setPaymentList).fail(self._showError);
         // $.get(self._get_price_by_student + contact.id()).done(self.setLevelPrice).fail(self._showError);
         $.get(qualification_get + contact.id()).done(self.setQualifications).fail(self._showError);
