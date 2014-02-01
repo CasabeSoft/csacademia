@@ -30,8 +30,8 @@ akdm.StudentViewModel = function () {
     var qualification_delete = '/student/qualification_delete/';
     var qualifications_report = '/student/qualifications_report/';
     var levelPriceColumns = {1: "price_1", 2: "price_2", 3: "price_3", 4: "price_4", 6: "price_6", 12: "price_12"};
-    var familyIndex = {};
     var empty_group = (new akdm.model.Group()).toJSON();
+    var currentQualificationClone;
     self._get = '/student/get';
     self._add = '/student/add';
     self._update = '/student/update';
@@ -228,7 +228,6 @@ akdm.StudentViewModel = function () {
         var family = self.currentFamily();
         $.get(family_delete + family.student_id() + '/' + family.id()).done(function () {
             self.familyList.remove(family);
-            delete(familyIndex[family.id()]);
             self.currentFamily(new akdm.model.Family());
             akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.family_deleted + '</strong>',
                     akdm.ui.Feedback.INFO, akdm.ui.Feedback.SHORT);
@@ -261,18 +260,15 @@ akdm.StudentViewModel = function () {
     };
 
     var addFamily = function (family) {
-        familyIndex[family.id()] = family;
         self.familyList.push(family);
     };
 
     self.setFamilyList = function (familyList) {
         self.familyList.removeAll();
-        familyIndex = {};
         $(familyList).each(function (index, family) {
             var newFamily = akdm.model.Family.fromJSON(family);
             addFamily(newFamily);
         });
-        $.get(family_get_available).done(self.setAvailableFamily).fail(self._showError);
     };
 
     self.setPaymentList = function (paymentList) {
@@ -344,6 +340,7 @@ akdm.StudentViewModel = function () {
 
     self.selectQualification = function (qualification) {
         self.currentQualification(qualification);
+        currentQualificationClone = $.clone(qualification, true);
         $('#dlgQualification').modal('show');
     };
     
@@ -358,16 +355,13 @@ akdm.StudentViewModel = function () {
 
     self.setAvailableFamily = function (contacts) {
         var newAvailableFamily = [];
-        self.availableFamily.removeAll();
         contacts.sort(function (a, b) {
             return a.first_name + a.last_name <= b.first_name + b.last_name ? -1 : +1;
         });
         $(contacts).each(function (index, contact) {
-            if (!familyIndex[contact.id]) {
-                var newFamily = akdm.model.Family.fromJSON(contact);
-                newFamily.contact_id(contact.id);
-                newAvailableFamily.push(newFamily);
-            }
+            var newFamily = akdm.model.Family.fromJSON(contact);
+            newFamily.contact_id(contact.id);
+            newAvailableFamily.push(newFamily);
         });
         self.availableFamily(newAvailableFamily);
     };
@@ -377,6 +371,7 @@ akdm.StudentViewModel = function () {
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
         self.currentQualification(new akdm.model.Qualification());
+        $.get(family_get_available).done(self.setAvailableFamily).fail(self._showError);
         $(relationships).each(function (index, relationship) {
             self.relationships[relationship.code] = relationship.name;
         });
