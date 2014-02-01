@@ -55,12 +55,10 @@ akdm.StudentViewModel = function () {
     self.availableFamily = ko.observableArray();
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
-    self.existingFamily = ko.observable();
     self.selectedFamily = ko.computed({
-        read: self.existingFamily,
+        read: function () { return null; },
         write: function (value) {
-            self.existingFamily(value);
-            if (value) self.currentFamily(new akdm.model.Family.fromJSON(value.toJSON()));
+            if (value) self.currentFamily(akdm.model.Family.fromJSON(value.toJSON()));
         }
     });
     self.currentStudentGroup = ko.computed({
@@ -347,10 +345,6 @@ akdm.StudentViewModel = function () {
     self.printQualifications = function () {
         var myWindow = window.open(qualifications_report + self.currentContact().id(), '_blank');
         myWindow.document.title = 'Informe de Calificaciones';
-    };
-
-    self.onExistingFamilyChange = function (family) {
-        self.currentFamily(family);
     };
 
     self.setAvailableFamily = function (contacts) {
