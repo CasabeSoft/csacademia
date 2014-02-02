@@ -99,3 +99,8 @@ body
 .ui-datepicker {
     width: 16em !important;
 }
+
+.odd { 
+    background-color: red; 
+    color: red !important;
+}

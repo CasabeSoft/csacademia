@@ -188,7 +188,7 @@ akdm.StudentViewModel = function () {
         var payment = self.currentPayment();
 
         // TODO: Implementar validación de datos del pago.
-        if (payment.payment_type_id() == "" || payment.piriod() == "") {
+        if (payment.payment_type_id() == "") { //|| payment.piriod() == ""
             akdm.ui.Feedback.show('#msgFeedback',
                     self._strings.validation_error,
                     akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);

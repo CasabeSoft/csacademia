@@ -9,10 +9,15 @@ ko.bindingHandlers.jqDatepicker = {
             changeMonth: true,
             changeYear: true,
             yearRange: (currentYear - 10) + ':' + (currentYear + 10),
-            autoSize: true
+            //autoSize: true,
+            //beforeShowDay: highlightOdds
         });
     }
 };
+
+function highlightOdds(date) {
+    return [true, date.getDate() % 2 == 1 ? 'odd' : ''];
+}
 
 ko.bindingHandlers.jqDateTimePicker = {
     init: function(element, valueAccessor, allBindingsAccessor) {
@@ -182,7 +187,7 @@ akdm.TasksViewModel = function() {
     self._currentUser = '';
     self.viewDaily = ko.observable(true);
     self.currentDate = ko.observable(lastDate);
-    self.currentDateText = ko.observable('FECHA: ' + self.currentDate());
+    self.currentDateText = ko.observable(self.currentDate()); //'FECHA: ' + 
     self._filter = {"start_date": akdm.tools.locale2dbDateStr(self.currentDate()), "dialy": self.viewDaily()};
     self.tasks = ko.observableArray();
     self.filter = ko.observable();
@@ -209,14 +214,14 @@ akdm.TasksViewModel = function() {
 
     self.setCurrentDateText = function(viewDaily) {
         if (viewDaily) {
-            self.currentDateText('FECHA: ' + self.currentDate());
+            self.currentDateText(self.currentDate()); //'FECHA: ' + 
         } else {
             var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
             "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             var currDate = self.getCurrentDate();
             var currYear = currDate.getFullYear();
             var currMonth = months[currDate.getMonth()];
-            self.currentDateText('MES: ' + currMonth + '/' + currYear);
+            self.currentDateText(currMonth + '/' + currYear); //'MES: ' + 
         }
     };
 
