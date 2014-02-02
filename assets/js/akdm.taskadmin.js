@@ -224,12 +224,21 @@ akdm.TasksViewModel = function() {
             self.currentDateText(currMonth + '/' + currYear); //'MES: ' + 
         }
     };
+    
+    self.onChangeDate = function() {
+        if (self.currentTask().end_date() < self.currentTask().start_date()) {
+            self.currentTask().end_date(self.currentTask().start_date()); 
+        } 
+    };
 
     self.newTask = function() {
         var task = new self._TaskPrototype();
-        task.start_date(self.currentDate());
         var currDate = new Date();
-        var currTime = currDate.getHours() + ':' + currDate.getMinutes() + ':00';
+        var pad ='00';
+        var currHour = currDate.getHours();
+        var currMin = currDate.getMinutes();       
+        var currTime = pad.substring(0, pad.length - currHour.length) + currHour + ':' + pad.substring(0, pad.length - currMin.length) + currMin + ':00';
+        task.start_date(self.currentDate());       
         task.start_time(currTime);
         task.end_date(self.currentDate());
         task.end_time(currTime);
@@ -250,8 +259,18 @@ akdm.TasksViewModel = function() {
             // Actualizar
             $.post(self._update, task.toJSON())
                     .done(function() {
-                        if (self.currentDate() != self.currentTask().start_date())
-                            self.tasks.remove(self.currentTask());
+                        if (self.viewDaily()) {
+                            if (self.currentDate() !== self.currentTask().start_date())
+                                self.tasks.remove(self.currentTask());
+                        } else {
+                            currentYear = self.currentDate().substring(6,4); 
+                            currentMonth = self.currentDate().substring(3,2); 
+                            startYear = self.currentTask().start_date().substring(6,4); 
+                            startMonth = self.currentTask().start_date().substring(3,2);
+                            
+                            if (currentYear !== startYear && currentMonth !== startMonth)
+                                self.tasks.remove(self.currentTask());
+                        }
                         akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.task_updated + '</strong>',
                                 akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
                     })
@@ -261,8 +280,18 @@ akdm.TasksViewModel = function() {
             $.post(self._add, task.toJSON())
                     .done(function(newId) {
                         task.id(newId);
-                        if (self.currentDate() == self.currentTask().start_date())
-                            self.tasks.push(self.currentTask());
+                        if (self.viewDaily()) {
+                            if (self.currentDate() === self.currentTask().start_date())
+                                self.tasks.push(self.currentTask());
+                        } else {
+                            currentYear1 = self.currentDate().substring(6,4); 
+                            currentMonth1 = self.currentDate().substring(3,2); 
+                            startYear1 = self.currentTask().start_date().substring(6,4); 
+                            startMonth1 = self.currentTask().start_date().substring(3,2);
+                            //console.log('mes: ' + self.currentDate() + ' año: ' +  self.currentTask().start_date());
+                            if (currentYear1 === startYear1 && currentMonth1 === startMonth1)
+                                self.tasks.push(self.currentTask());
+                        }
                         //self.tasks.splice(0,0,self.currentTask());
                         akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.task_created + '</strong>',
                                 akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);

@@ -81,7 +81,7 @@
                 <div class="span3">
                     <label for="lbxStartDate"><?php echo lang('form_task_start_date'); ?></label>
                     <input type="text" id="start_date" placeholder="dd/mm/aaaa" class="input-block-level"
-                           data-bind="value: start_date, jqDatepicker: start_date">
+                           data-bind="value: start_date, jqDatepicker: start_date, event: {change: $root.onChangeDate}">
                 </div>
                 <div class="span3">
                     <label for="lbxStartTime"><?php echo lang('form_task_start_time'); ?></label>
