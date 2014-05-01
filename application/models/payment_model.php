@@ -12,12 +12,20 @@ class Payment_model extends CI_Model {
         "id",
         "date",
         "amount",
-        "piriod",
+        "concept",
         "student_id",
         "payment_type_id",
-        "notes"
+        "notes",
+        "payment_period_year"
     ];
 
+    public $NULLABLES = [
+        'concept',
+        'payment_type_id',
+        'payment_period_year',
+        'notes'       
+    ];
+    
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
@@ -26,7 +34,7 @@ class Payment_model extends CI_Model {
     public function get_all($student_id) {
         return $this->db->select("payment.*, payment_type.name AS payment_type_name")
                         ->from('payment')
-                        ->join('payment_type', 'payment.payment_type_id = payment_type.id')
+                        ->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left')
                         ->where('student_id', $student_id)
                         ->order_by("date", "desc")
                         ->get()->result_array();
@@ -47,7 +55,9 @@ class Payment_model extends CI_Model {
     }
 
     public function add($payment) {
-        $cleanPayment = substract_fields($payment, $this->FIELDS);
+        $cleanPayment = convert_nullables(
+                substract_fields($payment, $this->FIELDS),
+                $this->NULLABLES);
         unset($cleanPayment['id']);
         $this->db->insert('payment', $cleanPayment);
         return $this->db->insert_id();
@@ -55,7 +65,9 @@ class Payment_model extends CI_Model {
 
     public function update($payment) {
         $id = $payment['id'];
-        $cleanPayment = substract_fields($payment, $this->FIELDS);
+        $cleanPayment = convert_nullables(
+                substract_fields($payment, $this->FIELDS),
+                $this->NULLABLES);
         unset($cleanPayment['student_id']);
         unset($cleanPayment['id']);
         $this->db->update('payment', $cleanPayment, 'id = ' . $id);

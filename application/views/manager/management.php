@@ -35,7 +35,7 @@
             <li><a href="#">Prev</a></li>
             <?php for ($i = 1; $i <= $extra_info["num_pages"]; $i++) { ?>
             <li><a href="#"><?php echo $i ?></a></li>
-            <?} ?>
+            <?php } ?>
             <li><a href="#">Next</a></li>
         </ul>
     </div>

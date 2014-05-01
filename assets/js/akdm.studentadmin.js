@@ -108,7 +108,7 @@ akdm.StudentViewModel = function () {
 
         var priceColumn = levelPriceColumns[self.currentPayment().payment_type_id()];
         self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
-        self.currentPayment().piriod("");
+        self.currentPayment().concept("");
     };
 
     self.selectPayment = function (payment) {
@@ -117,7 +117,7 @@ akdm.StudentViewModel = function () {
     };
     
     self.confirmRemovePayment = function (payment) {
-        $('#message_show').html('¿Está seguro que desea eliminar el pago de ' + payment.piriod() + '?');
+        $('#message_show').html('¿Está seguro que desea eliminar el pago de ' + payment.concept() + '?');
         $('#dlgConfirm').modal('show');
     };
 
@@ -125,17 +125,6 @@ akdm.StudentViewModel = function () {
         var newPayment = new akdm.model.Payment();
         newPayment.date(self.currentDate());
         self.currentPayment(newPayment);
-        /*
-        $.get(self._get_price_by_student + self.currentContact().id()).done(function (price) {
-            self.levelPrice(price);
-            if (!price)
-                self.levelPrice(0);
-            newPayment.date(self.currentDate());
-            newPayment.amount(self.levelPrice());
-            self.currentPayment(newPayment);
-            $('#lbxPiriod').focus();
-        }).fail(self._showError);
-        */
     };
 
     self.selectFamily = function (family) {
@@ -188,7 +177,7 @@ akdm.StudentViewModel = function () {
         var payment = self.currentPayment();
 
         // TODO: Implementar validación de datos del pago.
-        if (payment.payment_type_id() == "") { //|| payment.piriod() == ""
+        if (payment.payment_type_id() == "" && payment.concept() == '') {
             akdm.ui.Feedback.show('#msgFeedback',
                     self._strings.validation_error,
                     akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
@@ -235,7 +224,7 @@ akdm.StudentViewModel = function () {
     self.removePayment = function() {
         var payment = self.currentPayment();
         // TODO: implementar como confirmar borrado
-        //if (confirm("Estas seguro de borrar el pago " + payment.piriod()))
+        //if (confirm("Estas seguro de borrar el pago " + payment.concept()))
         //{
             $.get(payment_delete + payment.id()).done(function() {
                 self.paymentList.remove(self.currentPayment());

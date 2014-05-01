@@ -327,14 +327,15 @@ akdm.model = (function () {
     };
 
     var Payment = function () {
-        this.id = ko.observable("");
-        this.date = ko.observable("");
-        this.amount = ko.observable("");
-        this.piriod = ko.observable("");
-        this.student_id = ko.observable("");       
-        this.payment_type_id = ko.observable("");
-        this.payment_type_name = ko.observable("");
-        this.notes = ko.observable("");
+        this.id = ko.observable('');
+        this.date = ko.observable('');
+        this.amount = ko.observable('');
+        this.concept = ko.observable('');
+        this.student_id = ko.observable('');       
+        this.payment_type_id = ko.observable('');
+        this.payment_type_name = ko.observable('');
+        this.notes = ko.observable('');
+        this.payment_period_year = ko.observable('');
     };
 
     Payment.prototype.toJSON = function () {
@@ -345,11 +346,12 @@ akdm.model = (function () {
         this.id(paymentJSON.id);
         this.date(akdm.tools.db2LocaleDateStr(paymentJSON.date || ""));
         this.amount(paymentJSON.amount);
-        this.piriod(paymentJSON.piriod);
+        this.concept(paymentJSON.concept);
         this.student_id(paymentJSON.student_id);
         this.payment_type_id(paymentJSON.payment_type_id);
         this.payment_type_name(paymentJSON.payment_type_name);
         this.notes(paymentJSON.notes);
+        this.payment_period_year(paymentJSON.payment_period_year);
         return this;
     };
 
@@ -359,14 +361,15 @@ akdm.model = (function () {
 
     Payment.toJSON = function (payment) {
         return {
-            "id": payment.id(),
-            "date": akdm.tools.locale2dbDateStr(payment.date()),
-            "amount": payment.amount(),
-            "piriod": payment.piriod(),
-            "student_id": payment.student_id(),
-            "payment_type_id": payment.payment_type_id(),
-            "payment_type_name": payment.payment_type_name(),
-            "notes": payment.notes()
+            'id': payment.id(),
+            'date': akdm.tools.locale2dbDateStr(payment.date()),
+            'amount': payment.amount(),
+            'concept': payment.concept(),
+            'student_id': payment.student_id(),
+            'payment_type_id': payment.payment_type_id(),
+            'payment_type_name': payment.payment_type_name(),
+            'notes': payment.notes(),
+            'payment_period_year': payment.payment_period_year()
         };
     };
 
