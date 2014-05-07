@@ -39,7 +39,7 @@ class Student extends Basic_controller {
         $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
         $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
         $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
-        $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
+        $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
         $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name');
         $this->load_page('student_admin');
     }
@@ -59,8 +59,8 @@ class Student extends Basic_controller {
         $this->subject = lang('subject_student');
         $this->load->model('General_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
-        $this->payments_types = $this->General_model->get_fields('payment_type', 'id, name');
-        $this->piriods_used = $this->General_model->get_fields('payment', 'DISTINCT piriod');
+        $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
+        $this->piriods_used = $this->General_model->get_fields('payment', 'DISTINCT payment_period_id');
         $this->load_page('student_payment');
     }
     

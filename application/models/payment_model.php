@@ -32,9 +32,10 @@ class Payment_model extends CI_Model {
     }
 
     public function get_all($student_id) {
-        return $this->db->select("payment.*, payment_type.name AS payment_type_name")
+        return $this->db->select("payment.*, payment_period_type.name AS payment_type_name")
                         ->from('payment')
-                        ->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left')
+                        ->join('payment_period', 'payment.payment_period_id = payment_period.id')
+                        ->join('payment_period_type', 'payment_period.period_type = payment_period_type.id', 'left')
                         ->where('student_id', $student_id)
                         ->order_by("date", "desc")
                         ->get()->result_array();
