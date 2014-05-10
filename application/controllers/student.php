@@ -41,6 +41,7 @@ class Student extends Basic_controller {
         $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
         $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
         $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->payment_periods = $this->General_model->get_fields('payment_period', 'id, name, period_type');
         $this->load_page('student_admin');
     }
 

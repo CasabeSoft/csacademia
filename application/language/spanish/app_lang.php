@@ -239,6 +239,7 @@ $lang['form_task'] = "Tarea";
 $lang['form_importance'] = "Importancia";
 $lang['form_task_type'] = "Tipo de tarea";
 $lang['form_task_state'] = "Estado de la tarea";
+$lang['form_period'] = 'Período';
 
 /* * *
  * Botones

@@ -341,7 +341,7 @@
                 </thead>
                 <tbody data-bind="foreach: $root.paymentList">
                     <tr data-bind="" >
-                        <td data-bind="text: $root.paymentTypes[payment_type_id()], click: $root.selectPayment">
+                        <td data-bind="click: $root.selectPayment">
                             <!--input type="text" data-bind="visible: $root.isInEditRowMode(id)"-->
                         </td>
                         <td data-bind="text: concept, click: $root.selectPayment"></td>
@@ -361,6 +361,7 @@
             <h3><?php echo lang('subject_payment'); ?></h3>
         </div>
         <div class="modal-body">
+            <div id="dlgMsgFeedback" class="feedback top"></div>
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#periodicPayment" data-toggle="tab">Periódico</a></li>
                 <li><a href="#articlePayment" data-toggle="tab">Puntual</a></li>
@@ -369,7 +370,7 @@
                 <div id="periodicPayment" class="tab-pane active row-fluid" data-bind="with: $root.currentPayment">                
                     <div class="span3">
                         <label for="lbxPaymentType"><?php echo lang('subject_payment_type'); ?></label>
-                        <select id="lbxPaymentType" class="input-block-level" data-bind="value: payment_type_id, event: {change: $root.suggestPaymentPrice}">
+                        <select id="lbxPaymentType" class="input-block-level" data-bind="value: $root.payment_type_id, event: {change: $root.suggestPaymentPrice}">
                             <option value="">--</option>
                             <?php foreach ($payments_types as $payment) { ?>
                                 <option value="<?php echo $payment["id"] ?>"><?php echo $payment["name"] ?></option>
@@ -377,15 +378,13 @@
                         </select>
                     </div>
                     <div class="span4">
-                        <label for="lbxPeriod"><?php echo lang('form_concept'); ?></label>
-                        <div class="dropdown" id="lbxPeriod">
-                            <input type="text" id="tbxPeriod" class="input-block-level dropdown-toggle" data-toggle="dropdown" 
-                                   data-bind="value: concept" />
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="lbxPeriod"
-                                data-bind="foreach: $root.suggestedPeriods">
-                                <li><a tabindex="-1" href="#" data-bind="text: $data, click: function() { $root.currentPayment().concept($data); }"></a></li>
-                            </ul>
-                        </div>
+                        <label for="lbxPeriod"><?php echo lang('form_period'); ?></label>
+                        <select id="lbxPeriod" class="input-block-level" data-bind="value: payment_period_id,
+                                options: $root.suggestedPeriods,
+                                optionsText: 'name',
+                                value: id,
+                                optionsCaption: '--'"> 
+                        </select>
                     </div>
                     <div class="span2">
                         <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
@@ -429,7 +428,7 @@
                         <button class="btn btn-small" data-dismiss="modal" data-bind="click: $root.printPayment, visible: student_id">
                             <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                         </button>
-                        <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
+                        <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true">
                             <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                         </button> 
                         <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removePayment, visible: student_id">

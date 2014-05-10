@@ -240,6 +240,7 @@ $lang['form_task'] = "Task";
 $lang['form_importance'] = "Importance";
 $lang['form_task_type'] = "Task type";
 $lang['form_task_state'] = "Task_state";
+$lang['form_period'] = 'Period';
 
 /* * *
  * Botones

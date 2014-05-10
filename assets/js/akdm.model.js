@@ -332,9 +332,8 @@ akdm.model = (function () {
         this.amount = ko.observable('');
         this.concept = ko.observable('');
         this.student_id = ko.observable('');       
-        this.payment_type_id = ko.observable('');
-        this.payment_type_name = ko.observable('');
         this.notes = ko.observable('');
+        this.payment_period_id = ko.observable('');
         this.payment_period_year = ko.observable('');
     };
 
@@ -348,9 +347,8 @@ akdm.model = (function () {
         this.amount(paymentJSON.amount);
         this.concept(paymentJSON.concept);
         this.student_id(paymentJSON.student_id);
-        this.payment_type_id(paymentJSON.payment_type_id);
-        this.payment_type_name(paymentJSON.payment_type_name);
         this.notes(paymentJSON.notes);
+        this.payment_period_id(paymentJSON.payment_period_id);
         this.payment_period_year(paymentJSON.payment_period_year);
         return this;
     };
@@ -366,9 +364,8 @@ akdm.model = (function () {
             'amount': payment.amount(),
             'concept': payment.concept(),
             'student_id': payment.student_id(),
-            'payment_type_id': payment.payment_type_id(),
-            'payment_type_name': payment.payment_type_name(),
             'notes': payment.notes(),
+            'payment_period_id': payment.payment_period_id(),
             'payment_period_year': payment.payment_period_year()
         };
     };

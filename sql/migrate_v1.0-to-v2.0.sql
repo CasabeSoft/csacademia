@@ -47,7 +47,8 @@ update payment p
 	where p.payment_type_id = 12;
 
 -- Eliminar columna payment_type_id innecesaria 
-ALTER TABLE payment
-	DROP COLUMN `payment_type_id`, 
-	DROP INDEX `fk_payment_payment_type1_idx`;
-
+ALTER TABLE `academia_dev`.`payment` 
+    DROP FOREIGN KEY `fk_payment_payment_type1`;
+ALTER TABLE `academia_dev`.`payment` 
+    DROP COLUMN `payment_type_id`,
+    DROP INDEX `fk_payment_payment_type1_idx` ;

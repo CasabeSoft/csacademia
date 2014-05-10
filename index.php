@@ -33,7 +33,7 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL & ~E_DEPRECATED); // Ignorar las funciones deprecadas pues en PHP 5.5 salta como un error y la app no funciona
 		break;
 	
 		case 'testing':
