@@ -241,6 +241,9 @@ $lang['form_importance'] = "Importance";
 $lang['form_task_type'] = "Task type";
 $lang['form_task_state'] = "Task_state";
 $lang['form_period'] = 'Period';
+$lang['form_year'] = 'Year';
+$lang['form_periodic'] = 'Periodic';
+$lang['form_one_time'] = 'One time';
 
 /* * *
  * Botones

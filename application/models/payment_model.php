@@ -14,14 +14,14 @@ class Payment_model extends CI_Model {
         "amount",
         "concept",
         "student_id",
-        "payment_type_id",
+        "payment_period_id",
         "notes",
         "payment_period_year"
     ];
 
     public $NULLABLES = [
         'concept',
-        'payment_type_id',
+        'payment_period_id',
         'payment_period_year',
         'notes'       
     ];
@@ -34,7 +34,7 @@ class Payment_model extends CI_Model {
     public function get_all($student_id) {
         return $this->db->select("payment.*, payment_period_type.name AS payment_type_name")
                         ->from('payment')
-                        ->join('payment_period', 'payment.payment_period_id = payment_period.id')
+                        ->join('payment_period', 'payment.payment_period_id = payment_period.id', 'left')
                         ->join('payment_period_type', 'payment_period.period_type = payment_period_type.id', 'left')
                         ->where('student_id', $student_id)
                         ->order_by("date", "desc")

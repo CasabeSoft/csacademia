@@ -51,6 +51,8 @@ akdm.StudentViewModel = function () {
     self.levels = {};
     self.groups = {};
     self.paymentPeriods = {};
+    self.paymentTypeByPeriodId = {};
+    self.plainPaymentPeriods = [];
     self.currentQualifications = ko.observableArray();
     self.currentQualification = ko.observable();
     self.availableFamily = ko.observableArray();
@@ -89,33 +91,44 @@ akdm.StudentViewModel = function () {
                 : [];
         }
     });
-    // TODO: Eliminar. Parece que no se usa en ninguna parte
-    /*
     self.selectedPeriod = ko.computed({
         read: function () { 
-            return self.currentPayment() 
-                ? self.currentPayment().payment_type_id()
-                : null; 
-            },
-        write: function (value) {
-            if (!value) return;
+            if (!self.currentPayment()) return;
             
-            self.currentPayment().payment_type_id(value.id);
+            var period = self.plainPaymentPeriods.filter(function (item) {
+                if (item.id === self.currentPayment().payment_period_id())
+                    return item;
+            });
+            if (period.length > 0) {
+                self.payment_type_id(period[0].period_type);
+                return period[0];
+            } else {
+                self.payment_type_id('');
+                return null;
+            }
+        },
+        write: function (value) {
+            if (!value) return;            
+            self.currentPayment().payment_period_id(value.id);
         }
     });
-    */
 
     self.suggestPaymentPrice = function () {
         if (! self.currentPayment() || ! self.payment_type_id()) return;
 
         var priceColumn = levelPriceColumns[self.payment_type_id()];
-        self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
+        // TODO; Está fallando. Revisar por qué
+        //self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
         self.currentPayment().concept("");
     };
 
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
         $('#dlgPayments').modal('show');
+        if (payment.payment_period_id())
+            $('a[href|=#periodicPayment]').tab('show');
+        else
+            $('a[href|=#articlePayment]').tab('show');
     };
     
     self.confirmRemovePayment = function (payment) {
@@ -179,9 +192,9 @@ akdm.StudentViewModel = function () {
         var payment = self.currentPayment();
 
         // TODO: Implementar validación de la fecha.
-        if (payment.amount() === '' || isNaN(paymen.amount()) 
-                || self.payment_type_id() === '' && payment.concept().length === 0 
-                || payment.payment_period_id() === '') {
+        if (!payment.amount() || isNaN(payment.amount()) ||
+            self.payment_type_id() && (!payment.payment_period_id() || !payment.payment_period_year())||
+            !self.payment_type_id() && !payment.concept()) {
             akdm.ui.Feedback.show('#dlgMsgFeedback',
                     self._strings.validation_error,
                     akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
@@ -346,6 +359,24 @@ akdm.StudentViewModel = function () {
         });
         self.availableFamily(newAvailableFamily);
     };
+    
+    self.getPaymentType = function (payment) {
+        return payment.payment_period_id()
+            ? self.paymentTypeByPeriodId[payment.payment_period_id()]
+            : self._strings.payment_type_one_time;
+    };
+    
+    self.getPaymentConcept = function (payment) {
+        if (payment.payment_period_id()) {
+            var period = self.plainPaymentPeriods.filter(function (item) {
+                if (item.id === payment.payment_period_id())
+                    return item;
+            });
+            return (period.length > 0 ? period[0].name : '') + ' ' + payment.payment_period_year();
+        } else {
+            return payment.concept();
+        }
+    };
 
     self.init = function (messages, relationships, paymentTypes, academicPeriods, 
                           levels, groups, paymentPeriods) {
@@ -373,7 +404,9 @@ akdm.StudentViewModel = function () {
             if (! self.paymentPeriods[period.period_type])
                 self.paymentPeriods[period.period_type] = [];
             self.paymentPeriods[period.period_type].push(period);
+            self.paymentTypeByPeriodId[period.id] = self.paymentTypes[period.period_type];
         });
+        self.plainPaymentPeriods = paymentPeriods;
     };
 };
 
