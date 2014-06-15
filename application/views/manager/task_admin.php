@@ -91,7 +91,7 @@
                 <div class="span3">
                     <label for="txtDate"><?php echo lang('form_task_end_date'); ?></label>
                     <input type="text" id="end_date" placeholder="dd/mm/aaaa" class="input-block-level"
-                           data-bind="value: end_date, jqDatepicker: end_date">
+                           data-bind="value: end_date, jqDatepicker: end_date, event: {change: $root.onChangeDate}">
                 </div>
                 <div class="span3">
                     <label for="lbxEndTime"><?php echo lang('form_task_end_time'); ?></label>
