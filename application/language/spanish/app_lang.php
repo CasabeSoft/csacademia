@@ -86,6 +86,7 @@ $lang['subject_filter'] = "FILTRAR POR:"; //"Filtrar por";
 $lang['subject_financial'] = "FINANCIEROS"; //"Financieros";
 $lang['subject_family'] = "Familiar";
 $lang['subject_select_month'] = "Por mes";
+$lang['subject_select_year'] = "Por año";
 $lang['subject_select_center'] = "Por centro";
 $lang['subject_select_state'] = "Por estado";
 $lang['subject_select_payment_type'] = "Por tipo de pago";

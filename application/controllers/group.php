@@ -314,7 +314,7 @@ class Group extends Basic_controller {
     public function attendances_report() {
 
         try {
-            $piriod = $this->input->post('period');
+            $period = $this->input->post('period');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
             $year = date("Y");//2013;
@@ -338,7 +338,7 @@ class Group extends Basic_controller {
             
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
-            $groups = $this->Group_model->get_all_with_filter($piriod, $center);
+            $groups = $this->Group_model->get_all_with_filter($period, $center);
 
             foreach ($groups as $group_id) {
                 //echo 'id ' . $group_id;                exit();

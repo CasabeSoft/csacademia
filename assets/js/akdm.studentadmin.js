@@ -338,7 +338,7 @@ akdm.StudentViewModel = function () {
 
     self.selectQualification = function (qualification) {
         self.currentQualification(qualification);
-        currentQualificationClone = $.clone(qualification, true);
+        //currentQualificationClone = $.clone(qualification, true);
         $('#dlgQualification').modal('show');
     };
     
