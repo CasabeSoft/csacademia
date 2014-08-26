@@ -94,7 +94,7 @@ class Student_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = 0) {
+    public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = -1) {
         $isActive = 'true';
         //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
         //$start_date = '';
@@ -139,11 +139,11 @@ class Student_model extends CI_Model {
           //$filter_payment_type = ' AND payment_period.period_type = ' . $payment_type;
           $this->db->where('payment_period.period_type', $payment_type);
           } */
-        if ($bank_payment != 0) {
-            if ($state == 1) {
-                $bank_value = 0;
-            } else {
+        if ($bank_payment != -1) {
+            if ($bank_payment == 1) {
                 $bank_value = 1;
+            } else {
+                $bank_value = 0;
             }
             //$filter_bank_payment = ' AND student.bank_payment = 0';
             $this->db->where('student.bank_payment', $bank_value);

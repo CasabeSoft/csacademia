@@ -494,26 +494,25 @@ class Admin_pages extends Crud_controller {
     public function payment() {
         $this->set_page_title('page_manage_payments');
 
-        $fields = array('id', 'date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+        $fields = array('id', 'student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
-            $fields = array('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+            $fields = array('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
         }
 
         $this->crud->set_table('payment');
         $this->crud->set_subject(lang('subject_payment'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
-                ->display_as('date', lang('form_date'))
-                ->display_as('amount', lang('form_amount'))
-                ->display_as('payment_period_id', lang('form_period'))
-                ->display_as('payment_period_year', lang('form_period'))
-                ->display_as('concept', lang('form_concept'))
                 ->display_as('student_id', lang('form_student'))
+                ->display_as('date', lang('form_date'))                
+                ->display_as('payment_period_id', lang('form_period'))
+                ->display_as('payment_period_year', lang('form_year'))
+                ->display_as('amount', lang('form_amount'))
                 ->display_as('notes', lang('form_notes'));
 
-        $this->crud->required_fields('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id');
-        $this->crud->fields('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+        $this->crud->required_fields('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount');
+        $this->crud->fields('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
         $this->crud->field_type('date', 'date');
 
         $this->crud->set_primary_key('contact_id', 'view_student');
