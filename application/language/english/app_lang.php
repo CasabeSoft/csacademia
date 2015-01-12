@@ -87,6 +87,7 @@ $lang['subject_filter'] = "FILTER BY:"; //"Filter by";
 $lang['subject_financial'] = "FINANCIAL"; //"Financial";
 $lang['subject_family'] = "Family";
 $lang['subject_select_month'] = "By month";
+$lang['subject_select_year'] = "By year";
 $lang['subject_select_center'] = "By center";
 $lang['subject_select_state'] = "By status";
 $lang['subject_select_payment_type'] = "By payment type";
@@ -240,6 +241,10 @@ $lang['form_task'] = "Task";
 $lang['form_importance'] = "Importance";
 $lang['form_task_type'] = "Task type";
 $lang['form_task_state'] = "Task_state";
+$lang['form_period'] = 'Period';
+$lang['form_year'] = 'Year';
+$lang['form_periodic'] = 'Periodic';
+$lang['form_one_time'] = 'One time';
 
 /* * *
  * Botones

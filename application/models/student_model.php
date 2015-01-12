@@ -94,75 +94,88 @@ class Student_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_payments($center = 0, $payment_type = 0, $month = 0, $state = 0) {
+    public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = 0) {
         $isActive = 'true';
         //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
-        $start_date = '';
+        //$start_date = '';
+        //$filter_payment_type = '';
+        //$filter_bank_payment = ' AND student.bank_payment = 0';
+        $filter_year = '';
         $filter_month = '';
-        $filter_payment_type = '';
-        $filter_bank_payment = ' AND student.bank_payment = 0';
+        $filter_start_period = '';
+        $filter_end_period = '';
+        if ($year != 0) {
+            $filter_year = ' AND payment.payment_period_year = ' . $year;
+            //$this->db->where('payment.payment_period_year1', $year);
+        }
         if ($month != '0') {
-            $filter_month = " AND piriod = '" . $month . "'";
-            $months = array(1 => lang('form_january'), 2 => lang('form_february'), 3 => lang('form_march'), 4 => lang('form_april'),
-                5 => lang('form_may'), 6 => lang('form_june'), 7 => lang('form_july'), 8 => lang('form_august'),
-                9 => lang('form_september'), 10 => lang('form_october'), 11 => lang('form_november'), 12 => lang('form_december'));
-            $key = array_search($month, $months);
-            //$filter_month = ' AND MONTH(date) = ' . $month;
-            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $key . ') )';
+            $filter_month = $year . "-" . $month;
+            $filter_start_period = " AND CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <= '" . $filter_month . "'";
+            $filter_end_period = " AND CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >= '" . $filter_month . "'";
+            //$filter_month = " AND payment.payment_period_id = " . $month ;
+            //$this->db->where('payment.payment_period_id', $month);
+            //$this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
+            //$this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
         }
-        if ($payment_type != 0) {
-            $filter_payment_type = ' AND payment_type_id = ' . $payment_type;
-        }
-        $this->db->select('contact.*, payment.*, payment_type.name as payment_type_name ')
+        $this->db->select('contact.first_name, contact.last_name, student.bank_payment, payment.date, payment.amount, payment.payment_period_year, payment_period.name as period_name, payment_period_type.name as payment_type_name ')
                 ->from('contact')
-                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment . $start_date)
-                ->join('payment', 'payment.student_id = student.contact_id ' . $filter_month . $filter_payment_type, 'left outer')
-                ->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left outer')
-                ->where('client_id', $this->client_id)                
-                ->order_by("date, first_name, last_name", "asc");
-                //->order_by("first_name, last_name", "asc");
+                ->join('student', 'contact.id = student.contact_id')
+                ->join('payment', 'payment.student_id = student.contact_id' . $filter_year, 'left')
+                ->join('payment_period', 'payment.payment_period_id = payment_period.id' . $filter_start_period . $filter_end_period, 'left')
+                ->join('payment_period_type', 'payment_period.period_type = payment_period_type.id', 'left')
+                ->where('contact.client_id', $this->client_id)
+                //->where('student.bank_payment', 0)
+                ->order_by("payment.date, contact.first_name, contact.last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
-                $this->db->where('end_date IS NULL');
+                $this->db->where('student.end_date IS NULL');
             else
-                $this->db->where('end_date IS NOT NULL');
+                $this->db->where('student.end_date IS NOT NULL');
         }
         if ($center != 0)
-            $this->db->where('center_id', $center);
+            $this->db->where('student.center_id', $center);
+        /*
+          if ($payment_type != 0) {
+          //$filter_payment_type = ' AND payment_period.period_type = ' . $payment_type;
+          $this->db->where('payment_period.period_type', $payment_type);
+          } */
+        if ($bank_payment != 0) {
+            if ($state == 1) {
+                $bank_value = 0;
+            } else {
+                $bank_value = 1;
+            }
+            //$filter_bank_payment = ' AND student.bank_payment = 0';
+            $this->db->where('student.bank_payment', $bank_value);
+        }
         if ($state != 0) {
-            if ($state == 1)
-                $this->db->where('date IS NOT NULL');
-            else
-                $this->db->where('date IS NULL');
+            if ($state == 1) {
+                //$this->db->where('payment.date IS NOT NULL');
+                //$this->db->where('payment_period.name IS NOT NULL');
+                //$this->db->where('payment.payment_period_id IS NOT NULL');
+                $this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
+                $this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
+            } else {
+                //$this->db->where('payment.date IS NULL');
+                //$this->db->where('payment_period.name IS NULL');
+                //$this->db->where('payment.payment_period_id IS NULL');
+                $this->db->where('payment.payment_period_id IS NULL');
+            }
+        } else {
+            $this->db->where('payment.payment_period_id IS NULL');
+            $this->db->or_where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
+            $this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
         }
         return $this->db->get()->result_array();
     }
-    
+
     public function get_payments_bank($center = 0) {
         $isActive = 'true';
-        //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
-        $start_date = '';
-        //$filter_month = '';
-        //$filter_payment_type = '';
         $filter_bank_payment = ' AND student.bank_payment = 1';
-        /*if ($month != '0') {
-            $filter_month = " AND piriod = '" . $month . "'";
-            $months = array(1 => lang('form_january'), 2 => lang('form_february'), 3 => lang('form_march'), 4 => lang('form_april'),
-                5 => lang('form_may'), 6 => lang('form_june'), 7 => lang('form_july'), 8 => lang('form_august'),
-                9 => lang('form_september'), 10 => lang('form_october'), 11 => lang('form_november'), 12 => lang('form_december'));
-            $key = array_search($month, $months);
-            //$filter_month = ' AND MONTH(date) = ' . $month;
-            $start_date = ' AND ( YEAR(start_date) < ' . date("Y") . ' OR ( YEAR(start_date) = ' . date("Y") . ' AND MONTH(start_date) <= ' . $key . ') )';
-        }
-        if ($payment_type != 0) {
-            $filter_payment_type = ' AND payment_type_id = ' . $payment_type;
-        }*/
         $this->db->select('contact.*, student.bank_notes')
                 ->from('contact')
-                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment . $start_date)
-                //->join('payment', 'payment.student_id = student.contact_id ' . $filter_month . $filter_payment_type, 'left outer')
-                //->join('payment_type', 'payment.payment_type_id = payment_type.id', 'left outer')
-                ->where('client_id', $this->client_id)                
+                ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment)
+                ->where('client_id', $this->client_id)
                 ->order_by("first_name, last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
@@ -172,12 +185,6 @@ class Student_model extends CI_Model {
         }
         if ($center != 0)
             $this->db->where('center_id', $center);
-        /*if ($state != 0) {
-            if ($state == 1)
-                $this->db->where('date IS NOT NULL');
-            else
-                $this->db->where('date IS NULL');
-        }*/
         return $this->db->get()->result_array();
     }
 
@@ -189,7 +196,6 @@ class Student_model extends CI_Model {
                 ->join('school_level', 'school_level.id = student.school_level', 'left outer')
                 ->where('group_id', $groups_id)
                 ->order_by("contact.last_name, contact.first_name", "asc");
-                //->order_by("contact.first_name, contact.last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
                 $this->db->where('end_date IS NULL');

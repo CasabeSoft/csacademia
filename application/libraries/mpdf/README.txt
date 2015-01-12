@@ -8,7 +8,7 @@ Installation
 	 /tmp/ - used for some images and ProgressBar
 	 /graph_cache/ - if you are using JpGraph in conjunction with mPDF
 
-To test the installation, point your browser to the basic example file : [path_to_mpdf_folder]/mpdf/examples/example_basic.php
+To test the installation, point your browser to the basic example file : [path_to_mpdf_folder]/mpdf/examples/example01_basic.php
 
 If you wish to define a different folder for temporary files rather than /tmp/ see the note on 'Folder for temporary files' in 
  the section on Installation & Setup in the manual (http://mpdf1.com/manual/).
@@ -32,7 +32,7 @@ The configurable values referred to below are set in the config_fonts.php file
 When parsing HTML/CSS, mPDF will read the CSS font-family name (e.g. 'Trebuchet MS') and convert 
 by removing any spaces and changing to lowercase, to look for a mPDF font-family name (trebuchetms). 
 
-Next it will look for a translation (if set) e.g.:
+Next it will look for a translation (if set) in config_font.php e.g.:
 $this->fonttrans = array(
 	'trebuchetms' => 'trebuchet'
 )
@@ -40,7 +40,7 @@ $this->fonttrans = array(
 Now the mPDF font-family name to be used is 'trebuchet'
 
 If you wish to make this font available, you need to specify the Truetype .ttf font files for each variant.
-These should be defined in the array:
+These should be defined in config_font.php in the array:
 $this->fontdata = array(
 	"trebuchet" => array(
 		'R' => "trebuc.ttf",
@@ -67,7 +67,7 @@ re-use next time it accesses a particular font. This will significantly improve 
 and is strongly recommended. 
 
 mPDF should be able to read most TrueType Unicode font files with a .ttf extension
-Truetype fonts with .ttf extension that are OpenType also work OK.
+Truetype fonts with .otf extension that are OpenType also work OK.
 TrueType collections (.ttc) will also work if they contain TrueType Unicode fonts.
 
 
@@ -116,20 +116,9 @@ new mPDF('..-aCJK')  new mPDF('-aCJK')
 	Use in conjunction with settings in config_cp.php
 
 For backwards compatibility, new mPDF('-s') and new mPDF('s') will force subsetting by 
-	setting $this->percentSubset=100 (see below)
+	setting $this->percentSubset=100
 	new mPDF('utf-8-s') and new mPDF('ar-s') are also recognised
 
-Language/Country (ll-cc)
-------------------------
-You can use a language code ('en') or language/country code ('en-GB') to control which 
-mode/fonts are used. The behaviour is set up in config_cp.php file.
-The default settings show some of the things you can do:
-new mPDF('de') - as German is a Western European langauge, it is suitable to use the Adobe core fonts.
-	Using 'de' alone will do nothing, but if you use ('de-x'), this will use core fonts.
-new mPDF('th') - many fonts do not contain the characters necessary for Thai script. The value $unifonts 
-	defines a restricted list of fonts available for mPDF to use.
-
-NB <html dir="rtl"> or <body dir="rtl"> are supported.
 
 
 

@@ -41,6 +41,7 @@ class Student extends Basic_controller {
         $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
         $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
         $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->payment_periods = $this->General_model->get_fields('payment_period', 'id, name, period_type');
         $this->load_page('student_admin');
     }
 
@@ -58,9 +59,11 @@ class Student extends Basic_controller {
         $this->title = lang('page_report_payments');
         $this->subject = lang('subject_student');
         $this->load->model('General_model');
+        $this->load->model('Payment_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
         $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
-        $this->piriods_used = $this->General_model->get_fields('payment', 'DISTINCT payment_period_id');
+        //$this->periods_used = $this->General_model->get_fields('payment', 'DISTINCT payment_period_id');
+        $this->periods_used = $this->Payment_model->get_distint();
         $this->load_page('student_payment');
     }
     
@@ -238,29 +241,10 @@ class Student extends Basic_controller {
         }
     }
 
+    /*
+     * Informe listado de pagos de un alumno
+     */
     public function payments_report($id) {
-
-        /* $this->setup_ajax_response_headers();
-          try {
-          $this->load->model('Payment_model');
-          echo json_encode($this->Payment_model->get_all($id));
-          } catch (Exception $e) {
-          $this->_echo_json_error($e->getMessage());
-          } */
-
-        /* $this->load->model('Payment_model');
-          //echo json_encode($this->Payment_model->get_all($id));
-          $this->load->library('PHPReport');
-          $xxx = $this->Payment_model->get_all($id);
-          $R = new PHPReport();
-          $R->load(array(
-          'id' => 'product',
-          'data' => $xxx
-          )
-
-          );
-
-          $R->render(); */
         try {
             $this->load->model('Payment_model');
             $this->load->model('General_model');
@@ -297,7 +281,7 @@ class Student extends Basic_controller {
             $html .= '<th class="td_center"></th>';
             $html .= '<th>' . lang('form_date') . '</th>';
             $html .= '<th>' . lang('form_payment_type') . '</th>';
-            $html .= '<th>' . lang('form_piriod') . '</td>';
+            $html .= '<th>' . lang('form_period') . '</td>';
             $html .= '<th class="td_right">' . lang('form_amount') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
@@ -307,7 +291,7 @@ class Student extends Basic_controller {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $payment['payment_type_name'] . '</td>';
-                $html .= '<td>' . $payment['piriod'] . '</td>';
+                $html .= '<td>' . $payment['period'] . '  ' . $payment['payment_period_year'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
                 $amount += $payment['amount'];
                 $count++;
@@ -325,116 +309,9 @@ class Student extends Basic_controller {
         }
     }
 
-    /* public function payment_report($id) {
-
-      try {
-      $this->load->model('Payment_model');
-
-      $payment = $this->Payment_model->get_payment_id($id);
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('c', array(100, 100));
-
-      $html = '
-      <style>
-      .td_center{
-      text-align:center;
-      padding: 0 0.5em;
-      }
-      .td_right{
-      text-align:right;
-      padding: 0 0.5em;
-      }
-
-      .gradient {
-      border:0.1mm solid #220044;
-      background-color: #f0f2ff;
-      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-      box-shadow: 0.3em 0.3em #888888;
-      }
-      .rounded {
-      border:0.1mm solid #220044;
-      background-color: #f0f2ff;
-      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-      border-radius: 2mm;
-      background-clip: border-box;
-      }
-      div.text {
-      padding:0.8em;
-      margin-bottom: 0.7em;
-      }
-      p {
-      margin: 0.25em 0;
-      }
-      table.list {
-      border:1px solid #000000;
-      font-family: sans-serif;
-      font-size: 10pt;
-      background-gradient: linear #c7cdde #f0f2ff 0 1 0 0.5;
-      }
-      table.list td, th {
-      border:1px solid #000000;
-      text-align: left;
-      font-weight: normal;
-      }
-      .code {
-      font-family: monospace;
-      font-size: 9pt;
-      background-color: #d5d5d5;
-      margin: 0.5em 0 0.5cm 0;
-      padding: 0 0.3cm;
-      border:0.2mm solid #000088;
-      box-shadow: 0.3em 0.3em #888888;
-      }
-      </style>
-      <body>
-
-      <div class="gradient text rounded">
-      <table border="0" width="100%" >
-      <tbody>
-      <tr>
-      <td rowspan="2" style=""><img src="/assets/img/logo.png" width="140" /></td>
-      <td><p style="font-size: 20px">RECIBO</td>
-      </tr>
-      <tr>
-      <td><p>
-      ';
-      $html .= 'Fecha: ' . $payment['date'];
-      $html .= '
-      </p></td>
-      </tr>
-      </tbody>
-      </table>
-      </div>
-
-      <div class="gradient text rounded">
-      <p> Recibí de: </p>
-
-      <p> </p>
-
-      <p>Por: Pago
-      ';
-      //<p>La cantidad de euros: </p>
-      //<p class="code"> <br> <br></p>
-      $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
-      $html .= '</p>
-      <p > </p>
-      <p>€
-      ';
-      $html .= $payment['amount'];
-      $html .= '
-      Firmado: ______________</p>
-      </div>
-      </body>';
-      //$this->setup_ajax_response_headers();
-      header("Content-Type: text/plain");
-      header('Content-type: application/pdf');
-      $mpdf->WriteHTML($html);
-      $mpdf->Output('pagos.pdf', 'I'); //exit;
-      } catch (Exception $e) {
-      $this->_echo_json_error($e->getMessage());
-      }
-      } */
-
+    /*
+     * Informe pago activo de un alumno
+     */
     public function payment_report($id) {
 
         try {
@@ -484,7 +361,7 @@ class Student extends Basic_controller {
               ';
             //<p>La cantidad de euros: </p>
             //<p class="code"> <br> <br></p>
-            $html .= $payment['payment_type_name'] . '  ' . $payment['piriod'];
+            $html .= $payment['payment_type_name'] . '  ' . $payment['period'] . '  ' . $payment['payment_period_year'];
             $html .= '</p>
              
               <p>' . lang('title_amount') . ': €
@@ -760,7 +637,7 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-
+    
     public function payments_general_report() {
 
         try {
@@ -768,6 +645,8 @@ class Student extends Basic_controller {
             $payment_type = $this->input->post('payment_type');
             $center = $this->input->post('center');
             $month = $this->input->post('month');
+            $year = $this->input->post('year');
+            $bank_payment = $this->input->post('bank_payment');
             $filter = '';
             $this->load->model('General_model');
 
@@ -776,24 +655,37 @@ class Student extends Basic_controller {
                 $filter .= '<b>' . lang('form_center') . ':</b> ' . $center_value[0]['name'] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
             }
             if ($payment_type != '0') {
-                $payment_type_value = $this->General_model->get_fields('payment_type', 'name', array('id' => $payment_type));
+                $payment_type_value = $this->General_model->get_fields('payment_period_type', 'name', array('id' => $payment_type));
                 $filter .= '<b>' . lang('subject_payment_type') . ':</b> ' . $payment_type_value[0]['name'] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
             }
             if ($month != '0') {
-                $filter .= '<b>' . lang('form_piriod') . ':</b> ' . $month . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+                $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'),
+                lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
+                lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
+                $filter .= '<b>' . lang('form_month') . ':</b> ' . $months[intval($month - 1)] . ' &nbsp;&nbsp;&nbsp;&nbsp;';
             }
-
+            if ($year != '0') {
+                $filter .= '<b>' . lang('form_year') . ':</b> ' . $year . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
             if ($state != 0) {
                 if ($state == 1) {
                     $state_value = lang('btn_paid');
                 } else {
                     $state_value = lang('btn_unpaid');
                 }
-                $filter .= '<b>' . lang('form_state') . ':</b> ' . $state_value . ' ';
+                $filter .= '<b>' . lang('form_state') . ':</b> ' . $state_value . ' &nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            if ($bank_payment != 0) {
+                if ($bank_payment == 1) {
+                    $bank_value = lang('btn_no');
+                } else {
+                    $bank_value = lang('btn_yes');
+                }
+                $filter .= '<b>' . lang('form_bank_payment') . ':</b> ' . $bank_value . ' ';
             }
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
-            $payments = $this->Student_model->get_payments($center, $payment_type, $month, $state);
+            $payments = $this->Student_model->get_payments($center, $payment_type, $month, $year, $state, $bank_payment);
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
@@ -819,9 +711,11 @@ class Student extends Basic_controller {
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
             $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_bank_payment') . '</th>';
             $html .= '<th>' . lang('form_date') . '</th>';
             $html .= '<th>' . lang('form_payment_type') . '</th>';
-            $html .= '<th>' . lang('form_piriod') . '</th>';
+            $html .= '<th>' . lang('form_period') . '</th>';
+            $html .= '<th>' . lang('form_year') . '</th>';            
             $html .= '<th class="td_right">' . lang('form_amount') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
@@ -830,14 +724,21 @@ class Student extends Basic_controller {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</td>';
+                if ($payment['bank_payment'] == 0) {
+                    $bank_value = lang('btn_no');
+                } else {
+                    $bank_value = lang('btn_yes');
+                }
+                $html .= '<td class="td_center">' . $bank_value . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $payment['payment_type_name'] . '</td>';
-                $html .= '<td>' . $payment['piriod'] . '</td>';
+                $html .= '<td>' . $payment['period_name'] . '</td>';
+                $html .= '<td>' . $payment['payment_period_year'] . '</td>';                               
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
                 $amount += $payment['amount'];
                 $count++;
             }
-            $html .= '<tr><td colspan="5" class="td_center"><b>TOTAL</b></td>';
+            $html .= '<tr><td colspan="7" class="td_center"><b>TOTAL</b></td>';
             $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '') . '</b></td></tr>';
             $html .='</tbody></table>
 <body>';

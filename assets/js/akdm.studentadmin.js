@@ -50,11 +50,15 @@ akdm.StudentViewModel = function () {
     self.academicPeriods = {};
     self.levels = {};
     self.groups = {};
+    self.paymentPeriods = {};
+    self.paymentTypeByPeriodId = {};
+    self.plainPaymentPeriods = [];
     self.currentQualifications = ko.observableArray();
     self.currentQualification = ko.observable();
     self.availableFamily = ko.observableArray();
     self.familyList = ko.observableArray();
     self.currentFamily = ko.observable();
+    self.payment_type_id = ko.observable();
     self.selectedFamily = ko.computed({
         read: function () { return null; },
         write: function (value) {
@@ -78,42 +82,53 @@ akdm.StudentViewModel = function () {
     });
     self.suggestedPeriods = ko.computed({
         read: function () {
-            if (! self.currentPayment() || ! self.currentPayment().payment_type_id()) return;
+            if (! self.payment_type_id()) return;
             
             var index = 0;
-            var found = false;
-            var periods = akdm.model.PaymentPeriods;
-            var payment_type_id = Number(self.currentPayment().payment_type_id());
-            for(; index < periods.length && ! found; index++) {
-                found = periods[index].id === payment_type_id;
-            }
-            return found ? periods[index-1].periods : [];
+            var payment_type_id = Number(self.payment_type_id());
+            return self.paymentPeriods[payment_type_id] 
+                ? self.paymentPeriods[payment_type_id] 
+                : [];
         }
     });
     self.selectedPeriod = ko.computed({
         read: function () { 
-            return self.currentPayment() 
-                ? self.currentPayment().payment_type_id()
-                : null; 
-            },
-        write: function (value) {
-            if (!value) return;
+            if (!self.currentPayment()) return;
             
-            self.currentPayment().payment_type_id(value.id);
+            var period = self.plainPaymentPeriods.filter(function (item) {
+                if (item.id === self.currentPayment().payment_period_id())
+                    return item;
+            });
+            if (period.length > 0) {
+                self.payment_type_id(period[0].period_type);
+                return period[0];
+            } else {
+                self.payment_type_id('');
+                return null;
+            }
+        },
+        write: function (value) {
+            if (!value) return;            
+            self.currentPayment().payment_period_id(value.id);
         }
     });
 
     self.suggestPaymentPrice = function () {
-        if (! self.currentPayment() || ! self.currentPayment().payment_type_id()) return;
+        if (! self.currentPayment() || ! self.payment_type_id()) return;
 
-        var priceColumn = levelPriceColumns[self.currentPayment().payment_type_id()];
-        self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
+        var priceColumn = levelPriceColumns[self.payment_type_id()];
+        // TODO; Está fallando. Revisar por qué
+        //self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
         self.currentPayment().concept("");
     };
 
     self.selectPayment = function (payment) {
         self.currentPayment(payment);
         $('#dlgPayments').modal('show');
+        if (payment.payment_period_id())
+            $('a[href|=#periodicPayment]').tab('show');
+        else
+            $('a[href|=#articlePayment]').tab('show');
     };
     
     self.confirmRemovePayment = function (payment) {
@@ -176,26 +191,20 @@ akdm.StudentViewModel = function () {
     self.savePayment = function () {
         var payment = self.currentPayment();
 
-        // TODO: Implementar validación de datos del pago.
-        if (payment.payment_type_id() == "" && payment.concept() == '') {
-            akdm.ui.Feedback.show('#msgFeedback',
+        // TODO: Implementar validación de la fecha.
+        if (!payment.amount() || isNaN(payment.amount()) ||
+            self.payment_type_id() && (!payment.payment_period_id() || !payment.payment_period_year())||
+            !self.payment_type_id() && !payment.concept()) {
+            akdm.ui.Feedback.show('#dlgMsgFeedback',
                     self._strings.validation_error,
                     akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
             return;
         }
-        /*
-        if (!$('#frm').valid()) {
-            akdm.ui.Feedback.show('#msgFeedback',
-                    self._strings.validation_error,
-                    akdm.ui.Feedback.ERROR, akdm.ui.Feedback.LONG);
-            return;
-        }
-        */
 
         if (payment.id()) {
             // Actualizar
             $.post(payment_update, payment.toJSON()).done(function () {
-                akdm.ui.Feedback.show('#msgFeedback', '<strong>' + self._strings.payment_updated + '</strong>',
+                akdm.ui.Feedback.show('#dlgMsgFeedback', '<strong>' + self._strings.payment_updated + '</strong>',
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         } else {
@@ -209,6 +218,8 @@ akdm.StudentViewModel = function () {
                         akdm.ui.Feedback.SUCCESS, akdm.ui.Feedback.SHORT);
             }).fail(self._showError);
         }
+        
+        $('#dlgPayments').modal('hide');
     };
 
     self.removeFamily = function () {
@@ -327,7 +338,7 @@ akdm.StudentViewModel = function () {
 
     self.selectQualification = function (qualification) {
         self.currentQualification(qualification);
-        currentQualificationClone = $.clone(qualification, true);
+        //currentQualificationClone = $.clone(qualification, true);
         $('#dlgQualification').modal('show');
     };
     
@@ -348,8 +359,27 @@ akdm.StudentViewModel = function () {
         });
         self.availableFamily(newAvailableFamily);
     };
+    
+    self.getPaymentType = function (payment) {
+        return payment.payment_period_id()
+            ? self.paymentTypeByPeriodId[payment.payment_period_id()]
+            : self._strings.payment_type_one_time;
+    };
+    
+    self.getPaymentConcept = function (payment) {
+        if (payment.payment_period_id()) {
+            var period = self.plainPaymentPeriods.filter(function (item) {
+                if (item.id === payment.payment_period_id())
+                    return item;
+            });
+            return (period.length > 0 ? period[0].name : '') + ' ' + payment.payment_period_year();
+        } else {
+            return payment.concept();
+        }
+    };
 
-    self.init = function (messages, relationships, paymentTypes, academicPeriods, levels, groups) {
+    self.init = function (messages, relationships, paymentTypes, academicPeriods, 
+                          levels, groups, paymentPeriods) {
         parent.init(messages);
         self.currentFamily(new akdm.model.Family());
         self.currentPayment(new akdm.model.Payment());
@@ -370,6 +400,13 @@ akdm.StudentViewModel = function () {
         $(groups).each(function (index, group) {
             self.groups[group.id] = group;
         });
+        $(paymentPeriods).each(function (index, period) {
+            if (! self.paymentPeriods[period.period_type])
+                self.paymentPeriods[period.period_type] = [];
+            self.paymentPeriods[period.period_type].push(period);
+            self.paymentTypeByPeriodId[period.id] = self.paymentTypes[period.period_type];
+        });
+        self.plainPaymentPeriods = paymentPeriods;
     };
 };
 

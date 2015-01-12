@@ -341,10 +341,8 @@
                 </thead>
                 <tbody data-bind="foreach: $root.paymentList">
                     <tr data-bind="" >
-                        <td data-bind="text: $root.paymentTypes[payment_type_id()], click: $root.selectPayment">
-                            <!--input type="text" data-bind="visible: $root.isInEditRowMode(id)"-->
-                        </td>
-                        <td data-bind="text: concept, click: $root.selectPayment"></td>
+                        <td data-bind="text: $root.getPaymentType($data), click: $root.selectPayment"></td>
+                        <td data-bind="text: $root.getPaymentConcept($data), click: $root.selectPayment"></td>
                         <td data-bind="text: amount, click: $root.selectPayment"></td>
                         <td data-bind="text: date, click: $root.selectPayment"></td>
                         <td data-bind="text: notes, click: $root.selectPayment"></td> 
@@ -361,15 +359,16 @@
             <h3><?php echo lang('subject_payment'); ?></h3>
         </div>
         <div class="modal-body">
+            <div id="dlgMsgFeedback" class="feedback top"></div>
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#periodicPayment" data-toggle="tab">Periódico</a></li>
-                <li><a href="#articlePayment" data-toggle="tab">Puntual</a></li>
+                <li class="active"><a href="#periodicPayment" data-toggle="tab"><?php echo lang('form_periodic'); ?></a></li>
+                <li><a href="#articlePayment" data-toggle="tab"><?php echo lang('form_one_time'); ?></a></li>
             </ul>            
             <div class="tab-content">
                 <div id="periodicPayment" class="tab-pane active row-fluid" data-bind="with: $root.currentPayment">                
                     <div class="span3">
                         <label for="lbxPaymentType"><?php echo lang('subject_payment_type'); ?></label>
-                        <select id="lbxPaymentType" class="input-block-level" data-bind="value: payment_type_id, event: {change: $root.suggestPaymentPrice}">
+                        <select id="lbxPaymentType" class="input-block-level" data-bind="value: $root.payment_type_id, event: {change: $root.suggestPaymentPrice}">
                             <option value="">--</option>
                             <?php foreach ($payments_types as $payment) { ?>
                                 <option value="<?php echo $payment["id"] ?>"><?php echo $payment["name"] ?></option>
@@ -377,29 +376,26 @@
                         </select>
                     </div>
                     <div class="span4">
-                        <label for="lbxPeriod"><?php echo lang('form_concept'); ?></label>
-                        <div class="dropdown" id="lbxPeriod">
-                            <input type="text" id="tbxPeriod" class="input-block-level dropdown-toggle" data-toggle="dropdown" 
-                                   data-bind="value: concept" />
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="lbxPeriod"
-                                data-bind="foreach: $root.suggestedPeriods">
-                                <li><a tabindex="-1" href="#" data-bind="text: $data, click: function() { $root.currentPayment().concept($data); }"></a></li>
-                            </ul>
-                        </div>
+                        <label for="lbxPeriod"><?php echo lang('form_period'); ?></label>
+                        <select id="lbxPeriod" class="input-block-level" data-bind="value: $root.selectedPeriod,
+                                options: $root.suggestedPeriods,
+                                optionsText: 'name',
+                                optionsCaption: '--'"> 
+                        </select>
+                    </div>
+                    <div class="span3">
+                        <label for="txtYear"><?php echo lang('form_year'); ?></label>
+                        <input type="text" id="txtYear" placeholder="####" class="input-block-level"
+                               data-bind="value: payment_period_year">
                     </div>
                     <div class="span2">
                         <label for="lbxAmount"><?php echo lang('form_amount'); ?></label>
                         <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
                                data-bind="value: amount" />
                     </div>
-                    <div class="span3">
-                        <label for="txtDate"><?php echo lang('form_date'); ?></label>
-                        <input type="text" id="txtDate" placeholder="dd/mm/aaaa" class="input-block-level"
-                               data-bind="value: date, jqDatepicker: date">
-                    </div>
                 </div>
                 <div id="articlePayment" class="tab-pane row-fluid" data-bind="with: $root.currentPayment">
-                    <div class="span7">
+                    <div class="span10">
                         <label for="tbxConcept"><?php echo lang('form_concept'); ?></label>
                         <input type="text" id="tbxConcept" class="input-block-level" data-bind="value: concept" />
                     </div>
@@ -408,15 +404,15 @@
                         <input type="text" id="lbxAmount" placeholder="" class="input-block-level" 
                                data-bind="value: amount" />
                     </div>
-                    <div class="span3">
-                        <label for="txtDate"><?php echo lang('form_date'); ?></label>
-                        <input type="text" id="txtDate" placeholder="dd/mm/aaaa" class="input-block-level"
-                               data-bind="value: date, jqDatepicker: date">
-                    </div>
                 </div>
             </div>
             <div class="row-fluid" data-bind="with: $root.currentPayment">
-                <div class="span12">
+                <div class="span3">
+                    <label for="txtDate"><?php echo lang('form_date'); ?></label>
+                    <input type="text" id="txtDate" placeholder="dd/mm/aaaa" class="input-block-level"
+                           data-bind="value: date, jqDatepicker: date">
+                </div>
+                <div class="span9">
                     <label for="lbxNotes"><?php echo lang('form_notes'); ?></label>
                     <input type="text" id="lbxNotes" placeholder="" class="input-block-level" 
                            data-bind="value: notes" />
@@ -429,7 +425,7 @@
                         <button class="btn btn-small" data-dismiss="modal" data-bind="click: $root.printPayment, visible: student_id">
                             <i class="icon-print"></i> <?php echo lang('btn_print'); ?>
                         </button>
-                        <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true" data-dismiss="modal">
+                        <button class="btn btn-small btn-success" data-bind="click: $root.savePayment" aria-hidden="true">
                             <i class="icon-ok-sign icon-white"></i> <?php echo lang('btn_save'); ?>
                         </button> 
                         <button class="btn btn-small btn-danger" data-dismiss="modal" data-bind="click: $root.removePayment, visible: student_id">
@@ -468,6 +464,5 @@
                 </div>
             </div>
         </div>
-    </div>
-                
+    </div>                
 </div>
