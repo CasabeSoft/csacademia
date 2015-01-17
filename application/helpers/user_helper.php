@@ -64,4 +64,6 @@ if (!function_exists('convert_nullables')) {
         return $result;
     }
 }
-?>
+
+/* End of file user_helper.php */
+/* Location: ./application/helpers/Basic_controller.php */

@@ -104,7 +104,14 @@ class Public_pages extends Basic_controller {
         $this->description = "Información de contacto para pedidos o sugerencias relacionadas con CasabeSoft Academia.";
         $this->load_page('contact');
     }
+    
+    function error404() {
+        $this->current_page();
 
+        $this->title = lang('404');
+        $this->description = 'CasabeSoft Academia - Página no encontrada';
+        $this->load_page('404');
+    }
 }
 
 /* End of file public_pages.php */

@@ -25,7 +25,7 @@ $lang['menu_school_level'] = "School levels";
 $lang['menu_user'] = "Users";
 $lang['menu_teacher'] = "Teachers";
 $lang['menu_student'] = "Students";
-$lang['menu_contact'] = "Contacts";
+$lang['menu_contacts'] = "Contacts";
 $lang['menu_qualification'] = "Qualifications";
 $lang['menu_academic_period'] = "Academic Periods";
 $lang['menu_assistance'] = "Attendance";
@@ -363,6 +363,10 @@ $lang['page_profile_content'] = "Update profile information";
 $lang['page_profile_content_info'] = "The email account will be used to login and contact the user.";
 $lang['page_change_password_content'] = "You can change your password whenever you need";
 $lang['page_change_password_content_info'] = "Important!. Always maintain the security of your user account.";
+
+$lang['page_404_title'] = 'Page not found';
+$lang['page_404_text'] = "It seams that what you are looking for doesn't exist... ¿Or never existed? :-/. In any case...";
+$lang['page_404_test_with_other'] = 'Test with other';
 
 /***
  * Títulos reportes

@@ -12,7 +12,9 @@ class User_pages extends Basic_controller {
 
     function __construct() {
         parent::__construct();
-        $this->template = 'templates/public_page';
+        $this->template = $this->subdomain_match_client ? 
+                'templates/user_page' :
+                'templates/public_page';
         $this->location = 'user/';
         $this->load->model('Users_model');
         $this->load->library('form_validation');

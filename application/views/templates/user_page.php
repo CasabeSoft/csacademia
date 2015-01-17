@@ -30,6 +30,9 @@ function is_active($current_page, $page_name = 'home') {
         <!-- Start page style -->
         <?php echo $styles ?>
         <!-- End page style -->
+        <?php if ($subdomain_match_client) {?>
+        <link rel="stylesheet" type="text/css" href="../assets/themes/<?php echo $subdomain ?>/css/public.css">
+        <?php } ?>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,8 +43,8 @@ function is_active($current_page, $page_name = 'home') {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="home">CS Academia</a>
-                    <div class="nav-collapse collapse">
+                    <!--a class="brand" href="home">CS Academia</a-->
+                    <!--div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="<?php echo is_active($current_page, 'home') ?>"><a href="home"><?php echo lang('menu_home'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'about') ?>"><a href="about"><?php echo lang('menu_about'); ?></a></li>

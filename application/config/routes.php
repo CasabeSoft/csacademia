@@ -40,8 +40,13 @@ if (!defined('BASEPATH'))
   | in the URL cannot be matched to a valid route.
   |
  */
+require APPPATH.'helpers/client_helper.php';
+$subdomain = get_subdomain();
+$subdomain_is_client = subdomain_is_client($subdomain);
 
-$route['default_controller'] = 'user_pages/login'; //public_pages/home
+$route['default_controller'] = $subdomain_is_client ? 
+        'user_pages/login' :
+        'public_pages/home';
 
 $route['user/(:any)'] = 'user_pages/$1';
 $route['manage/contact'] = 'contact/admin';
@@ -71,11 +76,11 @@ $route['close'] = 'user_pages/close';
 
 $route["lang/(:any)"] = "public_pages/lang/$1";
 
-//$route['(:any)'] = 'public_pages/$1';
-$route['(:any)'] = 'user_pages/login';
+$route['(:any)'] = $subdomain_is_client ?
+        'user_pages/login' :
+        'public_pages/$1';
 
-//$route['404_override'] = '';
-
+$route['404_override'] = 'public_pages/error404';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

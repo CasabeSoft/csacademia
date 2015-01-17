@@ -29,4 +29,6 @@ if (!function_exists('db_to_Local')) {
     }
 
 }
-?>
+
+/* End of file util_helper.php */
+/* Location: ./application/helpers/Basic_controller.php */

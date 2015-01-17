@@ -32,7 +32,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                                 <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/catalog/role"><?php echo lang('menu_role'); ?></a></li> 
                                 <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/catalog/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/catalog/student"><?php echo lang('menu_student'); ?></a></li>
-                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contact'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contacts'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
                                 <!--li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php //echo lang('menu_student') . ' / ' . lang('menu_group');   ?></a></li-->
                                 <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li>
@@ -62,7 +62,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </a>
                         <ul class="dropdown-menu">
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
-                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/manage/contact"><?php echo lang('menu_contact'); ?></a></li>                            
+                                <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/manage/contact"><?php echo lang('menu_contacts'); ?></a></li>                            
                             <?php } ?>
                             <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/manage/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/manage/student"><?php echo lang('menu_student'); ?></a></li>

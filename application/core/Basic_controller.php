@@ -21,10 +21,14 @@ class Basic_controller extends MY_Controller {
     var $current_page;
     var $menu_template;
     var $centers;
+    var $subdomain;
+    var $subdomain_match_client;
 
     public function __construct() {
         parent::__construct();
         $this->load_centers();
+        $this->subdomain = get_subdomain();
+        $this->subdomain_match_client = subdomain_is_client($this->subdomain);
     }
 
     public function load_page($name = 'home') {
@@ -49,7 +53,6 @@ class Basic_controller extends MY_Controller {
         header("Content-type: text/json");
         header("Expires: -1");  // HACK! Necesario para evitar que el IE cachee las llamadas AJAX.
     }
-
 }
 
 /* End of file Basic_controller.php */
