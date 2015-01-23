@@ -90,114 +90,32 @@ a, a:hover{
 
     /*position: relative;*/
 }
-.logo_client{
-    /*float: left;*/
-    /*margin-left: 10px;*/
-    /*width: 150px;*/
+.logo {
     height: 55px;
-    
+    width: 134px;
 }
 .line-bottom {
     border-bottom: 1px #DDD solid !important;
     margin-bottom: 10px;
 }
-/*#tblContacts{
-    background-color: #7D2428;
-    color: #FFF;
-}*/
-#tblInternal th{
-    /*background-color: #BBB;*/
+
+.table-striped th {
     background-color: #7D2428;
     color: #FFF;
 }
-
-#tblInternal tr:nth-child(even) {
+.table-striped tbody>tr:nth-child(even)>td {
     background: #FFF1D0;
-    /*background: #F1F1F1;*/
-    /*color: #000;*/
 }
-
-#tblInternal tr:nth-child(odd) {
+.table-striped tbody>tr:nth-child(odd)>td {
     background: #FFF6BB;
-    /*background: #F5F5F5;*/
-    /*color: #000;*/
 }
-
-#tblInternal tr:hover>td{
+.table-striped tbody>tr:hover>td{
     background: #B4B293;
-    /*background: #DDD;*/
-    /*color: #FFF;*/
 }
-
-#tblContacts th{
-    background-color: #7D2428;
-    color: #FFF;
-    /*text-align: center;*/
+.container-first {
+    margin-top: 75px;
+    background-color: #fafafa;
 }
-#tblContacts tr:nth-child(even) {
-    background: #FFF1D0;
-    /*color: #000;*/
+#pnlAbout .logo {
+    margin: 10px 0;
 }
-#tblContacts tr:nth-child(odd) {
-    background: #FFF6BB;
-    /*color: #000;*/
-}
-#tblContacts tr:hover>td{
-    background: #B4B293;
-    /*color: #FFF;*/
-}
-/*#tblContacts a:active{
-    background-color: #7D2428;
-    color: #FFF;
-}*/
-/*.selected { background-color: #ddd !important; }*/
-/*#tblContacts tr:visited>td{
-    background: #B4B293;
-
-}
-
-#tblContacts tbody tr.selected td {
-    background: none repeat scroll 0 0 #FFCF8B;
-    color: #000000;
-}
-
-tr.clicked {
-      background-color: #abc;
-}
-
-.bg{background-color:#ff0000 !important;}​
-.table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: transparent;
-}*/
-/*$('#tblContacts').click(function() {
-         //alert('entro');
-         $(this).toggleClass("clicked");
-         });
-         
-         $('table.table tbody tr').on('click', function() {
-         $(this).closest('table').find('td').removeClass('bg');
-         $(this).find('td').addClass('bg');
-         });
-         $('.table > tr').click(function() {
-         alert('entro');
-         });
-        $(this).closest('tr td').css("background-color","#ffffff");
-        $(this).parent().parent().children('td').each(function() {
-            alert('entro');
-            $(this).addClass("selected");
-        });*/
-/*
-#B4B293
-#563F49
-#5A1119
-
-granate
-#7D2428
-#530D0F
-
-crema
-#F5E496
-#E3D6B4
-#FFF6BB
-#FFF1D0
-*/

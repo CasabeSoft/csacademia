@@ -38,7 +38,7 @@
                     </div>
                 </legend>
                 <div class="tab-content row-fluid">
-                    <table id="tblInternal" class="table table-bordered table-hover table-condensed" >
+                    <table id="tblInternal" class="table table-bordered table-hover table-condensed table-striped">
                         <thead>
                             <tr>
                                 <!--th></th-->                                                                

@@ -18,7 +18,6 @@ class MY_Controller extends CI_Controller {
     
     public $role_id;
     public $client_id;
-    public $theme;
     
     public function __construct() {
         parent::__construct();
@@ -27,8 +26,6 @@ class MY_Controller extends CI_Controller {
         $this->client_id = $this->session->userdata('client_id');
         
         $url = base_url();
-        
-        $this->theme = $url . 'assets/themes/dundee';
         
         //TODO: Cargar desde bbdd
         if ($this->session->userdata('lang') == 'en') {

@@ -1,6 +1,6 @@
 <div class="jumbotron fondo">
     <div class="container pcontent">
-        <img src="/assets/img/logo.png" class="logo">
+        <img src="/assets<?php echo $client_theme?>/img/logo.png" class="logo">
         <h1 class="font-header"><?php echo lang('page_home_title'); ?></h1>
         <p>
             <?php echo lang('page_home_title_info'); ?> 

@@ -135,7 +135,7 @@
             <p data-bind="text: full_name_lastname()" class="name"></p>
         </li>
     </ul>
-    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewStudentsAsList()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed table-striped" data-bind="visible: viewStudentsAsList()">
         <thead>
             <tr>
                 <th></th>

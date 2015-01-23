@@ -23,12 +23,14 @@ class Basic_controller extends MY_Controller {
     var $centers;
     var $subdomain;
     var $subdomain_match_client;
+    var $client_theme;
 
     public function __construct() {
         parent::__construct();
         $this->load_centers();
         $this->subdomain = get_subdomain();
         $this->subdomain_match_client = subdomain_is_client($this->subdomain);
+        $this->client_theme = $this->subdomain_match_client ? '/themes/' . $this->subdomain : '';
     }
 
     public function load_page($name = 'home') {

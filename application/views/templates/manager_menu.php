@@ -18,7 +18,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>           
-            <a class="brand" href="/tools/tasks"><img src="/assets/img/logo.png" class="logo_client"></a>
+            <a class="brand" href="/tools/tasks"><img src="/assets<?php echo $client_theme?>/img/logo_xs.png" class="logo"></a>
             <div class="nav-collapse collapse">
                 <ul class="nav menu-font">
                     <li class="<?php echo is_controller_active($current_controller, 'catalog') ?> dropdown">
@@ -100,7 +100,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/help/about"><?php echo lang('menu_help'); ?></a></li>    
+                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/help/about"><?php echo lang('menu_about'); ?></a></li>    
                         </ul>
                     </li>
                 </ul>

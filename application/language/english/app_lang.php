@@ -342,7 +342,7 @@ $lang['page_report_payments'] = "Filter payments";
 $lang['page_report_payments_bank'] = "Filter banks payments";
 $lang['page_report_attendance'] = "Filter attendance";
 
-$lang['page_login_title'] = "Access to Dundee Managment";
+$lang['page_login_title'] = "Access to CS Academia";
 $lang['page_login_title_info'] = "Sign in and get the information you seek, manages data and much more ...";
 $lang['page_login_content'] = "If you already have a user account you can ...";
 $lang['page_login_content_info'] = "If you have an account accesses the system, if not ...Ask for it!";

@@ -39,7 +39,7 @@
             <p data-bind="text: full_name_lastname()" class="name"></p>
         </li>
     </ul>
-    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed table-striped" data-bind="visible: viewDailyAttendance() && viewStudentsAsList()">
         <thead>
             <tr>
                 <th></th>
@@ -55,7 +55,7 @@
             </tr>
         </tbody>
     </table>
-    <table id="tblInternal" class="table table-bordered table-hover table-condensed" data-bind="visible: ! viewDailyAttendance()">
+    <table id="tblInternal" class="table table-bordered table-hover table-condensed table-striped" data-bind="visible: ! viewDailyAttendance()">
         <thead>
             <tr>
                 <th rowspan="3"></th>

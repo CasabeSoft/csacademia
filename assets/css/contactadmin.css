@@ -42,9 +42,6 @@
 #tblContacts tbody tr, #tblContacts tbody td {
     display: block;
 }
-#tblContacts th {
-    display: list-item;
-}
 #studentData .row-fluid:first-child {
     margin-bottom: 10px;
 }
