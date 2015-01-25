@@ -96,35 +96,31 @@ class Student_model extends CI_Model {
 
     public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = -1) {
         $isActive = 'true';
-        //$start_date = ' AND ' . date("m") . ' >= MONTH(start_date) AND ' . date("Y") . ' >= YEAR(start_date)';
-        //$start_date = '';
         //$filter_payment_type = '';
         //$filter_bank_payment = ' AND student.bank_payment = 0';
         $filter_year = '';
         $filter_month = '';
+        //$filter_period = '';
         $filter_start_period = '';
         $filter_end_period = '';
         if ($year != 0) {
             $filter_year = ' AND payment.payment_period_year = ' . $year;
-            //$this->db->where('payment.payment_period_year1', $year);
         }
         if ($month != '0') {
-            $filter_month = $year . "-" . $month;
-            $filter_start_period = " AND CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <= '" . $filter_month . "'";
-            $filter_end_period = " AND CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >= '" . $filter_month . "'";
-            //$filter_month = " AND payment.payment_period_id = " . $month ;
-            //$this->db->where('payment.payment_period_id', $month);
-            //$this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
-            //$this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
+            $filter_month = " AND payment.payment_period_id IN (SELECT payment_period.id FROM payment_period WHERE payment_period.start_month <= " . $month. " AND payment_period.end_month >= " . $month. ")" ;
+            //$filter_period = $year . "-" . $month;
+            $filter_start_period = " AND payment_period.start_month <= " . $month;
+            $filter_end_period = " AND payment_period.end_month >= " . $month;
+            //$filter_start_period = " AND CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <= '" . $filter_period . "'";
+            //$filter_end_period = " AND CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >= '" . $filter_period . "'";
         }
         $this->db->select('contact.first_name, contact.last_name, student.bank_payment, payment.date, payment.amount, payment.payment_period_year, payment_period.name as period_name, payment_period_type.name as payment_type_name ')
                 ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
-                ->join('payment', 'payment.student_id = student.contact_id' . $filter_year, 'left')
+                ->join('payment', 'payment.student_id = student.contact_id' . $filter_year . $filter_month, 'left')
                 ->join('payment_period', 'payment.payment_period_id = payment_period.id' . $filter_start_period . $filter_end_period, 'left')
                 ->join('payment_period_type', 'payment_period.period_type = payment_period_type.id', 'left')
                 ->where('contact.client_id', $this->client_id)
-                //->where('student.bank_payment', 0)
                 ->order_by("payment.date, contact.first_name, contact.last_name", "asc");
         if ($isActive != NULL) {
             if ($isActive == 'true')
@@ -138,33 +134,25 @@ class Student_model extends CI_Model {
           if ($payment_type != 0) {
           //$filter_payment_type = ' AND payment_period.period_type = ' . $payment_type;
           $this->db->where('payment_period.period_type', $payment_type);
-          } */
+          } */       
+        if ($state != 0) {
+            if ($state == 1) {
+                //$this->db->where('payment.date IS NOT NULL');
+                $this->db->where('payment.payment_period_id IS NOT NULL');
+                //$this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
+                //$this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
+            } else {
+                //$this->db->where('payment.date IS NULL');
+                $this->db->where('payment.payment_period_id IS NULL');
+            }
+        } 
         if ($bank_payment != -1) {
             if ($bank_payment == 1) {
                 $bank_value = 1;
             } else {
                 $bank_value = 0;
             }
-            //$filter_bank_payment = ' AND student.bank_payment = 0';
             $this->db->where('student.bank_payment', $bank_value);
-        }
-        if ($state != 0) {
-            if ($state == 1) {
-                //$this->db->where('payment.date IS NOT NULL');
-                //$this->db->where('payment_period.name IS NOT NULL');
-                //$this->db->where('payment.payment_period_id IS NOT NULL');
-                $this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
-                $this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
-            } else {
-                //$this->db->where('payment.date IS NULL');
-                //$this->db->where('payment_period.name IS NULL');
-                //$this->db->where('payment.payment_period_id IS NULL');
-                $this->db->where('payment.payment_period_id IS NULL');
-            }
-        } else {
-            $this->db->where('payment.payment_period_id IS NULL');
-            $this->db->or_where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
-            $this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
         }
         return $this->db->get()->result_array();
     }

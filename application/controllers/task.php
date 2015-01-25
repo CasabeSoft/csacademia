@@ -152,7 +152,7 @@ class Task extends Basic_controller {
                 //}
                 $html .= '<td>' . substr($task['start_time'], 0, 5) . '</td>';
                 $html .= '<td>' . $task['task'] . '</td>';
-                $html .= '<td>' . $task['task'] . '</td>';
+                $html .= '<td>' . $task['description'] . '</td>';
                 $html .= '<td>' . $task['task_importance_name'] . '</td>';
                 $html .= '<td>' . $task['task_type_name'] . '</td>';
                 $html .= '<td>' . $task['task_state_name'] . '</td>';
