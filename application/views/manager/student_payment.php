@@ -1,5 +1,5 @@
 <?php
-$actual_month = date("m");
+$actual_month = date("n");
 $actual_year = date("Y");
 ?>
 <form id="frm" action="<?php echo site_url('student/payments_general_report'); ?>" method="POST" target="_blank">
@@ -62,15 +62,15 @@ $actual_year = date("Y");
                     <!--label for="lbxMonth"><?php echo lang('form_month'); ?></label-->                    
                     <select id="month" name="month" class="input-block-level">
                         <!--option value="0">--</option-->
-                        <option value="01" <?php echo $actual_month == '01' ? 'selected' : ''; ?>><?php echo lang('form_january'); ?></option>
-                        <option value="02" <?php echo $actual_month == '02' ? 'selected' : ''; ?>><?php echo lang('form_february'); ?></option>
-                        <option value="03" <?php echo $actual_month == '03' ? 'selected' : ''; ?>><?php echo lang('form_march'); ?></option>
-                        <option value="04" <?php echo $actual_month == '04' ? 'selected' : ''; ?>><?php echo lang('form_april'); ?></option>
-                        <option value="05" <?php echo $actual_month == '05' ? 'selected' : ''; ?>><?php echo lang('form_may'); ?></option>
-                        <option value="06" <?php echo $actual_month == '06' ? 'selected' : ''; ?>><?php echo lang('form_june'); ?></option>
-                        <option value="07" <?php echo $actual_month == '07' ? 'selected' : ''; ?>><?php echo lang('form_july'); ?></option>
-                        <option value="08" <?php echo $actual_month == '08' ? 'selected' : ''; ?>><?php echo lang('form_august'); ?></option>
-                        <option value="09" <?php echo $actual_month == '09' ? 'selected' : ''; ?>><?php echo lang('form_september'); ?></option>
+                        <option value="1" <?php echo $actual_month == '1' ? 'selected' : ''; ?>><?php echo lang('form_january'); ?></option>
+                        <option value="2" <?php echo $actual_month == '2' ? 'selected' : ''; ?>><?php echo lang('form_february'); ?></option>
+                        <option value="3" <?php echo $actual_month == '3' ? 'selected' : ''; ?>><?php echo lang('form_march'); ?></option>
+                        <option value="4" <?php echo $actual_month == '4' ? 'selected' : ''; ?>><?php echo lang('form_april'); ?></option>
+                        <option value="5" <?php echo $actual_month == '5' ? 'selected' : ''; ?>><?php echo lang('form_may'); ?></option>
+                        <option value="6" <?php echo $actual_month == '6' ? 'selected' : ''; ?>><?php echo lang('form_june'); ?></option>
+                        <option value="7" <?php echo $actual_month == '7' ? 'selected' : ''; ?>><?php echo lang('form_july'); ?></option>
+                        <option value="8" <?php echo $actual_month == '8' ? 'selected' : ''; ?>><?php echo lang('form_august'); ?></option>
+                        <option value="9" <?php echo $actual_month == '9' ? 'selected' : ''; ?>><?php echo lang('form_september'); ?></option>
                         <option value="10" <?php echo $actual_month == '10' ? 'selected' : ''; ?>><?php echo lang('form_october'); ?></option>
                         <option value="11" <?php echo $actual_month == '11' ? 'selected' : ''; ?>><?php echo lang('form_november'); ?></option>
                         <option value="12" <?php echo $actual_month == '12' ? 'selected' : ''; ?>><?php echo lang('form_december'); ?></option>
@@ -120,9 +120,9 @@ $actual_year = date("Y");
                     </legend>
                     <!--label for="lbxState"><?php echo lang('form_bank_payment'); ?></label-->
                     <select id="status" name="bank_payment" class="input-block-level">
-                        <option value="0">--</option>
-                        <option value="1"><?php echo lang('btn_no'); ?></option>
-                        <option value="2"><?php echo lang('btn_yes'); ?></option>
+                        <option value="-1">--</option>
+                        <option value="0"><?php echo lang('btn_no'); ?></option>
+                        <option value="1"><?php echo lang('btn_yes'); ?></option>
                     </select>
                 </fieldset>
             </div>

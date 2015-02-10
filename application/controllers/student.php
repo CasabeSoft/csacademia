@@ -675,11 +675,11 @@ class Student extends Basic_controller {
                 }
                 $filter .= '<b>' . lang('form_state') . ':</b> ' . $state_value . ' &nbsp;&nbsp;&nbsp;&nbsp;';
             }
-            if ($bank_payment != 0) {
+            if ($bank_payment != -1) {
                 if ($bank_payment == 1) {
-                    $bank_value = lang('btn_no');
+                    $bank_value = lang('btn_yes');                    
                 } else {
-                    $bank_value = lang('btn_yes');
+                    $bank_value = lang('btn_no');
                 }
                 $filter .= '<b>' . lang('form_bank_payment') . ':</b> ' . $bank_value . ' ';
             }
