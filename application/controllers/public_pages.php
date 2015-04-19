@@ -41,11 +41,7 @@ class Public_pages extends Basic_controller {
     }
 
     public function home() {
-        $this->current_page();
-
-        $this->title = lang('menu_home');
-        $this->description = 'Página de inicio de CasabeSoft Academia.';
-        $this->load_page('home');
+        $this->load_page('home', 'templates/spa_page');
     }
 
     public function about() {

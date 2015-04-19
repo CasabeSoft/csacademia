@@ -1,0 +1,157 @@
+@import "../common.less";
+
+html, body {
+    height: 100%;
+}
+
+.cs-home {
+    @media (min-width: @screen-lg-min) {
+        .container {
+            width: 970px;
+        }
+    }
+    
+    font-size: 18px;
+    
+    label {
+        font-weight: normal;
+    }
+    
+    a:hover,
+    a:focus {
+        text-decoration: none;
+    }
+    @media (min-width: @screen-sm-min) {
+        &,        
+        & > section { 
+            height: 100%;
+        }
+    }
+    
+    .separator {
+        text-align: center;
+    }
+    
+    #home {
+        .cs-scroll-to {
+            display: none;
+        }        
+        header {
+            padding-top: @space-l;
+            a {
+                float: right;
+            }
+        }
+        #loginTemplate {
+            display: none;           
+        }
+        .login {
+            width: 200px;
+        }
+        .call-4-action {
+            margin-top: @space-l;
+        }
+        #register {
+            fieldset {
+                display: none;
+                
+                -webkit-transition: display 1s, height 1s;
+                -moz-transition: display 1s, height 1s;
+                transition: display 1s, height 1s;
+            }
+        }
+        .they {
+            font-size: large;
+        }
+        .us {
+            font-size: large;
+            font-weight: bold;
+        }
+        @media (min-width: @screen-sm-min) {
+            & {
+                height: 100%;
+            }
+            .call-4-action {
+                margin-top: 0;
+                .vertical-align(40%);
+            }
+            .cs-scroll-to {
+                display: block;
+                text-align: center;
+                position: absolute;
+                bottom: @space-xxl;
+                width: 200px;
+                margin-left: -100px;
+                left: 50%;
+            }
+        }
+    }
+    
+    @media (min-width: @screen-md-min) {
+        #register .form-group {
+            width: 50%;
+        }
+    }
+    
+    #prices {
+        .nav-tabs {
+            margin-bottom: @space-l;
+        }
+    }    
+    #legal {
+        display: none;
+    }    
+    #features {
+        & > * {
+            margin-top: @space-xl;
+        }        
+        
+        .media {
+            &:first-child {
+                margin-top: 15px;
+            }
+            max-height: 128px;
+            img {
+                width: 128px;
+            }
+        }
+        
+        .call-4-action {
+            & > p:first-child {
+                text-align: center;
+                margin-top: @space-l;
+                margin-bottom: @space-l;
+            }
+            .separator {
+                padding-top: @space-m;
+            }
+        }
+    }
+    
+    .container {
+        & > h2:first-child {
+            margin-top: @space-xl;
+        }        
+        @media (min-width: @screen-sm-min) {
+            & > h2:first-child {
+                margin-top: 3 * @space-xl;
+            }
+        }
+    }
+    
+    footer {
+        background-image: url('../../img/skyline_madrid.png');
+        background-size: 100%;
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+        padding-top: 5* @space-xxl;
+        padding-bottom: @space-xl;
+        nav {
+            text-align: center;
+            a {
+                margin-left: @space-m;
+                margin-right: @space-m;
+            }
+        } 
+    }
+}

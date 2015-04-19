@@ -1,0 +1,12 @@
+@media (min-width: 1200px) {
+  .cs-login .container {
+    width: 970px;
+  }
+}
+.cs-login header {
+  padding-top: 20px;
+}
+.cs-login form.well {
+  margin-top: 15px;
+}
+/*# sourceMappingURL=login.css.map */
