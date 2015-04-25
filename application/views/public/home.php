@@ -122,30 +122,34 @@
     </article>
     <article id="contact" class="container">
         <h2>Déjanos tus datos y te escribiremos o llamaremos</h2>
-        <form class="row">
+        <form class="row" data-bind="events: {submit: onContactSubmit}">
             <fieldset class="col-md-6">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nombre" required>
+                <input type="text" class="form-control" placeholder="<?php echo lang('form_full_name'); ?>" required data-bind="value: contact.name">
             </div>
             <div class="row">
                 <div class="form-group col-sm-7">
-                    <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                    <input type="email" class="form-control" placeholder="<?php echo lang('form_email_info'); ?>" required data-bind="value: contact.email">
                 </div>
                 <div class="form-group col-sm-1 hidden-xs separator">
                     o
                 </div>
                 <div class="form-group col-sm-4">
-                    <input type="phone" class="form-control" placeholder="Teléfono" required>
+                    <input type="phone" class="form-control" placeholder="<?php echo lang('form_phone'); ?>" data-bind="value: contact.phone, events: { change: onPhoneChange}">
                 </div>
             </div>
             <div class="form-group">
-                <textarea class="form-control" rows="5" required></textarea>
+                <textarea class="form-control" rows="5" placeholder="<?php echo lang('form_message'); ?>" required data-bind="value: contact.message"></textarea>
             </div>
             <label>
-                <input type="checkbox"> He leído la política de privacidad y comprendo que CasabeSoft no hará ningún uso de mis datos, salvo para ponerse en contacto conmigo.
+                <input type="checkbox" required> He leído la política de privacidad y comprendo que CasabeSoft no hará ningún uso de mis datos, salvo para ponerse en contacto conmigo.
             </label>
             <button type="submit" class="btn btn-lg btn-primary">Enviar</button>
             </fieldset>
+            <div role="alert" data-bind="visible: contactFeedback.text, attr: {class: contactFeedbackClass}" style="display: none">
+                <p data-bind="text: contactFeedback.text"></p>
+            </div>
+
         </form>
     </article>
     <article id="legal">

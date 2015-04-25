@@ -115,6 +115,18 @@ body {
 .cs-home #features .call-4-action .separator {
   padding-top: 10px;
 }
+.cs-home #contact {
+  position: relative;
+}
+.cs-home #contact .alert {
+  position: absolute;
+  top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.cs-home #contact form {
+  position: relative;
+}
 .cs-home .container > h2:first-child {
   margin-top: 30px;
 }

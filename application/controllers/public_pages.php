@@ -51,54 +51,48 @@ class Public_pages extends Basic_controller {
         $this->description = 'Información a cerca de la aplicación CasabeSoft Academia.';
         $this->load_page('about');
     }
+    
+    protected function _echo_json_error($error, $httpErrorCode = 500) {
+        http_response_code($httpErrorCode);
+        echo json_encode($error);
+    }
 
+    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {
+        $this->load->library('email');
+        $config = $this->config->item('email', 'academy');
+
+        $this->email->clear();
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->from($fromAddress, $fromName);
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message(nl2br($message));        
+        $sent = $this->email->send();
+        //$this->email->print_debugger(array('headers'));
+        return $sent;
+    }
+    
     public function contact() {
-        $this->current_page();
-
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('name', lang('form_name'), 'required');
-        $this->form_validation->set_rules('email', lang('form_email'), 'required');
-        $this->form_validation->set_rules('subject', lang('form_subject'), 'required');
-        $this->form_validation->set_rules('message', lang('form_message'), 'required');
-        $this->form_validation->set_rules('privacy', lang('form_contact_privacy'), 'required');
-
-        if ($this->form_validation->run() == TRUE) {
-
-            $this->load->library('email');
-            $config = $this->config->item('email', 'academy');
-
-            $this->email->clear();
-            $this->email->initialize($config);
-            $this->email->set_newline("\r\n");
-
-            $nameFrom = $this->input->post('name');
-            $emailFrom = $this->input->post('email');
-            $subjectFrom = $this->input->post('subject');
-            $message = $this->input->post('message');
-            $emailTo = EMAIL_CONTACT;
-
-            $body = "<br/><b>Nombre:</b> " . $nameFrom;
-            $body .= "<br/><br/><b>Email:</b> " . $emailFrom;
-            $body .= "<br/><br/><b>Asunto:</b> " . $subjectFrom;
-            $body .= "<br/><br/><b>Mensaje:</b><br/><br/> " . nl2br($message);
-            $body .= "<br/><br/>Mensaje envidado desde el formulario de contacto de " . base_url() . " el " . date('d/m/Y, H:i:s', time()) . "<br/>";
-
-            $this->email->from($emailFrom, $nameFrom);
-            $this->email->to($emailTo);
-            $this->email->subject('Formulario de contacto de CS Academia');
-            $this->email->message($body);
-
-            if ($this->email->send()) {
-                $this->message = lang('message_email');
-            } else {
-                $this->error = lang('message_error_email');
+        $this->setup_ajax_response_headers();
+        try {
+            $contact = $this->input->post();
+            if (!($contact['name'] && ($contact['email'] || $contact['phone']))) {
+                return $this->_echo_json_error('No enough data', 412);
             }
+            $email = $contact['email'] || EMAIL_CONTACT;
+            $message = $contact['message'].
+                    '\n\n---\n'.
+                    $contact['name'].
+                    ($contact['email'] ? '\n'.$contact['email'] : '').
+                    ($contact['phone'] ? '\n'.$contact['phone'] : '').'\n';
+            $sent = $this->_send_email($email, $contact['name'],
+                    EMAIL_CONTACT, CONTACT_MAIL_SUBJECT, $message);
+            echo json_encode($sent);
+        } catch (Exception $e) {
+            $this->_echo_json_error($e->getMessage());
         }
-
-        $this->title = lang('menu_contact');
-        $this->description = "Información de contacto para pedidos o sugerencias relacionadas con CasabeSoft Academia.";
-        $this->load_page('contact');
     }
     
     function error404() {

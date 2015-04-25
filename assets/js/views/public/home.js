@@ -7,6 +7,16 @@ function ($, kendo) {
             teacherPlans: [],
             features: []
         },
+        contact: {
+            name: null,
+            email: null,
+            phone: null,
+            message: null
+        },
+        contactFeedback: {
+            type: 'error',
+            text: null
+        },
         status: function () {
             return this.get('isRegistering') ? 'registering' : '';
         },
@@ -40,6 +50,48 @@ function ($, kendo) {
         hideLogin: function () {
             $('#lnkLogin').popover('hide');
             return false;
+        },
+        onPhoneChange: function (e) {
+            var $email = $('#contact input[type=email]');
+            if (this.get('contact.phone')) {
+               $email.removeAttr('required');
+            } else {
+               $email.attr('required', 'required');
+            }
+        },
+        onContactSubmit: function (e) {
+            var _this = this;
+            e.preventDefault();
+            kendo.ui.progress($('#contact form'), true);
+            $.post('/contact',
+                this.contact.toJSON(),
+                function (result) {
+                    console.log(result);
+                    if (result) {
+                        _this.set('contactFeedback.type', 'success');
+                        _this.set('contactFeedback.text', 'Gracias... hemos recibido tus datos');
+                    }
+                }
+            ).
+            fail(function (error) {
+                console.log(error);
+                _this.set('contactFeedback.type', 'error');
+                _this.set('contactFeedback.text', 
+                    'Algo ha ido mal... y no hemos podido guardar sus datos. Por favor, escríbanos directamente a contacto@casabesoft.com');
+            }).
+            always(function () {
+                kendo.ui.progress($('#contact form'), false);
+                setTimeout(function () {
+                    _this.set('contactFeedback.text', null);
+                }, 5000);
+            });
+            return false;
+        },
+        contactFeedbackClass: function () {
+            return "alert alert-dismissible " +
+                    (this.get('contactFeedback.type') === 'success' ?
+                        'alert-success' :
+                                'alert-danger');
         }
     });
     window.vmHome = vmHome;
