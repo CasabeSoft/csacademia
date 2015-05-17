@@ -349,7 +349,7 @@ $lang['page_report_payments'] = "Filtrar pagos";
 $lang['page_report_payments_bank'] = "Filtrar pagos bancarios";
 $lang['page_report_attendance'] = "Filtrar asistencia";
 
-$lang['page_login_title'] = "Acceder a Dundee Gestión";
+$lang['page_login_title'] = "Acceder a CS Academia";
 $lang['page_login_title_info'] = "Accede y obtén la información que buscas, gestiona datos y mucho más...";
 $lang['page_login_content'] = "Si ya tienes una cuenta de usuario podrás...";
 $lang['page_login_content_info'] = "Si tienes una cuenta accede al sistema, si no... ¡Solicítala!";
