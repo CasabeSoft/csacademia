@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
 /**
  * Correo.
  * */
-$config['email']['protocol'] = 'mail'; // mail, sendmail, smtp
+$config['email']['protocol'] = 'smtp'; // mail, sendmail, smtp
 $config['email']['smtp_host'] = 'smtp.1and1.es';
 $config['email']['smtp_port'] = '587';
 $config['email']['smtp_user'] = 'contacto@casabesoft.com';

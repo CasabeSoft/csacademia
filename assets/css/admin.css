@@ -7,10 +7,8 @@
 */
 
 .container-first {
-    /*margin-top: 43px;*/
-    margin-top: 75px;
+    margin-top: 45px;
     position: relative;
-    background-color: #fafafa;
     padding: 0px 20px 0px 20px;
 }
 
@@ -79,14 +77,11 @@ label.error {
     margin-right: -20px;
 }
 
-.logo{
-    float: left;
-    margin-left: 10px;
-    width: 300px;
-}
-body
-{
-    background-color: #ECE7cF;
+.logo {
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    border-radius: 50%;
 }
 
 .cursor-pointer{
@@ -103,4 +98,12 @@ body
 .odd { 
     background-color: red; 
     color: red !important;
+}
+
+#pnlAbout .logo {
+    width: auto;
+    height: auto;
+}
+#pnlAbout .font-header {
+    text-align: left;
 }

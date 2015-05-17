@@ -1,0 +1,153 @@
+html,
+body {
+  height: 100%;
+}
+.cs-home {
+  font-size: 18px;
+}
+@media (min-width: 1200px) {
+  .cs-home .container {
+    width: 970px;
+  }
+}
+.cs-home label {
+  font-weight: normal;
+}
+.cs-home a:hover,
+.cs-home a:focus {
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .cs-home,
+  .cs-home > section {
+    height: 100%;
+  }
+}
+.cs-home .separator {
+  text-align: center;
+}
+.cs-home #home .cs-scroll-to {
+  display: none;
+}
+.cs-home #home header {
+  padding-top: 20px;
+}
+.cs-home #home header a {
+  float: right;
+}
+.cs-home #home #loginTemplate {
+  display: none;
+}
+.cs-home #home .login {
+  width: 200px;
+}
+.cs-home #home .call-4-action {
+  margin-top: 20px;
+}
+.cs-home #home #register fieldset {
+  display: none;
+  -webkit-transition: display 1s, height 1s;
+  -moz-transition: display 1s, height 1s;
+  transition: display 1s, height 1s;
+}
+.cs-home #home .they {
+  font-size: large;
+}
+.cs-home #home .us {
+  font-size: large;
+  font-weight: bold;
+}
+@media (min-width: 768px) {
+  .cs-home #home {
+    height: 100%;
+  }
+  .cs-home #home .call-4-action {
+    margin-top: 0;
+    position: relative;
+    top: 40%;
+    -webkit-transform: translateY(-40%);
+    -m0z-transform: translateY(-40%);
+    -ms-transform: translateY(-40%);
+    transform: translateY(-40%);
+    -webkit-transition: top 1s, transform 1s, margin-top 1s;
+    -moz-transition: top 1s, transform 1s, margin-top 1s;
+    -ms-transition: top 1s, transform 1s, margin-top 1s;
+    transition: top 1s, transform 1s, margin-top 1s;
+  }
+  .cs-home #home .cs-scroll-to {
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    width: 200px;
+    margin-left: -100px;
+    left: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .cs-home #register .form-group {
+    width: 50%;
+  }
+}
+.cs-home #prices .nav-tabs {
+  margin-bottom: 20px;
+}
+.cs-home #legal {
+  display: none;
+}
+.cs-home #features > * {
+  margin-top: 30px;
+}
+.cs-home #features .media {
+  max-height: 128px;
+}
+.cs-home #features .media:first-child {
+  margin-top: 15px;
+}
+.cs-home #features .media img {
+  width: 128px;
+}
+.cs-home #features .call-4-action > p:first-child {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.cs-home #features .call-4-action .separator {
+  padding-top: 10px;
+}
+.cs-home #contact {
+  position: relative;
+}
+.cs-home #contact .alert {
+  position: absolute;
+  top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.cs-home #contact form {
+  position: relative;
+}
+.cs-home .container > h2:first-child {
+  margin-top: 30px;
+}
+@media (min-width: 768px) {
+  .cs-home .container > h2:first-child {
+    margin-top: 90px;
+  }
+}
+.cs-home footer {
+  background-image: url('../../img/skyline_madrid.png');
+  background-size: 100%;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+  padding-top: 250px;
+  padding-bottom: 30px;
+}
+.cs-home footer nav {
+  text-align: center;
+}
+.cs-home footer nav a {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+/*# sourceMappingURL=home.css.map */

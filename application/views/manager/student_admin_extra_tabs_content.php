@@ -97,7 +97,7 @@
         </legend>
     </div>
     <div class="row-fluid">
-        <table id="tblInternal" class="table table-bordered table-hover">
+        <table id="tblInternal" class="table table-bordered table-hover table-striped">
             <thead>
                 <tr>
                     <th><?php echo lang('form_concept'); ?></th>
@@ -328,7 +328,7 @@
         </legend>
         <div class="row-fluid">
 
-            <table id="tblInternal" class="table table-bordered table-hover">
+            <table id="tblInternal" class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
                         <th><?php echo lang('form_payment_type'); ?></th>

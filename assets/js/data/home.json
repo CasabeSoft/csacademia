@@ -1,0 +1,70 @@
+{
+    "schoolPlans": [
+        {
+            "name": "Starter",
+            "for": "Centros",
+            "min": 1,
+            "max": 50,
+            "price": 5
+        },
+        {
+            "name": "Standard",
+            "for": "Centros",
+            "min": 51,
+            "max": 200,
+            "price": 15
+        },
+        {
+            "name": "Large",
+            "for": "Centros",
+            "min": 201,
+            "max": null,
+            "price": 20
+        }
+    ],
+    "teacherPlans": [
+        {
+            "name": "Starter",
+            "for": "Profesores",
+            "min": 1,
+            "max": 10,
+            "price": 0
+        },
+        {
+            "name": "Standard",
+            "for": "Profesores",
+            "min": 11,
+            "max": 25,
+            "price": 3
+        },
+        {
+            "name": "Large",
+            "for": "Profesores",
+            "min": 26,
+            "max": 50,
+            "price": 5
+        }
+    ],
+    "features": [
+        {
+            "name": "Mejora la gestión",
+            "image": "/assets/img/better-managment.jpg",
+            "description": "No es una opción sino lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam iaculis sapien ut nulla rutrum adipiscing. Proin lacinia consequat semper. Quisque."
+        },
+        {
+            "name": "Aumenta la eficiencia",
+            "image": "/assets/img/more-efficiency.jpg",
+            "description": "Hará que su negocio lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante metus, lobortis at luctus eget, porta vel odio. Fusce tristique."
+        },
+        {
+            "name": "Comunícate más y mejora el engagement",
+            "image": "/assets/img/better-managment.jpg",
+            "description": "No es una opción sino lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam iaculis sapien ut nulla rutrum adipiscing. Proin lacinia consequat semper. Quisque."
+        },
+        {
+            "name": "Cobra más rápido",
+            "image": "/assets/img/more-efficiency.jpg",
+            "description": "Hará que su negocio lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante metus, lobortis at luctus eget, porta vel odio. Fusce tristique."
+        }
+    ]
+}

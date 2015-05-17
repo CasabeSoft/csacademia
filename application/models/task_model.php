@@ -7,6 +7,7 @@
  */
 class Task_model extends CI_Model {
 
+    private $client_id;
     public $FIELDS = [
         "id",
         "start_date",
@@ -27,6 +28,7 @@ class Task_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        $this->client_id = $this->session->userdata('client_id');
     }
 
     public function get_all($filter = []) {
@@ -36,6 +38,7 @@ class Task_model extends CI_Model {
                 ->join('task_importance', 'task.task_importance_id = task_importance.id')
                 ->join('task_state', 'task.task_state_id = task_state.id')
                 ->join('login', 'task.login_id = login.id')
+                ->where('task.client_id = ' . $this->client_id)
                 ->order_by('start_date, start_time', 'asc');
 
         $dialy = array_key_exists('dialy', $filter) ? $filter['dialy'] : $this->DEFAUL_FILTER['dialy'];
@@ -77,6 +80,7 @@ class Task_model extends CI_Model {
         unset($task['task_type_name']);
         unset($task['task_state_name']);
         unset($task['login_email']);
+        $task['client_id'] = $this->client_id;
         $this->db->trans_start();
         $this->db->insert('task', $task);
         $id = $this->db->insert_id();
@@ -90,7 +94,8 @@ class Task_model extends CI_Model {
         unset($task['task_type_name']);
         unset($task['task_state_name']);
         unset($task['login_email']);
-        $this->db->update('task', $task, 'id = ' . $id);
+        unset($contact['client_id']);
+        $this->db->update('task', $task, 'id = ' . $id . ' AND client_id = ' . $this->client_id);
         return $id;
     }
 

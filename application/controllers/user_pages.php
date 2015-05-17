@@ -12,9 +12,7 @@ class User_pages extends Basic_controller {
 
     function __construct() {
         parent::__construct();
-        $this->template = $this->subdomain_match_client ? 
-                'templates/user_page' :
-                'templates/public_page';
+        $this->template = 'templates/public_page';
         $this->location = 'user/';
         $this->load->model('Users_model');
         $this->load->library('form_validation');
@@ -108,7 +106,7 @@ class User_pages extends Basic_controller {
 
         $this->title = lang('menu_login');
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
-        $this->load_page('login');
+        $this->load_page('login', 'templates/spa_page');
     }
 
     /**

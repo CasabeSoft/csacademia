@@ -7,14 +7,14 @@ function is_active($current_page, $page_name = 'home') {
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?php echo "Dundee - " . $title ?></title>
+        <title><?php echo "CSAcademia - " . $title ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="<?php echo $description ?>">
         <meta name="author" content="Carlos Bello Pauste, Leonardo Quintero Morales">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/docs.css">
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/2.3.1/css/docs.css">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="../assets/lib/html5shiv/3.6.2-6/html5shiv.js"></script>
@@ -25,8 +25,11 @@ function is_active($current_page, $page_name = 'home') {
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-        <link rel="shortcut icon" href="../assets/img/favicon.ico">    
-        <link rel="stylesheet" type="text/css" href="../assets/css/public.css">        
+        <link rel="shortcut icon" href="../assets<?php echo $client_theme?>/img/favicon.ico">    
+        <link rel="stylesheet" type="text/css" href="../assets/css/public.css">  
+        <?php if ($subdomain_match_client) {?>
+        <link rel="stylesheet" type="text/css" href="../assets<?php echo $client_theme?>/css/public.css">        
+        <?php } ?>
         <!-- Start page style -->
         <?php echo $styles ?>
         <!-- End page style -->
@@ -40,6 +43,7 @@ function is_active($current_page, $page_name = 'home') {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <?php if (!$subdomain_match_client) { ?>
                     <a class="brand" href="home">CS Academia</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
@@ -47,9 +51,9 @@ function is_active($current_page, $page_name = 'home') {
                             <li class="<?php echo is_active($current_page, 'about') ?>"><a href="about"><?php echo lang('menu_about'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="contact"><?php echo lang('menu_contact'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'login') ?>"><a href="login"><?php echo lang('menu_login'); ?></a></li>
-
                         </ul>
                     </div--><!--/.nav-collapse -->
+                    <?php } ?>
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav">
                             <li class="dropdown">

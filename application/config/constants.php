@@ -70,6 +70,7 @@ define('PASSWORD_ADMINISTRATOR', '202cb962ac59075b964b07152d234b70');
  */
 
 define('EMAIL_CONTACT', 'contacto@casabesoft.com');
+define('CONTACT_MAIL_SUBJECT', '[CSAcademia][Contacto] Solicitud de información o contacto');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

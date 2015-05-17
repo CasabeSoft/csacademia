@@ -35,7 +35,9 @@
         <link rel="apple-touch-icon-precomposed" href="<?php echo site_url('assets/ico/apple-touch-icon-57-precomposed.png') ?>">
         <link rel="shortcut icon" href="<?php echo site_url('assets/img/favicon.ico') ?>">    
         <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/css/admin.css') ?>">
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->theme ?>/css/client.css">
+        <?php if ($subdomain_match_client) {?>
+        <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets'.$client_theme.'/css/client.css')?>">
+        <?php } ?>
     </head>
     <body>
         <?php $this->load->view($menu_template) ?>

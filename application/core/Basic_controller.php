@@ -23,22 +23,24 @@ class Basic_controller extends MY_Controller {
     var $centers;
     var $subdomain;
     var $subdomain_match_client;
+    var $client_theme;
 
     public function __construct() {
         parent::__construct();
         $this->load_centers();
         $this->subdomain = get_subdomain();
         $this->subdomain_match_client = subdomain_is_client($this->subdomain);
+        $this->client_theme = $this->subdomain_match_client ? '/themes/' . $this->subdomain : '';
     }
 
-    public function load_page($name = 'home') {
+    public function load_page($name = 'home', $template = null) {
         $this->current_page = $name;
         $this->content = $this->load->view($this->location . $name, $this, true);
         if (file_exists(APPPATH . 'views/' . $this->location . $name . '_scripts' . '.php'))
             $this->scripts = $this->load->view($this->location . $name . '_scripts', $this, true);
         if (file_exists(APPPATH . 'views/' . $this->location . $name . '_styles' . '.php'))
             $this->styles = $this->load->view($this->location . $name . '_styles', $this, true);
-        $this->load->view($this->template, $this);
+        $this->load->view($template ? $template : $this->template, $this);
     }
 
     public function load_centers() {

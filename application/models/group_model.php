@@ -40,7 +40,7 @@ class Group_model extends CI_Model {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
-                ->where('client_id ', $this->client_id)
+                ->where('center.client_id ', $this->client_id)
                 ->order_by('name', 'asc');
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
@@ -59,7 +59,7 @@ class Group_model extends CI_Model {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
-                ->where('client_id ', $this->client_id)
+                ->where('center.client_id ', $this->client_id)
                 ->order_by('name', 'asc');
         if ($piriod != 0)
             $this->db->where('academic_period', $piriod);
@@ -72,8 +72,8 @@ class Group_model extends CI_Model {
         $this->db->select('group.*, academic_period.name academic_period_name')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
-                ->join('academic_period', 'group.academic_period = academic_period.code')
-                ->where('client_id ', $this->client_id)
+                ->join('academic_period', 'group.academic_period = academic_period.code AND academic_period.client_id = ' . $this->client_id)
+                ->where('center.client_id ', $this->client_id)
                 ->order_by('academic_period_name desc, name asc');
         if ($this->center_id != NULL)
             $this->db->where('center_id', $this->center_id);
@@ -83,9 +83,9 @@ class Group_model extends CI_Model {
     public function get_group_report($filter = []) {
         $this->db->select('group.*, center.name as center,  classroom.name as classroom, academic_period.name as period, level.description as level, contact.first_name, contact.last_name')
                 ->from('group')
-                ->join('contact', 'group.teacher_id = contact.id and contact.client_id = ' . $this->client_id)
-                ->join('level', 'group.level_code = level.code and level.client_id = ' . $this->client_id)
-                ->join('academic_period', 'group.academic_period = academic_period.code')
+                ->join('contact', 'group.teacher_id = contact.id AND contact.client_id = ' . $this->client_id)
+                ->join('level', 'group.level_code = level.code AND level.client_id = ' . $this->client_id)
+                ->join('academic_period', 'group.academic_period = academic_period.code AND academic_period.client_id = ' . $this->client_id)
                 ->join('classroom', 'group.classroom_id = classroom.id and group.center_id = classroom.center_id')
                 ->join('center', 'group.center_id = center.id')
                 ->where('center.client_id ', $this->client_id)

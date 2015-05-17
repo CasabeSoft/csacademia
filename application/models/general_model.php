@@ -75,6 +75,23 @@ class General_model extends CI_Model {
                 ->get()->result_array();
     }
     
+    function get_all_classrooms($client_id) {
+        if (!empty($client_id)) {
+            $this->db->join('center', 'center.id = classroom.center_id');
+            $this->db->where('center.client_id', $client_id);
+        }
+        return $this->db->select('classroom.id, classroom.name, classroom.capacity')
+                ->from('classroom')                                
+                ->get()->result_array();
+    }
+    
+    public function get_info_client_id($id) {
+        return $this->db->select("client_info.*")
+                        ->from('client_info')
+                        ->where('client_info.client_id', $id)
+                        ->get()->row_array();
+    }
+    
     function get_center($id) {
         $center = $this->db->select('id, name')
                 ->from('center')

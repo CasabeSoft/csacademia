@@ -19,7 +19,7 @@
                     <input id="appendedInputButtons" type="text" class="span*" placeholder="<?php echo lang('form_type_filter'); ?>"
                            data-bind="value: filter">
                 </div>
-                <table id="tblContacts" class="table table-bordered table-hover table-condensed cursor-pointer">
+                <table id="tblContacts" class="table table-bordered table-hover table-condensed table-striped cursor-pointer">
                     <thead>
                         <tr>
                             <th><?php echo lang('form_name'); ?></th>
