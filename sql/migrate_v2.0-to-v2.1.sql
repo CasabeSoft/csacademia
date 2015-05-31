@@ -47,32 +47,15 @@ FROM `student`
 	LEFT JOIN `contact` 
 		ON `student`.`contact_id` = `contact`.`id`;
 
--- Nueva tabla para configurar la informacion del cliente
-CREATE TABLE `cliente_info` (
-	`client_id` INT(11) NOT NULL,
-        `name` VARCHAR(250) NULL DEFAULT NULL,
-	`cif` VARCHAR(50) NULL DEFAULT NULL,
-	`address` VARCHAR(250) NULL DEFAULT NULL,
-	`city` VARCHAR(50) NULL DEFAULT NULL,
-	`phone1` VARCHAR(15) NULL DEFAULT NULL,
-	`phone2` VARCHAR(15) NULL DEFAULT NULL,
-        `web` VARCHAR(255) NULL DEFAULT NULL,
-        `report_logo` VARCHAR(255) NULL DEFAULT NULL,
-	PRIMARY KEY (`client_id`),
-	CONSTRAINT `fk_info_client1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-ENGINE=InnoDB;
-
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-DELIMITER //
-CREATE TRIGGER `tri_client_after_insert` AFTER INSERT ON `client` FOR EACH ROW BEGIN
-	INSERT INTO client_info (client_id) VALUES (NEW.id);
-END//
-DELIMITER ;
-SET SQL_MODE=@OLDTMP_SQL_MODE;
-
-INSERT INTO `client_info` (`client_id`, `name`, `cif`, `address`, `city`, `phone1`, `phone2`, `web`, `report_logo`) VALUES 
-    (1, 'Dundee School of English', 'B79907044', 'Avda. Juan Carlos I, 92-2.14 <br> Avda. Juan Carlos I, 79-8 B  ', '28916 LEGANES', '91 680 10 44', '91 680 80 82', 'www.dundeeschool.com', 'logo_dundee_print.png');
+-- Agregar campos a la tabla cliente
+ALTER TABLE `client`
+	ADD COLUMN `cif` VARCHAR(50) NULL DEFAULT NULL AFTER `name`,
+	ADD COLUMN `address` VARCHAR(250) NULL DEFAULT NULL AFTER `cif`,
+	ADD COLUMN `city` VARCHAR(50) NULL DEFAULT NULL AFTER `address`,
+	ADD COLUMN `phone1` VARCHAR(15) NULL DEFAULT NULL AFTER `city`,
+	ADD COLUMN `phone2` VARCHAR(15) NULL DEFAULT NULL AFTER `phone1`,
+        ADD COLUMN `web` VARCHAR(255) NULL DEFAULT NULL AFTER `phone2`,
+        ADD COLUMN`report_logo` VARCHAR(255) NULL DEFAULT NULL AFTER `web`;
 
 -- Actualizar cliente en los datos actuales
 UPDATE `task` SET `client_id`=1;
@@ -81,6 +64,15 @@ UPDATE `academic_period` SET `client_id`=1;
 UPDATE `leave_reason` SET `client_id`=1;
 UPDATE `task_importance` SET `client_id`=1;
 UPDATE `task_state` SET `client_id`=1;
+UPDATE `client` 
+SET `cif`= 'B79907044', 
+    `address` = 'Avda. Juan Carlos I, 92-2.14 <br> Avda. Juan Carlos I, 79-8 B  ',
+    `city` = '28916 LEGANES',
+    `phone1` = '91 680 10 44',
+    `phone2` = '91 680 80 82',
+    `web` = 'www.dundeeschool.com',
+    `report_logo` = 'logo_dundee_print.png'
+WHERE `id`=1;
 
 ALTER TABLE `task`
 	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `id`;

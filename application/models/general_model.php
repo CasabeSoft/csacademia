@@ -86,9 +86,9 @@ class General_model extends CI_Model {
     }
     
     public function get_info_client_id($id) {
-        return $this->db->select("client_info.*")
-                        ->from('client_info')
-                        ->where('client_info.client_id', $id)
+        return $this->db->select("*")
+                        ->from('client')
+                        ->where('id', $id)
                         ->get()->row_array();
     }
     
