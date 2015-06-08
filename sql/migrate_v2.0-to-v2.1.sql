@@ -73,16 +73,3 @@ SET `cif`= 'B79907044',
     `web` = 'www.dundeeschool.com',
     `report_logo` = 'logo_dundee_print.png'
 WHERE `id`=1;
-
-ALTER TABLE `task`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `id`;
-ALTER TABLE `school_level`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `id`;
-ALTER TABLE `academic_period`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `code`;
-ALTER TABLE `leave_reason`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `code`;
-ALTER TABLE `task_importance`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `id`;
-ALTER TABLE `task_state`
-	CHANGE COLUMN `client_id` `client_id` INT(11) NOT NULL AFTER `id`;
