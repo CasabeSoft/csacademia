@@ -1,0 +1,29 @@
+<div id="emailPartial">
+<div>
+    <div data-template="bulkFilterTemplate" data-bind="source: filter" class="filterWrapper"></div>
+    <div class="emailWrapper">
+        <div>
+            <div>
+                <div id="toolbar"></div>
+            </div>
+            <div>
+                <div class="akTo">
+                    <label>Para</label>
+                    <ul data-template="toTemplate" data-bind="source: to">
+                    </ul>
+                    <script id="toTemplate" type="text/x-kendo-template">
+                        <li>#= name# <a href="\#" class="glyphicon glyphicon-remove" data-bind="click: removeFromTo"></a></li>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <input type="text" class="k-textbox akSubject" placeholder="Asunto del mensaje"
+                       data-bind="value: subject">
+            </div>
+            <div class="akBody">
+                <textarea data-role="editor" data-bind="value: message"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

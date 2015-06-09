@@ -1,0 +1,56 @@
+#filter {
+    display: table;
+    height: 100%;
+    width: 100%;
+    
+    label {
+        font-weight: normal;
+    }
+
+    & > div {
+        display: table-row;
+        height: 0;
+    }
+    #filtersWrapper {
+        height: auto;
+    } 
+
+    .filterActions {
+        display: table;
+        width: 100%;
+
+        & > div {
+            display: table-row;
+
+            & > div {
+                display: table-cell;
+                &:first-child {
+                    width: 16px;
+                }
+                &:last-child {
+                    padding-left: @space-m;
+                    width: 32px;
+                } 
+            }
+        }
+
+        input[type=search] {
+            width: 100%;
+        }
+    }
+
+    .filterableData {
+        max-height: 150px;
+        overflow: auto;
+        padding: 0;
+        margin-top: @space-m;
+        li {
+            list-style: none;
+        }
+    }
+}
+
+#filters {
+    overflow: auto;
+    height: 100%;
+}

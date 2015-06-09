@@ -1,3 +1,28 @@
+a:focus {
+  text-decoration: none;
+}
+.panel-heading a[data-parent] {
+  display: block;
+}
+.panel-heading a[data-parent]:hover {
+  text-decoration: none;
+}
+.container-first {
+  margin-top: 72px;
+}
+.nav li.selected a:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: '\e013';
+  margin-left: 10px;
+}
 @media (min-width: 1200px) {
   .cs-login .container {
     width: 970px;

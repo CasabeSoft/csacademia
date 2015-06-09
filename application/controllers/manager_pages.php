@@ -54,6 +54,43 @@ class Manager_pages extends Basic_controller {
         $this->redirect_to_caller();
     }
 
+    public function bulk_operations() {
+        $this->load_page('bulk_operations', 'templates/spa_page');
+    }
+    
+    protected function email_post() {
+        $this->setup_ajax_response_headers();
+        $from = $this->session->userdata('email');
+        $email = $this->input->post();
+        
+        $this->load->library('email');
+        $this->email->clear();
+        // TODO: Inicializar con configuración de email por cliente
+        $config = $this->config->item('email', 'academy');
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->from($from);
+        $this->email->reply_to($from);
+        $this->email->to($from);
+        $this->email->bcc($email['to']);
+        $this->email->subject($email['subject']);
+        $this->email->message(nl2br($email['message']));
+        $sent = $this->email->send();
+        echo json_encode($sent);
+    }
+    
+    public function email() {
+        try {
+            switch ($this->input->server('REQUEST_METHOD')) {
+                case 'POST':
+                    $this->email_post();
+                    break;
+            }
+        } catch (Exception $e) {
+            $this->echo_json_error($e->getMessage());
+        }
+    }
 }
 
 /* End of file manager_pages.php */

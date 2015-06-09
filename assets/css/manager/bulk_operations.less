@@ -1,0 +1,23 @@
+@import '../admin.css';
+@import '../helpers.less';
+@import '../common.less';
+
+html, body {
+    height: 100%;
+}
+#bulkOperationsContainer {
+    position: absolute;
+    padding-top: 68px;
+    top: 0;
+    bottom: @space-m;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    
+    & > .content {
+        height: 100%;
+    }
+}
+
+@import 'bulk-filter-template.less';
+@import 'email-partial.less';

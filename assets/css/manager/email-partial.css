@@ -1,0 +1,79 @@
+#emailPartial {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+#emailPartial > div {
+  display: table-row;
+  height: 100%;
+}
+#emailPartial .filterWrapper {
+  display: table-cell;
+  width: 25%;
+  height: 100%;
+  padding-right: 15px;
+}
+#emailPartial .emailWrapper {
+  display: table-cell;
+  width: 75%;
+  height: 100%;
+}
+#emailPartial .emailWrapper > div {
+  display: table;
+  height: 100%;
+}
+#emailPartial .emailWrapper > div > div {
+  display: table-row;
+  height: 0;
+}
+#emailPartial .emailWrapper > div > div > * {
+  margin-bottom: 10px;
+}
+#emailPartial .emailWrapper .akTo {
+  padding: 5px 10px 10px 20px;
+  position: relative;
+  display: block;
+  border: 1px solid #efefef;
+  min-height: 52px;
+  max-height: 120px;
+  overflow: auto;
+}
+#emailPartial .emailWrapper .akTo label {
+  padding-top: 10px;
+}
+#emailPartial .emailWrapper .akTo ul {
+  display: inline;
+  padding: 0;
+}
+#emailPartial .emailWrapper .akTo li {
+  display: inline-block;
+  list-style: none;
+  white-space: nowrap;
+  background-color: #efefef;
+  padding: 5px;
+  margin: 5px 5px 0 0;
+}
+#emailPartial .emailWrapper .akTo li:first-child {
+  margin-left: 10px;
+}
+#emailPartial .emailWrapper .akTo li a {
+  color: #898989;
+}
+#emailPartial .emailWrapper .akTo li a:hover {
+  color: #303030;
+  text-decoration: none;
+}
+#emailPartial .emailWrapper .akSubject {
+  display: block;
+  width: 100%;
+}
+#emailPartial .emailWrapper .akBody {
+  height: auto;
+}
+#emailPartial .emailWrapper .akBody > * {
+  height: 100%;
+}
+#emailPartial .emailWrapper .k-button {
+  text-transform: none;
+}
+/*# sourceMappingURL=email-partial.css.map */

@@ -1,0 +1,92 @@
+@import '../helpers.less';
+
+#emailPartial {
+    display: table;
+    height: 100%;
+    width: 100%;
+    
+    & > div {
+        display: table-row;
+        height: 100%;
+    }
+    
+    .filterWrapper {
+        display: table-cell;
+        width: 25%;
+        height: 100%;
+        padding-right: @bootstrap-col-padding;
+    }
+
+    .emailWrapper {
+        display: table-cell;
+        width: 75%;
+        height: 100%;
+        
+        & > div {
+            display: table;
+            height: 100%;
+        }
+
+        & > div > div {
+            display: table-row;
+            height: 0;
+            & > * {
+                margin-bottom: @space-m;
+            }
+        }
+
+        .akTo {
+            padding: @space-s @space-m @space-m @space-l;
+            position: relative;
+            display: block;
+            border: 1px solid @color-light-gray;
+            min-height: 52px;
+            max-height: 4 * @space-xl;
+            overflow: auto;
+
+            label {
+                padding-top: @space-m;
+            }
+
+            ul {
+                display: inline;
+                padding: 0;
+            }
+
+            li {
+                display: inline-block;
+                list-style: none;
+                white-space: nowrap;
+                background-color: @color-light-gray;
+                padding: @space-s;
+                margin: @space-s @space-s 0 0;
+                &:first-child {
+                    margin-left: @space-m
+                }
+                a {
+                    color: darken(@color-light-gray, 40%);
+                    &:hover {
+                        color: darken(@color-light-gray, 75%);
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .akSubject {
+            display: block;
+            width: 100%;
+        }
+
+        .akBody {
+            height: auto;
+            & > * {
+                height: 100%;
+            }
+        }
+
+        .k-button {
+            text-transform: none;
+        }
+    }
+}

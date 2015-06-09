@@ -91,6 +91,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </a>
                         <ul class="dropdown-menu">
                             <li class="<?php echo is_active($current_page, 'tasks') ?>"><a href="/tools/tasks"><?php echo lang('menu_tasks'); ?></a></li>    
+                            <li class="<?php echo is_active($current_page, 'bulk_operations') ?>"><a href="/tools/bulk_operations"><?php echo lang('menu_bulk_operations'); ?></a></li>    
                         </ul>
                     </li>
                     <!--li class="<?php echo is_controller_active($current_controller, 'help') ?>"><a href="/manager/main"><?php echo lang('menu_help'); ?></a></li-->

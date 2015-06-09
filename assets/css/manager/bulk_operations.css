@@ -1,0 +1,169 @@
+@import '../admin.css';
+a:focus {
+  text-decoration: none;
+}
+.panel-heading a[data-parent] {
+  display: block;
+}
+.panel-heading a[data-parent]:hover {
+  text-decoration: none;
+}
+.container-first {
+  margin-top: 72px;
+}
+.nav li.selected a:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: '\e013';
+  margin-left: 10px;
+}
+html,
+body {
+  height: 100%;
+}
+#bulkOperationsContainer {
+  position: absolute;
+  padding-top: 68px;
+  top: 0;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+#bulkOperationsContainer > .content {
+  height: 100%;
+}
+#filter {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+#filter label {
+  font-weight: normal;
+}
+#filter > div {
+  display: table-row;
+  height: 0;
+}
+#filter #filtersWrapper {
+  height: auto;
+}
+#filter .filterActions {
+  display: table;
+  width: 100%;
+}
+#filter .filterActions > div {
+  display: table-row;
+}
+#filter .filterActions > div > div {
+  display: table-cell;
+}
+#filter .filterActions > div > div:first-child {
+  width: 16px;
+}
+#filter .filterActions > div > div:last-child {
+  padding-left: 10px;
+  width: 32px;
+}
+#filter .filterActions input[type=search] {
+  width: 100%;
+}
+#filter .filterableData {
+  max-height: 150px;
+  overflow: auto;
+  padding: 0;
+  margin-top: 10px;
+}
+#filter .filterableData li {
+  list-style: none;
+}
+#filters {
+  overflow: auto;
+  height: 100%;
+}
+#emailPartial {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+#emailPartial > div {
+  display: table-row;
+  height: 100%;
+}
+#emailPartial .filterWrapper {
+  display: table-cell;
+  width: 25%;
+  height: 100%;
+  padding-right: 15px;
+}
+#emailPartial .emailWrapper {
+  display: table-cell;
+  width: 75%;
+  height: 100%;
+}
+#emailPartial .emailWrapper > div {
+  display: table;
+  height: 100%;
+}
+#emailPartial .emailWrapper > div > div {
+  display: table-row;
+  height: 0;
+}
+#emailPartial .emailWrapper > div > div > * {
+  margin-bottom: 10px;
+}
+#emailPartial .emailWrapper .akTo {
+  padding: 5px 10px 10px 20px;
+  position: relative;
+  display: block;
+  border: 1px solid #efefef;
+  min-height: 52px;
+  max-height: 120px;
+  overflow: auto;
+}
+#emailPartial .emailWrapper .akTo label {
+  padding-top: 10px;
+}
+#emailPartial .emailWrapper .akTo ul {
+  display: inline;
+  padding: 0;
+}
+#emailPartial .emailWrapper .akTo li {
+  display: inline-block;
+  list-style: none;
+  white-space: nowrap;
+  background-color: #efefef;
+  padding: 5px;
+  margin: 5px 5px 0 0;
+}
+#emailPartial .emailWrapper .akTo li:first-child {
+  margin-left: 10px;
+}
+#emailPartial .emailWrapper .akTo li a {
+  color: #898989;
+}
+#emailPartial .emailWrapper .akTo li a:hover {
+  color: #303030;
+  text-decoration: none;
+}
+#emailPartial .emailWrapper .akSubject {
+  display: block;
+  width: 100%;
+}
+#emailPartial .emailWrapper .akBody {
+  height: auto;
+}
+#emailPartial .emailWrapper .akBody > * {
+  height: 100%;
+}
+#emailPartial .emailWrapper .k-button {
+  text-transform: none;
+}
+/*# sourceMappingURL=bulk_operations.css.map */

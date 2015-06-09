@@ -44,6 +44,7 @@ $lang['menu_admin'] = "Admin";
 $lang['menu_reports'] = "Reports";
 $lang['menu_help'] = "Help";
 $lang['menu_tools'] = "Tools";
+$lang['menu_bulk_operations'] = "Bulk operations";
 $lang['menu_billing'] = "Billing";
 
 $lang['menu_birthdays'] = "Labels for birthdays";

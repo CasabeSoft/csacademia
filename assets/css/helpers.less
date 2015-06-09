@@ -1,0 +1,39 @@
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+
+@space-s: 5px;
+@space-m: 10px;
+@space-l: 20px;
+@space-xl: 30px;
+@space-xxl: 50px;
+
+@bootstrap-col-padding: 15px;
+
+@color-light-gray: #efefef;
+
+.vertical-align(@top: 50%) {
+    position: relative;
+    top: @top;
+    -webkit-transform: translateY(-@top);
+    -m0z-transform: translateY(-@top);
+    -ms-transform: translateY(-@top);
+    transform: translateY(-@top);
+    
+    -webkit-transition: top 1s, transform 1s, margin-top 1s;
+    -moz-transition: top 1s, transform 1s, margin-top 1s;
+    -ms-transition: top 1s, transform 1s, margin-top 1s;
+    transition: top 1s, transform 1s, margin-top 1s;
+}
+
+.glyphicon() {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

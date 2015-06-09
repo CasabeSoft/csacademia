@@ -27,7 +27,7 @@
                     </thead>            
                     <tbody data-bind="foreach: filteredContacts">
                         <tr data-bind="click: $root.selectContact">
-                            <td data-bind="text: full_name()"></td>
+                            <td data-bind="text: fullName"></td>
                         </tr>
                     </tbody>
                 </table>

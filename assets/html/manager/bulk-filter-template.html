@@ -1,0 +1,65 @@
+<script id="bulkFilterTemplate" type="text/x-kendo-template">
+<div id="filter">
+    <div>
+        <div class="filterActions">
+            <div>
+                <div>
+                    <input type="checkbox" title="Marcar/Desmarcar todos"
+                           data-bind="checked: checkAll, events: {change: toogleCheckAll}">
+                </div>
+                <div>
+                    <input type="search" class="k-textbox" placeholder="Nombre"
+                           data-bind="value: query, events: {change: doSearch}">
+                </div>
+                <div>
+                    <a href="\#" data-bind="click: toogleOrder">
+                        <span data-bind="attr: {class: orderIconClass, title: orderTitle}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <ul class="filterableData" data-template="filterableDataTemplate" 
+            data-bind="source: filterableData"></ul>
+    </div>
+    <div id="filtersWrapper">
+        <div class="panel-group" id="filters" role="tablist" aria-multiselectable="true"
+             data-template="filterTemplate" data-bind="source: filters">                
+        </div>
+    </div>
+</div>
+</script>
+<script id="filterableDataTemplate" type="text/x-kendo-template">
+    <li>
+        <label>
+            <input type="checkbox" data-bind="checked: selected">
+            <span data-bind="text: name"></span>
+        </label>
+    </li>
+</script>
+<script id="filterTemplate" type="text/x-kendo-template">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="filterHeading#= field#">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="\#filters" href="\#filterCollapse#= field#" aria-expanded="false" aria-controls="filterCollapse#= field#">
+                    #= name#
+                </a>
+            </h4>
+        </div>
+        <div id="filterCollapse#= field#" class="panel-collapse collapse" role="tabpanel" aria-labelledby="filterHeading#= field#">
+            <div class="panel-body">
+                <ul class="filterableData" data-template="filterValueTemplate"
+                    data-bind="source: currentValues"></ul>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="filterValueTemplate" type="text/x-kendo-template">
+    <li>
+        <label>
+            <input type="checkbox" data-bind="checked: selected, value: value, events: {change: onSelectedChange}">
+            <span data-bind="text: text"></span>
+        </label>
+    </li>
+</script>

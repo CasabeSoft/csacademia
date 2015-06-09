@@ -1,0 +1,10 @@
+a:focus {
+  text-decoration: none;
+}
+.panel-heading a[data-parent] {
+  display: block;
+}
+.panel-heading a[data-parent]:hover {
+  text-decoration: none;
+}
+/*# sourceMappingURL=bootstrap-styling.css.map */

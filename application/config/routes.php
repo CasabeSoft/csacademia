@@ -48,6 +48,8 @@ $route['default_controller'] = $subdomain_is_client ?
         'user_pages/login' :
         'public_pages/home';
 
+$route['api/config/front'] = 'config/front';
+$route['api/email'] = 'manager_pages/email';
 $route['user/(:any)'] = 'user_pages/$1';
 $route['manage/contact'] = 'contact/admin';
 $route['manage/teacher'] = 'teacher/admin';
@@ -66,6 +68,7 @@ $route['report/payments'] = 'student/payments';
 $route['report/payments_bank'] = 'student/payments_bank';
 $route['report/attendance'] = 'group/attendance';
 $route['tools/tasks'] = 'task/admin';
+$route['tools/bulk_operations'] = 'manager_pages/bulk_operations';
 $route['help/about'] = 'manager_pages/main';
 
 $route['login'] = 'user_pages/login';
