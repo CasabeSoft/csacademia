@@ -28,25 +28,25 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                         </a>
                         <ul class="dropdown-menu">
                             <?php if ($this->role_id == ROLE_ADMINISTRATOR) { ?>
-                                <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/catalog/client"><?php echo lang('menu_client'); ?></a></li>
+                                <!--li class="<?php echo is_active($current_page, 'client') ?>"><a href="/catalog/client"><?php echo lang('menu_client'); ?></a></li-->
                                 <li class="<?php echo is_active($current_page, 'role') ?>"><a href="/catalog/role"><?php echo lang('menu_role'); ?></a></li> 
                                 <li class="<?php echo is_active($current_page, 'teacher') ?>"><a href="/catalog/teacher"><?php echo lang('menu_teacher'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'student') ?>"><a href="/catalog/student"><?php echo lang('menu_student'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'contact') ?>"><a href="/catalog/contact"><?php echo lang('menu_contacts'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'qualification') ?>"><a href="/catalog/qualification"><?php echo lang('menu_qualification'); ?></a></li>
-                                <!--li class="<?php echo is_active($current_page, 'students_by_groups') ?>"><a href="/catalog/students_by_groups"><?php //echo lang('menu_student') . ' / ' . lang('menu_group');   ?></a></li-->
+                                <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
+                                <li class="<?php echo is_active($current_page, 'payment_type') ?>"><a href="/catalog/payment_type"><?php echo lang('menu_payment_type'); ?></a></li> 
                                 <li class="<?php echo is_active($current_page, 'payment') ?>"><a href="/catalog/payment"><?php echo lang('menu_payment'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'task_type') ?>"><a href="/catalog/task_type"><?php echo lang('menu_task_type'); ?></a></li>
                                 <li class="<?php echo is_active($current_page, 'task') ?>"><a href="/catalog/task"><?php echo lang('menu_tasks'); ?></a></li>
                             <?php } ?>
+                            <li class="<?php echo is_active($current_page, 'client') ?>"><a href="/catalog/client"><?php echo lang('menu_info_client'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'center') ?>"><a href="/catalog/center"><?php echo lang('menu_center'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'level') ?>"><a href="/catalog/level"><?php echo lang('menu_level'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'classroom') ?>"><a href="/catalog/classroom"><?php echo lang('menu_classroom'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'academic_period') ?>"><a href="/catalog/academic_period"><?php echo lang('menu_academic_period'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/catalog/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'family_relationship') ?>"><a href="/catalog/family_relationship"><?php echo lang('menu_family_relationship'); ?></a></li>
-                            <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>   
-                            <li class="<?php echo is_active($current_page, 'payment_type') ?>"><a href="/catalog/payment_type"><?php echo lang('menu_payment_type'); ?></a></li> 
+                            <li class="<?php echo is_active($current_page, 'leave_reason') ?>"><a href="/catalog/leave_reason"><?php echo lang('menu_leave_reason'); ?></a></li>                            
+                            <li class="<?php echo is_active($current_page, 'school_level') ?>"><a href="/catalog/school_level"><?php echo lang('menu_school_level'); ?></a></li>                              
                             <li class="<?php echo is_active($current_page, 'group') ?>"><a href="/catalog/group"><?php echo lang('menu_group'); ?></a></li>                           
                             <li class="<?php echo is_active($current_page, 'task_importance') ?>"><a href="/catalog/task_importance"><?php echo lang('menu_task_importance'); ?></a></li>
                             <li class="<?php echo is_active($current_page, 'task_state') ?>"><a href="/catalog/task_state"><?php echo lang('menu_task_state'); ?></a></li>
@@ -101,7 +101,7 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/help/about"><?php echo lang('menu_about'); ?></a></li>    
+                            <li class="<?php echo is_active($current_page, 'help') ?>"><a href="/help/about"><?php echo lang('menu_help'); ?></a></li>    
                         </ul>
                     </li>
                 </ul>

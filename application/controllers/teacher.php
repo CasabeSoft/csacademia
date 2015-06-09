@@ -86,8 +86,10 @@ class Teacher extends Basic_controller {
             if (!is_array($filter))
                 $filter = [];*/
             $this->load->model('Teacher_model');
+            $this->load->model('General_model');
             $this->load->helper('Util_helper');
             $teachers = $this->Teacher_model->get_all(["isActive" => $filter]);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
             
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
@@ -98,12 +100,14 @@ class Teacher extends Basic_controller {
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
             
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
+            
             $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_teacher') . '</b></td>
             </tr>
         </tbody>

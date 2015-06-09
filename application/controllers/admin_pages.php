@@ -23,22 +23,39 @@ class Admin_pages extends Crud_controller {
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function client() {
-        $this->set_page_title('page_manage_clients');
+    public function client() {                
+        $fields = array('id', 'name', 'cif', 'address', 'city', 'phone1', 'phone2', 'web', 'report_logo');
+        
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->set_page_title('page_manage_info_client');
+            $this->crud->where('id', $this->client_id);
+            $fields = array('name', 'cif', 'address', 'city', 'phone1', 'phone2', 'web', 'report_logo');
+        } else {
+            $this->set_page_title('page_manage_client');
+        }
 
         $this->crud->set_table('client');
         $this->crud->set_subject(lang('subject_client'));
-        $this->crud->columns('id', 'name');
+        $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
-                ->display_as('name', lang('form_name'));
+                ->display_as('name', lang('form_name'))
+                ->display_as('name', lang('form_name'))
+                ->display_as('cif', lang('form_cif'))
+                ->display_as('address', lang('form_address'))
+                ->display_as('city', lang('form_city'))
+                ->display_as('phone1',  lang('form_phone') . ' 1')
+                ->display_as('phone2', lang('form_phone') . ' 2')
+                ->display_as('web', lang('form_url'))
+                ->display_as('report_logo', lang('form_logo_report'));
 
         $this->crud->required_fields('name');
-        $this->crud->fields('name');
-
-        //$this->crud->add_action('nivel', site_url(). 'assets/img/edit-add-3.png', 'catalog/level_detail','ui-icon-plus');
+        $this->crud->fields('name', 'cif', 'address', 'city', 'phone1', 'phone2', 'web', 'report_logo');
+        
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->unset_add();
+        }
 
         $this->crud_view = $this->crud->render();
-
         $this->load_page();
     }
 
@@ -58,8 +75,8 @@ class Admin_pages extends Crud_controller {
                 ->display_as('description', lang('form_description'));
         $this->crud->required_fields('code', 'description');
         $this->crud->fields('description');
+        
         $this->crud_view = $this->crud->render();
-
         $this->load_page();
     }
 
@@ -129,7 +146,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('name', lang('form_name'))
                 ->display_as('notes', lang('form_notes'));
 
-        $this->crud->required_fields('name');
+        $this->crud->required_fields('client_id', 'name');
         $this->crud->fields('client_id', 'name', 'notes');
         $this->crud->set_relation('client_id', 'client', 'name');
         if ($this->role_id != ROLE_ADMINISTRATOR) {
@@ -142,7 +159,7 @@ class Admin_pages extends Crud_controller {
 
     public function level() {
         $this->set_page_title('page_manage_levels');
-        $fields = array('code', 'description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12', 'state');
+        $fields = array('code', 'client_id', 'description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12', 'state');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
             $this->crud->where('client_id', $this->client_id);
@@ -153,6 +170,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_level'));
         $this->crud->columns($fields);
         $this->crud->display_as('code', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('description', lang('form_description'))
                 ->display_as('price', lang('form_price'))
                 ->display_as('price_1', lang('form_price_monthly'))
@@ -161,11 +179,10 @@ class Admin_pages extends Crud_controller {
                 ->display_as('price_4', lang('form_price_quarterly'))
                 ->display_as('price_6', lang('form_price_semiannual'))
                 ->display_as('price_12', lang('form_price_annual'))
-                ->display_as('state', lang('form_state'))
-                ->display_as('client_id', lang('form_client'));
+                ->display_as('state', lang('form_state'));
 
-        $this->crud->required_fields('code', 'description', 'client_id');
-        $this->crud->fields('description', 'price', 'client_id', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12', 'state');
+        $this->crud->required_fields('code', 'client_id', 'description', 'state');
+        $this->crud->fields('client_id', 'description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12', 'state');
         $this->crud->set_relation('client_id', 'client', 'name');
         $this->crud->field_type('state','dropdown', array('A' => 'Activo', 'I' => 'Inactivo'));
         if ($this->role_id != ROLE_ADMINISTRATOR) {
@@ -201,9 +218,10 @@ class Admin_pages extends Crud_controller {
     public function school_level() {
         $this->set_page_title('page_manage_school_levels');
 
-        $fields = array('id', 'name');
+        $fields = array('id', 'client_id', 'name');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('name');
         }
 
@@ -211,10 +229,15 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_school_level'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('name', lang('form_name'));
 
-        $this->crud->required_fields('name');
-        $this->crud->fields('name');
+        $this->crud->required_fields('client_id', 'name');
+        $this->crud->fields('client_id', 'name');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -259,9 +282,10 @@ class Admin_pages extends Crud_controller {
     public function leave_reason() {
         $this->set_page_title('page_manage_leave_reasons');
 
-        $fields = array('code', 'description');
+        $fields = array('code', 'client_id', 'description');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('description');
         }
 
@@ -269,10 +293,15 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_leave_reason'));
         $this->crud->columns($fields);
         $this->crud->display_as('code', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('description', lang('form_description'));
 
-        $this->crud->required_fields('description');
-        $this->crud->fields('description');
+        $this->crud->required_fields('client_id','description');
+        $this->crud->fields('client_id','description');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -284,6 +313,7 @@ class Admin_pages extends Crud_controller {
         $fields = array('id', 'center_id', 'name', 'capacity', 'notes', 'picture');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('classroom.center_id IN (SELECT id FROM center WHERE client_id = ' . $this->client_id .')');
             $fields = array('center_id', 'name', 'capacity', 'notes', 'picture');
         }
 
@@ -300,7 +330,11 @@ class Admin_pages extends Crud_controller {
         $this->crud->required_fields('center_id', 'name', 'capacity');
         $this->crud->fields('center_id', 'name', 'capacity', 'notes', 'picture');
         $this->crud->set_field_upload('picture', 'assets/uploads/files/classroom');
-        $this->crud->set_relation('center_id', 'center', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->set_relation('center_id', 'center', 'name',array('client_id' => $this->client_id));
+        } else {
+            $this->crud->set_relation('center_id', 'center', 'name');
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -323,11 +357,13 @@ class Admin_pages extends Crud_controller {
                 ->display_as('bank_account_format', lang('form_bank_account_format'))
                 ->display_as('bank_account_number', lang('form_bank_account_number'));
 
-        $this->crud->required_fields('contact_id', 'center', 'title', 'start_date');
+        $this->crud->required_fields('contact_id', 'center', 'title', 'start_date', 'state');
         $this->crud->fields('contact_id', 'center', 'title', 'cv', 'type', 'start_date', 'end_date', 'state', 'bank_account_format', 'bank_account_number');
         $this->crud->field_type('start_date', 'date');
         $this->crud->field_type('end_date', 'date');
         $this->crud->field_type('state','dropdown', array('U' => '--', 'A' => 'Activo', 'I' => 'Inactivo'));
+        $this->crud->field_type('type','dropdown', array('U' => '--', 'F' => 'Fijo', 'P' => 'Tiempo parcial'));
+        $this->crud->field_type('bank_account_format','dropdown', array('U' => '--', 'CCC' => 'CCC', 'IBAN' => 'IBAN'));
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation_n_n('center', 'teachers_by_centers', 'center', 'teacher_id', 'center_id', 'name');
 
@@ -341,6 +377,7 @@ class Admin_pages extends Crud_controller {
         $fields = array('id', 'name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('group.center_id IN (SELECT id FROM center WHERE client_id = ' . $this->client_id .')');
             $fields = array('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
         }
 
@@ -364,9 +401,7 @@ class Admin_pages extends Crud_controller {
                 ->display_as('end_time', lang('form_end_time'));
 
         $this->crud->required_fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'start_time');
-        $this->crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
-        $this->crud->set_relation('center_id', 'center', 'name');
-        $this->crud->set_relation('classroom_id', 'classroom', 'name');
+        $this->crud->fields('name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');        
         $this->crud->field_type('monday', 'dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->field_type('tuesday', 'dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->field_type('wednesday', 'dropdown', array('0' => 'No', '1' => 'Si'));
@@ -374,33 +409,26 @@ class Admin_pages extends Crud_controller {
         $this->crud->field_type('friday', 'dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->field_type('saturday', 'dropdown', array('0' => 'No', '1' => 'Si'));
         $this->crud->set_primary_key('contact_id', 'view_teacher');
-        $this->crud->set_relation('teacher_id', 'view_teacher', 'full_name', 'contact_id in (select contact_id from teacher where end_date is null)');
-        $this->crud->set_relation('level_code', 'level', 'description');
-        $this->crud->set_relation('academic_period', 'academic_period', 'name', null, 'name desc');
+                
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->set_relation('center_id', 'center', 'name', array('client_id' => $this->client_id));
+            $this->crud->set_relation('level_code', 'level', 'description', array('client_id' => $this->client_id));
+            $this->crud->set_relation('academic_period', 'academic_period', 'name', array('client_id' => $this->client_id), 'name desc');
+            $this->crud->set_relation('center_id', 'center', 'name', array('client_id' => $this->client_id));
+            $this->crud->set_relation('classroom_id', 'classroom', 'name', 'classroom.center_id IN (SELECT id FROM center WHERE client_id = ' . $this->client_id .')');
+            $this->crud->set_relation('teacher_id', 'view_teacher', 'full_name', 'contact_id in (select contact_id from teacher where end_date is null AND client_id = ' . $this->client_id .')');
+        } else {
+            $this->crud->set_relation('center_id', 'center', 'name');
+            $this->crud->set_relation('level_code', 'level', 'description');
+            $this->crud->set_relation('academic_period', 'academic_period', 'name', null, 'name desc');
+            $this->crud->set_relation('center_id', 'center', 'name');
+            $this->crud->set_relation('classroom_id', 'classroom', 'name');
+            $this->crud->set_relation('teacher_id', 'view_teacher', 'full_name', 'contact_id in (select contact_id from teacher where end_date is null)');
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
     }
-
-    /*
-      public function students_by_groups() {
-      $this->set_page_title('page_manage_students_by_group');
-
-      $this->crud->set_table('students_by_groups');
-      $this->crud->set_subject(lang('subject_student'));
-      $this->crud->columns('groups_id', 'student_id');
-      $this->crud->display_as('groups_id', lang('subject_group'))
-      ->display_as('student_id', lang('subject_student'));
-
-      $this->crud->required_fields('groups_id', 'student_id');
-      $this->crud->fields('groups_id', 'student_id');
-      $this->crud->set_relation('groups_id', 'group', 'name');
-      $this->crud->set_primary_key('contact_id','view_student');
-      $this->crud->set_relation('student_id', 'view_student', 'full_name');
-
-      $this->crud_view = $this->crud->render();
-      $this->load_page();
-      } */
 
     public function student() {
         $this->set_page_title('page_manage_students');
@@ -472,9 +500,10 @@ class Admin_pages extends Crud_controller {
     public function academic_period() {
         $this->set_page_title('page_manage_academic_period');
 
-        $fields = array('code', 'name');
+        $fields = array('code', 'client_id', 'name');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('name');
         }
 
@@ -482,10 +511,15 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_academic_period'));
         $this->crud->columns($fields);
         $this->crud->display_as('code', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('name', lang('form_name'));
 
-        $this->crud->required_fields('name');
-        $this->crud->fields('name');
+        $this->crud->required_fields('client_id','name');
+        $this->crud->fields('client_id','name');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -494,26 +528,25 @@ class Admin_pages extends Crud_controller {
     public function payment() {
         $this->set_page_title('page_manage_payments');
 
-        $fields = array('id', 'date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+        $fields = array('id', 'student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
-            $fields = array('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+            $fields = array('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
         }
 
         $this->crud->set_table('payment');
         $this->crud->set_subject(lang('subject_payment'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
-                ->display_as('date', lang('form_date'))
-                ->display_as('amount', lang('form_amount'))
-                ->display_as('payment_period_id', lang('form_period'))
-                ->display_as('payment_period_year', lang('form_period'))
-                ->display_as('concept', lang('form_concept'))
                 ->display_as('student_id', lang('form_student'))
+                ->display_as('date', lang('form_date'))                
+                ->display_as('payment_period_id', lang('form_period'))
+                ->display_as('payment_period_year', lang('form_year'))
+                ->display_as('amount', lang('form_amount'))
                 ->display_as('notes', lang('form_notes'));
 
-        $this->crud->required_fields('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id');
-        $this->crud->fields('date', 'amount', 'payment_period_id', 'payment_period_year', 'concept', 'student_id', 'notes');
+        $this->crud->required_fields('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount');
+        $this->crud->fields('student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
         $this->crud->field_type('date', 'date');
 
         $this->crud->set_primary_key('contact_id', 'view_student');
@@ -572,9 +605,10 @@ class Admin_pages extends Crud_controller {
     public function task_importance() {
         $this->set_page_title('page_manage_task_importances');
 
-        $fields = array('id', 'name');
+        $fields = array('id', 'client_id', 'name');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('name');
         }
 
@@ -582,21 +616,27 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_task_importance'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('name', lang('form_name'));
 
-        $this->crud->required_fields('name');
-        $this->crud->fields('name');
+        $this->crud->required_fields('client_id','name');
+        $this->crud->fields('client_id','name');        
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
     }
     
     public function task_state() {
-        $this->set_page_title('page_manage_payment_types');
+        $this->set_page_title('page_manage_task_states');
 
-        $fields = array('id', 'name', 'color');
+        $fields = array('id', 'client_id', 'name', 'color');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('name', 'color');
         }
 
@@ -604,11 +644,16 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_task_state'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('name', lang('form_name'))
-                ->display_as('color', lang('form_number_months'));
+                ->display_as('color', lang('form_color_code'));
 
-        $this->crud->required_fields('name', 'color');
-        $this->crud->fields('name', 'color');
+        $this->crud->required_fields('client_id', 'name', 'color');
+        $this->crud->fields('client_id', 'name', 'color');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();
@@ -617,9 +662,10 @@ class Admin_pages extends Crud_controller {
     public function task() {
         $this->set_page_title('page_manage_tasks');
 
-        $fields = array('id', 'start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
+        $fields = array('id', 'client_id', 'start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
 
         if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->where('client_id', $this->client_id);
             $fields = array('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
         }
 
@@ -627,6 +673,7 @@ class Admin_pages extends Crud_controller {
         $this->crud->set_subject(lang('subject_task'));
         $this->crud->columns($fields);
         $this->crud->display_as('id', lang('form_id'))
+                ->display_as('client_id', lang('form_client'))
                 ->display_as('start_date', lang('form_task_start_date'))
                 ->display_as('start_time', lang('form_task_start_time'))
                 ->display_as('end_date', lang('form_end_date'))
@@ -638,17 +685,23 @@ class Admin_pages extends Crud_controller {
                 ->display_as('task_state_id', lang('form_state'))
                 ->display_as('login_id', lang('subject_user'));
 
-        $this->crud->required_fields('start_date', 'start_time', 'task', 'task_importance_id', 'task_type_id', 'task_state_id');
-        $this->crud->fields('start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
+        $this->crud->required_fields('client_id', 'start_date', 'start_time', 'task', 'task_importance_id', 'task_type_id', 'task_state_id');
+        $this->crud->fields('client_id','start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');
         $this->crud->field_type('start_date', 'date');
         $this->crud->field_type('end_date', 'date');
-        //$this->crud->field_type('importance','dropdown', array('0' => '0',  '1' => '1', '2' => '2','3' => '3' , '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'));
         $this->crud->field_type('login_id', 'hidden', $this->session->userdata('id'));
-
         $this->crud->set_relation('task_type_id', 'task_type', 'name');
-        $this->crud->set_relation('task_importance_id', 'task_importance', 'name');
-        $this->crud->set_relation('task_state_id', 'task_state', 'name');
+        
         $this->crud->set_relation('login_id', 'login', 'email');
+        $this->crud->set_relation('client_id', 'client', 'name');
+        if ($this->role_id != ROLE_ADMINISTRATOR) {
+            $this->crud->field_type('client_id', 'hidden', $this->client_id);
+            $this->crud->set_relation('task_importance_id', 'task_importance', 'name', array('client_id' => $this->client_id));
+            $this->crud->set_relation('task_state_id', 'task_state', 'name', array('client_id' => $this->client_id));
+        } else {
+            $this->crud->set_relation('task_importance_id', 'task_importance', 'name');
+            $this->crud->set_relation('task_state_id', 'task_state', 'name');
+        }
 
         $this->crud_view = $this->crud->render();
         $this->load_page();

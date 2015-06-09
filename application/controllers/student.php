@@ -36,11 +36,11 @@ class Student extends Basic_controller {
         $this->editMode = is_null($this->session->userdata('current_center')['id']) ? 'false' : 'true';
         $this->levels = $this->db->select("*")->from('level')->get()->result_array();
         $this->groups = $this->Group_model->get_all_with_academic_period();
-        $this->leaveReasons = $this->db->select("code, description")->from('leave_reason')->get()->result_array();
-        $this->relationships = $this->db->select("code, name")->from('family_relationship')->get()->result_array();
-        $this->schoolLevels = $this->db->select("id, name")->from('school_level')->get()->result_array();
+        $this->leaveReasons = $this->General_model->get_fields('leave_reason', 'code, description', 'client_id = ' . $this->client_id);
+        $this->relationships = $this->General_model->get_fields('family_relationship', 'code, name');
+        $this->schoolLevels = $this->General_model->get_fields('school_level', 'id, name', 'client_id = ' . $this->client_id);
         $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
-        $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->academicPeriods = $this->General_model->get_fields('academic_period', 'code, name', 'client_id = ' . $this->client_id);
         $this->payment_periods = $this->General_model->get_fields('payment_period', 'id, name, period_type');
         $this->load_page('student_admin');
     }
@@ -252,19 +252,22 @@ class Student extends Basic_controller {
 
             $payments = $this->Payment_model->get_all($id);
             $student = $this->General_model->get_where('contact', 'id = ' . $id);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo_print.png" width="140" /></td>
+                <td rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_payment') . '</b></td>
             </tr>
             <tr>
@@ -323,29 +326,31 @@ class Student extends Basic_controller {
             $this->load->model('Payment_model');
             $this->load->helper('Util_helper');
             $payment = $this->Payment_model->get_payment_id($id);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $dateDB = $payment['date'];
 
             $dateNormal = db_to_Local($dateDB);
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $html = '
             <body>
               <table  style="text-align: center" border="0" width="100%" >
               <tbody>
                   <tr>
-                      <td ><img src="/assets/img/logo_print.png" width="150" /></td>              
+                      <td ><img src="./assets/uploads/files/client/' . $logo_print . '" width="150" /></td>              
                   </tr>
                   <tr>
                       <td>
-                         <p style="font-size: 12px">Avda. Juan Carlos I, 92-2.14 
-                         <p style="font-size: 12px">Avda. Juan Carlos I, 79-8 B&nbsp;&nbsp;
-                         <p style="font-size: 12px">28916 LEGANES
+                         <p style="font-size: 12px">' . $client_info['address'] . ' 
+                         <p style="font-size: 12px">' . $client_info['city'] . '
                       </td>
                   </tr>
                   <tr>
                       <td>
-                         <p style="font-size: 12px">CIF: B79907044 
-                         <p style="font-size: 12px">' . lang('title_phone') . ': 91 680 10 44 / 91 680 80 82                         
+                         <p style="font-size: 12px">' . lang('title_cif') . ': ' . $client_info['cif'] . ' 
+                         <p style="font-size: 12px">' . lang('title_phone') . ': ' . $client_info['phone1'] . ' / ' . $client_info['phone2'] . '                        
                       </td>
                   </tr>                  
               </tbody>
@@ -368,7 +373,7 @@ class Student extends Basic_controller {
               ';
             $html .= $payment['amount'];
             $html .= '<br><br>
-                   <p style="text-align: center">www.dundeeschool.com</p>
+                   <p style="text-align: center">' . $client_info['web'] . '</p>
               </div>
               </body>';
             // </p><p>Firmado: ______________</p>
@@ -442,19 +447,22 @@ class Student extends Basic_controller {
 
             $qualifications = $this->Qualification_model->get_all($student_id);
             $student = $this->General_model->get_where('contact', 'id = ' . $student_id);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
             $mpdf->WriteHTML($stylesheet, 1);
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $html = '
 <body>
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_qualification') . '</b></td>
             </tr>
             <tr>
@@ -513,7 +521,7 @@ class Student extends Basic_controller {
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
-
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
@@ -523,6 +531,8 @@ class Student extends Basic_controller {
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $html = '
 <body>
@@ -530,7 +540,7 @@ class Student extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_student') . '</b></td>
             </tr>
         </tbody>
@@ -675,17 +685,20 @@ class Student extends Basic_controller {
                 }
                 $filter .= '<b>' . lang('form_state') . ':</b> ' . $state_value . ' &nbsp;&nbsp;&nbsp;&nbsp;';
             }
-            if ($bank_payment != 0) {
+            if ($bank_payment != -1) {
                 if ($bank_payment == 1) {
-                    $bank_value = lang('btn_no');
+                    $bank_value = lang('btn_yes');                    
                 } else {
-                    $bank_value = lang('btn_yes');
+                    $bank_value = lang('btn_no');
                 }
                 $filter .= '<b>' . lang('form_bank_payment') . ':</b> ' . $bank_value . ' ';
             }
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $payments = $this->Student_model->get_payments($center, $payment_type, $month, $year, $state, $bank_payment);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
+
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
@@ -699,7 +712,7 @@ class Student extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td width="50%" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td width="50%" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_payment') . '</b></td>
             </tr>
         </tbody>
@@ -765,6 +778,9 @@ class Student extends Basic_controller {
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $payments = $this->Student_model->get_payments_bank($center);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
+
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
@@ -778,7 +794,7 @@ class Student extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td width="50%" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td width="50%" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_payment_bank') . '</b></td>
             </tr>
         </tbody>

@@ -36,6 +36,7 @@ $lang['menu_task_type'] = "Task types";
 $lang['menu_task_importance'] = "Tasks importances";
 $lang['menu_task_state'] = "Task states";
 $lang['menu_tasks'] = "Agenda";
+$lang['menu_info_client'] = "Client config";
 
 $lang['menu_catalog'] = "Catalog";
 $lang['menu_management'] = "Management";
@@ -246,6 +247,11 @@ $lang['form_period'] = 'Period';
 $lang['form_year'] = 'Year';
 $lang['form_periodic'] = 'Periodic';
 $lang['form_one_time'] = 'One time';
+$lang['form_color_code'] = 'Color code';
+$lang['form_city'] = 'City';
+$lang['form_url'] = 'Url';
+$lang['form_logo_report'] = 'Report Logo';
+$lang['form_cif'] = "CIF";
 
 /* * *
  * Botones
@@ -316,6 +322,7 @@ $lang['message_warning_overbooking'] = "<strong>Warning!</strong> This group hav
 $lang['page_manage_centers'] = "Center managment";
 $lang['page_manage_classrooms'] = "Classroom managment";
 $lang['page_manage_clients'] = "Client managment";
+$lang['page_manage_info_client'] = "Client config";
 $lang['page_manage_contacts'] = "Contact managment";
 $lang['page_manage_qualifications'] = "Qualification managment";
 $lang['page_manage_groups'] = "Group managment";
@@ -374,6 +381,12 @@ $lang['page_404_test_with_other'] = 'Test with other';
  */
 
 $lang['report_attendance'] = "Attendance Report";
+
+/***
+ * Reportes
+ */
+
+$lang['teacher_signing'] = "Teacher Signing";
 
 /***
  * Números y fechas

@@ -28,11 +28,11 @@ class Group extends Basic_controller {
         $this->load->model('General_model');
         $this->load->model('Teacher_model');
         $this->load->model('Student_model');
-        $this->centers = $this->General_model->get_fields('center', 'id, name');
-        $this->classrooms = $this->General_model->get_fields('classroom', 'id, name, capacity');
+        $this->centers = $this->General_model->get_fields('center', 'id, name', 'client_id = ' . $this->client_id);
+        $this->classrooms = $this->General_model->get_all_classrooms($this->client_id);
         $this->teachers = $this->Teacher_model->get_all();
-        $this->levels = $this->General_model->get_fields('level', 'code, description', array('state' => 'A'));
-        $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->levels = $this->General_model->get_fields('level', 'code, description', array('state' => 'A', 'client_id' => $this->client_id));
+        $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name', 'client_id = ' . $this->client_id);
         $this->students = $this->Student_model->get_all();
         $this->defaultAcademicPeriod = $this->General_model->get_default_academic_period();
         $this->load_page('group_admin');
@@ -182,7 +182,7 @@ class Group extends Basic_controller {
         $this->subject = lang('subject_student');
         $this->load->model('General_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
-        $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name');
+        $this->academic_periods = $this->General_model->get_fields('academic_period', 'code, name', array('client_id' => $this->client_id));
         $this->defaultAcademicPeriod = $this->General_model->get_default_academic_period();
         $this->load_page('group_attendance');
     }
@@ -196,6 +196,7 @@ class Group extends Basic_controller {
 
             $students = $this->Student_model->get_by_group($group_id);
             $group = $this->Group_model->get_by_id($group_id);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'),
                 lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
@@ -204,6 +205,7 @@ class Group extends Basic_controller {
             $weekDaysLetters = explode(',', lang('day_short_names'));
             $teachingDays = array();
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $index = 1;
             foreach ($weekDays as $day) {
@@ -233,7 +235,7 @@ class Group extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td  width="400px" style="text-align: right;"><img src="/assets/img/logo.png" width="120" /></td>
+                <td  width="400px" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="120" /></td>
                 <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
             </tr>
         </tbody>
@@ -296,7 +298,7 @@ class Group extends Basic_controller {
             $html .='</tbody></table>
                 <br>
                 <br>
-                <p style="text-align: right;">Firma Profesor: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p style="text-align: right;">' . lang('teacher_signing') . ': &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -321,6 +323,7 @@ class Group extends Basic_controller {
 
             $this->load->model('Student_model');
             $this->load->model('Group_model');
+            $this->load->model('General_model');
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
@@ -339,6 +342,9 @@ class Group extends Basic_controller {
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
             $groups = $this->Group_model->get_all_with_filter($period, $center);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             foreach ($groups as $group_id) {
                 //echo 'id ' . $group_id;                exit();
@@ -369,7 +375,7 @@ class Group extends Basic_controller {
 <table border="0" width="100%" >
     <tbody>
         <tr>
-            <td  width="400px" style="text-align: right;"><img src="/assets/img/logo.png" width="120" /></td>
+            <td  width="400px" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="120" /></td>
             <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
         </tr>
     </tbody>
@@ -433,7 +439,7 @@ class Group extends Basic_controller {
                 $html .='</tbody></table>
                     <br>
                     <br>
-                    <p style="text-align: right;">Firma Profesor: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style="text-align: right;">' . lang('teacher_signing') . ': &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -457,6 +463,7 @@ class Group extends Basic_controller {
 
             $students = $this->Student_model->get_by_group($group_id);
             $group = $this->Group_model->get_by_id($group_id);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
@@ -470,6 +477,8 @@ class Group extends Basic_controller {
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
             //$weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
             $weekDaysLetters = explode(',', lang('day_short_names'));
+            
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $count1 = 0;
             $dayLetter = '';
@@ -484,7 +493,7 @@ class Group extends Basic_controller {
 <table border="0" width="100%" >
     <tbody>
     <tr>
-        <td rowspan="3" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+        <td rowspan="3" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
         <td colspan="4"><p class="title-font"><b>' . lang('form_group') . ': ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
     </tr>
     <tr>
@@ -532,7 +541,11 @@ class Group extends Basic_controller {
             //if (!is_array($filter))
             //   $filter = [];
             $this->load->model('Group_model');
+            $this->load->model('General_model');
             $groups = $this->Group_model->get_group_report(["academic_period" => $filter]);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
+
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4-L');
@@ -550,7 +563,7 @@ class Group extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td width="50%" rowspan="2" style="text-align: right;"><img src="/assets/img/logo.png" width="140" /></td>
+                <td width="50%" rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_group') . '</b></td>
             </tr>
         </tbody>

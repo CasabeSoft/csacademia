@@ -29,8 +29,8 @@ class Task extends Basic_controller {
         $this->load->model('Task_model');
         $this->current_user = $this->session->userdata('id');
         $this->tasks_types = $this->General_model->get_fields('task_type', 'id, name');
-        $this->tasks_importances = $this->General_model->get_fields('task_importance', 'id, name');
-        $this->tasks_states = $this->General_model->get_fields('task_state', 'id, name, color');
+        $this->tasks_importances = $this->General_model->get_fields('task_importance', 'id, name', 'client_id = ' . $this->client_id);
+        $this->tasks_states = $this->General_model->get_fields('task_state', 'id, name, color', 'client_id = ' . $this->client_id);
         $this->users = $this->General_model->get_fields('login', 'id, email');
         $this->load_page('task_admin');
     }
@@ -95,6 +95,10 @@ class Task extends Basic_controller {
             $filter = array('start_date' => $date, 'dialy' => $dialy);
 
             $tasks = $this->Task_model->get_all($filter);
+            $client_info = $this->General_model->get_info_client_id($this->client_id);
+
+            $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
+            
             $this->load->library('mpdf');
             $mpdf = new mPDF('c', 'A4');
             $mpdf->SetDisplayMode('fullpage');
@@ -117,7 +121,7 @@ class Task extends Basic_controller {
     <table border="0" width="100%" >
         <tbody>
             <tr>
-                <td rowspan="2" style="text-align: right;"><img src="/assets/img/logo_print.png" width="140" /></td>
+                <td rowspan="2" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
                 <td><p class="title-font"><b>' . lang('menu_tasks') . '</b></td>
             </tr>
             <tr>
@@ -152,7 +156,7 @@ class Task extends Basic_controller {
                 //}
                 $html .= '<td>' . substr($task['start_time'], 0, 5) . '</td>';
                 $html .= '<td>' . $task['task'] . '</td>';
-                $html .= '<td>' . $task['task'] . '</td>';
+                $html .= '<td>' . $task['description'] . '</td>';
                 $html .= '<td>' . $task['task_importance_name'] . '</td>';
                 $html .= '<td>' . $task['task_type_name'] . '</td>';
                 $html .= '<td>' . $task['task_state_name'] . '</td>';
