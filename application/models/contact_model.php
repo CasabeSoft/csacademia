@@ -8,6 +8,7 @@
 class Contact_model extends CI_Model {
 
     private $client_id;
+    private $center_id;
     public $FIELDS = [
         "id",
         "first_name",
@@ -34,9 +35,10 @@ class Contact_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
+        $this->center_id = $this->session->userdata('current_center')['id'];
     }
 
-    public function get_all() {
+    public function get_contacts() {
         return $this->db->from('contact')
                         ->join('student', 'contact.id = student.contact_id', 'left')
                         ->join('teacher', 'contact.id = teacher.contact_id', 'left')
@@ -85,6 +87,23 @@ class Contact_model extends CI_Model {
         unset($contact['id']);
         $this->db->update('contact', convert_nullables($contact, $this->NULLABLES), 'id = ' . $id . ' and client_id = ' . $this->client_id);
         return $id;
+    }
+
+    public function get_all_email() {
+        $this->db->select('contact.id, CONCAT(first_name, last_name) AS name, sex, email, group_id, ' .
+                'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
+                '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
+                ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
+                ' ELSE "C" END) AS contact_type', FALSE)
+            ->from('contact')
+            ->join('student', 'contact.id = student.contact_id', 'left')
+            ->join('teacher', 'contact.id = teacher.contact_id', 'left')
+            ->where('client_id', $this->client_id)
+            ->where('email IS NOT NULL AND TRIM(email) <> ""');
+        if ($this->center_id != NULL) {
+            $this->db->where('(student.center_id IS NULL OR student.center_id = ' . $this->center_id . ')');
+        }
+        return $this->db->get()->result_array();
     }
 
 }

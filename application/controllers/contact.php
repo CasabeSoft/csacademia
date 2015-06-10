@@ -42,7 +42,7 @@ class Contact extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Contact_model');
-            echo json_encode($this->Contact_model->get_all());
+            echo json_encode($this->Contact_model->get_contacts());
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
@@ -89,7 +89,7 @@ class Contact extends Basic_controller {
             $this->load->model('Contact_model');
             $this->load->model('General_model');
             $this->load->helper('Util_helper');
-            $contacts = $this->Contact_model->get_all(["isActive" => $filter]);
+            $contacts = $this->Contact_model->get_contacts(["isActive" => $filter]);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';

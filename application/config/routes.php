@@ -49,7 +49,8 @@ $route['default_controller'] = $subdomain_is_client ?
         'public_pages/home';
 
 $route['api/config/front'] = 'config/front';
-$route['api/email'] = 'manager_pages/email';
+$route['api/email/contact'] = 'api_messaging/email_contact';
+$route['api/email'] = 'api_messaging/email';
 $route['user/(:any)'] = 'user_pages/$1';
 $route['manage/contact'] = 'contact/admin';
 $route['manage/teacher'] = 'teacher/admin';

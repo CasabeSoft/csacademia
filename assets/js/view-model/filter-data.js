@@ -1,84 +1,4 @@
 define(['jquery', 'lodash', 'k/kendo.binder.min'], function ($, _, kendo) {
-    function FilterableData(data) {
-        this.id = null;
-        this.name = null;
-        this.type = null;
-        this.isActive = true;
-        
-        $.extend(this, data);
-    }
-    
-    var FilterableDTO = {
-        id: null,
-        name: null,
-        type: null,
-        isActive: true
-    };
-    
-    var Filter = {
-        name: null,
-        field: null,
-        values: []
-    };
-    
-    var _filtersDefinition = [
-        {
-            name: 'Tipo',
-            field: 'type',
-            type: 'number',
-            values: [
-                {value: 1, text: 'Alumno'},
-                {value: 2, text: 'Profesor'},
-                {value: 3, text: 'Familiar'}
-            ]
-        },
-        {
-            name: 'Estado',
-            field: 'isActive',
-            type: 'boolean',
-            values: [
-                {value: true, text: 'Alta'},
-                {value: false, text: 'Baja'}
-            ]
-        },
-        {
-            name: 'Grupo',
-            field: 'group',
-            type: 'number',
-            values: [
-                {value: 1, text: 'G1'},
-                {value: 2, text: 'G2'},
-                {value: 3, text: 'G3'}
-            ]
-        }
-    ];
-    
-    var FilterableDataViewModel =  kendo.data.ObservableObject.extend({
-        init: function (data) {
-            kendo.data.ObservableObject.fn.init.call(this, $.extend({}, FilterableDTO, data));
-        }    
-    });
-
-    var data = [
-            new FilterableData({id: 1, name: 'Juan López', type: 1, isActive: true, group: 1, email: 'juan@lopez.com'}),
-            new FilterableData({id: 2, name: 'María de las Mercedes', type: 2, isActive: true, email: 'maria@lopez.com'}),
-            new FilterableData({id: 3, name: 'Grupo 1', type: 3, isActive: true, email: ['pepe@p.com', 'mark@us.es']}),
-            new FilterableData({id: 6, name: 'Juan Marquéz', type: 1, isActive: false, group: 1, email: 'juan@marquez.es'}),
-            new FilterableData({id: 5, name: 'Marta Marquéz', type: 1, isActive: true, group: 2, email: 'marta@marquez.es'}),
-            new FilterableData({id: 4, name: 'Paco Pérez', type: 2, isActive: false, email: 'paco@perez.es'}),
-            new FilterableData({id: 7, name: 'Carlos B', type: 1, isActive: true, email: 'pauste@gmail.com'})
-        ];
-        
-    var dsData = new kendo.data.DataSource({
-        sort: { field: 'name', dir: 'asc' },
-        requestStart: function (e) {
-            kendo.ui.progress($('#filter'), true);
-        },
-        requestEnd: function () {
-            kendo.ui.progress($('#filter'), false);
-        }
-    });
-    
     var FilterData = kendo.data.ObservableObject.extend({
         filtersDefinition: [],
         init: function () {
@@ -95,13 +15,15 @@ define(['jquery', 'lodash', 'k/kendo.binder.min'], function ($, _, kendo) {
                 });
             };
             this.config = function (dataSource, filtersDefinition) {
-                this.set('filterableData', dataSource || dsData);
-                this.filtersDefinition = filtersDefinition || _filtersDefinition;
+                this.set('filterableData', dataSource);
+                this.filtersDefinition = filtersDefinition;
                 return this;
             };         
             this.loadData = function () {
-                this.filterableData.data(data);
-                this.createFilters();
+                var _this = this;
+                this.filterableData.read().then(function () {
+                    _this.createFilters();
+                });
             };
             this.createFilters = function () {
                 var filters = [],

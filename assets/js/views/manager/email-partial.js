@@ -10,7 +10,85 @@ function ($, _, Filter, view, filterTemplate, kendo) {
     var EMAIL_DRAFT,
         EMAIL_TEMPLATES,
         $popup,
-        $toolbar;
+        $toolbar,
+        filtersDefinition = [
+            {
+                name: 'Tipo',
+                field: 'type',
+                type: 'string',
+                values: [
+                    {value: 'S', text: 'Alumno'},
+                    {value: 'T', text: 'Profesor'},
+                    {value: 'C', text: 'Contacto'}
+                ]
+            },
+            {
+                name: 'Estado',
+                field: 'isActive',
+                type: 'boolean',
+                values: [
+                    {value: true, text: 'Alta'},
+                    {value: false, text: 'Baja'}
+                ]
+            },
+            {
+                name: 'Género',
+                field: 'sex',
+                type: 'string',
+                values: [
+                    {value: 'M', text: 'Masculino'},
+                    {value: 'F', text: 'Femenino'}
+                ]
+            },
+            {
+                name: 'Grupo',
+                field: 'group',
+                type: 'number',
+                values: [
+                ]
+            }
+        ];
+        
+    var dsGroups = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '/group/get'
+                }            
+            },
+            schema: {
+                model: {
+                    id: 'value',
+                    fields: {
+                        value: { from: 'id', type: 'number' },
+                        text: 'name'
+                    }
+                }
+            }
+        }),
+        dsData = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '/api/email/contact'
+                }
+            },
+            schema: {
+                model: {
+                    id: 'id',
+                    fields: {
+                        isActive: {from: 'is_active', type: 'boolean', parse: function (value) { return value === '1'; } },
+                        type: 'contact_type',
+                        group: {from: 'group_id', type: 'number'}
+                    }
+                }
+            },
+            sort: { field: 'name', dir: 'asc' },
+            requestStart: function () {
+                kendo.ui.progress($('#filter'), true);
+            },
+            requestEnd: function () {
+                kendo.ui.progress($('#filter'), false);
+            }
+        });        
     
     function initToolbar () {
         $toolbar = $('#toolbar').kendoToolBar({
@@ -52,7 +130,11 @@ function ($, _, Filter, view, filterTemplate, kendo) {
             var _this = this;
             if (this._inited) return this;
             
-            this.filter.config().loadData();
+            dsGroups.read().then(function () {
+                _.where(filtersDefinition, {'field': 'group'})[0].values = dsGroups.data();
+            }).then(function () {
+                _this.filter.config(dsData, filtersDefinition).loadData();
+            });            
             
             initToolbar();
             $popup = $('<span></span>').kendoNotification({position: {top: 50 }, stacking: 'down'}).data('kendoNotification');
