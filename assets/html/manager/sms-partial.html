@@ -1,4 +1,4 @@
-<div id="emailPartial" class="bulkMessagePartial">
+<div class="bulkMessagePartial bulkSmsPartial">
 <div>
     <div data-template="bulkFilterTemplate" data-bind="source: filter" class="filterWrapper"></div>
     <div class="bulkMessageWrapper">
@@ -16,11 +16,12 @@
             </div>
         </div>
         <div>
-            <input type="text" class="k-textbox akSubject" placeholder="Asunto del mensaje"
-                   data-bind="value: subject">
+            <p data-bind="attr: {class: lengthTipClass}">
+                <span data-bind="text: messageLength"></span> de 150 caracteres
+            </p>
         </div>
         <div class="akBody">
-            <textarea data-role="editor" data-bind="value: message"></textarea>
+            <textarea data-bind="value: message, events: {keyup: onMessageKeyUp }" class="k-textbox"></textarea>
         </div>
     </div>
 </div>

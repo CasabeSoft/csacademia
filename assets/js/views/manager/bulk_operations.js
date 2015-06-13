@@ -8,9 +8,16 @@ function ($, app, kendo) {
             partial.show(app);
         });
     }
+
+    function showSms() {
+        require(['app/views/manager/sms-partial'], function (partial) {
+            partial.show(app);
+        });
+    }
     
     router.route('/', showEmail);
     router.route('/email', showEmail);
+    router.route('/sms', showSms);
     
     function start() {
         app.init('#bulkOperationsContainer');

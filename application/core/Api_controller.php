@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 /**
  * Controlador base para API REST
  */
-class Api_Controller extends MY_Controller {
+class Api_controller extends MY_Controller {
     
     public function setup_ajax_response_headers() {
         header("Content-type: text/json");

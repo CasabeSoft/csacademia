@@ -90,7 +90,7 @@ class Contact_model extends CI_Model {
     }
 
     public function get_all_email() {
-        $this->db->select('contact.id, CONCAT(first_name, last_name) AS name, sex, email, group_id, ' .
+        $this->db->select('contact.id, CONCAT(first_name, " ", last_name) AS name, sex, email, group_id, ' .
                 'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
                 ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
@@ -100,6 +100,23 @@ class Contact_model extends CI_Model {
             ->join('teacher', 'contact.id = teacher.contact_id', 'left')
             ->where('client_id', $this->client_id)
             ->where('email IS NOT NULL AND TRIM(email) <> ""');
+        if ($this->center_id != NULL) {
+            $this->db->where('(student.center_id IS NULL OR student.center_id = ' . $this->center_id . ')');
+        }
+        return $this->db->get()->result_array();
+    }
+    
+    public function get_all_mobile_phone() {
+        $this->db->select('contact.id, CONCAT(first_name, " ", last_name) AS name, sex, phone_mobile AS phone, group_id, ' .
+                'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
+                '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
+                ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
+                ' ELSE "C" END) AS contact_type', FALSE)
+            ->from('contact')
+            ->join('student', 'contact.id = student.contact_id', 'left')
+            ->join('teacher', 'contact.id = teacher.contact_id', 'left')
+            ->where('client_id', $this->client_id)
+            ->where('phone_mobile IS NOT NULL AND TRIM(phone_mobile) <> ""');
         if ($this->center_id != NULL) {
             $this->db->where('(student.center_id IS NULL OR student.center_id = ' . $this->center_id . ')');
         }

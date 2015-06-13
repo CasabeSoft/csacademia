@@ -8,7 +8,7 @@
         <meta name="description" content="<?php echo $description ?>">
         <meta name="author" content="CasabeSoft <contacto@casabesoft.com>">
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="../assets/lib/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo site_url('assets/lib/bootstrap/3.3.4/css/bootstrap.min.css') ?>">
         <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.common-material.min.css" rel="stylesheet" />
         <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.material.min.css" rel="stylesheet" />
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -18,12 +18,12 @@
           <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <!-- Fav and touch icons -->
-        <link rel="shortcut icon" href="../assets/img/favicon.ico">   
+        <link rel="shortcut icon" href="<?php echo site_url('assets/img/favicon.ico') ?>">   
         <?php
         $currentPage = $this->location.$this->router->fetch_method();
         if (file_exists(APPPATH . '../assets/css/'.$currentPage.'.css')) {
         ?>
-        <link rel="stylesheet" href="../assets/css/<?php echo $currentPage?>.css">
+        <link rel="stylesheet" href="<?php echo site_url('assets/css/'.$currentPage.'.css') ?>">
         <?php } ?>
     </head>
     <body>
@@ -34,7 +34,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
         <?php if (file_exists(APPPATH . '../assets/js/views/'.$currentPage.'.js')) { ?>
         <script>
-        require(['../assets/js/config.js'], function () {
+        require(["<?php echo site_url("assets/js/config.js") ?>"], function () {
             require(['app/views/<?php echo $currentPage ?>']);
         });
         </script>

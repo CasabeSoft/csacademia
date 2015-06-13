@@ -1,38 +1,28 @@
 @import '../helpers.less';
 
-#emailPartial {
-    display: table;
+.bulkMessagePartial {
+    position: relative;
     height: 100%;
     width: 100%;
     
     & > div {
-        display: table-row;
         height: 100%;
     }
     
     .filterWrapper {
-        display: table-cell;
         width: 25%;
         height: 100%;
         padding-right: @bootstrap-col-padding;
+        float: left;
     }
 
-    .emailWrapper {
-        display: table-cell;
+    .bulkMessageWrapper {
         width: 75%;
         height: 100%;
+        float: right;
         
-        & > div {
-            display: table;
-            height: 100%;
-        }
-
-        & > div > div {
-            display: table-row;
-            height: 0;
-            & > * {
-                margin-bottom: @space-m;
-            }
+        & > div > * {
+            margin-bottom: @space-m;
         }
 
         .akTo {
@@ -79,14 +69,13 @@
         }
 
         .akBody {
-            height: auto;
             & > * {
                 height: 100%;
             }
         }
 
         .k-button {
-            text-transform: none;
+                text-transform: none;
         }
     }
 }

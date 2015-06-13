@@ -1,28 +1,18 @@
 <script id="bulkFilterTemplate" type="text/x-kendo-template">
 <div id="filter">
-    <div>
-        <div class="filterActions">
-            <div>
-                <div>
-                    <input type="checkbox" title="Marcar/Desmarcar todos"
-                           data-bind="checked: checkAll, events: {change: toogleCheckAll}">
-                </div>
-                <div>
-                    <input type="search" class="k-textbox" placeholder="Nombre"
-                           data-bind="value: query, events: {change: doSearch}">
-                </div>
-                <div>
-                    <a href="\#" data-bind="click: toogleOrder">
-                        <span data-bind="attr: {class: orderIconClass, title: orderTitle}"></span>
-                    </a>
-                </div>
-            </div>
+    <div class="filterActions">
+        <input type="checkbox" title="Marcar/Desmarcar todos"
+               data-bind="checked: checkAll, events: {change: toogleCheckAll}">
+        <div>
+            <input type="search" class="k-textbox" placeholder="Nombre"
+                   data-bind="value: query, events: {change: doSearch}">
         </div>
+        <a href="\#" data-bind="click: toogleOrder">
+            <span data-bind="attr: {class: orderIconClass, title: orderTitle}"></span>
+        </a>
     </div>
-    <div>
-        <ul class="filterableData" data-template="filterableDataTemplate" 
-            data-bind="source: filterableData"></ul>
-    </div>
+    <ul class="filterableData" data-template="filterableDataTemplate" 
+        data-bind="source: filterableData"></ul>
     <div id="filtersWrapper">
         <div class="panel-group" id="filters" role="tablist" aria-multiselectable="true"
              data-template="filterTemplate" data-bind="source: filters">                

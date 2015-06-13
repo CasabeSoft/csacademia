@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Api_messaging extends Api_Controller {
+class Api_messaging extends Api_controller {
     
     protected function email_post() {
         $from = $this->session->userdata('email');
@@ -63,6 +63,44 @@ class Api_messaging extends Api_Controller {
             $this->echo_json_error($e->getMessage());
         }
     }
+    
+    public function sms_post() {
+        // TODO: Implementar envío de SMS
+        $sent = TRUE;
+        echo json_encode($sent);
+    }
+    
+    public function sms() {
+        $this->setup_ajax_response_headers();
+        try {
+            switch ($this->input->server('REQUEST_METHOD')) {
+                case 'POST':
+                    $this->sms_post();
+                    break;
+            }
+        } catch (Exception $e) {
+            $this->echo_json_error($e->getMessage());
+        }
+    }
+    
+    public function sms_contact_get() {
+        $this->load->model('Contact_model');
+        echo json_encode($this->Contact_model->get_all_mobile_phone());
+    }
+    
+    public function sms_contact() {
+        $this->setup_ajax_response_headers();
+        try {
+            switch ($this->input->server('REQUEST_METHOD')) {
+                case 'GET':
+                    $this->sms_contact_get();
+                    break;
+            }
+        } catch (Exception $e) {
+            $this->echo_json_error($e->getMessage());
+        }
+    }
+    
 }
 
 /* End of file api_messaging.php */
