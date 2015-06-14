@@ -65,8 +65,12 @@ class Api_messaging extends Api_controller {
     }
     
     public function sms_post() {
-        // TODO: Implementar envío de SMS
-        $sent = TRUE;
+        $sms = $this->input->post();
+        $sent = FALSE;
+        foreach ($sms['to'] as $to) {
+            $result = send_sms('CSAcademia', $to, $sms['message']);
+            $sent = $sent || $result->success;
+        }
         echo json_encode($sent);
     }
     

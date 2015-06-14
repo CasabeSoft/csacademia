@@ -31,6 +31,11 @@ class Manager_pages extends Basic_controller {
     }
 
     protected function redirect_to_caller() {
+        redirect('/tools/tasks');
+        // Eliminado porque se estaba redireccionando a la última llamada tanto de navegación
+        // como AJAX.
+        // TODO: Reimplementar para quedarse en la página activa o ir a una por defecto (lo que sea más fácil)
+        /*
         $current_url = $this->session->userdata('current_url');
 
         if (isset($current_url) && $current_url != '') {
@@ -40,6 +45,7 @@ class Manager_pages extends Basic_controller {
             //redireccionamos a la página principal de gestión.
             redirect('/manager/main');
         }
+         */
     }
 
     public function change_to_client($client) {

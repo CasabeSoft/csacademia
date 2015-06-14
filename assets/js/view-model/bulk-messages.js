@@ -263,6 +263,7 @@ function ($, _, Filter, kendo) {
                 this.set('to', []);
                 this.set('subject', null);
                 this.set('message', null);
+                this.save();
             },
             discard: function () {
                 if (confirm('¿Quiere descartar el mensaje actual?')) {

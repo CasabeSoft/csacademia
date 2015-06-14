@@ -9,7 +9,7 @@ function ($, _, BulkMessagesViewModel, view, filterTemplate, kendo) {
     var vmMessage = kendo.observable($.extend(BulkMessagesViewModel(), {
         _MESSAGE_TYPE: 'sms',
         _FILTERABLE_DATA_URL: '/api/sms/contact',
-        _SEND_SERVICE_URL: 'api/sms',
+        _SEND_SERVICE_URL: '/api/sms',
         _STRINGS: {
             COMPLETE_MESSAGE_FIRST: 'Complete la lista de destinatarios y el mensaje.'
         },
@@ -20,13 +20,13 @@ function ($, _, BulkMessagesViewModel, view, filterTemplate, kendo) {
             return {
                 id: this.id,
                 to: this.to,
-                subject: this.message.substr(0, 50),
+                subject: this.message && this.message.substr(0, 50),
                 message: this.message
             };
         },
         getServiceMessage: function () {
             return {
-                to: _.flatten(_.pluck(this.to.toJSON(), 'email')),
+                to: _.flatten(_.pluck(this.to.toJSON(), 'phone')),
                 message: this.message
             };
         },

@@ -45,7 +45,7 @@ if (!function_exists('send_sms')) {
         // make the request
         $response = file_get_contents($url, false, $context);
         
-        return $response;
+        return json_decode($response);
     }
 
 }
