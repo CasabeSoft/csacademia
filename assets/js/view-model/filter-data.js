@@ -21,7 +21,7 @@ define(['jquery', 'lodash', 'k/kendo.binder.min'], function ($, _, kendo) {
             };         
             this.loadData = function () {
                 var _this = this;
-                this.filterableData.read().then(function () {
+                return this.filterableData.read().then(function () {
                     _this.createFilters();
                 });
             };

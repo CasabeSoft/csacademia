@@ -1,43 +1,50 @@
+@import '../helpers.less';
+
 #filter {
-    display: table;
     height: 100%;
     width: 100%;
+    position: relative;
     
     label {
         font-weight: normal;
     }
 
-    & > div {
-        display: table-row;
-        height: 0;
-    }
     #filtersWrapper {
-        height: auto;
+        overflow: auto;
     } 
 
     .filterActions {
-        display: table;
         width: 100%;
+        position: relative;
+        height: 40px; /* TODO: Remplazar por clearfix*/
+
+        & > * {
+            &:first-child {
+                width: 16px;
+                margin-top: 12px;
+            }
+            &:last-child {
+                padding-left: @space-s;
+                width: 32px;
+                float: right;
+                margin-top: 10px;
+            } 
+        }
 
         & > div {
-            display: table-row;
-
-            & > div {
-                display: table-cell;
-                &:first-child {
-                    width: 16px;
-                }
-                &:last-child {
-                    padding-left: @space-m;
-                    width: 32px;
-                } 
-            }
+            left: 20px;
+            right: 36px;
+            top: 0;
+            width: auto;
+            position: absolute;
         }
 
         input[type=search] {
             width: 100%;
         }
+
     }
+
 
     .filterableData {
         max-height: 150px;

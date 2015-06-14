@@ -46,6 +46,8 @@ $lang['menu_reports'] = "Informes";
 $lang['menu_help'] = "Ayuda";
 $lang['menu_tools'] = "Herramientas";
 $lang['menu_bulk_operations'] = "Operaciones masivas";
+$lang['menu_bulk_email'] = "E-mail masivo";
+$lang['menu_bulk_sms'] = "SMS masivo";
 $lang['menu_billing'] = "Facturación";
 
 $lang['menu_birthdays'] = "Etiquetas para cumpleaños";

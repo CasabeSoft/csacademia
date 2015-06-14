@@ -93,7 +93,9 @@ function is_controller_active($current_controller, $controller_name = 'admin') {
                     </a>
                     <ul class="dropdown-menu">
                         <li class="<?php echo is_active($current_page, 'tasks') ?>"><a href="/tools/tasks"><?php echo lang('menu_tasks'); ?></a></li>    
-                        <li class="<?php echo is_active($current_page, 'bulk_operations') ?>"><a href="/tools/bulk_operations"><?php echo lang('menu_bulk_operations'); ?></a></li>    
+                        <li class="<?php echo is_active($current_page, 'bulk_operations') ?> dropdown-header"><a href="/tools/bulk_operations"><?php echo lang('menu_bulk_operations'); ?></a></li>    
+                        <li><a href="/tools/bulk_operations/#/email"><?php echo lang('menu_bulk_email'); ?></a></li>    
+                        <li><a href="/tools/bulk_operations/#/sms"><?php echo lang('menu_bulk_sms'); ?></a></li>    
                     </ul>
                 </li>
                 <li class="<?php echo is_controller_active($current_controller, 'help') ?> dropdown">
