@@ -70,6 +70,8 @@ class Api_messaging extends Api_controller {
         foreach ($sms['to'] as $to) {
             $result = send_sms('CSAcademia', $to, $sms['message']);
             $sent = $sent || $result->success;
+            //Valida sms con textlocal
+            //$sent = $sent || $result->status == 'success';
         }
         echo json_encode($sent);
     }

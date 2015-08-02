@@ -555,6 +555,8 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_academic_period') . '</th>';
             $html .= '<th>' . lang('form_date_of_birth') . '</th>';
             $html .= '<th>' . lang('form_phone') . '</th>';
+            $html .= '<th>' . lang('form_phone_mobile') . '</th>';
+            $html .= '<th>' . lang('form_email') . '</th>';
             $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
@@ -568,6 +570,8 @@ class Student extends Basic_controller {
                 $html .= '<td>' . $student['course'] . '</td>';
                 $html .= '<td>' . $birth_date . '</td>';
                 $html .= '<td>' . $student['phone'] . '</td>';
+                $html .= '<td>' . $student['phone_mobile'] . '</td>';
+                $html .= '<td>' . $student['email'] . '</td>';
                 $html .= '<td>' . $student['address'] . '</td>';
                 $html .= '</tr>';
                 $count++;

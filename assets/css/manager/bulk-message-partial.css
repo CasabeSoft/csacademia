@@ -1,0 +1,67 @@
+.bulkMessagePartial {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.bulkMessagePartial > div {
+  height: 100%;
+}
+.bulkMessagePartial .filterWrapper {
+  width: 25%;
+  height: 100%;
+  padding-right: 15px;
+  float: left;
+}
+.bulkMessagePartial .bulkMessageWrapper {
+  width: 75%;
+  height: 100%;
+  float: right;
+}
+.bulkMessagePartial .bulkMessageWrapper > div > * {
+  margin-bottom: 10px;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo {
+  padding: 5px 10px 10px 20px;
+  position: relative;
+  display: block;
+  border: 1px solid #efefef;
+  min-height: 52px;
+  max-height: 120px;
+  overflow: auto;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo label {
+  padding-top: 10px;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo ul {
+  display: inline;
+  padding: 0;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo li {
+  display: inline-block;
+  list-style: none;
+  white-space: nowrap;
+  background-color: #efefef;
+  padding: 5px;
+  margin: 5px 5px 0 0;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo li:first-child {
+  margin-left: 10px;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo li a {
+  color: #898989;
+}
+.bulkMessagePartial .bulkMessageWrapper .akTo li a:hover {
+  color: #303030;
+  text-decoration: none;
+}
+.bulkMessagePartial .bulkMessageWrapper .akSubject {
+  display: block;
+  width: 100%;
+}
+.bulkMessagePartial .bulkMessageWrapper .akBody > * {
+  height: 100%;
+}
+.bulkMessagePartial .bulkMessageWrapper .k-button {
+  text-transform: none;
+}
+/*# sourceMappingURL=bulk-message-partial.css.map */
