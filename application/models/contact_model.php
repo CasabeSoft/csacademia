@@ -94,7 +94,9 @@ class Contact_model extends CI_Model {
                 'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
                 ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
-                ' ELSE "C" END) AS contact_type', FALSE)
+                ' ELSE "C" END) AS contact_type, ' .
+                'month(date_of_birth) AS month, ' . 
+                'day(date_of_birth) AS day', FALSE)
             ->from('contact')
             ->join('student', 'contact.id = student.contact_id', 'left')
             ->join('teacher', 'contact.id = teacher.contact_id', 'left')

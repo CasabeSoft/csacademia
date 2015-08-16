@@ -42,6 +42,31 @@ function ($, _, Filter, kendo) {
                 type: 'number',
                 values: [
                 ]
+            },
+            {
+                name: 'Mes',
+                field: 'month',
+                type: 'number',
+                values: [
+                    {value: 1, text: 'enero'},
+                    {value: 2, text: 'febrero'},
+                    {value: 3, text: 'marzo'},
+                    {value: 4, text: 'abril'},
+                    {value: 5, text: 'mayo'},
+                    {value: 6, text: 'junio'},
+                    {value: 7, text: 'julio'},
+                    {value: 8, text: 'agosto'},
+                    {value: 9, text: 'septiembre'},
+                    {value: 10, text: 'octubre'},
+                    {value: 11, text: 'noviembre'},
+                    {value: 12, text: 'diciembre'}
+                ]
+            },
+            {
+                name: 'Día',
+                field: 'day',
+                type: 'number',
+                values: _.map(_.range(1, 32), function (value) { return { value: value, text: value}; }) 
             }
         ];
         
@@ -75,7 +100,9 @@ function ($, _, Filter, kendo) {
                     fields: {
                         isActive: {from: 'is_active', type: 'boolean', parse: function (value) { return value === '1'; } },
                         type: 'contact_type',
-                        group: {from: 'group_id', type: 'number'}
+                        group: {from: 'group_id', type: 'number'},
+                        day: {from: 'day', type: 'number'},
+                        month: {from: 'month', type: 'number'}
                     }
                 }
             },
