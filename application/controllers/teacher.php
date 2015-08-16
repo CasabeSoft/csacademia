@@ -117,8 +117,10 @@ class Teacher extends Basic_controller {
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
             $html .= '<th>' . lang('form_name') . '</th>';
+            $html .= '<th>' . lang('form_date_of_birth') . '</th>'; 
             $html .= '<th>' . lang('form_phone') . '</th>';
-            $html .= '<th>' . lang('form_date_of_birth') . '</th>';
+            $html .= '<th>' . lang('form_phone_mobile') . '</th>';
+            $html .= '<th>' . lang('form_email') . '</th>';                       
             $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
@@ -126,8 +128,10 @@ class Teacher extends Basic_controller {
                 $dateNormal = db_to_Local($teacher['date_of_birth']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $teacher['first_name'] . ' ' . $teacher['last_name'] . '</td>';
-                $html .= '<td>' . $teacher['phone_mobile'] . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
+                $html .= '<td>' . $teacher['phone'] . '</td>';
+                $html .= '<td>' . $teacher['phone_mobile'] . '</td>';
+                $html .= '<td>' . $teacher['email'] . '</td>';                
                 $html .= '<td>' . $teacher['address'] . '</td>';
                 $html .= '</tr>';
                 $count++;
