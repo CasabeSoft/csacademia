@@ -148,7 +148,7 @@ function ($, _, Filter, kendo) {
             _TEMPLATES: null,
             _MESSAGE_TYPE: 'email',
             _FILTERABLE_DATA_URL: '/api/email/contact',
-            _SEND_SERVICE_URL: 'api/email',
+            _SEND_SERVICE_URL: '/api/email',
             _STRINGS: {
                 COMPLETE_MESSAGE_FIRST: 'Complete la lista de destinatarios, el asunto y el mensaje.'
             },
