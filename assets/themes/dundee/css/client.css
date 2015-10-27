@@ -1,13 +1,11 @@
 /* 
     Document   : client
     Created on : 18-sep-2013, 10:46:58
-    Author     : Leo
+    Author     : Leo, Carlos Bello
     Description:
-        Purpose of the stylesheet follows.
+        Css específico para personalizar el look&feel de la aplicación.
 */
-body
-{
-    /*background-color: #bA7119;/*#ECE7cF;*/
+body {
     background-color:#ECE7cF;
     background-image:-moz-linear-gradient(top,#bA7119,#ECE7cF);
     background-image:-webkit-gradient(linear,0 0,0 100%,from(#bA7119),to(#ECE7cF));
@@ -17,8 +15,8 @@ body
     background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bA7119',endColorstr='#ECE7cF',GradientType=0)
 }
 @font-face {
- font-family: "broadway";
- src: url("broadw__.eot") /* EOT file for IE */
+    font-family: "broadway";
+    src: url("broadw__.eot") /* EOT file for IE */
 }
 @font-face {
     font-family: "broadway";
@@ -39,10 +37,6 @@ h1{
     color: #880000;
 }
 .navbar-inverse .navbar-inner {
-    
-    /*background-color: #1B1B1B;*/
-    /*background-image: linear-gradient(to bottom, #684808, #222222);*/
-    /*border-color: #252525;*/  
     background-image: linear-gradient(to bottom, #4A1119, #bA7119);
     background-repeat: repeat-x; 
 }
@@ -75,7 +69,6 @@ a, a:hover{
     color: #880000;
 }
 .title-item-select{
-    /*color: #880000 !important;*/
     font-weight: bold;
 }
 .font-important{
@@ -83,16 +76,12 @@ a, a:hover{
     font-weight: bold;
 }
 .title-bar{
-    /*background-color: #f1f1f1;*/
     border-bottom: 1px #DDD solid; 
-    /*padding: 0px 20px 0px 20px;*/
-    /*left: 10pX;*/
-
-    /*position: relative;*/
 }
 .logo {
     height: 55px;
     width: 134px;
+    border-radius: 0;
 }
 .line-bottom {
     border-bottom: 1px #DDD solid !important;
