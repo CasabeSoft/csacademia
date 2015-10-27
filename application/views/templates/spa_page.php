@@ -18,11 +18,13 @@
           <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <!-- Fav and touch icons -->
+        <?php if ($subdomain_match_client) { ?>
         <link rel="shortcut icon" href="<?php echo site_url('assets'.$client_theme.'/img/favicon.ico') ?>">
-        <?php
+        <?php } else { ?>
+        <link rel="shortcut icon" href="<?php echo site_url('assets/img/favicon.ico') ?>">
+        <?php }
         $currentPage = $this->location.$this->router->fetch_method();
-        if (file_exists(APPPATH . '../assets/css/'.$currentPage.'.css')) {
-        ?>
+        if (file_exists(APPPATH . '../assets/css/'.$currentPage.'.css')) { ?>
         <link rel="stylesheet" href="<?php echo site_url('assets/css/'.$currentPage.'.css') ?>">
         <?php } ?>
         <?php if ($subdomain_match_client) {?>
