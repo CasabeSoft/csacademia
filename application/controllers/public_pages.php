@@ -57,7 +57,8 @@ class Public_pages extends Basic_controller {
         echo json_encode($error);
     }
 
-    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {
+    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {        
+        /*
         $this->load->library('email');
         $config = $this->config->item('email', 'academy');
 
@@ -72,6 +73,19 @@ class Public_pages extends Basic_controller {
         $sent = $this->email->send();
         //$this->email->print_debugger(array('headers'));
         return $sent;
+        */
+        // content-type para HTML 
+        $headers = "MIME-Version: 1.0" . PHP_EOL; //"\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
+
+        // Mas headers
+        $headers .= 'From: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+        //$headers .= 'Cc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+        $headers .= 'Bcc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+        //$headers .='Reply-To: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+
+        return mail($to, $subject, $message, $headers);
+        //return mail($to, $subject, $message, 'From: ' . $fromAddress . PHP_EOL);
     }
     
     public function contact() {
@@ -81,12 +95,12 @@ class Public_pages extends Basic_controller {
             if (!($contact['name'] && ($contact['email'] || $contact['phone']))) {
                 return $this->_echo_json_error('No enough data', 412);
             }
-            $email = $contact['email'] || EMAIL_CONTACT;
+            $email = $contact['email'] ? $contact['email'] : EMAIL_CONTACT;
             $message = $contact['message'].
-                    '\n\n---\n'.
-                    $contact['name'].
-                    ($contact['email'] ? '\n'.$contact['email'] : '').
-                    ($contact['phone'] ? '\n'.$contact['phone'] : '').'\n';
+                    PHP_EOL . PHP_EOL . '---' . PHP_EOL.
+                    $contact['name'] .
+                    ($contact['email'] ? PHP_EOL . $contact['email'] : '') .
+                    ($contact['phone'] ? PHP_EOL.$contact['phone'] : '') . PHP_EOL;
             $sent = $this->_send_email($email, $contact['name'],
                     EMAIL_CONTACT, CONTACT_MAIL_SUBJECT, $message);
             echo json_encode($sent);

@@ -12,17 +12,18 @@ if (!defined('BASEPATH'))
  */
 class Api_messaging extends Api_controller {
     
-    protected function email_post() {
+    protected function email_post() {       
         $from = $this->session->userdata('email');
         $email = $this->input->post();
         
+        /*
         $this->load->library('email');
         $this->email->clear();
         // TODO: Inicializar con configuración de email por cliente
         $config = $this->config->item('email', 'academy');
         $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-
+        //$this->email->set_priority(3);
+        
         $this->email->from($from);
         $this->email->reply_to($from);
         $this->email->to($from);
@@ -30,7 +31,22 @@ class Api_messaging extends Api_controller {
         $this->email->subject($email['subject']);
         $this->email->message(nl2br($email['message']));
         $sent = $this->email->send();
-        echo json_encode($sent);
+        echo json_encode($sent); 
+        */
+        // content-type para HTML 
+        $headers = "MIME-Version: 1.0" . PHP_EOL; //"\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
+
+        // Mas headers
+        $headers .= 'From: ' . 'CSAcademia' . ' <' . $from . '>' . PHP_EOL; //"\r\n";
+        //$headers .= 'Cc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+        $headers .= 'Bcc: ' . 'CSAcademia' . ' <' . $from . '>' . PHP_EOL; //"\r\n";
+        //$headers .='Reply-To: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
+        
+        foreach ($email['to'] as $to) {
+            $sent = mail($to, $email['subject'], nl2br($email['message']), $headers);
+        } 
+        echo json_encode($sent);       
     }
     
     public function email() {

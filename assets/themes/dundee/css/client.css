@@ -93,6 +93,8 @@ a, a:hover{
 .logo {
     height: 55px;
     width: 134px;
+    border-radius: inherit;
+    background-color: inherit;
 }
 .line-bottom {
     border-bottom: 1px #DDD solid !important;

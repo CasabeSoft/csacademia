@@ -92,7 +92,7 @@ class Teacher extends Basic_controller {
             $client_info = $this->General_model->get_info_client_id($this->client_id);
             
             $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new mPDF('c', 'A4-L');
             $mpdf->SetDisplayMode('fullpage');
             
             $stylesheet = file_get_contents(site_url('assets/css/report.css'));
