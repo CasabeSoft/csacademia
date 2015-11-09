@@ -16,6 +16,9 @@ class Api_messaging extends Api_controller {
         $from = $this->session->userdata('email');
         $email = $this->input->post();
         
+        $this->load->model('General_model');
+        $client_info = $this->General_model->get_info_client_id($this->client_id);
+        
         /*
         $this->load->library('email');
         $this->email->clear();
@@ -38,9 +41,9 @@ class Api_messaging extends Api_controller {
         $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
 
         // Mas headers
-        $headers .= 'From: ' . 'CSAcademia' . ' <' . $from . '>' . PHP_EOL; //"\r\n";
+        $headers .= 'From: ' . $client_info['name'] . ' <' . $from . '>' . PHP_EOL; //"\r\n";
         //$headers .= 'Cc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
-        $headers .= 'Bcc: ' . 'CSAcademia' . ' <' . $from . '>' . PHP_EOL; //"\r\n";
+        $headers .= 'Bcc: ' . $client_info['name'] . ' <' . $from . '>' . PHP_EOL; //"\r\n";
         //$headers .='Reply-To: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
         
         foreach ($email['to'] as $to) {
