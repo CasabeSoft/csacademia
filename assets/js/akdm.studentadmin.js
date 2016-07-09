@@ -117,8 +117,7 @@ akdm.StudentViewModel = function () {
         if (! self.currentPayment() || ! self.payment_type_id()) return;
 
         var priceColumn = levelPriceColumns[self.payment_type_id()];
-        // TODO; Está fallando. Revisar por qué
-        //self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
+        self.currentPayment().amount(self.levels[self.currentStudentGroup().level_code][priceColumn]);
         self.currentPayment().concept("");
     };
 
@@ -138,7 +137,9 @@ akdm.StudentViewModel = function () {
 
     self.newPayment = function () {
         var newPayment = new akdm.model.Payment();
+        var newDate = new Date();
         newPayment.date(self.currentDate());
+        newPayment.payment_period_year(newDate.getFullYear());
         self.currentPayment(newPayment);
     };
 

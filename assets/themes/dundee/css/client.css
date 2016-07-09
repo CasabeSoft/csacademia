@@ -82,6 +82,7 @@ a, a:hover{
     height: 55px;
     width: 134px;
     border-radius: 0;
+    background-color: transparent;
 }
 .line-bottom {
     border-bottom: 1px #DDD solid !important;

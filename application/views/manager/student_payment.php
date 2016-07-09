@@ -120,9 +120,9 @@ $actual_year = date("Y");
                     </legend>
                     <!--label for="lbxState"><?php echo lang('form_bank_payment'); ?></label-->
                     <select id="status" name="bank_payment" class="input-block-level">
-                        <option value="0">--</option>
-                        <option value="1"><?php echo lang('btn_no'); ?></option>
-                        <option value="2"><?php echo lang('btn_yes'); ?></option>
+                        <option value="-1">--</option>
+                        <option value="0"><?php echo lang('btn_no'); ?></option>
+                        <option value="1"><?php echo lang('btn_yes'); ?></option>
                     </select>
                 </fieldset>
             </div>

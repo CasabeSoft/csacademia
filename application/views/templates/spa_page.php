@@ -37,6 +37,7 @@
         <!-- End page content -->
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <?php if (file_exists(APPPATH . '../assets/js/views/'.$currentPage.'.js')) { ?>
         <script>
         require(["<?php echo site_url("assets/js/config.js") ?>"], function () {
