@@ -349,7 +349,7 @@ class Student extends Basic_controller {
                   </tr>
                   <tr>
                       <td>
-                         <p style="font-size: 12px">' . lang('title_cif') . ': ' . $client_info['cif'] . ' 
+                         <p style="font-size: 12px">' . lang('form_cif') . ': ' . $client_info['cif'] . ' 
                          <p style="font-size: 12px">' . lang('title_phone') . ': ' . $client_info['phone1'] . ' / ' . $client_info['phone2'] . '                        
                       </td>
                   </tr>                  
