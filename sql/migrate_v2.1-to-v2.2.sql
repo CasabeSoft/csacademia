@@ -1,4 +1,4 @@
--- Añaidr tabla key_value_storage
+-- Añaidr tabla `key_value_storage`
 DROP TABLE IF EXISTS `key_value_storage`;
 CREATE TABLE `key_value_storage` (
   `client_id` int(11) NOT NULL,
