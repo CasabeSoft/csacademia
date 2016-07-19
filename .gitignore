@@ -3,3 +3,6 @@
 /assets/uploads/files/classroom/
 /assets/uploads/
 /mailoutput/
+*.css.map
+*.js.map
+
