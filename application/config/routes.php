@@ -49,6 +49,8 @@ $route['default_controller'] = $subdomain_is_client ?
         'public_pages/home';
 
 $route['api/config/front'] = 'config/front';
+$route['api/config/value'] = 'config/value';
+$route['api/config/value/(:any)'] = 'config/value/$1';
 $route['api/email/contact'] = 'api_messaging/email_contact';
 $route['api/email'] = 'api_messaging/email';
 $route['api/sms/contact'] = 'api_messaging/sms_contact';
