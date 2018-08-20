@@ -28,7 +28,7 @@ $config['email']['smtp_port'] = '587';
 //$config['email']['smtp_port'] = '465';
 
 $config['email']['smtp_user'] = 'contacto@casabesoft.com'; //'casabesoft.academia@gmail.com';
-$config['email']['smtp_pass'] = 'c0nt4ct0';
+$config['email']['smtp_pass'] = 'contacto';
 $config['email']['mailtype'] = 'html'; // text, html
 $config['email']['charset'] = 'utf-8'; // utf-8, iso-8859-1, ...
 $config['email']['wordwrap'] = FALSE; // TRUE, FALSE

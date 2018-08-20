@@ -1,0 +1,22 @@
+{
+    "name": "casabesoft/virtualmenu",
+    "description": "VirtualMenu is a catering menu managment system",
+    "type": "project",
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "phpunit/phpunit": "^7.3",
+        "squizlabs/php_codesniffer": "^3.3",
+        "phpmd/phpmd": "^2.6"
+    },
+    "license": "MIT",
+    "require": {
+      "rogeriopradoj/codeigniter": "2.1.3"
+    },
+    "scripts": {
+      "php-lint": "vendor/bin/phpcs --report=summary --runtime-set ignore_warnings_on_exit 1",
+      "php-lint-full": "vendor/bin/phpcs --report=full --runtime-set ignore_warnings_on_exit 1",
+      "www": "php -S localhost:8000",
+      "db-init": "mysql -u root -p < sql/csacademia_estructura.sql",
+      "php-analize": "vendor/bin/phpmd ./application/ text unusedcode,codesize --exclude */libraries/*,*/third_party/*,*/errors/*,*/logs/*,*/models/grocery_crud_model.php"
+    }
+}
