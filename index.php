@@ -33,7 +33,10 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL & ~E_DEPRECATED); // Ignorar las funciones deprecadas pues en PHP 5.5 salta como un error y la app no funciona
+			error_reporting(E_ALL &
+                ~E_NOTICE &     // TODO: Remove as soon as error in core/Comomon.php is fixed: Only variable references should be returned by reference
+                ~E_WARNING &    // TODO: Remove as soon as error in libraries/Session.php is fixed:  Cannot modify header information - headers already sent by (output started at /Users/cbello/personal/git/csacademia/vendor/rogeriopradoj/codeigniter/system/core/Exceptions.php:185
+                ~E_DEPRECATED); // TODO: Remove as soon as upgraded CodeIgniter and we stop using deprecated functions
 		break;
 	
 		case 'testing':
@@ -56,7 +59,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = 'system';
+	$system_path = 'vendor/rogeriopradoj/codeigniter/system';
 
 /*
  *---------------------------------------------------------------

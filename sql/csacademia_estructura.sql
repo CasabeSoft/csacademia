@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `academia` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `academia`;
 -- Estructura con datos basicos
 -- --------------------------------------------------------
 

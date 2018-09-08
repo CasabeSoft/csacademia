@@ -1,8 +1,26 @@
+# IDEs
 /nbproject/
+.idea/
+
+# CodeIgniter
+*/config/development
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
 !/assets/uploads/index.html
 /assets/uploads/files/classroom/
 /assets/uploads/
 /mailoutput/
+
+# Composer
+/vendor/
+composer*
+!composer.json
+
+# OS
+.DS_Store
 *.css.map
 *.js.map
 
