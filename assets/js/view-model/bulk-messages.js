@@ -1,7 +1,7 @@
-define(['jquery', 'lodash', 'app/view-model/filter-data',
+define(['jquery', 'lodash', 'app/view-model/filter-data', 'app/server-storage', 
         'k/kendo.binder.min', 'k/kendo.editor.min', 'k/kendo.toolbar.min', 
         'k/kendo.multiselect.min', 'k/kendo.notification.min', 'k/kendo.dropdownlist.min'],
-function ($, _, Filter, kendo) {
+function ($, _, Filter, serverStorage, kendo) {
     'use strict';
     
     // TODO: Internacionalizar mensajes
@@ -168,8 +168,8 @@ function ($, _, Filter, kendo) {
                     resizeTimeout;
                 if (this._inited) return this;
 
-                this._DRAFT = 'client_' + app.config.client_id + '.bulk_operations.' + this._MESSAGE_TYPE + '.draft';
-                this._TEMPLATES = 'client_' + app.config.client_id + '.bulk_operations.e' + this._MESSAGE_TYPE + '.templates';
+                this._DRAFT = 'bulk_operations-' + this._MESSAGE_TYPE + '-draft';
+                this._TEMPLATES = 'bulk_operations-' + this._MESSAGE_TYPE + '-templates';
 
                 dsData = buildDataDataSource(this._FILTERABLE_DATA_URL);
                 dsGroups.read().then(function () {
@@ -201,20 +201,50 @@ function ($, _, Filter, kendo) {
                 this._inited = true;
                 return this;
             },
+            _setMessage: function (email) {
+                this.set('id', email.id);
+                this.set('to', email.to || []);
+                this.set('subject', email.subject);
+                this.set('message', email.message);    
+            },
             _loadMessage: function (email) {
-                email = email || JSON.parse(localStorage.getItem(this._DRAFT) || null);
                 if (email) {
-                    this.set('id', email.id);
-                    this.set('to', email.to || []);
-                    this.set('subject', email.subject);
-                    this.set('message', email.message);
+                    this._setMessage(email);
                 } else {
-                    this._restart();
+                    serverStorage
+                        .getItem(this._DRAFT)
+                        .done(function (item) {
+                            if (item) {
+                                this._setMessage(JSON.parse(item.value));
+                            } else {
+                                this._restart();
+                            }
+                        }.bind(this))
+                        .fail(function () {
+                            console.log('ERROR: fail loading drafts');
+                        });
                 }
             },
-            _loadTemplates: function (templates) {
-                templates = templates || JSON.parse(localStorage.getItem(this._TEMPLATES) || '{}');
+            _setTemplates: function (templates) {
                 this.templates.data(_.sortBy(_.values(templates), 'subject'));
+            },
+            _loadTemplates: function (templates) {
+                if (templates) {
+                    this._setTemplates(templates);
+                } else {
+                    serverStorage
+                        .getItem(this._TEMPLATES)
+                        .done(function (item) {
+                            if (item) {
+                                this._setTemplates(JSON.parse(item.value));
+                            } else {
+                                this._setTemplates({});
+                            }
+                        }.bind(this))
+                        .fail(function () {
+                            console.log('ERROR: fail loading templates');
+                        });
+                }
             },
             load: function () {
                 this._loadMessage();
@@ -249,7 +279,7 @@ function ($, _, Filter, kendo) {
                     console.log(result);
                     if (result) {
                         $popup.show('Mensaje eviado satisfactoriamente', 'info');
-                        localStorage.removeItem(this._DRAFT);
+                        serverStorage.removeItem(this._DRAFT);
                         _this._restart();
                     } else {
                         $popup.show('Algo ha fallado, enviando el mensaje.', 'warning');
@@ -276,14 +306,30 @@ function ($, _, Filter, kendo) {
             },
             save: function () {
                 var message = this.getMessage();
-                localStorage.setItem(this._DRAFT, JSON.stringify(message));
+                serverStorage.setItem(this._DRAFT, JSON.stringify(message));
                 return message;
             },
             saveAsTemplate: function () {
-                var templates = JSON.parse(localStorage.getItem(this._TEMPLATES) || '{}');
-                templates[this.id] = this.save();
-                localStorage.setItem(this._TEMPLATES, JSON.stringify(templates));
-                this.templates.data(_.sortBy(_.values(templates), 'subject'));
+                serverStorage
+                    .getItem(this._TEMPLATES)
+                    .done(function (item) {
+                        var templates = {};
+                        if (item) {
+                            templates = JSON.parse(item.value);
+                        }
+                        templates[this.id] = this.save();
+                        serverStorage
+                            .setItem(this._TEMPLATES, JSON.stringify(templates))
+                            .done(function () {
+                                this._setTemplates(templates);
+                            }.bind(this))
+                            .error(function (error) {
+                                $popup.show('Ha ocurrido un error guardano la plantilla.', 'error');
+                            });
+                    }.bind(this))
+                    .error(function (error) {
+                        $popup.show('Ha ocurrido un error recuperando las plantillas.', 'error');
+                    });
             },
             _restart: function () {
                 this.set('id', _.uniqueId());
@@ -299,12 +345,30 @@ function ($, _, Filter, kendo) {
             },
             remove: function () {
                 if (confirm('¿Quiere eliminar el mensaje actual y su plantilla asociada?')) {
-                    var templates = JSON.parse(localStorage.getItem(this._TEMPLATES) || '{}');
-                    delete templates[this.id];
-                    localStorage.removeItem(this._DRAFT);
-                    localStorage.setItem(this._TEMPLATES, JSON.stringify(templates));
-                    this._restart();
-                    this._loadTemplates();
+                    serverStorage
+                        .getItem(this._TEMPLATES)
+                        .done(function (item) {
+                            var templates = {};
+                            if (item) {
+                                templates = JSON.parse(item.value);
+                            }
+                            delete templates[this.id];
+                            serverStorage.removeItem(this._DRAFT);
+                            serverStorage
+                                .setItem(this._TEMPLATES, JSON.stringify(templates))
+                                .done(function (item) {
+                                    this._loadTemplates(JSON.parse(item.value));
+                                }.bind(this))
+                                .error(function (error) {
+                                    $popup.show('Ha ocurrido un error guardando las plantillas.', 'error');
+                                });
+                        }.bind(this))
+                        .error(function (error) {
+                            $popup.show('Ha ocurrido un error recuperando las plantillas.', 'error');
+                        })
+                        .always(function () {
+                            this._restart();
+                        }.bind(this));
                 }
             },
             updateBtnSend: function (e) {

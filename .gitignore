@@ -21,3 +21,6 @@ composer*
 
 # OS
 .DS_Store
+*.css.map
+*.js.map
+
