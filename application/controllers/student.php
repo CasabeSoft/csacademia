@@ -1,14 +1,16 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Gestión de los datos de un estudiante.
  *
  * @author Carlos Bello
  */
-class Student extends Basic_controller {
+class Student extends Basic_controller
+{
 
     var $levels;
     var $academicPeriods;
@@ -85,8 +87,9 @@ class Student extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
-            if (!is_array($filter))
+            if (!is_array($filter)) {
                 $filter = [];
+            }
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_all($filter));
         } catch (Exception $e) {
@@ -289,7 +292,7 @@ class Student extends Basic_controller {
             $html .= '</tr></thead><tbody>';
             $count = 1;
             $amount = 0;
-            foreach ($payments AS $payment) {
+            foreach ($payments as $payment) {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
@@ -488,7 +491,7 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_others') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($qualifications AS $qualification) {
+            foreach ($qualifications as $qualification) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $qualification['period'] . '</td>';
                 $html .= '<td>' . $qualification['level'] . '</td>';
@@ -512,7 +515,7 @@ class Student extends Basic_controller {
         }
     }
 
-    public function students_report($isActive = NULL, $group = '') {
+    public function students_report($isActive = null, $group = '') {
 
         try {
             /* $filter = $this->input->post();
@@ -560,7 +563,7 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($students AS $student) {
+            foreach ($students as $student) {
                 $start_date = db_to_Local($student['start_date']);
                 $birth_date = db_to_Local($student['date_of_birth']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
@@ -612,8 +615,7 @@ class Student extends Basic_controller {
 ';
             $count = 1;
             $col = 1;
-            foreach ($students AS $student) {
-
+            foreach ($students as $student) {
                 if ($col == 1) {
                     $html .= '<tr><td>';
                 } else {
@@ -621,9 +623,9 @@ class Student extends Basic_controller {
                 }
 
                 if ($text_to_display == 1) {
-                   $dateNormal = substr($student['date_of_birth'], 8, 2) . '/' . substr($student['date_of_birth'], 5, 2);  //db_to_Local($student['date_of_birth']); 
+                    $dateNormal = substr($student['date_of_birth'], 8, 2) . '/' . substr($student['date_of_birth'], 5, 2);  //db_to_Local($student['date_of_birth']);
                 } else {
-                   $dateNormal = $student['name'];
+                    $dateNormal = $student['name'];
                 }
                                 
                 $html .= "<br>" . $student['first_name'] . ' ' . $student['last_name'] . "<br>";
@@ -691,7 +693,7 @@ class Student extends Basic_controller {
             }
             if ($bank_payment != -1) {
                 if ($bank_payment == 1) {
-                    $bank_value = lang('btn_yes');                    
+                    $bank_value = lang('btn_yes');
                 } else {
                     $bank_value = lang('btn_no');
                 }
@@ -732,12 +734,12 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_date') . '</th>';
             $html .= '<th>' . lang('form_payment_type') . '</th>';
             $html .= '<th>' . lang('form_period') . '</th>';
-            $html .= '<th>' . lang('form_year') . '</th>';            
+            $html .= '<th>' . lang('form_year') . '</th>';
             $html .= '<th class="td_right">' . lang('form_amount') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
             $amount = 0;
-            foreach ($payments AS $payment) {
+            foreach ($payments as $payment) {
                 $dateNormal = db_to_Local($payment['date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</td>';
@@ -750,7 +752,7 @@ class Student extends Basic_controller {
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $payment['payment_type_name'] . '</td>';
                 $html .= '<td>' . $payment['period_name'] . '</td>';
-                $html .= '<td>' . $payment['payment_period_year'] . '</td>';                               
+                $html .= '<td>' . $payment['payment_period_year'] . '</td>';
                 $html .= '<td class="td_right">' . $payment['amount'] . '</td></tr>';
                 $amount += $payment['amount'];
                 $count++;
@@ -813,7 +815,7 @@ class Student extends Basic_controller {
             $html .= '<th>' . lang('form_notes') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($payments AS $payment) {
+            foreach ($payments as $payment) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $payment['first_name'] . ' ' . $payment['last_name'] . '</td>';
                 $html .= '<td>' . $payment['bank_notes'] . '</td></tr>';
@@ -828,8 +830,7 @@ class Student extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-
 }
 
 /* End of file teacher.php */
-/* Location: ./application/controllers/teacher.php */  
+/* Location: ./application/controllers/teacher.php */

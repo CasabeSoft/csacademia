@@ -1,16 +1,18 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
- * Controlador para las páginas públicas que no requieren mucho 
+ * Controlador para las páginas públicas que no requieren mucho
  * procesamiento, del lado del servidor.
  *
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Public_pages extends Basic_controller {
+class Public_pages extends Basic_controller
+{
 
     public function __construct() {
         parent::__construct();
@@ -22,11 +24,11 @@ class Public_pages extends Basic_controller {
 
         if ($lang == 'en') {
             //establecemos la sesion lang en "en"
-            $this->session->set_userdata(array('language' => TRUE, 'lang' => 'en'));
+            $this->session->set_userdata(array('language' => true, 'lang' => 'en'));
             $current_url = $this->session->userdata('current_url');
         } else {
             //establecemos la sesion lang en "es"
-            $this->session->set_userdata(array('language' => TRUE, 'lang' => 'es'));
+            $this->session->set_userdata(array('language' => true, 'lang' => 'es'));
             $current_url = $this->session->userdata('current_url');
         }
 
@@ -57,7 +59,7 @@ class Public_pages extends Basic_controller {
         echo json_encode($error);
     }
 
-    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {        
+    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {
         /*
         $this->load->library('email');
         $config = $this->config->item('email', 'academy');
@@ -69,12 +71,12 @@ class Public_pages extends Basic_controller {
         $this->email->from($fromAddress, $fromName);
         $this->email->to($to);
         $this->email->subject($subject);
-        $this->email->message(nl2br($message));        
+        $this->email->message(nl2br($message));
         $sent = $this->email->send();
         //$this->email->print_debugger(array('headers'));
         return $sent;
         */
-        // content-type para HTML 
+        // content-type para HTML
         $headers = "MIME-Version: 1.0" . PHP_EOL; //"\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
 
@@ -101,8 +103,13 @@ class Public_pages extends Basic_controller {
                     $contact['name'] .
                     ($contact['email'] ? PHP_EOL . $contact['email'] : '') .
                     ($contact['phone'] ? PHP_EOL.$contact['phone'] : '') . PHP_EOL;
-            $sent = $this->_send_email($email, $contact['name'],
-                    EMAIL_CONTACT, CONTACT_MAIL_SUBJECT, $message);
+            $sent = $this->_send_email(
+                $email,
+                $contact['name'],
+                EMAIL_CONTACT,
+                CONTACT_MAIL_SUBJECT,
+                $message
+            );
             echo json_encode($sent);
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());

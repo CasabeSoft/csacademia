@@ -1,14 +1,16 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Description of Picture
  *
  * @author carlos
  */
-class Picture extends MY_Controller {
+class Picture extends MY_Controller
+{
 
     public function __construct() {
         parent::__construct();
@@ -44,7 +46,6 @@ class Picture extends MY_Controller {
         }
         @unlink($_FILES['fileupload']);
     }
-
 }
 
 /* End of file picture.php */

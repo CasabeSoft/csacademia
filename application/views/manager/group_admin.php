@@ -81,15 +81,17 @@ $extra_tabs_content = 'manager/group_admin_extra_tabs_content';
                 </legend>
                 <ul id="tbContactData" class="nav nav-tabs">                    
                     <?php
-                    if (isset($extra_tabs))
-                        $this->load->view($extra_tabs)
-                        ?>
+                    if (isset($extra_tabs)) {
+                        $this->load->view($extra_tabs);
+                    }
+                    ?>
                 </ul>
                 <div class="tab-content">                   
                     <?php
-                    if (isset($extra_tabs_content))
-                        $this->load->view($extra_tabs_content)
-                        ?>
+                    if (isset($extra_tabs_content)) {
+                        $this->load->view($extra_tabs_content);
+                    }
+                    ?>
                 </div>
             </div>
         </div>

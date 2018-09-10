@@ -32,8 +32,9 @@
                     </tbody>
                 </table>
                 <?php
-                if (isset($filter_panel))
+                if (isset($filter_panel)) {
                     $this->load->view($filter_panel);
+                }
                 ?>
             </div>
             <div class="span9">
@@ -65,9 +66,10 @@
                 <ul id="tbContactData" class="nav nav-tabs">
                     <li class="active"><a href="#generalData" data-bind="click: $root.activateTab"><?php echo lang('subject_general_data'); ?></a></li>
                     <?php
-                    if (isset($extra_tabs))
-                        $this->load->view($extra_tabs)
-                        ?>
+                    if (isset($extra_tabs)) {
+                        $this->load->view($extra_tabs);
+                    }
+                    ?>
                 </ul>
                 <div class="tab-content">
                     <div id="generalData" class="tab-pane active" data-bind="with: currentContact">
@@ -80,8 +82,9 @@
                         ?>
                     </div>
                     <?php
-                    if (isset($extra_tabs_content))
+                    if (isset($extra_tabs_content)) {
                         $this->load->view($extra_tabs_content);
+                    }
                     ?>
                 </div>
             </div>

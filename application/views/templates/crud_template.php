@@ -16,7 +16,7 @@
         <!-- Start page style -->
         <?php
         if (isset($crud_view->css_files)) {
-            foreach ($crud_view->css_files as $file):
+            foreach ($crud_view->css_files as $file) :
                 ?>
                 <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
                 <?php
@@ -54,7 +54,7 @@
         <!-- Start page scripts -->
         <?php
         if (isset($crud_view->js_files)) {
-            foreach ($crud_view->js_files as $file):
+            foreach ($crud_view->js_files as $file) :
                 ?>
                 <script src="<?php echo $file; ?>"></script>
                 <?php

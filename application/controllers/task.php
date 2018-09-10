@@ -1,14 +1,16 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Controlador para la gestión de las tareas
- * 
+ *
  * @author Leonardo Quintero
  */
-class Task extends Basic_controller {
+class Task extends Basic_controller
+{
 
     public function __construct() {
         parent::__construct();
@@ -44,8 +46,9 @@ class Task extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
-            if (!is_array($filter))
+            if (!is_array($filter)) {
                 $filter = [];
+            }
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->get_all($filter));
         } catch (Exception $e) {
@@ -111,8 +114,8 @@ class Task extends Basic_controller {
             if ($dialy == 'true') {
                 $text_date = '<b>' . lang('form_date') . ': </b>' . $start_date[2] . '/' . $start_date[1] . '/' .  $start_date[0];
             } else {
-                $months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
-            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                $months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
                 $text_date = '<b>' . lang('form_month') . ': </b>' . $months[intval($start_date[1])-1] . '/' .  $start_date[0];
             }
 
@@ -147,7 +150,7 @@ class Task extends Basic_controller {
             $html .= '<th>' . lang('subject_user') . '</td>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($tasks AS $task) {
+            foreach ($tasks as $task) {
                 $start_date_text = db_to_Local($task['start_date']);
                 $end_date = db_to_Local($task['end_date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
@@ -173,8 +176,7 @@ class Task extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-    
 }
 
 /* End of file task.php */
-/* Location: ./application/controllers/task.php */  
+/* Location: ./application/controllers/task.php */

@@ -5,7 +5,8 @@
  *
  * @author Leonardo Quintero
  */
-class General_model extends CI_Model {
+class General_model extends CI_Model
+{
 
     public function __construct() {
         parent::__construct();
@@ -24,14 +25,14 @@ class General_model extends CI_Model {
     
     public function get_fields($table, $fields = '', $where = '', $orderby = '') {
         if (!empty($fields)) {
-            $this->db->select($fields, FALSE);
+            $this->db->select($fields, false);
         }
         if (!empty($where)) {
             $this->db->where($where);
         }
         if (!empty($orderby)) {
             $this->db->order_by($orderby);
-        }       
+        }
         return $this->db->get($table)->result_array();
     }
 
@@ -48,13 +49,13 @@ class General_model extends CI_Model {
     function delete($table, $where) {
         $this->db->delete($table, $where);
         return;
-    }            
+    }
 
     function get_first_client() {
         $client_id = $this->db->select('id')->from('client')->limit(1)->get();
         return $client_id->num_rows() > 0
                 ? $client_id->row()->id
-                : NULL;                
+                : null;
     }
     
     function get_first_center($client_id) {
@@ -65,7 +66,7 @@ class General_model extends CI_Model {
                 ->get()->result_array();
         return count($center) > 0
                 ? $center[0]
-                : ['id' => NULL, 'name' => lang('menu_all_centers')];
+                : ['id' => null, 'name' => lang('menu_all_centers')];
     }
     
     function get_all_centers($client_id) {
@@ -81,7 +82,7 @@ class General_model extends CI_Model {
             $this->db->where('center.client_id', $client_id);
         }
         return $this->db->select('classroom.id, classroom.name, classroom.capacity')
-                ->from('classroom')                                
+                ->from('classroom')
                 ->get()->result_array();
     }
     
@@ -99,8 +100,8 @@ class General_model extends CI_Model {
                 ->get()->result_array();
         return count($center) > 0
                 ? $center[0]
-                : ['id' => NULL, 'name' => lang('menu_all_centers')];
-    }   
+                : ['id' => null, 'name' => lang('menu_all_centers')];
+    }
         
     public function update_picture($table, $id, $picture) {
         $this->db->update($table, ['picture' => $picture], ['id' => $id]);
@@ -113,7 +114,7 @@ class General_model extends CI_Model {
                 ->get()->result_array();
         return count($picture) > 0
                 ? $picture[0]['picture']
-                : NULL;
+                : null;
     }
     
     public function get_default_academic_period() {
@@ -124,8 +125,6 @@ class General_model extends CI_Model {
                 ->get();
         return $academic_period_id->num_rows() > 0
                 ? $academic_period_id->row()->code
-                : NULL; 
+                : null;
     }
 }
-
-?>

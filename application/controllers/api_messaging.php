@@ -1,18 +1,20 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
- * Controlador para las páginas de administración que no requieren mucho 
+ * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
  *
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Api_messaging extends Api_controller {
+class Api_messaging extends Api_controller
+{
     
-    protected function email_post() {       
+    protected function email_post() {
         $from = $this->session->userdata('email');
         $email = $this->input->post();
         
@@ -20,7 +22,7 @@ class Api_messaging extends Api_controller {
         $client_info = $this->General_model->get_info_client_id($this->client_id);
         
         // TODO: Inicializar con configuración de email por cliente
-        // content-type para HTML 
+        // content-type para HTML
         $headers = "MIME-Version: 1.0" . PHP_EOL; //"\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
         $headers .= 'From: ' . $client_info['name'] . ' <' . $from . '>' . PHP_EOL; //"\r\n";
@@ -28,8 +30,8 @@ class Api_messaging extends Api_controller {
         
         foreach ($email['to'] as $to) {
             $sent = mail($to, $email['subject'], nl2br($email['message']), $headers);
-        } 
-        echo json_encode($sent);       
+        }
+        echo json_encode($sent);
     }
     
     public function email() {
@@ -65,7 +67,7 @@ class Api_messaging extends Api_controller {
     
     public function sms_post() {
         $sms = $this->input->post();
-        $sent = FALSE;
+        $sent = false;
         foreach ($sms['to'] as $to) {
             $result = send_sms('CSAcademia', $to, $sms['message']);
             $sent = $sent || $result->success;
@@ -102,7 +104,7 @@ class Api_messaging extends Api_controller {
         } catch (Exception $e) {
             $this->echo_json_error($e->getMessage());
         }
-    }    
+    }
 }
 
 /* End of file api_messaging.php */

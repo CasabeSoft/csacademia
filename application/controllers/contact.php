@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
@@ -9,7 +10,8 @@ if (!defined('BASEPATH'))
  *
  * @author Carlos Bello
  */
-class Contact extends Basic_controller {
+class Contact extends Basic_controller
+{
 
     var $subject;
     var $editMode;
@@ -120,7 +122,7 @@ class Contact extends Basic_controller {
             $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($contacts AS $contact) {
+            foreach ($contacts as $contact) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $contact['first_name'] . ' ' . $contact['last_name'] . '</td>';
                 $html .= '<td>' . $contact['phone_mobile'] . '</td>';
@@ -133,12 +135,11 @@ class Contact extends Basic_controller {
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Contactos.pdf', 'I');
-            exit; 
+            exit;
         } catch (Exception $e) {
             $this->_echo_json_error($e->getMessage());
         }
     }
-
 }
 
 /* End of file contact.php */
