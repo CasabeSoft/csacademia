@@ -13,8 +13,8 @@ if (!defined('BASEPATH')) {
 class Contact extends Basic_controller
 {
 
-    var $subject;
-    var $editMode;
+    public $subject;
+    public $editMode;
 
     public function __construct() {
         parent::__construct();

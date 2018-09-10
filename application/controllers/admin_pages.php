@@ -118,7 +118,7 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    function encrypt_password_callback($post_array) {
+    public function encrypt_password_callback($post_array) {
         if (!empty($post_array['password'])) {
             $post_array['password'] = md5($post_array['password']);
         } else {
@@ -127,7 +127,7 @@ class Admin_pages extends Crud_controller
         return $post_array;
     }
 
-    function set_password_input_to_empty() {
+    public function set_password_input_to_empty() {
         return "<input type='password' name='password' value='' />";
     }
 

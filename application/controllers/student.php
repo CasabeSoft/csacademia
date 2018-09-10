@@ -12,11 +12,11 @@ if (!defined('BASEPATH')) {
 class Student extends Basic_controller
 {
 
-    var $levels;
-    var $academicPeriods;
-    var $leaveReasons;
-    var $relationships;
-    var $schoolLevels;
+    public $levels;
+    public $academicPeriods;
+    public $leaveReasons;
+    public $relationships;
+    public $schoolLevels;
 
     public function __construct() {
         parent::__construct();

@@ -13,19 +13,19 @@ if (!defined('BASEPATH')) {
 class Basic_controller extends MY_Controller
 {
 
-    var $location;
-    var $template;
-    var $title;
-    var $description;
-    var $styles;
-    var $content;
-    var $scripts;
-    var $current_page;
-    var $menu_template;
-    var $centers;
-    var $subdomain;
-    var $subdomain_match_client;
-    var $client_theme;
+    public $location;
+    public $template;
+    public $title;
+    public $description;
+    public $styles;
+    public $content;
+    public $scripts;
+    public $current_page;
+    public $menu_template;
+    public $centers;
+    public $subdomain;
+    public $subdomain_match_client;
+    public $client_theme;
 
     public function __construct() {
         parent::__construct();

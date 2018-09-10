@@ -116,7 +116,7 @@ class Public_pages extends Basic_controller
         }
     }
     
-    function error404() {
+    public function error404() {
         $this->current_page();
 
         $this->title = lang('404');

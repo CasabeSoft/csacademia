@@ -29,7 +29,7 @@ class Student_by_group_model extends CI_Model
                 ->get()->result_array();
     }
     
-    function count_student_associated_with($groups_id = '') {
+    public function count_student_associated_with($groups_id = '') {
         if (!empty($groups_id)) {
             $this->db->where('groups_id', $groups_id);
         }

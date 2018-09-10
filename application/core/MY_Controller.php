@@ -45,7 +45,7 @@ class MY_Controller extends CI_Controller
         }
     }
     
-    function current_page() {
+    public function current_page() {
         $this->session->set_userdata('current_url', $this->uri->uri_string());
     }
 }

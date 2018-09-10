@@ -13,8 +13,8 @@ if (!defined('BASEPATH')) {
 class Crud_controller extends Basic_controller
 {
 
-    var $crud;
-    var $crud_view;
+    public $crud;
+    public $crud_view;
 
     public function __construct() {
         parent::__construct();
