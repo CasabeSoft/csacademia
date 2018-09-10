@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['hostname'] = '127.0.0.1';
+$db['default']['username'] = 'academia';
+$db['default']['password'] = 'academia';
 $db['default']['database'] = 'academia';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
