@@ -23,7 +23,7 @@ function is_active($current_page, $page_name = 'user') {
         <!-- Start page style -->
         <?php
         if (isset($css_files)) {
-            foreach ($css_files as $file):
+            foreach ($css_files as $file) :
                 ?>
                 <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
                 <?php
@@ -102,7 +102,7 @@ function is_active($current_page, $page_name = 'user') {
         <!-- Start page scripts -->
         <?php
         if (isset($js_files)) {
-            foreach ($js_files as $file):
+            foreach ($js_files as $file) :
                 ?>
                 <script src="<?php echo $file; ?>"></script>
                 <?php

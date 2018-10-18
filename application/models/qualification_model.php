@@ -5,7 +5,8 @@
  *
  * @author carlos
  */
-class Qualification_model extends CI_Model {
+class Qualification_model extends CI_Model
+{
 
     private $client_id;
     public $FIELDS = [
@@ -35,9 +36,7 @@ class Qualification_model extends CI_Model {
                         ->where('student_id', $student_id)
                         ->get()->result_array();
     }
-
 }
 
 /* End of file payment_model.php */
 /* Location: ./application/models/payment_model.php */
-

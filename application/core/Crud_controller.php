@@ -1,18 +1,20 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
- * Controlador para orperaciones generales de gestión (CRUD). 
+ * Controlador para orperaciones generales de gestión (CRUD).
  *
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class Crud_controller extends Basic_controller {
+class Crud_controller extends Basic_controller
+{
 
-    var $crud;
-    var $crud_view;    
+    public $crud;
+    public $crud_view;
 
     public function __construct() {
         parent::__construct();
@@ -20,7 +22,7 @@ class Crud_controller extends Basic_controller {
             redirect('/denied');
             exit;
         }
-        $this->load->library('grocery_CRUD');        
+        $this->load->library('grocery_CRUD');
         $this->crud = new grocery_CRUD();
         $this->crud->set_language($this->lang_folder);
         $this->crud->set_theme($this->config->item('grocery_crud_theme', 'academy'));
@@ -35,7 +37,6 @@ class Crud_controller extends Basic_controller {
         $this->page_header = lang($title);
         $this->title = "CSAcademia - " . $this->page_header;
     }
-
 }
 
 /* End of file Crud_controller.php */

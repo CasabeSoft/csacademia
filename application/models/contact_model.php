@@ -5,7 +5,8 @@
  *
  * @author carlos
  */
-class Contact_model extends CI_Model {
+class Contact_model extends CI_Model
+{
 
     private $client_id;
     private $center_id;
@@ -43,8 +44,8 @@ class Contact_model extends CI_Model {
                         ->join('student', 'contact.id = student.contact_id', 'left')
                         ->join('teacher', 'contact.id = teacher.contact_id', 'left')
                         ->where('client_id = ' . $this->client_id)
-                        ->where('student.contact_id', NULL)
-                        ->where('teacher.contact_id', NULL)
+                        ->where('student.contact_id', null)
+                        ->where('teacher.contact_id', null)
                         ->get()->result_array();
     }
 
@@ -52,10 +53,10 @@ class Contact_model extends CI_Model {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id', 'left')
                 ->where('client_id = ' . $this->client_id)
-                ->where('student.contact_id', NULL);
+                ->where('student.contact_id', null);
         if (!empty($activo)) {
             if ($activo == 1) {
-                $this->db->where('student.end_date', NULL);
+                $this->db->where('student.end_date', null);
             } else {
                 $this->db->where('student.end_date', 'IS NOT NULL');
             }
@@ -95,14 +96,14 @@ class Contact_model extends CI_Model {
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
                 ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
                 ' ELSE "C" END) AS contact_type, ' .
-                'month(date_of_birth) AS month, ' . 
-                'day(date_of_birth) AS day', FALSE)
+                'month(date_of_birth) AS month, ' .
+                'day(date_of_birth) AS day', false)
             ->from('contact')
             ->join('student', 'contact.id = student.contact_id', 'left')
             ->join('teacher', 'contact.id = teacher.contact_id', 'left')
             ->where('client_id', $this->client_id)
             ->where('email IS NOT NULL AND TRIM(email) <> ""');
-        if ($this->center_id != NULL) {
+        if ($this->center_id != null) {
             $this->db->where('(student.center_id IS NULL OR student.center_id = ' . $this->center_id . ')');
         }
         return $this->db->get()->result_array();
@@ -113,18 +114,17 @@ class Contact_model extends CI_Model {
                 'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
                 ' WHEN teacher.contact_id IS NOT NULL THEN "T" ' .
-                ' ELSE "C" END) AS contact_type', FALSE)
+                ' ELSE "C" END) AS contact_type', false)
             ->from('contact')
             ->join('student', 'contact.id = student.contact_id', 'left')
             ->join('teacher', 'contact.id = teacher.contact_id', 'left')
             ->where('client_id', $this->client_id)
             ->where('phone_mobile IS NOT NULL AND TRIM(phone_mobile) <> ""');
-        if ($this->center_id != NULL) {
+        if ($this->center_id != null) {
             $this->db->where('(student.center_id IS NULL OR student.center_id = ' . $this->center_id . ')');
         }
         return $this->db->get()->result_array();
     }
-
 }
 
 /* End of file contact_model.php */

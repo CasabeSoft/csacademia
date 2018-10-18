@@ -1,16 +1,18 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Controlador para la gestión de usuarios.
- * 
+ *
  * @author Leoanrdo Quintero
  */
-class User_pages extends Basic_controller {
+class User_pages extends Basic_controller
+{
 
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->template = 'templates/public_page';
         $this->location = 'user/';
@@ -21,15 +23,14 @@ class User_pages extends Basic_controller {
     /**
      *  Formulario para validar el acceso de un usuario.
      */
-    function login() {
+    public function login() {
 
         $this->current_page();
 
         $this->form_validation->set_rules('userName', lang('form_username'), 'trim|required');
         $this->form_validation->set_rules('password', lang('form_password'), 'required|md5');
 
-        if ($this->form_validation->run() == TRUE) {
-
+        if ($this->form_validation->run() == true) {
             $email = $_POST['userName'];
             $password = $_POST['password'];
 
@@ -45,7 +46,7 @@ class User_pages extends Basic_controller {
                 $client_id = $isAdmin
                         ? $this->General_model->get_first_client()
                         : $result->client_id;
-                $center = NULL;//$this->General_model->get_first_center($client_id);
+                $center = null;//$this->General_model->get_first_center($client_id);
                 
                 if ($isAdmin) {
                     $user = array(
@@ -112,7 +113,7 @@ class User_pages extends Basic_controller {
     /**
      *  Cerrar session del usuario.
      */
-    function close() {
+    public function close() {
         $this->session->sess_destroy();
         redirect('/home');
     }
@@ -120,7 +121,7 @@ class User_pages extends Basic_controller {
     /**
      *  Mostrar al usuario página de acceso denegado.
      */
-    function denied() {
+    public function denied() {
         $this->current_page();
         $this->title = lang('menu_login');
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
@@ -128,16 +129,16 @@ class User_pages extends Basic_controller {
     }
 
     /**
-     * Valida si el correo está registrado en la bd. 
+     * Valida si el correo está registrado en la bd.
      */
-    function _check_email($email) {
+    public function _check_email($email) {
         return $this->Users_model->check_email($email);
     }
 
     /**
-     * Cambiar contraseña del usuario. 
+     * Cambiar contraseña del usuario.
      */
-    function change_password() {
+    public function change_password() {
 
         $this->current_page();
         if (!isLogged()) {
@@ -152,8 +153,7 @@ class User_pages extends Basic_controller {
         $this->form_validation->set_rules('new_password', lang('form_new_password'), 'required|min_length[2]|max_length[20]|md5');
         $this->form_validation->set_rules('confirm_password', lang('form_confirm_password'), 'required|matches[new_password]');
 
-        if ($this->form_validation->run() == TRUE) {
-
+        if ($this->form_validation->run() == true) {
             $id = $this->session->userdata('id');
             $old_password = $this->input->post('current_password');
             $new_password = $this->input->post('new_password');
@@ -172,7 +172,7 @@ class User_pages extends Basic_controller {
         $this->load_page('change_password');
     }
 
-    function profile() {
+    public function profile() {
 
         $this->current_page();
         if (!isLogged()) {
@@ -187,15 +187,14 @@ class User_pages extends Basic_controller {
         $this->form_validation->set_rules('email', lang('form_email'), 'trim|required|callback__check_email');
         $this->form_validation->set_message('_check_email', lang('message_error_check_email'));
 
-        if ($this->form_validation->run() == TRUE) {
-
+        if ($this->form_validation->run() == true) {
             $fields = array(
                 'email' => $this->input->post('email'),
             );
 
             $change = $this->Users_model->update_record($fields, array('id' => $id));
 
-            if ($change) {                
+            if ($change) {
                 //..lo guardamos en sesion
                 $this->session->set_userdata($fields);
 
@@ -209,7 +208,6 @@ class User_pages extends Basic_controller {
         $this->description = "Cambiar contraseña para el usuario de CasabeSoft Academia.";
         $this->load_page('profile');
     }
-
 }
 
 /* End of file user_pages.php */

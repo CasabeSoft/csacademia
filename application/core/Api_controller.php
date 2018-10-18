@@ -1,11 +1,13 @@
 <?php
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Controlador base para API REST
  */
-class Api_controller extends MY_Controller {
+class Api_controller extends MY_Controller
+{
     
     public function setup_ajax_response_headers() {
         header("Content-type: text/json");
@@ -16,7 +18,6 @@ class Api_controller extends MY_Controller {
         http_response_code($code);
         echo json_encode($error);
     }
-    
 }
 
 /* End of file Api_Controller.php */

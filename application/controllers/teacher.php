@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
@@ -9,7 +10,8 @@ if (!defined('BASEPATH'))
  *
  * @author Carlos Bello
  */
-class Teacher extends Basic_controller {
+class Teacher extends Basic_controller
+{
     public function __construct() {
         parent::__construct();
         if (!isLogged()) {
@@ -18,7 +20,7 @@ class Teacher extends Basic_controller {
         }
         $this->template = 'templates/manager_page';
         $this->location = 'manager/';
-        $this->menu_template = 'templates/manager_menu'; 
+        $this->menu_template = 'templates/manager_menu';
     }
 
     public function admin() {
@@ -38,8 +40,9 @@ class Teacher extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
-            if (!is_array($filter))
+            if (!is_array($filter)) {
                 $filter = [];
+            }
             $this->load->model('Teacher_model');
             echo json_encode($this->Teacher_model->get_all($filter));
         } catch (Exception $e) {
@@ -117,21 +120,21 @@ class Teacher extends Basic_controller {
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
             $html .= '<th>' . lang('form_name') . '</th>';
-            $html .= '<th>' . lang('form_date_of_birth') . '</th>'; 
+            $html .= '<th>' . lang('form_date_of_birth') . '</th>';
             $html .= '<th>' . lang('form_phone') . '</th>';
             $html .= '<th>' . lang('form_phone_mobile') . '</th>';
-            $html .= '<th>' . lang('form_email') . '</th>';                       
+            $html .= '<th>' . lang('form_email') . '</th>';
             $html .= '<th>' . lang('form_address') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($teachers AS $teacher) {
+            foreach ($teachers as $teacher) {
                 $dateNormal = db_to_Local($teacher['date_of_birth']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $teacher['first_name'] . ' ' . $teacher['last_name'] . '</td>';
                 $html .= '<td>' . $dateNormal . '</td>';
                 $html .= '<td>' . $teacher['phone'] . '</td>';
                 $html .= '<td>' . $teacher['phone_mobile'] . '</td>';
-                $html .= '<td>' . $teacher['email'] . '</td>';                
+                $html .= '<td>' . $teacher['email'] . '</td>';
                 $html .= '<td>' . $teacher['address'] . '</td>';
                 $html .= '</tr>';
                 $count++;

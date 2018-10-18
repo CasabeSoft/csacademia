@@ -24,9 +24,9 @@
         <link rel="shortcut icon" href="<?php echo site_url('assets/img/favicon.ico') ?>">
         <?php }
         $currentPage = $this->location.$this->router->fetch_method();
-        if (file_exists(APPPATH . '../assets/css/'.$currentPage.'.css')) { ?>
+if (file_exists(APPPATH . '../assets/css/'.$currentPage.'.css')) { ?>
         <link rel="stylesheet" href="<?php echo site_url('assets/css/'.$currentPage.'.css') ?>">
-        <?php } ?>
+<?php } ?>
         <?php if ($subdomain_match_client) {?>
         <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets'.$client_theme.'/css/client-bs3.css') ?>">
         <?php } ?>

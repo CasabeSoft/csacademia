@@ -1,14 +1,16 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Controlador para la gestión de Grupos
- * 
+ *
  * @author Leonardo Quintero
  */
-class Group extends Basic_controller {
+class Group extends Basic_controller
+{
 
     public function __construct() {
         parent::__construct();
@@ -47,8 +49,9 @@ class Group extends Basic_controller {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
-            if (!is_array($filter))
+            if (!is_array($filter)) {
                 $filter = [];
+            }
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->get_all($filter));
         } catch (Exception $e) {
@@ -209,16 +212,18 @@ class Group extends Basic_controller {
 
             $index = 1;
             foreach ($weekDays as $day) {
-                if ($group[$day] === "1")
+                if ($group[$day] === "1") {
                     $teachingDays[] = $index;
+                }
                 $index++;
             }
 
             $count1 = 0;
             $dayLetter = '';
             foreach ($weekDays as $day) {
-                if ($group[$day])
+                if ($group[$day]) {
                     $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                }
                 $count1++;
             }
 
@@ -281,7 +286,7 @@ class Group extends Basic_controller {
             }
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($students AS $student) {
+            foreach ($students as $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                 $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
@@ -354,20 +359,22 @@ class Group extends Basic_controller {
                 $group = $this->Group_model->get_by_id($group_id['id']);
                 //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
 
-                $teachingDays = array();                
+                $teachingDays = array();
 
                 $index = 1;
                 foreach ($weekDays as $day) {
-                    if ($group[$day] === "1")
+                    if ($group[$day] === "1") {
                         $teachingDays[] = $index;
+                    }
                     $index++;
                 }
 
                 $count1 = 0;
                 $dayLetter = '';
                 foreach ($weekDays as $day) {
-                    if ($group[$day])
+                    if ($group[$day]) {
                         $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                    }
                     $count1++;
                 }
 
@@ -422,7 +429,7 @@ class Group extends Basic_controller {
                 }
                 $html .= '</tr></thead><tbody>';
                 $count = 1;
-                foreach ($students AS $student) {
+                foreach ($students as $student) {
                     $html .= '<tr><td class="td_center">' . $count . '</td>';
                     //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                     $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
@@ -483,8 +490,9 @@ class Group extends Basic_controller {
             $count1 = 0;
             $dayLetter = '';
             foreach ($weekDays as $day) {
-                if ($group[$day])
+                if ($group[$day]) {
                     $dayLetter .= $weekDaysLetters[intval($count1)] . ' ';
+                }
                 $count1++;
             }
 
@@ -517,7 +525,7 @@ class Group extends Basic_controller {
             $html .= '<th>' . lang('form_school_level') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($students AS $student) {
+            foreach ($students as $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                 $html .= '<td>' . $student['name'] . '</td>';
@@ -588,7 +596,7 @@ class Group extends Basic_controller {
             $html .= '<th>' . lang('form_end_time') . '</th>';
             $html .= '</tr></thead><tbody>';
             $count = 1;
-            foreach ($groups AS $group) {
+            foreach ($groups as $group) {
                 $html .= '<tr>';
                 //$html .= '<td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $group['name'] . '</td>';
@@ -617,7 +625,6 @@ class Group extends Basic_controller {
             $this->_echo_json_error($e->getMessage());
         }
     }
-
 }
 
 /* End of file group.php */

@@ -5,7 +5,8 @@
  *
  * @author Leonardo Quintero
  */
-class Group_model extends CI_Model {
+class Group_model extends CI_Model
+{
 
     private $client_id;
     private $center_id;
@@ -27,7 +28,7 @@ class Group_model extends CI_Model {
         "end_time"
     ];
     private $DEFAUL_FILTER = [
-        'academic_period' => NULL
+        'academic_period' => null
     ];
 
     public function __construct() {
@@ -42,14 +43,16 @@ class Group_model extends CI_Model {
                 ->join('center', 'group.center_id = center.id')
                 ->where('center.client_id ', $this->client_id)
                 ->order_by('name', 'asc');
-        if ($this->center_id != NULL)
+        if ($this->center_id != null) {
             $this->db->where('center_id', $this->center_id);
+        }
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
             $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
             switch ($key) {
                 default:
-                    if (!empty($value))
+                    if (!empty($value)) {
                         $this->db->where($key, $value);
+                    }
             }
         }
         return $this->db->get()->result_array();
@@ -61,10 +64,12 @@ class Group_model extends CI_Model {
                 ->join('center', 'group.center_id = center.id')
                 ->where('center.client_id ', $this->client_id)
                 ->order_by('name', 'asc');
-        if ($piriod != 0)
+        if ($piriod != 0) {
             $this->db->where('academic_period', $piriod);
-        if ($center != 0)
-            $this->db->where('center_id', $center);              
+        }
+        if ($center != 0) {
+            $this->db->where('center_id', $center);
+        }
         return $this->db->get()->result_array();
     }
 
@@ -75,8 +80,9 @@ class Group_model extends CI_Model {
                 ->join('academic_period', 'group.academic_period = academic_period.code AND academic_period.client_id = ' . $this->client_id)
                 ->where('center.client_id ', $this->client_id)
                 ->order_by('academic_period_name desc, name asc');
-        if ($this->center_id != NULL)
+        if ($this->center_id != null) {
             $this->db->where('center_id', $this->center_id);
+        }
         return $this->db->get()->result_array();
     }
 
@@ -90,14 +96,16 @@ class Group_model extends CI_Model {
                 ->join('center', 'group.center_id = center.id')
                 ->where('center.client_id ', $this->client_id)
                 ->order_by('period, center, name', 'asc');
-        if ($this->center_id != NULL)
+        if ($this->center_id != null) {
             $this->db->where('group.center_id', $this->center_id);
+        }
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
             $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
             switch ($key) {
                 default:
-                    if (!empty($value))
+                    if (!empty($value)) {
                         $this->db->where($key, $value);
+                    }
             }
         }
         return $this->db->get()->result_array();
@@ -137,7 +145,6 @@ class Group_model extends CI_Model {
         $this->db->update('group', $group, 'id = ' . $id);
         return $id;
     }
-
 }
 
 /* End of file group_model.php */

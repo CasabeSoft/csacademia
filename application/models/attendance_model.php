@@ -10,7 +10,8 @@
  *
  * @author carlos
  */
-class attendance_model extends CI_Model {
+class attendance_model extends CI_Model
+{
     private $client_id;
     
     public $FIELDS = [
@@ -56,15 +57,11 @@ class attendance_model extends CI_Model {
     
     public function add_student_attendance($student_id, $date) {
         $this->db->insert('attendance', ['student_id' => $student_id, 'date' => $date]);
-        return $student_id;        
+        return $student_id;
     }
     
     public function delete_student_attendance($student_id, $date) {
         $this->db->delete('attendance', ['student_id' => $student_id, 'date' => $date]);
-        return $student_id;        
+        return $student_id;
     }
-
-    
 }
-
-?>
