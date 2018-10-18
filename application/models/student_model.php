@@ -5,7 +5,8 @@
  *
  * @author Carlos Bello
  */
-class Student_model extends CI_Model {
+class Student_model extends CI_Model
+{
 
     private $client_id;
     private $center_id;
@@ -35,7 +36,7 @@ class Student_model extends CI_Model {
     ];
     private $DEFAUL_FILTER = [
         'isActive' => 'true',
-        'group_id' => NULL
+        'group_id' => null
     ];
 
     public function __construct() {
@@ -53,40 +54,45 @@ class Student_model extends CI_Model {
                 ->join('academic_period', 'academic_period.code = group.academic_period', 'left outer')
                 ->where('contact.client_id', $this->client_id)
                 ->order_by("first_name, last_name", "asc");
-        if ($this->center_id != NULL)
+        if ($this->center_id != null) {
             $this->db->where('student.center_id', $this->center_id);
+        }
         foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
             $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
             switch ($key) {
                 case 'isActive':
-                    if ($value == 'true')
+                    if ($value == 'true') {
                         $this->db->where('end_date IS NULL');
-                    else
+                    } else {
                         $this->db->where('end_date IS NOT NULL');
+                    }
                     break;
                 default:
-                    if (!empty($value))
+                    if (!empty($value)) {
                         $this->db->where($key, $value);
+                    }
             }
         }
         return $this->db->get()->result_array();
     }
 
-    public function get_birthday($isActive = NULL, $center = 0, $month = 0) {
+    public function get_birthday($isActive = null, $center = 0, $month = 0) {
         $this->db->select('contact.*, group.name')
                 ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
                 ->join('group', 'student.group_id = group.id')
                 ->where('client_id', $this->client_id)
                 ->order_by("group.name, first_name, last_name", "asc");
-        if ($isActive != NULL) {
-            if ($isActive == 'true')
+        if ($isActive != null) {
+            if ($isActive == 'true') {
                 $this->db->where('end_date IS NULL');
-            else
+            } else {
                 $this->db->where('end_date IS NOT NULL');
+            }
         }
-        if ($center != 0)
+        if ($center != 0) {
             $this->db->where('student.center_id', $center);
+        }
 
         if ($month != 0) {
             $this->db->where('MONTH(date_of_birth)', $month);
@@ -122,19 +128,21 @@ class Student_model extends CI_Model {
                 ->join('payment_period_type', 'payment_period.period_type = payment_period_type.id', 'left')
                 ->where('contact.client_id', $this->client_id)
                 ->order_by("payment.date, contact.first_name, contact.last_name", "asc");
-        if ($isActive != NULL) {
-            if ($isActive == 'true')
+        if ($isActive != null) {
+            if ($isActive == 'true') {
                 $this->db->where('student.end_date IS NULL');
-            else
+            } else {
                 $this->db->where('student.end_date IS NOT NULL');
+            }
         }
-        if ($center != 0)
+        if ($center != 0) {
             $this->db->where('student.center_id', $center);
+        }
         /*
           if ($payment_type != 0) {
           //$filter_payment_type = ' AND payment_period.period_type = ' . $payment_type;
           $this->db->where('payment_period.period_type', $payment_type);
-          } */       
+          } */
         if ($state != 0) {
             if ($state == 1) {
                 //$this->db->where('payment.date IS NOT NULL');
@@ -145,7 +153,7 @@ class Student_model extends CI_Model {
                 //$this->db->where('payment.date IS NULL');
                 $this->db->where('payment.payment_period_id IS NULL');
             }
-        } 
+        }
         if ($bank_payment != -1) {
             if ($bank_payment == 1) {
                 $bank_value = 1;
@@ -165,14 +173,16 @@ class Student_model extends CI_Model {
                 ->join('student', 'contact.id = student.contact_id ' . $filter_bank_payment)
                 ->where('client_id', $this->client_id)
                 ->order_by("first_name, last_name", "asc");
-        if ($isActive != NULL) {
-            if ($isActive == 'true')
+        if ($isActive != null) {
+            if ($isActive == 'true') {
                 $this->db->where('end_date IS NULL');
-            else
+            } else {
                 $this->db->where('end_date IS NOT NULL');
+            }
         }
-        if ($center != 0)
+        if ($center != 0) {
             $this->db->where('center_id', $center);
+        }
         return $this->db->get()->result_array();
     }
 
@@ -184,14 +194,16 @@ class Student_model extends CI_Model {
                 ->join('school_level', 'school_level.id = student.school_level', 'left outer')
                 ->where('group_id', $groups_id)
                 ->order_by("contact.last_name, contact.first_name", "asc");
-        if ($isActive != NULL) {
-            if ($isActive == 'true')
+        if ($isActive != null) {
+            if ($isActive == 'true') {
                 $this->db->where('end_date IS NULL');
-            else
+            } else {
                 $this->db->where('end_date IS NOT NULL');
+            }
         }
-        if ($this->center_id != NULL)
+        if ($this->center_id != null) {
             $this->db->where('center_id', $this->center_id);
+        }
         return $this->db->get()->result_array();
     }
 
@@ -202,28 +214,28 @@ class Student_model extends CI_Model {
                 ->join('level', 'level.code = group.level_code')
                 ->where('contact_id', $student_id)
                 ->get();
-        return $level->num_rows() > 0 ? $level->row()->price : NULL;
+        return $level->num_rows() > 0 ? $level->row()->price : null;
     }
 
     public function get_group_by_student($student_id) {
         $level = $this->db->select('group_id')->from('student')
                 ->where('contact_id', $student_id)
                 ->get();
-        return $level->num_rows() > 0 ? $level->row()->group_id : NULL;
+        return $level->num_rows() > 0 ? $level->row()->group_id : null;
     }
 
     public function get_level_by_group($groups_id) {
         $level = $this->db->select('level_code')->from('group')
                 ->where('id', $groups_id)
                 ->get();
-        return $level->num_rows() > 0 ? $level->row()->level_code : NULL;
+        return $level->num_rows() > 0 ? $level->row()->level_code : null;
     }
 
     public function get_price_by_level($level_code) {
         $level = $this->db->select('price')->from('level')
                 ->where('code', $level_code)
                 ->get();
-        return $level->num_rows() > 0 ? $level->row()->price : NULL;
+        return $level->num_rows() > 0 ? $level->row()->price : null;
     }
 
     public function delete($id) {
@@ -260,7 +272,6 @@ class Student_model extends CI_Model {
         $this->db->query('UPDATE `student` SET `group_id` = ' . $groups_id . ' WHERE `contact_id` = ' . $student_id);
         return $student_id;
     }
-
 }
 
 /* End of file teacher_model.php */

@@ -5,7 +5,8 @@
  *
  * @author carlos
  */
-class Payment_model extends CI_Model {
+class Payment_model extends CI_Model
+{
 
     private $client_id;
     public $FIELDS = [
@@ -65,7 +66,9 @@ class Payment_model extends CI_Model {
 
     public function add($payment) {
         $cleanPayment = convert_nullables(
-                substract_fields($payment, $this->FIELDS), $this->NULLABLES);
+            substract_fields($payment, $this->FIELDS),
+            $this->NULLABLES
+        );
         unset($cleanPayment['id']);
         $this->db->insert('payment', $cleanPayment);
         return $this->db->insert_id();
@@ -74,15 +77,15 @@ class Payment_model extends CI_Model {
     public function update($payment) {
         $id = $payment['id'];
         $cleanPayment = convert_nullables(
-                substract_fields($payment, $this->FIELDS), $this->NULLABLES);
+            substract_fields($payment, $this->FIELDS),
+            $this->NULLABLES
+        );
         unset($cleanPayment['student_id']);
         unset($cleanPayment['id']);
         $this->db->update('payment', $cleanPayment, 'id = ' . $id);
         return $id;
     }
-
 }
 
 /* End of file payment_model.php */
 /* Location: ./application/models/payment_model.php */
-

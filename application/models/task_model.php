@@ -5,7 +5,8 @@
  *
  * @author Leonardo Quintero
  */
-class Task_model extends CI_Model {
+class Task_model extends CI_Model
+{
 
     private $client_id;
     public $FIELDS = [
@@ -22,7 +23,7 @@ class Task_model extends CI_Model {
         "login_id"
     ];
     private $DEFAUL_FILTER = [
-        'start_date' => NULL,
+        'start_date' => null,
         'dialy' => true
     ];
 
@@ -46,7 +47,7 @@ class Task_model extends CI_Model {
         if ($dialy == 'true') {
             if (!empty($start_date)) {
                 $this->db->where('start_date <= ', $start_date);
-                $this->db->where('end_date >= ', $start_date);               
+                $this->db->where('end_date >= ', $start_date);
                 //$this->db->where('start_date', $start_date);
             }
         } else {
@@ -98,7 +99,6 @@ class Task_model extends CI_Model {
         $this->db->update('task', $task, 'id = ' . $id . ' AND client_id = ' . $this->client_id);
         return $id;
     }
-
 }
 
 /* End of file task_model.php */

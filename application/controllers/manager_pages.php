@@ -1,15 +1,17 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
- * Controlador para las páginas de administración que no requieren mucho 
+ * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
  *
  * @author Carlos Bello
  */
-class Manager_pages extends Basic_controller {
+class Manager_pages extends Basic_controller
+{
 
     public function __construct() {
         parent::__construct();

@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 /*
   | -------------------------------------------------------------------------
   | URI ROUTING
@@ -44,7 +45,7 @@ require APPPATH.'helpers/client_helper.php';
 $subdomain = get_subdomain();
 $subdomain_is_client = subdomain_is_client($subdomain);
 
-$route['default_controller'] = $subdomain_is_client ? 
+$route['default_controller'] = $subdomain_is_client ?
         'user_pages/login' :
         'public_pages/home';
 

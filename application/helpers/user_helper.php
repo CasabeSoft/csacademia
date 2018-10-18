@@ -3,7 +3,7 @@
 /**
  * User Helpers
  *
- * @author Leoanrdo Quintero 
+ * @author Leoanrdo Quintero
  * @author Carlos Bello
  */
 // ------------------------------------------------------------------------
@@ -25,19 +25,19 @@ if (!function_exists('isLogged')) {
         if ($CI->session->userdata('email') && $CI->session->userdata('email') !== '') {
             unset($CI);
 
-            return TRUE;
+            return true;
         }
 
-        return FALSE;
+        return false;
     }
 
 }
 
 /**
  * substract_fields
- * 
+ *
  * Extrae los campos deseados de un arreglo asociativo
- * 
+ *
  */
 if (!function_exists('substract_fields')) {
     function substract_fields($array, $fields) {
@@ -51,15 +51,17 @@ if (!function_exists('substract_fields')) {
 
  /**
  * convert_nullables
- * 
+ *
  * Convierte a nulo los valores de cadena vacíos de un arreglo asociativo
- * 
+ *
  */
 if (!function_exists('convert_nullables')) {
     function convert_nullables($array, $nullables) {
         $result = $array;
         foreach ($nullables as $name) {
-            if ($result[$name] == '') $result[$name] = NULL;
+            if ($result[$name] == '') {
+                $result[$name] = null;
+            }
         }
         return $result;
     }

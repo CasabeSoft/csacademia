@@ -1,6 +1,7 @@
 <?php
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 /**
  * Controlador en el que deberán basarse todos los controladores del sitio
@@ -10,7 +11,8 @@ if (!defined('BASEPATH'))
  * @author Carlos Bello
  * @author Leonardo Quintero
  */
-class MY_Controller extends CI_Controller {
+class MY_Controller extends CI_Controller
+{
     
     public $lang_id;
     public $lang_code;
@@ -21,7 +23,7 @@ class MY_Controller extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->config('academy', TRUE);
+        $this->load->config('academy', true);
         $this->role_id = $this->session->userdata('role_id');
         $this->client_id = $this->session->userdata('client_id');
         
@@ -43,7 +45,7 @@ class MY_Controller extends CI_Controller {
         }
     }
     
-    function current_page() {
+    public function current_page() {
         $this->session->set_userdata('current_url', $this->uri->uri_string());
     }
 }

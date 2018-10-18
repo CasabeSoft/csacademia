@@ -6,7 +6,8 @@
  * @author Leonardo Quintero
  * @author Carlos Bello
  */
-class Users_model extends CI_Model {
+class Users_model extends CI_Model
+{
 
     public function __construct() {
         parent::__construct();
@@ -14,11 +15,11 @@ class Users_model extends CI_Model {
 
     /**
      * Obtener un usuario según sus datos de autenticación.
-     * 
+     *
      * @author Leonardo
      * @param $email (Correo del usuario)
      * @param $password (Contraseña del usuario)
-     * @return array  
+     * @return array
      */
     public function verify_login($email, $password) {
 
@@ -33,25 +34,25 @@ class Users_model extends CI_Model {
 
     /**
      * Obtener si el usuario es un Administrador.
-     * 
+     *
      * @param $mail
      * @param $password
-     * @return bool  
+     * @return bool
      */
-    function is_user_administrator($mail, $password) {
+    public function is_user_administrator($mail, $password) {
 
-        return (USER_ADMINISTRATOR === $mail) and (PASSWORD_ADMINISTRATOR === $password) ? TRUE : FALSE;
+        return (USER_ADMINISTRATOR === $mail) and (PASSWORD_ADMINISTRATOR === $password) ? true : false;
     }
 
     /**
      * Cambia la contraseña del usuario.
-     * 
+     *
      * @param $id
      * @param $oldPassword
      * @param $newPassword
      * @return bool
      */
-    function change_password($id, $oldPassword, $newPassword) {
+    public function change_password($id, $oldPassword, $newPassword) {
 
         $query = $this->db->select('id, password')
                 ->where('id', $id)
@@ -62,45 +63,41 @@ class Users_model extends CI_Model {
         $db_password = $result->password;
 
         if ($db_password === $oldPassword) {
-
             $this->db->where('id', $id)
                     ->update('login', array('password' => $newPassword));
 
             return $this->db->affected_rows() == 1;
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
      * Valida si el email existe.
-     * 
+     *
      * @param $email (Correo del usuario)
      * @return bool  (Si existe retorna FALSE )
      */
-    function check_email($email) {
+    public function check_email($email) {
         $this->db->where('email', $email);
         $query = $this->db->get('login');
         if ($query->num_rows() > 0) {
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
     
     /**
      * Actualiza un registro en la tabla.
-     * 
+     *
      * @param $fields (Arreglo con los campos y valores a modificar)
      * @param $where (Filtro de los campos a modificar)
-     * @return int (Id del registro insertado)  
+     * @return int (Id del registro insertado)
      */
-    function update_record($fields, $where) {
+    public function update_record($fields, $where) {
         $this->db->update('login', $fields, $where);
 
         return $this->db->affected_rows();
     }
-
 }
-
-?>
