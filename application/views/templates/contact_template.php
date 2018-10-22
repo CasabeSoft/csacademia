@@ -1,7 +1,8 @@
 <?php
 $current_page = $this->uri->segment(2);
 
-function is_active($current_page, $page_name = 'user') {
+function is_active($current_page, $page_name = 'user')
+{
     return $current_page == $page_name ? 'active' : '';
 }
 ?>

@@ -15,7 +15,8 @@ class Crud_controller extends Basic_controller
     public $crud;
     public $crud_view;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/denied');
@@ -28,11 +29,13 @@ class Crud_controller extends Basic_controller
         $this->current_page();
     }
 
-    public function load_page() {
+    public function load_page()
+    {
         $this->load->view($this->template, $this);
     }
 
-    protected function set_page_title($title = '') {
+    protected function set_page_title($title = '')
+    {
         $this->page_header = lang($title);
         $this->title = "CSAcademia - " . $this->page_header;
     }

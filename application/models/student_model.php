@@ -37,14 +37,16 @@ class Student_model extends CI_Model
         'group_id' => null
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
         $this->load->model('Contact_model');
     }
 
-    public function get_all($filter = []) {
+    public function get_all($filter = [])
+    {
         $this->db->select('contact.*, student.*, group.name as group_name, academic_period.name as course')
                 ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
@@ -74,7 +76,8 @@ class Student_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_birthday($isActive = null, $center = 0, $month = 0) {
+    public function get_birthday($isActive = null, $center = 0, $month = 0)
+    {
         $this->db->select('contact.*, group.name')
                 ->from('contact')
                 ->join('student', 'contact.id = student.contact_id')
@@ -98,7 +101,8 @@ class Student_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = -1) {
+    public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = -1)
+    {
         $isActive = 'true';
         //$filter_payment_type = '';
         //$filter_bank_payment = ' AND student.bank_payment = 0';
@@ -163,7 +167,8 @@ class Student_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_payments_bank($center = 0) {
+    public function get_payments_bank($center = 0)
+    {
         $isActive = 'true';
         $filter_bank_payment = ' AND student.bank_payment = 1';
         $this->db->select('contact.*, student.bank_notes')
@@ -184,7 +189,8 @@ class Student_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_by_group($groups_id) {
+    public function get_by_group($groups_id)
+    {
         $isActive = 'true';
         $this->db->select('student.*, contact.*, school_level.name')
                 ->from('student')
@@ -205,7 +211,8 @@ class Student_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_price_by_student($student_id) {
+    public function get_price_by_student($student_id)
+    {
         $level = $this->db->select('price')
                 ->from('student')
                 ->join('group', 'group.id = student.group_id')
@@ -215,33 +222,38 @@ class Student_model extends CI_Model
         return $level->num_rows() > 0 ? $level->row()->price : null;
     }
 
-    public function get_group_by_student($student_id) {
+    public function get_group_by_student($student_id)
+    {
         $level = $this->db->select('group_id')->from('student')
                 ->where('contact_id', $student_id)
                 ->get();
         return $level->num_rows() > 0 ? $level->row()->group_id : null;
     }
 
-    public function get_level_by_group($groups_id) {
+    public function get_level_by_group($groups_id)
+    {
         $level = $this->db->select('level_code')->from('group')
                 ->where('id', $groups_id)
                 ->get();
         return $level->num_rows() > 0 ? $level->row()->level_code : null;
     }
 
-    public function get_price_by_level($level_code) {
+    public function get_price_by_level($level_code)
+    {
         $level = $this->db->select('price')->from('level')
                 ->where('code', $level_code)
                 ->get();
         return $level->num_rows() > 0 ? $level->row()->price : null;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('student', 'contact_id = ' . $id);  // Por si no hubiese eliminación en cascada
         return $this->Contact_model->delete($id);
     }
 
-    public function add($student) {
+    public function add($student)
+    {
         $this->db->trans_start();
         $student['client_id'] = $this->client_id;
         $id = $this->Contact_model->add(substract_fields($student, $this->Contact_model->FIELDS));
@@ -252,7 +264,8 @@ class Student_model extends CI_Model
         return $id;
     }
 
-    public function update($student) {
+    public function update($student)
+    {
         $this->db->trans_start();
         $student['client_id'] = $this->client_id;
         $id = $this->Contact_model->update(substract_fields($student, $this->Contact_model->FIELDS));
@@ -264,7 +277,8 @@ class Student_model extends CI_Model
         return $id;
     }
 
-    public function update_group($student_id, $groups_id) {
+    public function update_group($student_id, $groups_id)
+    {
         //$this->db->update('student', '', 'contact_id = ' . $student_id);
         //$this->db->update('student')->where('contact_id', $student_id)->set('group_id', $groups_id);
         $this->db->query('UPDATE `student` SET `group_id` = ' . $groups_id . ' WHERE `contact_id` = ' . $student_id);

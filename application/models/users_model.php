@@ -6,7 +6,8 @@
 class Users_model extends CI_Model
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -18,7 +19,8 @@ class Users_model extends CI_Model
      * @param $password (Contraseña del usuario)
      * @return array
      */
-    public function verify_login($email, $password) {
+    public function verify_login($email, $password)
+    {
 
         $result = $this->db->select('id, email, role_code, client_id')
                 ->where('email', $email)
@@ -36,7 +38,8 @@ class Users_model extends CI_Model
      * @param $password
      * @return bool
      */
-    public function is_user_administrator($mail, $password) {
+    public function is_user_administrator($mail, $password)
+    {
 
         return (USER_ADMINISTRATOR === $mail) and (PASSWORD_ADMINISTRATOR === $password) ? true : false;
     }
@@ -49,7 +52,8 @@ class Users_model extends CI_Model
      * @param $newPassword
      * @return bool
      */
-    public function change_password($id, $oldPassword, $newPassword) {
+    public function change_password($id, $oldPassword, $newPassword)
+    {
 
         $query = $this->db->select('id, password')
                 ->where('id', $id)
@@ -75,7 +79,8 @@ class Users_model extends CI_Model
      * @param $email (Correo del usuario)
      * @return bool  (Si existe retorna FALSE )
      */
-    public function check_email($email) {
+    public function check_email($email)
+    {
         $this->db->where('email', $email);
         $query = $this->db->get('login');
         if ($query->num_rows() > 0) {
@@ -92,7 +97,8 @@ class Users_model extends CI_Model
      * @param $where (Filtro de los campos a modificar)
      * @return int (Id del registro insertado)
      */
-    public function update_record($fields, $where) {
+    public function update_record($fields, $where)
+    {
         $this->db->update('login', $fields, $where);
 
         return $this->db->affected_rows();

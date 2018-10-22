@@ -2,11 +2,13 @@
 $current_page = $this->uri->segment(2);
 $current_controller = $this->uri->segment(1);
 
-function is_active($current_page, $page_name = 'user') {
+function is_active($current_page, $page_name = 'user')
+{
     return $current_page == $page_name ? 'active' : '';
 }
 
-function is_controller_active($current_controller, $controller_name = 'admin') {
+function is_controller_active($current_controller, $controller_name = 'admin')
+{
     return $current_controller == $controller_name ? 'active' : '';
 }
 ?>

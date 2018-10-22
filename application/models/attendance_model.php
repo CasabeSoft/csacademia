@@ -12,12 +12,14 @@ class Attendance_model extends CI_Model
         "date",
     ];
     
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
     }
     
-    public function get_attendance_for_date($group_id, $date) {
+    public function get_attendance_for_date($group_id, $date)
+    {
         return $this->db->select('attendance.*')
                 ->from('attendance')
                 ->join('student', 'attendance.student_id = student.contact_id')
@@ -28,7 +30,8 @@ class Attendance_model extends CI_Model
                 ->get()->result_array();
     }
     
-    public function get_attendance_for_month($group_id, $year, $month) {
+    public function get_attendance_for_month($group_id, $year, $month)
+    {
         $nextYear = intval($year);
         $nextMonth = intval($month);
         if ($nextMonth == 12) {
@@ -48,12 +51,14 @@ class Attendance_model extends CI_Model
                 ->get()->result_array();
     }
     
-    public function add_student_attendance($student_id, $date) {
+    public function add_student_attendance($student_id, $date)
+    {
         $this->db->insert('attendance', ['student_id' => $student_id, 'date' => $date]);
         return $student_id;
     }
     
-    public function delete_student_attendance($student_id, $date) {
+    public function delete_student_attendance($student_id, $date)
+    {
         $this->db->delete('attendance', ['student_id' => $student_id, 'date' => $date]);
         return $student_id;
     }

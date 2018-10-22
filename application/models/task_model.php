@@ -27,12 +27,14 @@ class Task_model extends CI_Model
         'dialy' => true
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
     }
 
-    public function get_all($filter = []) {
+    public function get_all($filter = [])
+    {
         $this->db->select('task.*, task_type.name AS task_type_name, task_importance.name AS task_importance_name, task_state.name AS task_state_name, login.email AS login_email')
                 ->from('task')
                 ->join('task_type', 'task.task_type_id = task_type.id')
@@ -71,12 +73,14 @@ class Task_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('task', 'id = ' . $id);
         return $id;
     }
 
-    public function add($task) {
+    public function add($task)
+    {
         unset($task['id']);
         unset($task['task_type_name']);
         unset($task['task_state_name']);
@@ -89,7 +93,8 @@ class Task_model extends CI_Model
         return $id;
     }
 
-    public function update($task) {
+    public function update($task)
+    {
         $id = $task['id'];
         unset($task['id']);
         unset($task['task_type_name']);

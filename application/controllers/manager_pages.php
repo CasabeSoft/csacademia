@@ -11,7 +11,8 @@ if (!defined('BASEPATH')) {
 class Manager_pages extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -22,7 +23,8 @@ class Manager_pages extends Basic_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function main() {
+    public function main()
+    {
         $this->current_page();
         // TODO: Remplazar literales por acceso a texto desde recurso internacionalizado
         $this->title = "Principal";
@@ -30,7 +32,8 @@ class Manager_pages extends Basic_controller
         $this->load_page('main');
     }
 
-    protected function redirect_to_caller() {
+    protected function redirect_to_caller()
+    {
         redirect('/tools/tasks');
         // Eliminado porque se estaba redireccionando a la última llamada tanto de navegación
         // como AJAX.
@@ -48,19 +51,22 @@ class Manager_pages extends Basic_controller
          */
     }
 
-    public function change_to_client($client) {
+    public function change_to_client($client)
+    {
         $this->load->model('General_model');
         $this->session->set_userdata('client_id', $client);
         $this->change_to_center($this->General_model->get_first_center($client)['id']);
     }
 
-    public function change_to_center($center_id) {
+    public function change_to_center($center_id)
+    {
         $this->load->model('General_model');
         $this->session->set_userdata('current_center', $this->General_model->get_center($center_id));
         $this->redirect_to_caller();
     }
 
-    public function bulk_operations() {
+    public function bulk_operations()
+    {
         $this->load_page('bulk_operations', 'templates/spa_page');
     }
 }

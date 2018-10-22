@@ -8,22 +8,26 @@
 class General_model extends CI_Model
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function get_all($table) {
+    public function get_all($table)
+    {
         return $this->db->get($table)->result_array();
     }
 
-    public function get_where($table, $where = '') {
+    public function get_where($table, $where = '')
+    {
         if (!empty($where)) {
             $this->db->where($where);
         }
         return $this->db->get($table)->result_array();
     }
     
-    public function get_fields($table, $fields = '', $where = '', $orderby = '') {
+    public function get_fields($table, $fields = '', $where = '', $orderby = '')
+    {
         if (!empty($fields)) {
             $this->db->select($fields, false);
         }
@@ -36,29 +40,34 @@ class General_model extends CI_Model
         return $this->db->get($table)->result_array();
     }
 
-    public function insert($table, $fields) {
+    public function insert($table, $fields)
+    {
         $this->db->insert($table, $fields);
         return $this->db->insert_id();
     }
 
-    public function update($table, $fields, $where) {
+    public function update($table, $fields, $where)
+    {
         $this->db->update($table, $fields, $where);
         return $this->db->affected_rows();
     }
 
-    public function delete($table, $where) {
+    public function delete($table, $where)
+    {
         $this->db->delete($table, $where);
         return;
     }
 
-    public function get_first_client() {
+    public function get_first_client()
+    {
         $client_id = $this->db->select('id')->from('client')->limit(1)->get();
         return $client_id->num_rows() > 0
                 ? $client_id->row()->id
                 : null;
     }
 
-    public function get_first_center($client_id) {
+    public function get_first_center($client_id)
+    {
         $center = $this->db->select('id, name')
                 ->from('center')
                 ->where('client_id', $client_id)
@@ -69,14 +78,16 @@ class General_model extends CI_Model
                 : ['id' => null, 'name' => lang('menu_all_centers')];
     }
 
-    public function get_all_centers($client_id) {
+    public function get_all_centers($client_id)
+    {
         return $this->db->select('id, name')
                 ->from('center')
                 ->where('client_id', $client_id)
                 ->get()->result_array();
     }
 
-    public function get_all_classrooms($client_id) {
+    public function get_all_classrooms($client_id)
+    {
         if (!empty($client_id)) {
             $this->db->join('center', 'center.id = classroom.center_id');
             $this->db->where('center.client_id', $client_id);
@@ -86,14 +97,16 @@ class General_model extends CI_Model
                 ->get()->result_array();
     }
 
-    public function get_info_client_id($id) {
+    public function get_info_client_id($id)
+    {
         return $this->db->select("*")
                         ->from('client')
                         ->where('id', $id)
                         ->get()->row_array();
     }
 
-    public function get_center($id) {
+    public function get_center($id)
+    {
         $center = $this->db->select('id, name')
                 ->from('center')
                 ->where('id', $id)
@@ -103,11 +116,13 @@ class General_model extends CI_Model
                 : ['id' => null, 'name' => lang('menu_all_centers')];
     }
 
-    public function update_picture($table, $id, $picture) {
+    public function update_picture($table, $id, $picture)
+    {
         $this->db->update($table, ['picture' => $picture], ['id' => $id]);
     }
     
-    public function get_picture($table, $id) {
+    public function get_picture($table, $id)
+    {
         $picture = $this->db->select('picture')
                 ->from($table)
                 ->where('id', $id)
@@ -117,7 +132,8 @@ class General_model extends CI_Model
                 : null;
     }
     
-    public function get_default_academic_period() {
+    public function get_default_academic_period()
+    {
         $academic_period_id = $this->db->select('code')
                 ->from('academic_period')
                 ->limit(1)

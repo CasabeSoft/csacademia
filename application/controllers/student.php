@@ -16,7 +16,8 @@ class Student extends Basic_controller
     public $relationships;
     public $schoolLevels;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -27,7 +28,8 @@ class Student extends Basic_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function admin() {
+    public function admin()
+    {
         $this->current_page();
         $this->title = lang('page_manage_students');
         $this->subject = lang('title_student');
@@ -45,7 +47,8 @@ class Student extends Basic_controller
         $this->load_page('student_admin');
     }
 
-    public function birthday() {
+    public function birthday()
+    {
         $this->current_page();
         $this->title = lang('page_report_birthday');
         $this->subject = lang('subject_student');
@@ -54,7 +57,8 @@ class Student extends Basic_controller
         $this->load_page('student_birthday');
     }
 
-    public function payments() {
+    public function payments()
+    {
         $this->current_page();
         $this->title = lang('page_report_payments');
         $this->subject = lang('subject_student');
@@ -67,7 +71,8 @@ class Student extends Basic_controller
         $this->load_page('student_payment');
     }
     
-    public function payments_bank() {
+    public function payments_bank()
+    {
         $this->current_page();
         $this->title = lang('page_report_payments_bank');
         $this->subject = lang('subject_student');
@@ -76,12 +81,14 @@ class Student extends Basic_controller
         $this->load_page('student_payment_bank');
     }
 
-    protected function _echo_json_error($error) {
+    protected function _echo_json_error($error)
+    {
         http_response_code(500);
         echo json_encode($error);
     }
 
-    public function get() {
+    public function get()
+    {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
@@ -95,7 +102,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function add() {
+    public function add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
@@ -106,7 +114,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_model');
@@ -116,7 +125,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function update() {
+    public function update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
@@ -127,7 +137,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_get($id) {
+    public function family_get($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Family_model');
@@ -137,7 +148,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_get_available() {
+    public function family_get_available()
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Family_model');
@@ -147,7 +159,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_delete($student_id, $contact_id) {
+    public function family_delete($student_id, $contact_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Family_model');
@@ -157,7 +170,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_add() {
+    public function family_add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $family = $this->input->post();
@@ -168,7 +182,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_update() {
+    public function family_update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $family = $this->input->post();
@@ -179,7 +194,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function family_relate() {
+    public function family_relate()
+    {
         $this->setup_ajax_response_headers();
         try {
             $family = $this->input->post();
@@ -190,7 +206,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function get_price_by_student($student_id) {
+    public function get_price_by_student($student_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_model');
@@ -200,7 +217,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function payments_get($id) {
+    public function payments_get($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Payment_model');
@@ -210,7 +228,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function payment_delete($id) {
+    public function payment_delete($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Payment_model');
@@ -220,7 +239,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function payment_add() {
+    public function payment_add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $payment = $this->input->post();
@@ -231,7 +251,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function payment_update() {
+    public function payment_update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $payment = $this->input->post();
@@ -245,7 +266,8 @@ class Student extends Basic_controller
     /*
      * Informe listado de pagos de un alumno
      */
-    public function payments_report($id) {
+    public function payments_report($id)
+    {
         try {
             $this->load->model('Payment_model');
             $this->load->model('General_model');
@@ -316,7 +338,8 @@ class Student extends Basic_controller
     /*
      * Informe pago activo de un alumno
      */
-    public function payment_report($id) {
+    public function payment_report($id)
+    {
 
         try {
             $this->load->library('mpdf');
@@ -393,7 +416,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function qualification_get($student_id) {
+    public function qualification_get($student_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             echo json_encode($this->General_model->get_where('qualification', "student_id = '" . $student_id . "'"));
@@ -402,7 +426,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function qualification_add() {
+    public function qualification_add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $qualification = $this->input->post();
@@ -413,7 +438,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function qualification_update() {
+    public function qualification_update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $qualification = $this->input->post();
@@ -428,7 +454,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function qualification_delete($student_id, $academic_period) {
+    public function qualification_delete($student_id, $academic_period)
+    {
         $this->setup_ajax_response_headers();
         try {
             $where = ['student_id' => $student_id,
@@ -440,7 +467,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function qualifications_report($student_id) {
+    public function qualifications_report($student_id)
+    {
 
         try {
             $this->load->model('Qualification_model');
@@ -513,7 +541,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function students_report($isActive = null, $group = '') {
+    public function students_report($isActive = null, $group = '')
+    {
 
         try {
             /* $filter = $this->input->post();
@@ -587,7 +616,8 @@ class Student extends Basic_controller
         }
     }
 
-    public function birthday_report() {
+    public function birthday_report()
+    {
 
         try {
             $isActive = $this->input->post('state');
@@ -652,7 +682,8 @@ class Student extends Basic_controller
         }
     }
     
-    public function payments_general_report() {
+    public function payments_general_report()
+    {
 
         try {
             $state = $this->input->post('state');
@@ -768,7 +799,8 @@ class Student extends Basic_controller
         }
     }
     
-    public function payments_bank_report() {
+    public function payments_bank_report()
+    {
 
         try {
             $center = $this->input->post('center');

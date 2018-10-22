@@ -10,7 +10,8 @@ if (!defined('BASEPATH')) {
  */
 class Teacher extends Basic_controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -21,7 +22,8 @@ class Teacher extends Basic_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function admin() {
+    public function admin()
+    {
         $this->current_page();
         $this->title = lang('page_manage_teachers');
         $this->subject = lang('title_teacher');
@@ -29,12 +31,14 @@ class Teacher extends Basic_controller
         $this->load_page('teacher_admin');
     }
     
-    protected function _echo_json_error($error) {
+    protected function _echo_json_error($error)
+    {
         http_response_code(500);
         echo json_encode($error);
     }
     
-    public function get() {
+    public function get()
+    {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
@@ -48,7 +52,8 @@ class Teacher extends Basic_controller
         }
     }
     
-    public function add() {
+    public function add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
@@ -59,7 +64,8 @@ class Teacher extends Basic_controller
         }
     }
     
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Teacher_model');
@@ -69,7 +75,8 @@ class Teacher extends Basic_controller
         }
     }
     
-    public function update() {
+    public function update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
@@ -80,7 +87,8 @@ class Teacher extends Basic_controller
         }
     }
     
-    public function teachers_report($filter) {
+    public function teachers_report($filter)
+    {
 
         try {
             /*$filter = $this->input->post();

@@ -21,12 +21,14 @@ class Qualification_model extends CI_Model
         "level_code"
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
     }
 
-    public function get_all($student_id) {
+    public function get_all($student_id)
+    {
         return $this->db->select("qualification.*, academic_period.name AS period, level.description AS level")
                         ->from('qualification')
                         ->join('academic_period', 'qualification.academic_period = academic_period.code')

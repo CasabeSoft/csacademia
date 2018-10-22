@@ -27,13 +27,15 @@ class Teacher_model extends CI_Model
         'isActive' => 'true'
     ];
     
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->load->model('Contact_model');
     }
     
-    public function get_all($filter = []) {
+    public function get_all($filter = [])
+    {
         $this->db->from('contact')
                 ->join('teacher', 'contact.id = teacher.contact_id')
                 ->where('client_id', $this->client_id)
@@ -57,12 +59,14 @@ class Teacher_model extends CI_Model
         return $this->db->get()->result_array();
     }
     
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('teacher', 'contact_id = '.$id);  // Por si no hubiese eliminación en cascada
         return $this->Contact_model->delete($id);
     }
     
-    public function add($teacher) {
+    public function add($teacher)
+    {
         $this->db->trans_start();
         $teacher['client_id'] = $this->client_id;
         $id = $this->Contact_model->add(substract_fields($teacher, $this->Contact_model->FIELDS));
@@ -73,7 +77,8 @@ class Teacher_model extends CI_Model
         return $id;
     }
     
-    public function update($teacher) {
+    public function update($teacher)
+    {
         $this->db->trans_start();
         $teacher['client_id'] = $this->client_id;
         $cleanContact = substract_fields($teacher, $this->Contact_model->FIELDS);

@@ -12,7 +12,8 @@ if (!defined('BASEPATH')) {
 class User_pages extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->template = 'templates/public_page';
         $this->location = 'user/';
@@ -23,7 +24,8 @@ class User_pages extends Basic_controller
     /**
      *  Formulario para validar el acceso de un usuario.
      */
-    public function login() {
+    public function login()
+    {
 
         $this->current_page();
 
@@ -113,7 +115,8 @@ class User_pages extends Basic_controller
     /**
      *  Cerrar session del usuario.
      */
-    public function close() {
+    public function close()
+    {
         $this->session->sess_destroy();
         redirect('/home');
     }
@@ -121,7 +124,8 @@ class User_pages extends Basic_controller
     /**
      *  Mostrar al usuario página de acceso denegado.
      */
-    public function denied() {
+    public function denied()
+    {
         $this->current_page();
         $this->title = lang('menu_login');
         $this->description = "Control de accesos para clientes de CasabeSoft Academia.";
@@ -131,14 +135,16 @@ class User_pages extends Basic_controller
     /**
      * Valida si el correo está registrado en la bd.
      */
-    public function _check_email($email) {
+    public function _check_email($email)
+    {
         return $this->Users_model->check_email($email);
     }
 
     /**
      * Cambiar contraseña del usuario.
      */
-    public function change_password() {
+    public function change_password()
+    {
 
         $this->current_page();
         if (!isLogged()) {
@@ -172,7 +178,8 @@ class User_pages extends Basic_controller
         $this->load_page('change_password');
     }
 
-    public function profile() {
+    public function profile()
+    {
 
         $this->current_page();
         if (!isLogged()) {

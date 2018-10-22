@@ -13,13 +13,15 @@ if (!defined('BASEPATH')) {
 class Public_pages extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->template = 'templates/public_page';
         $this->location = 'public/';
     }
 
-    public function lang($lang) {
+    public function lang($lang)
+    {
 
         if ($lang == 'en') {
             //establecemos la sesion lang en "en"
@@ -41,11 +43,13 @@ class Public_pages extends Basic_controller
         }
     }
 
-    public function home() {
+    public function home()
+    {
         $this->load_page('home', 'templates/spa_page');
     }
 
-    public function about() {
+    public function about()
+    {
         $this->current_page();
 
         $this->title = lang('menu_about');
@@ -53,12 +57,14 @@ class Public_pages extends Basic_controller
         $this->load_page('about');
     }
     
-    protected function _echo_json_error($error, $httpErrorCode = 500) {
+    protected function _echo_json_error($error, $httpErrorCode = 500)
+    {
         http_response_code($httpErrorCode);
         echo json_encode($error);
     }
 
-    protected function _send_email($fromAddress, $fromName, $to, $subject, $message) {
+    protected function _send_email($fromAddress, $fromName, $to, $subject, $message)
+    {
         /*
         $this->load->library('email');
         $config = $this->config->item('email', 'academy');
@@ -89,7 +95,8 @@ class Public_pages extends Basic_controller
         //return mail($to, $subject, $message, 'From: ' . $fromAddress . PHP_EOL);
     }
     
-    public function contact() {
+    public function contact()
+    {
         $this->setup_ajax_response_headers();
         try {
             $contact = $this->input->post();
@@ -115,7 +122,8 @@ class Public_pages extends Basic_controller
         }
     }
     
-    public function error404() {
+    public function error404()
+    {
         $this->current_page();
 
         $this->title = lang('404');

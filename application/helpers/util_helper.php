@@ -16,7 +16,8 @@
  */
 if (!function_exists('db_to_Local')) {
 
-    function db_to_Local($dateDB = '') {
+    function db_to_Local($dateDB = '')
+    {
         if (($dateDB == "") || ($dateDB == "0000-00-00")) {
             return '';
         }

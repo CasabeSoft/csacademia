@@ -13,7 +13,8 @@ if (!defined('BASEPATH')) {
 class Api_messaging extends Api_controller
 {
     
-    protected function email_post() {
+    protected function email_post()
+    {
         $from = $this->session->userdata('email');
         $email = $this->input->post();
         
@@ -33,7 +34,8 @@ class Api_messaging extends Api_controller
         echo json_encode($sent);
     }
     
-    public function email() {
+    public function email()
+    {
         $this->setup_ajax_response_headers();
         try {
             switch ($this->input->server('REQUEST_METHOD')) {
@@ -46,12 +48,14 @@ class Api_messaging extends Api_controller
         }
     }
     
-    public function email_contact_get() {
+    public function email_contact_get()
+    {
         $this->load->model('Contact_model');
         echo json_encode($this->Contact_model->get_all_email());
     }
     
-    public function email_contact() {
+    public function email_contact()
+    {
         $this->setup_ajax_response_headers();
         try {
             switch ($this->input->server('REQUEST_METHOD')) {
@@ -64,7 +68,8 @@ class Api_messaging extends Api_controller
         }
     }
     
-    public function sms_post() {
+    public function sms_post()
+    {
         $sms = $this->input->post();
         $sent = false;
         foreach ($sms['to'] as $to) {
@@ -74,7 +79,8 @@ class Api_messaging extends Api_controller
         echo json_encode($sent);
     }
     
-    public function sms() {
+    public function sms()
+    {
         $this->setup_ajax_response_headers();
         try {
             switch ($this->input->server('REQUEST_METHOD')) {
@@ -87,12 +93,14 @@ class Api_messaging extends Api_controller
         }
     }
     
-    public function sms_contact_get() {
+    public function sms_contact_get()
+    {
         $this->load->model('Contact_model');
         echo json_encode($this->Contact_model->get_all_mobile_phone());
     }
     
-    public function sms_contact() {
+    public function sms_contact()
+    {
         $this->setup_ajax_response_headers();
         try {
             switch ($this->input->server('REQUEST_METHOD')) {

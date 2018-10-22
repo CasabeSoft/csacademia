@@ -25,7 +25,8 @@ class Basic_controller extends MY_Controller
     public $subdomain_match_client;
     public $client_theme;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load_centers();
         $this->subdomain = get_subdomain();
@@ -33,7 +34,8 @@ class Basic_controller extends MY_Controller
         $this->client_theme = $this->subdomain_match_client ? '/themes/' . $this->subdomain : '';
     }
 
-    public function load_page($name = 'home', $template = null) {
+    public function load_page($name = 'home', $template = null)
+    {
         $this->current_page = $name;
         $this->content = $this->load->view($this->location . $name, $this, true);
         if (file_exists(APPPATH . 'views/' . $this->location . $name . '_scripts' . '.php')) {
@@ -45,7 +47,8 @@ class Basic_controller extends MY_Controller
         $this->load->view($template ? $template : $this->template, $this);
     }
 
-    public function load_centers() {
+    public function load_centers()
+    {
         $cliente_id = $this->session->userdata('client_id');
         if (!empty($cliente_id)) {
             $this->load->model('General_model');
@@ -53,12 +56,14 @@ class Basic_controller extends MY_Controller
         }
     }
     
-    public function setup_ajax_response_headers() {
+    public function setup_ajax_response_headers()
+    {
         header("Content-type: text/json");
         header("Expires: -1");  // HACK! Necesario para evitar que el IE cachee las llamadas AJAX.
     }
     
-    protected function echo_json_error($error, $code = 500) {
+    protected function echo_json_error($error, $code = 500)
+    {
         http_response_code($code);
         echo json_encode($error);
     }
