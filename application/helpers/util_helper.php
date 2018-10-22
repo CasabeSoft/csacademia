@@ -4,7 +4,6 @@
  * Util Helpers
  *
  * @author Leoanrdo Quintero
- * @author Carlos Bello
  */
 // ------------------------------------------------------------------------
 

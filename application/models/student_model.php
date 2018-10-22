@@ -2,8 +2,6 @@
 
 /**
  * Gestión de Alumnos
- *
- * @author Carlos Bello
  */
 class Student_model extends CI_Model
 {

@@ -6,8 +6,6 @@ if (!defined('BASEPATH')) {
 
 /**
  * Gestión de los datos de un estudiante.
- *
- * @author Carlos Bello
  */
 class Student extends Basic_controller
 {

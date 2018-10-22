@@ -7,8 +7,6 @@ if (!defined('BASEPATH')) {
 /**
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
- *
- * @author Carlos Bello
  */
 class Manager_pages extends Basic_controller
 {

@@ -8,7 +8,6 @@ if (!defined('BASEPATH')) {
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class Admin_pages extends Crud_controller

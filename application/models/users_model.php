@@ -2,9 +2,6 @@
 
 /**
  * Gestión de Usuarios
- *
- * @author Leonardo Quintero
- * @author Carlos Bello
  */
 class Users_model extends CI_Model
 {

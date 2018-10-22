@@ -1,8 +1,6 @@
 <?php
 /**
  * Gestión de Profesores
- *
- * @author Carlos Bello
  */
 class Teacher_model extends CI_Model
 {

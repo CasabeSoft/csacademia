@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Description of family_model
- *
- * @author carlos
+ * Payment periods management
  */
 class Payment_model extends CI_Model
 {

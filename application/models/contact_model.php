@@ -2,8 +2,6 @@
 
 /**
  * Gestión de contactos
- *
- * @author carlos
  */
 class Contact_model extends CI_Model
 {

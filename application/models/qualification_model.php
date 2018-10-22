@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Description of family_model
- *
- * @author carlos
+ * Student qualifications info
  */
 class Qualification_model extends CI_Model
 {

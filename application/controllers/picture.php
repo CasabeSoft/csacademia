@@ -6,8 +6,6 @@ if (!defined('BASEPATH')) {
 
 /**
  * Description of Picture
- *
- * @author carlos
  */
 class Picture extends MY_Controller
 {

@@ -1,16 +1,9 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of attendance_model
- *
- * @author carlos
+ * Students to classes attendance management
  */
-class attendance_model extends CI_Model
+class Attendance_model extends CI_Model
 {
     private $client_id;
     

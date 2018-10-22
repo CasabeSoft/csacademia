@@ -1,8 +1,6 @@
 <?php
 /**
- * Description of family_model
- *
- * @author carlos
+ * Group of students management
  */
 class Student_by_group_model extends CI_Model
 {

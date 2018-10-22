@@ -8,7 +8,6 @@ if (!defined('BASEPATH')) {
  * para concentrar la configuración, inicialización y el comportamiento común
  * para todo el sitio.
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class MY_Controller extends CI_Controller

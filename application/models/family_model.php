@@ -1,8 +1,6 @@
 <?php
 /**
- * Description of family_model
- *
- * @author carlos
+ * Student relatives information management
  */
 class Family_model extends CI_Model
 {

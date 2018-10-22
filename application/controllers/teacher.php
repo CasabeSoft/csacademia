@@ -7,8 +7,6 @@ if (!defined('BASEPATH')) {
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
  * en los controladores de estudiantes y profesores.
- *
- * @author Carlos Bello
  */
 class Teacher extends Basic_controller
 {

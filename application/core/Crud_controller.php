@@ -7,7 +7,6 @@ if (!defined('BASEPATH')) {
 /**
  * Controlador para orperaciones generales de gestión (CRUD).
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class Crud_controller extends Basic_controller

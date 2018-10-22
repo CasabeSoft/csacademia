@@ -7,8 +7,6 @@ if (!defined('BASEPATH')) {
 /**
  * Controlador de base para implementar controladores que sirven páginas
  * con una información y estructura común.
- *
- * @author Carlos Bello
  */
 class Basic_controller extends MY_Controller
 {
