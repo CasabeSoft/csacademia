@@ -6,22 +6,23 @@ if (!defined('BASEPATH')) {
 
 /**
  * Description of Picture
- *
- * @author carlos
  */
 class Picture extends MY_Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
         
-    protected function _echo_json_error($error) {
+    protected function _echo_json_error($error)
+    {
         http_response_code(500);
         echo json_encode($error);
     }
     
-    public function upload($table, $primary_key) {
+    public function upload($table, $primary_key)
+    {
         $this->load->model('General_model');
         header("Content-type:text/json");
 

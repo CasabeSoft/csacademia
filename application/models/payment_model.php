@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Description of family_model
- *
- * @author carlos
+ * Payment periods management
  */
 class Payment_model extends CI_Model
 {
@@ -26,12 +24,14 @@ class Payment_model extends CI_Model
         'notes'
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
     }
 
-    public function get_all($student_id) {
+    public function get_all($student_id)
+    {
         return $this->db->select("payment.*, payment_period_type.name AS payment_type_name, payment_period.name as period")
                         ->from('payment')
                         ->join('payment_period', 'payment.payment_period_id = payment_period.id', 'left')
@@ -41,7 +41,8 @@ class Payment_model extends CI_Model
                         ->get()->result_array();
     }
 
-    public function get_distint() {
+    public function get_distint()
+    {
         $sql = "SELECT DISTINCT payment_period_id, `payment_period`.`name` as payment_period_name ";
         $sql .= "FROM (`payment`) ";
         $sql .= "  LEFT JOIN `payment_period` ON `payment`.`payment_period_id` = `payment_period`.`id` ";
@@ -49,7 +50,8 @@ class Payment_model extends CI_Model
         return $this->db->query($sql)->result_array();
     }
 
-    public function get_payment_id($id) {
+    public function get_payment_id($id)
+    {
         return $this->db->select("payment.*, payment_period_type.name AS payment_type_name, payment_period.name as period, contact.first_name, contact.last_name")
                         ->from('payment')
                         ->join('payment_period', 'payment.payment_period_id = payment_period.id', 'left')
@@ -59,12 +61,14 @@ class Payment_model extends CI_Model
                         ->get()->row_array();
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('payment', 'id = ' . $id);
         return $id;
     }
 
-    public function add($payment) {
+    public function add($payment)
+    {
         $cleanPayment = convert_nullables(
             substract_fields($payment, $this->FIELDS),
             $this->NULLABLES
@@ -74,7 +78,8 @@ class Payment_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function update($payment) {
+    public function update($payment)
+    {
         $id = $payment['id'];
         $cleanPayment = convert_nullables(
             substract_fields($payment, $this->FIELDS),

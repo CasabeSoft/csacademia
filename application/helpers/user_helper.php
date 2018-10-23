@@ -4,7 +4,6 @@
  * User Helpers
  *
  * @author Leoanrdo Quintero
- * @author Carlos Bello
  */
 // ------------------------------------------------------------------------
 
@@ -17,7 +16,8 @@
  */
 if (!function_exists('isLogged')) {
 
-    function isLogged() {
+    function isLogged()
+    {
 
         $CI = &get_instance();
 
@@ -40,7 +40,8 @@ if (!function_exists('isLogged')) {
  *
  */
 if (!function_exists('substract_fields')) {
-    function substract_fields($array, $fields) {
+    function substract_fields($array, $fields)
+    {
         $result = [];
         foreach ($fields as $field) {
             $result[$field] = $array[$field];
@@ -56,7 +57,8 @@ if (!function_exists('substract_fields')) {
  *
  */
 if (!function_exists('convert_nullables')) {
-    function convert_nullables($array, $nullables) {
+    function convert_nullables($array, $nullables)
+    {
         $result = $array;
         foreach ($nullables as $name) {
             if ($result[$name] == '') {

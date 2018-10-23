@@ -12,7 +12,8 @@ if (!defined('BASEPATH')) {
 class Group extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -23,7 +24,8 @@ class Group extends Basic_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function admin() {
+    public function admin()
+    {
         $this->current_page();
         $this->title = lang('page_manage_groups');
         $this->subject = lang('title_group');
@@ -40,12 +42,14 @@ class Group extends Basic_controller
         $this->load_page('group_admin');
     }
 
-    protected function _echo_json_error($error) {
+    protected function _echo_json_error($error)
+    {
         http_response_code(500);
         echo json_encode($error);
     }
 
-    public function get() {
+    public function get()
+    {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
@@ -59,7 +63,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function add() {
+    public function add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $group = $this->input->post();
@@ -70,7 +75,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Group_model');
@@ -80,7 +86,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function update() {
+    public function update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $group = $this->input->post();
@@ -91,7 +98,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function students_get($groups_id) {
+    public function students_get($groups_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Student_model');
@@ -101,7 +109,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function student_delete($student_id) {
+    public function student_delete($student_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $groups_id = 'NULL';
@@ -113,7 +122,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function student_add($student_id, $groups_id) {
+    public function student_add($student_id, $groups_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             //$student_id = $this->input->post('contact_id');
@@ -126,7 +136,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function student_update($student_id, $groups_id) {
+    public function student_update($student_id, $groups_id)
+    {
         $this->setup_ajax_response_headers();
         try {
             //$student_id = $this->input->post('contact_id');
@@ -139,7 +150,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function get_attendance_for_date($group_id, $date) {
+    public function get_attendance_for_date($group_id, $date)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Attendance_model');
@@ -149,7 +161,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function get_attendance_for_month($group_id, $year, $month) {
+    public function get_attendance_for_month($group_id, $year, $month)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Attendance_model');
@@ -159,7 +172,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function add_student_attendance($student_id, $date) {
+    public function add_student_attendance($student_id, $date)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Attendance_model');
@@ -169,7 +183,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function delete_student_attendance($student_id, $date) {
+    public function delete_student_attendance($student_id, $date)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Attendance_model');
@@ -179,7 +194,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function attendance() {
+    public function attendance()
+    {
         $this->current_page();
         $this->title = lang('page_report_attendance');
         $this->subject = lang('subject_student');
@@ -190,7 +206,8 @@ class Group extends Basic_controller
         $this->load_page('group_attendance');
     }
 
-    public function report_attendance($group_id, $month, $year) {
+    public function report_attendance($group_id, $month, $year)
+    {
 
         try {
             $this->load->model('Student_model');
@@ -318,7 +335,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function attendances_report() {
+    public function attendances_report()
+    {
 
         try {
             $period = $this->input->post('period');
@@ -461,7 +479,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function report_students($group_id) {
+    public function report_students($group_id)
+    {
 
         try {
             $this->load->model('Student_model');
@@ -542,7 +561,8 @@ class Group extends Basic_controller
         }
     }
 
-    public function report_groups($filter) {
+    public function report_groups($filter)
+    {
 
         try {
             //$filter = $this->input->post();

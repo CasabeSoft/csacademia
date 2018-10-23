@@ -8,13 +8,13 @@ if (!defined('BASEPATH')) {
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class Admin_pages extends Crud_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -25,7 +25,8 @@ class Admin_pages extends Crud_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function client() {
+    public function client()
+    {
         $fields = array('id', 'name', 'cif', 'address', 'city', 'phone1', 'phone2', 'web', 'report_logo');
         
         if ($this->role_id != ROLE_ADMINISTRATOR) {
@@ -61,7 +62,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function role() {
+    public function role()
+    {
         $this->set_page_title('page_manage_roles');
 
         $fields = array('code', 'description');
@@ -82,7 +84,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function user() {
+    public function user()
+    {
         $this->set_page_title('page_manage_users');
         $fields = array('id', 'email', 'client_id', 'role_code');
 
@@ -118,7 +121,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function encrypt_password_callback($post_array) {
+    public function encrypt_password_callback($post_array)
+    {
         if (!empty($post_array['password'])) {
             $post_array['password'] = md5($post_array['password']);
         } else {
@@ -127,11 +131,13 @@ class Admin_pages extends Crud_controller
         return $post_array;
     }
 
-    public function set_password_input_to_empty() {
+    public function set_password_input_to_empty()
+    {
         return "<input type='password' name='password' value='' />";
     }
 
-    public function center() {
+    public function center()
+    {
         $this->set_page_title('page_manage_centers');
         $fields = array('id', 'client_id', 'name', 'notes');
 
@@ -159,7 +165,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function level() {
+    public function level()
+    {
         $this->set_page_title('page_manage_levels');
         $fields = array('code', 'client_id', 'description', 'price', 'price_1', 'price_2', 'price_3', 'price_4', 'price_6', 'price_12', 'state');
 
@@ -195,7 +202,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function family_relationship() {
+    public function family_relationship()
+    {
         $this->set_page_title('page_manage_relationships');
 
         $fields = array('code', 'name');
@@ -217,7 +225,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function school_level() {
+    public function school_level()
+    {
         $this->set_page_title('page_manage_school_levels');
 
         $fields = array('id', 'client_id', 'name');
@@ -245,7 +254,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function contact() {
+    public function contact()
+    {
         $this->set_page_title('page_manage_contacts');
 
         $this->crud->set_table('contact');
@@ -281,7 +291,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function leave_reason() {
+    public function leave_reason()
+    {
         $this->set_page_title('page_manage_leave_reasons');
 
         $fields = array('code', 'client_id', 'description');
@@ -309,7 +320,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function classroom() {
+    public function classroom()
+    {
         $this->set_page_title('page_manage_classrooms');
 
         $fields = array('id', 'center_id', 'name', 'capacity', 'notes', 'picture');
@@ -342,7 +354,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function teacher() {
+    public function teacher()
+    {
         $this->set_page_title('page_manage_teachers');
 
         $this->crud->set_table('teacher');
@@ -373,7 +386,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function group() {
+    public function group()
+    {
         $this->set_page_title('page_manage_groups');
 
         $fields = array('id', 'name', 'center_id', 'classroom_id', 'teacher_id', 'level_code', 'academic_period', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'start_time', 'end_time');
@@ -432,7 +446,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function student() {
+    public function student()
+    {
         $this->set_page_title('page_manage_students');
 
         $this->crud->set_table('student');
@@ -473,7 +488,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function qualification() {
+    public function qualification()
+    {
         $this->set_page_title('page_manage_qualifications');
 
         $this->crud->set_table('qualification');
@@ -499,7 +515,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function academic_period() {
+    public function academic_period()
+    {
         $this->set_page_title('page_manage_academic_period');
 
         $fields = array('code', 'client_id', 'name');
@@ -527,7 +544,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function payment() {
+    public function payment()
+    {
         $this->set_page_title('page_manage_payments');
 
         $fields = array('id', 'student_id', 'date', 'payment_period_id', 'payment_period_year', 'amount', 'notes');
@@ -559,7 +577,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
 
-    public function payment_type() {
+    public function payment_type()
+    {
         $this->set_page_title('page_manage_payment_types');
 
         $fields = array('id', 'name', 'number_months');
@@ -582,7 +601,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
     
-    public function task_type() {
+    public function task_type()
+    {
         $this->set_page_title('page_manage_task_types');
 
         $fields = array('id', 'name');
@@ -604,7 +624,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
     
-    public function task_importance() {
+    public function task_importance()
+    {
         $this->set_page_title('page_manage_task_importances');
 
         $fields = array('id', 'client_id', 'name');
@@ -632,7 +653,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
     
-    public function task_state() {
+    public function task_state()
+    {
         $this->set_page_title('page_manage_task_states');
 
         $fields = array('id', 'client_id', 'name', 'color');
@@ -661,7 +683,8 @@ class Admin_pages extends Crud_controller
         $this->load_page();
     }
     
-    public function task() {
+    public function task()
+    {
         $this->set_page_title('page_manage_tasks');
 
         $fields = array('id', 'client_id', 'start_date', 'start_time', 'end_date', 'end_time', 'task', 'description', 'task_importance_id', 'task_type_id', 'task_state_id', 'login_id');

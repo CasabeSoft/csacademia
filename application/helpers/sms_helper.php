@@ -4,7 +4,6 @@
  * SMS Helpers
  *
  * @author Leoanrdo Quintero
- * @author Carlos Bello
  */
 // ------------------------------------------------------------------------
 
@@ -17,7 +16,8 @@
  */
 if (!function_exists('send_sms')) {
 
-    function send_sms($customerName = '', $numberToDial = '', $msg = '') {
+    function send_sms($customerName = '', $numberToDial = '', $msg = '')
+    {
 
         if (($numberToDial == "") || ($msg == "")) {
             return '';

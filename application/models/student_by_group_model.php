@@ -1,8 +1,6 @@
 <?php
 /**
- * Description of family_model
- *
- * @author carlos
+ * Group of students management
  */
 class Student_by_group_model extends CI_Model
 {
@@ -13,12 +11,14 @@ class Student_by_group_model extends CI_Model
         "student_id"
     ];
     
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
     }
     
-    public function get_all($groups_id = '') {
+    public function get_all($groups_id = '')
+    {
         if (!empty($groups_id)) {
             $this->db->where('groups_id', $groups_id);
         }
@@ -29,26 +29,30 @@ class Student_by_group_model extends CI_Model
                 ->get()->result_array();
     }
     
-    public function count_student_associated_with($groups_id = '') {
+    public function count_student_associated_with($groups_id = '')
+    {
         if (!empty($groups_id)) {
             $this->db->where('groups_id', $groups_id);
         }
         return $this->db->from('students_by_groups')->count_all_results();
     }
     
-    public function delete($student_id, $groups_id) {
+    public function delete($student_id, $groups_id)
+    {
         $this->db->delete('students_by_groups', 'student_id = '.$student_id.' AND groups_id = '.$groups_id);
         return $student_id;
     }
     
-    public function add($student) {
+    public function add($student)
+    {
         $student['client_id'] = $this->client_id;
         $student['contact_id'] = $id;
         $this->db->insert('students_by_groups', substract_fields($student, $this->FIELDS));
         return $id;
     }
     
-    public function update($student) {
+    public function update($student)
+    {
 
         //$student['client_id'] = $this->client_id;
         //$student_id = $family['student_id'];

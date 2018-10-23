@@ -12,7 +12,8 @@ if (!defined('BASEPATH')) {
 class Task extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -23,7 +24,8 @@ class Task extends Basic_controller
         $this->menu_template = 'templates/manager_menu';
     }
 
-    public function admin() {
+    public function admin()
+    {
         $this->current_page();
         $this->title = lang('page_manage_tasks');
         $this->subject = lang('title_tasks');
@@ -37,12 +39,14 @@ class Task extends Basic_controller
         $this->load_page('task_admin');
     }
 
-    protected function _echo_json_error($error) {
+    protected function _echo_json_error($error)
+    {
         http_response_code(500);
         echo json_encode($error);
     }
 
-    public function get() {
+    public function get()
+    {
         $this->setup_ajax_response_headers();
         try {
             $filter = $this->input->post();
@@ -56,7 +60,8 @@ class Task extends Basic_controller
         }
     }
 
-    public function add() {
+    public function add()
+    {
         $this->setup_ajax_response_headers();
         try {
             $task = $this->input->post();
@@ -67,7 +72,8 @@ class Task extends Basic_controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->setup_ajax_response_headers();
         try {
             $this->load->model('Task_model');
@@ -77,7 +83,8 @@ class Task extends Basic_controller
         }
     }
 
-    public function update() {
+    public function update()
+    {
         $this->setup_ajax_response_headers();
         try {
             $task = $this->input->post();
@@ -89,7 +96,8 @@ class Task extends Basic_controller
         }
     }
 
-    public function tasks_report($date, $dialy) {
+    public function tasks_report($date, $dialy)
+    {
         try {
             $this->load->model('Task_model');
             $this->load->model('General_model');

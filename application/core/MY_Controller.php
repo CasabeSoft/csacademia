@@ -8,7 +8,6 @@ if (!defined('BASEPATH')) {
  * para concentrar la configuración, inicialización y el comportamiento común
  * para todo el sitio.
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class MY_Controller extends CI_Controller
@@ -21,7 +20,8 @@ class MY_Controller extends CI_Controller
     public $role_id;
     public $client_id;
     
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->config('academy', true);
         $this->role_id = $this->session->userdata('role_id');
@@ -45,7 +45,8 @@ class MY_Controller extends CI_Controller
         }
     }
     
-    public function current_page() {
+    public function current_page()
+    {
         $this->session->set_userdata('current_url', $this->uri->uri_string());
     }
 }

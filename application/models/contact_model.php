@@ -2,8 +2,6 @@
 
 /**
  * Gestión de contactos
- *
- * @author carlos
  */
 class Contact_model extends CI_Model
 {
@@ -33,13 +31,15 @@ class Contact_model extends CI_Model
         'date_of_birth'
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
     }
 
-    public function get_contacts() {
+    public function get_contacts()
+    {
         return $this->db->from('contact')
                         ->join('student', 'contact.id = student.contact_id', 'left')
                         ->join('teacher', 'contact.id = teacher.contact_id', 'left')
@@ -49,7 +49,8 @@ class Contact_model extends CI_Model
                         ->get()->result_array();
     }
 
-    public function get_student($activo = '', $grupo = '') {
+    public function get_student($activo = '', $grupo = '')
+    {
         $this->db->from('contact')
                 ->join('student', 'contact.id = student.contact_id', 'left')
                 ->where('client_id = ' . $this->client_id)
@@ -67,12 +68,14 @@ class Contact_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('contact', 'id = ' . $id . ' and client_id = ' . $this->client_id);
         return $id;
     }
 
-    public function add($contact) {
+    public function add($contact)
+    {
         unset($contact['id']);
         $contact['client_id'] = $this->client_id;
         $this->db->trans_start();
@@ -82,7 +85,8 @@ class Contact_model extends CI_Model
         return $id;
     }
 
-    public function update($contact) {
+    public function update($contact)
+    {
         $id = $contact['id'];
         unset($contact['client_id']);
         unset($contact['id']);
@@ -90,7 +94,8 @@ class Contact_model extends CI_Model
         return $id;
     }
 
-    public function get_all_email() {
+    public function get_all_email()
+    {
         $this->db->select('contact.id, CONCAT(first_name, " ", last_name) AS name, sex, email, group_id, ' .
                 'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .
@@ -109,7 +114,8 @@ class Contact_model extends CI_Model
         return $this->db->get()->result_array();
     }
     
-    public function get_all_mobile_phone() {
+    public function get_all_mobile_phone()
+    {
         $this->db->select('contact.id, CONCAT(first_name, " ", last_name) AS name, sex, phone_mobile AS phone, group_id, ' .
                 'student.end_date IS NULL AND teacher.end_date IS NULL AS is_active, ' .
                 '(CASE WHEN student.contact_id IS NOT NULL THEN "S" ' .

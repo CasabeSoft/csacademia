@@ -31,13 +31,15 @@ class Group_model extends CI_Model
         'academic_period' => null
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->client_id = $this->session->userdata('client_id');
         $this->center_id = $this->session->userdata('current_center')['id'];
     }
 
-    public function get_all($filter = []) {
+    public function get_all($filter = [])
+    {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
@@ -58,7 +60,8 @@ class Group_model extends CI_Model
         return $this->db->get()->result_array();
     }
     
-    public function get_all_with_filter($piriod = 0, $center = 0) {
+    public function get_all_with_filter($piriod = 0, $center = 0)
+    {
         $this->db->select('group.*')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
@@ -73,7 +76,8 @@ class Group_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_all_with_academic_period() {
+    public function get_all_with_academic_period()
+    {
         $this->db->select('group.*, academic_period.name academic_period_name')
                 ->from('group')
                 ->join('center', 'group.center_id = center.id')
@@ -86,7 +90,8 @@ class Group_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_group_report($filter = []) {
+    public function get_group_report($filter = [])
+    {
         $this->db->select('group.*, center.name as center,  classroom.name as classroom, academic_period.name as period, level.description as level, contact.first_name, contact.last_name')
                 ->from('group')
                 ->join('contact', 'group.teacher_id = contact.id AND contact.client_id = ' . $this->client_id)
@@ -111,7 +116,8 @@ class Group_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_by_id($id) {
+    public function get_by_id($id)
+    {
         $this->db->select('group.*, center.name as center, contact.first_name, contact.last_name, level.description as level, classroom.name as classroom, academic_period.name as academic_period')
                 ->from('group')
                 ->join('level', 'group.level_code = level.code and level.client_id = ' . $this->client_id)
@@ -125,12 +131,14 @@ class Group_model extends CI_Model
         return $this->db->get()->row_array();
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->db->delete('group', 'id = ' . $id);
         return $id;
     }
 
-    public function add($group) {
+    public function add($group)
+    {
         unset($group['id']);
         $this->db->trans_start();
         $this->db->insert('group', $group);
@@ -139,7 +147,8 @@ class Group_model extends CI_Model
         return $id;
     }
 
-    public function update($group) {
+    public function update($group)
+    {
         $id = $group['id'];
         unset($group['id']);
         $this->db->update('group', $group, 'id = ' . $id);

@@ -8,13 +8,13 @@ if (!defined('BASEPATH')) {
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
  *
- * @author Carlos Bello
  * @author Leonardo Quintero
  */
 class Config extends Basic_controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         if (!isLogged()) {
             redirect('/login');
@@ -22,14 +22,16 @@ class Config extends Basic_controller
         }
     }
     
-    protected function front_get() {
+    protected function front_get()
+    {
         $this->setup_ajax_response_headers();
         echo json_encode([
             'client_id' => $this->session->userdata('client_id')
         ]);
     }
     
-    public function front() {
+    public function front()
+    {
         switch ($this->input->server('REQUEST_METHOD')) {
             case 'GET':
                 $this->front_get();
@@ -37,7 +39,8 @@ class Config extends Basic_controller
         }
     }
     
-    protected function value_get($key) {
+    protected function value_get($key)
+    {
         $this->load->model('General_model');
         $client_id = $this->client_id;
         $value = $this->General_model->get_fields(
@@ -49,7 +52,8 @@ class Config extends Basic_controller
         echo json_encode(current($value) ?: null);
     }
 
-    protected function value_post() {
+    protected function value_post()
+    {
         $this->load->model('General_model');
         $key_value = $this->input->post();
         $key = $key_value['key'];
@@ -81,7 +85,8 @@ class Config extends Basic_controller
         echo json_encode($saved);
     }
     
-    public function value_delete($key) {
+    public function value_delete($key)
+    {
         $this->load->model('General_model');
         $client_id = $this->client_id;
         $this->General_model->delete(
@@ -92,7 +97,8 @@ class Config extends Basic_controller
         echo json_encode(true);
     }
     
-    public function value($key = null) {
+    public function value($key = null)
+    {
         $this->setup_ajax_response_headers();
         try {
             switch ($this->input->server('REQUEST_METHOD')) {

@@ -1,5 +1,6 @@
 <?php
-function is_active($current_page, $page_name = 'home') {
+function is_active($current_page, $page_name = 'home')
+{
     return $current_page == $page_name ? 'active' : '';
 }
 ?>
