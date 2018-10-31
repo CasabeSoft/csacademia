@@ -1,8 +1,4 @@
 <?php
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador en el que deberán basarse todos los controladores del sitio
  * para concentrar la configuración, inicialización y el comportamiento común

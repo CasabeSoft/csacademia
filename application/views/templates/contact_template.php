@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile PSR1.Files.SideEffects
 $current_page = $this->uri->segment(2);
 
 function is_active($current_page, $page_name = 'user')
