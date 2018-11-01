@@ -8,7 +8,7 @@
         <meta name="description" content="<?php echo $description ?>">
         <meta name="author" content="CasabeSoft <contacto@casabesoft.com>">
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="<?php echo site_url('assets/lib/bootstrap/3.3.4/css/bootstrap.min.css') ?>">
+        <link rel="stylesheet" href="<?php echo site_url('node_modules/bootstrap/dist/css/bootstrap.min.css') ?>">
         <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.common-material.min.css" rel="stylesheet" />
         <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.material.min.css" rel="stylesheet" />
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

@@ -1,6 +1,6 @@
 {
-    "name": "casabesoft/virtualmenu",
-    "description": "VirtualMenu is a catering menu managment system",
+    "name": "csacademia",
+    "description": "CSAcademia is a tool to manage the student's and teacher's related information in an academy.",
     "type": "project",
     "require-dev": {
         "phpdocumentor/phpdocumentor": "^2.9",
