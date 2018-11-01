@@ -17,6 +17,7 @@
   "homepage": "https://github.com/CasabeSoft/csacademia#readme",
   "dependencies": {
     "bootstrap": "^3.3.4",
-    "html5shiv": "^3.7.3"
+    "html5shiv": "^3.7.3",
+    "knockout": "^2.2.1"
   }
 }

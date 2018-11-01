@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/assets/lib/knockout/knockout-2.2.1.js"></script>
+<script type="text/javascript" src="/node_modules/knockout/build/output/knockout-latest.js"></script>
 <?php if ($this->lang_code != 'en') { ?>
 <script type="text/javascript" src="/assets/lib/jquery-ui/1.10.2/ui/i18n/jquery.ui.datepicker-<?php echo $this->lang_code ?>.js"></script>
 <?php } ?>
