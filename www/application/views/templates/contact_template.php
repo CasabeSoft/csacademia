@@ -19,7 +19,7 @@ function is_active($current_page, $page_name = 'user')
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
-          <script src="<?php echo site_url('assets/lib/html5shiv/3.6.2-6/html5shiv.js') ?>"></script>
+          <script src="<?php echo site_url('node_modules/html5shiv/dist/html5shiv.js') ?>"></script>
         <![endif]-->
 
         <!-- Start page style -->
