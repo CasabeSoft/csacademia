@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.

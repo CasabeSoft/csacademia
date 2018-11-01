@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Description of Picture
  */
@@ -15,7 +10,7 @@ class Picture extends MY_Controller
         parent::__construct();
     }
         
-    protected function _echo_json_error($error)
+    protected function echo_json_error($error)
     {
         http_response_code(500);
         echo json_encode($error);
@@ -35,7 +30,7 @@ class Picture extends MY_Controller
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('fileupload')) {
-            echo $this->_echo_json_error(array('error' => $this->upload->display_errors(), 'file' => $_FILES['fileupload']));
+            echo $this->echo_json_error(array('error' => $this->upload->display_errors(), 'file' => $_FILES['fileupload']));
         } else {
             $currentPicture = $this->General_model->get_picture($table, $primary_key);
             if (! is_null($currentPicture)) {

@@ -11,7 +11,7 @@
   <exclude-pattern>*/language/*</exclude-pattern>
 
   <rule ref="PSR2">
-    <exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+    <exclude name="Generic.Files.LineLength" />
     <exclude name="Generic.Files.LineEndings" />
     <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
     <!-- At the moment ignore this name rules since the code meets the CodeIgniter naming conventions -->
@@ -19,57 +19,8 @@
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
   </rule>
 
-  <!-- FORMATING IMPROVEMENTS RULES START -->
-  <rule ref="PSR2.Classes.ClassDeclaration.OpenBraceNewLine">
-    <type>warning</type>
+  <rule ref="Internal.NoCodeFound">
+    <!-- Exclude the views code from this rule since it's not compatible with html or JavaScript only files -->
+    <exclude-pattern>./application/views/*</exclude-pattern>
   </rule>
-  <rule ref="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Files.ClosingTag.NotAllowed">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Methods.FunctionCallSignature.ContentAfterOpenBracket">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Methods.FunctionCallSignature.Indent">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Methods.FunctionCallSignature.CloseBracketLine">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket">
-    <type>warning</type>
-  </rule>
-  <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
-    <type>warning</type>
-  </rule>
-  <rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.Files.EndFileNewline.NoneFound">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace">
-    <type>warning</type>
-  </rule>
-  <rule ref="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBracket">
-    <type>warning</type>
-  </rule>
-  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine">
-    <type>warning</type>
-  </rule>
-  <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen">
-    <type>warning</type>
-  </rule>
-  <rule ref="Squiz.WhiteSpace.ScopeClosingBrace.Indent">
-    <type>warning</type>
-  </rule>
-  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace">
-    <type>warning</type>
-  </rule>
-  <!-- FORMATING IMPROVEMENTS RULES START -->
 </ruleset>

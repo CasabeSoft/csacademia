@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Gestión de los datos de un estudiante.
  */
@@ -81,7 +76,7 @@ class Student extends Basic_controller
         $this->load_page('student_payment_bank');
     }
 
-    protected function _echo_json_error($error)
+    protected function echo_json_error($error)
     {
         http_response_code(500);
         echo json_encode($error);
@@ -98,7 +93,7 @@ class Student extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_all($filter));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -110,7 +105,7 @@ class Student extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->add($contact));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -121,7 +116,7 @@ class Student extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->delete($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -133,7 +128,7 @@ class Student extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update($contact));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -144,7 +139,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->get_all($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -155,7 +150,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->get_available());
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -166,7 +161,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->delete($student_id, $contact_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -178,7 +173,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->add($family));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -190,7 +185,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->update($family));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -202,7 +197,7 @@ class Student extends Basic_controller
             $this->load->model('Family_model');
             echo json_encode($this->Family_model->relate($family));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -213,7 +208,7 @@ class Student extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_price_by_student($student_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -224,7 +219,7 @@ class Student extends Basic_controller
             $this->load->model('Payment_model');
             echo json_encode($this->Payment_model->get_all($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -235,7 +230,7 @@ class Student extends Basic_controller
             $this->load->model('Payment_model');
             echo json_encode($this->Payment_model->delete($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -247,7 +242,7 @@ class Student extends Basic_controller
             $this->load->model('Payment_model');
             echo json_encode($this->Payment_model->add($payment));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -259,7 +254,7 @@ class Student extends Basic_controller
             $this->load->model('Payment_model');
             echo json_encode($this->Payment_model->update($payment));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -331,7 +326,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -412,7 +407,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output();
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -422,7 +417,7 @@ class Student extends Basic_controller
         try {
             echo json_encode($this->General_model->get_where('qualification', "student_id = '" . $student_id . "'"));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -434,7 +429,7 @@ class Student extends Basic_controller
             $this->General_model->insert('qualification', $qualification);
             echo true;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -450,7 +445,7 @@ class Student extends Basic_controller
             $this->General_model->update('qualification', $qualification, $where);
             echo true;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -463,7 +458,7 @@ class Student extends Basic_controller
             $this->General_model->delete('qualification', $where);
             echo true;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -537,7 +532,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -612,7 +607,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -678,7 +673,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
     
@@ -795,7 +790,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
     
@@ -857,7 +852,7 @@ class Student extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos_bancarios.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 }

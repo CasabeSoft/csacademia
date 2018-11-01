@@ -1,8 +1,4 @@
 <?php
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador base para API REST
  */

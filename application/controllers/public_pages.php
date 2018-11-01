@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador para las páginas públicas que no requieren mucho
  * procesamiento, del lado del servidor.
@@ -57,13 +52,13 @@ class Public_pages extends Basic_controller
         $this->load_page('about');
     }
     
-    protected function _echo_json_error($error, $httpErrorCode = 500)
+    protected function echo_json_error($error, $httpErrorCode = 500)
     {
         http_response_code($httpErrorCode);
         echo json_encode($error);
     }
 
-    protected function _send_email($fromAddress, $fromName, $to, $subject, $message)
+    protected function send_email($fromAddress, $fromName, $to, $subject, $message)
     {
         /*
         $this->load->library('email');
@@ -101,7 +96,7 @@ class Public_pages extends Basic_controller
         try {
             $contact = $this->input->post();
             if (!($contact['name'] && ($contact['email'] || $contact['phone']))) {
-                return $this->_echo_json_error('No enough data', 412);
+                return $this->echo_json_error('No enough data', 412);
             }
             $email = $contact['email'] ? $contact['email'] : EMAIL_CONTACT;
             $message = $contact['message'].
@@ -109,7 +104,7 @@ class Public_pages extends Basic_controller
                     $contact['name'] .
                     ($contact['email'] ? PHP_EOL . $contact['email'] : '') .
                     ($contact['phone'] ? PHP_EOL.$contact['phone'] : '') . PHP_EOL;
-            $sent = $this->_send_email(
+            $sent = $this->send_email(
                 $email,
                 $contact['name'],
                 EMAIL_CONTACT,
@@ -118,7 +113,7 @@ class Public_pages extends Basic_controller
             );
             echo json_encode($sent);
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
     

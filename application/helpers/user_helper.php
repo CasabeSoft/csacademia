@@ -12,7 +12,7 @@
  *
  * Valida si un usuario está autenticado.
  *
- * @return  bool	TRUE si autenticado, FALSE si no.
+ * @return  bool    TRUE si autenticado, FALSE si no.
  */
 if (!function_exists('isLogged')) {
 

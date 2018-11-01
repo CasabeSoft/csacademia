@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador para la gestión de Grupos
  *
@@ -42,7 +37,7 @@ class Group extends Basic_controller
         $this->load_page('group_admin');
     }
 
-    protected function _echo_json_error($error)
+    protected function echo_json_error($error)
     {
         http_response_code(500);
         echo json_encode($error);
@@ -59,7 +54,7 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->get_all($filter));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -71,7 +66,7 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->add($group));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -82,7 +77,7 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->delete($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -94,7 +89,7 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             echo json_encode($this->Group_model->update($group));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -105,7 +100,7 @@ class Group extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->get_by_group($groups_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -118,7 +113,7 @@ class Group extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -132,7 +127,7 @@ class Group extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -146,7 +141,7 @@ class Group extends Basic_controller
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -157,7 +152,7 @@ class Group extends Basic_controller
             $this->load->model('Attendance_model');
             echo json_encode($this->Attendance_model->get_attendance_for_date($group_id, $date));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -168,7 +163,7 @@ class Group extends Basic_controller
             $this->load->model('Attendance_model');
             echo json_encode($this->Attendance_model->get_attendance_for_month($group_id, $year, $month));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -179,7 +174,7 @@ class Group extends Basic_controller
             $this->load->model('Attendance_model');
             echo json_encode($this->Attendance_model->add_student_attendance($student_id, $date));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -190,7 +185,7 @@ class Group extends Basic_controller
             $this->load->model('Attendance_model');
             echo json_encode($this->Attendance_model->delete_student_attendance($student_id, $date));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -331,7 +326,7 @@ class Group extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -475,7 +470,7 @@ class Group extends Basic_controller
             header('Content-type: application/pdf');
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -557,7 +552,7 @@ class Group extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -642,7 +637,7 @@ class Group extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 }

@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador para la gestión de usuarios.
  *
@@ -132,6 +127,7 @@ class User_pages extends Basic_controller
         $this->load_page('denied');
     }
 
+    // phpcs:disable PSR2.Methods.MethodDeclaration
     /**
      * Valida si el correo está registrado en la bd.
      */
@@ -139,6 +135,7 @@ class User_pages extends Basic_controller
     {
         return $this->Users_model->check_email($email);
     }
+    // phpcs:enable
 
     /**
      * Cambiar contraseña del usuario.

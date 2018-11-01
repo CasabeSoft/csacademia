@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Controlador para la gestión de las tareas
  *
@@ -39,7 +34,7 @@ class Task extends Basic_controller
         $this->load_page('task_admin');
     }
 
-    protected function _echo_json_error($error)
+    protected function echo_json_error($error)
     {
         http_response_code(500);
         echo json_encode($error);
@@ -56,7 +51,7 @@ class Task extends Basic_controller
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->get_all($filter));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -68,7 +63,7 @@ class Task extends Basic_controller
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->add($task));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -79,7 +74,7 @@ class Task extends Basic_controller
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->delete($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -92,7 +87,7 @@ class Task extends Basic_controller
             $this->load->model('Task_model');
             echo json_encode($this->Task_model->update($task));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -181,7 +176,7 @@ class Task extends Basic_controller
             $mpdf->WriteHTML($html);
             $mpdf->Output('tareas.pdf', 'I'); //exit;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 }

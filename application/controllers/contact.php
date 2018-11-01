@@ -1,9 +1,4 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
  * en los controladores de estudiantes y profesores.
@@ -35,7 +30,7 @@ class Contact extends Basic_controller
         $this->load_page('contact_admin');
     }
 
-    protected function _echo_json_error($error)
+    protected function echo_json_error($error)
     {
         http_response_code(500);
         echo json_encode($error);
@@ -48,7 +43,7 @@ class Contact extends Basic_controller
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->get_contacts());
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -60,7 +55,7 @@ class Contact extends Basic_controller
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->add($contact));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -71,7 +66,7 @@ class Contact extends Basic_controller
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->delete($id));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -83,7 +78,7 @@ class Contact extends Basic_controller
             $this->load->model('Contact_model');
             echo json_encode($this->Contact_model->update($contact));
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 
@@ -143,7 +138,7 @@ class Contact extends Basic_controller
             $mpdf->Output('Contactos.pdf', 'I');
             exit;
         } catch (Exception $e) {
-            $this->_echo_json_error($e->getMessage());
+            $this->echo_json_error($e->getMessage());
         }
     }
 }
