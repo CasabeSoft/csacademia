@@ -1,0 +1,24 @@
+{
+  "name": "csacademia",
+  "description": "CSAcademia is a tool to manage the student's and teacher's related information in an academy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/CasabeSoft/csacademia.git"
+  },
+  "author": "CasabeSoft & contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CasabeSoft/csacademia/issues"
+  },
+  "homepage": "https://github.com/CasabeSoft/csacademia#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "html5shiv": "^3.7.3",
+    "jquery": "^1.12.4",
+    "knockout": "^2.2.1"
+  }
+}
