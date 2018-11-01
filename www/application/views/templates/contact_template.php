@@ -99,7 +99,7 @@ function is_active($current_page, $page_name = 'user')
         </div>
         <!-- End page content -->
 
-        <script src="<?php echo site_url('assets/lib/jquery/1.9.1/jquery.min.js') ?>"></script>
+        <script src="<?php echo site_url('node_modules/jquery/dist/jquery.min.js') ?>"></script>
         <script src="<?php echo site_url('assets/lib/bootstrap/2.3.1/js/bootstrap.min.js') ?>"></script>        
         <!-- Start page scripts -->
         <?php
