@@ -2,12 +2,12 @@
 <ruleset name="VirtualMenu">
   <description>The coding standard for VirtualMenu</description>
 
-  <file>./application/</file>
+  <file>./www/application/</file>
 
   <exclude-pattern>*/libraries/*</exclude-pattern>
   <exclude-pattern>*/third_party/*</exclude-pattern>
   <exclude-pattern>*/errors/*</exclude-pattern>
-  <exclude-pattern>./application/models/grocery_crud_model.php</exclude-pattern>
+  <exclude-pattern>./www/application/models/grocery_crud_model.php</exclude-pattern>
   <exclude-pattern>*/language/*</exclude-pattern>
 
   <rule ref="PSR2">
@@ -21,6 +21,6 @@
 
   <rule ref="Internal.NoCodeFound">
     <!-- Exclude the views code from this rule since it's not compatible with html or JavaScript only files -->
-    <exclude-pattern>./application/views/*</exclude-pattern>
+    <exclude-pattern>./www/application/views/*</exclude-pattern>
   </rule>
 </ruleset>

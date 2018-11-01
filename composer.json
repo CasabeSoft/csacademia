@@ -15,8 +15,8 @@
     "scripts": {
       "php-lint": "vendor/bin/phpcs --report=summary --runtime-set ignore_warnings_on_exit 1",
       "php-lint-full": "vendor/bin/phpcs --report=full --runtime-set ignore_warnings_on_exit 1",
-      "www": "php -S localhost:8000",
-      "db-init": "mysql -u root -p < sql/csacademia_estructura.sql",
-      "php-analize": "vendor/bin/phpmd ./application/ text unusedcode,codesize --exclude */libraries/*,*/third_party/*,*/errors/*,*/logs/*,*/models/grocery_crud_model.php"
+      "www": "php -S localhost:8000 -t www/",
+      "db-init": "mysql -u root -p < db/csacademia_estructura.sql",
+      "php-analize": "vendor/bin/phpmd www/application/ text unusedcode,codesize --exclude */libraries/*,*/third_party/*,*/errors/*,*/logs/*,*/models/grocery_crud_model.php"
     }
 }
