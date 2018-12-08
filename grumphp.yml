@@ -1,0 +1,12 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+        git_commit_message:
+            enforce_capitalized_subject: false
+            matchers:
+                Must strats with GitHub issue reference: /^#\d+.*/
+            case_insensitive: true
+            max_subject_width: 0
+            max_body_width: 0
+        phpcs: ~
