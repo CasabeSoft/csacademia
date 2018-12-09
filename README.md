@@ -1,4 +1,4 @@
-# CSAcademia - Academic management software
+# CSAcademia - Academic management software ![Build status](https://travis-ci.org/CasabeSoft/csacademia.svg?branch=master)
 
 ![CSAcademia for academic management](docs/img/teacher-management.png)
 
