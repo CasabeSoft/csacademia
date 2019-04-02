@@ -9,8 +9,8 @@
         <meta name="author" content="CasabeSoft <contacto@casabesoft.com>">
         <!-- Bootstrap -->
         <link rel="stylesheet" href="<?php echo site_url('node_modules/bootstrap/dist/css/bootstrap.min.css') ?>">
-        <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.common-material.min.css" rel="stylesheet" />
-        <link href="//cdn.kendostatic.com/2015.1.429/styles/kendo.material.min.css" rel="stylesheet" />
+        <link href="//kendo.cdn.telerik.com/2015.1.429/styles/kendo.common-material.min.css" rel="stylesheet" />
+        <link href="//kendo.cdn.telerik.com/2015.1.429/styles/kendo.material.min.css" rel="stylesheet" />
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

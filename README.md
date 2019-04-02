@@ -1,4 +1,4 @@
-# CSAcademia - Academic management software
+# CSAcademia - Academic management software ![Build status](https://travis-ci.org/CasabeSoft/csacademia.svg?branch=master)
 
 ![CSAcademia for academic management](docs/img/teacher-management.png)
 
@@ -8,7 +8,7 @@ CSAcademia is a tool to manage the student's and teacher's related information i
 
 This project started at the end of the summer of 2012 with a request from a potential client, wanting to replace their obsolete school management software.
 The software starts functioning at the beginning of the academic course of 2013 and has been serving since then.
-Now, it's an everyday tool for the [Dundee School of Enflish](http://www.dundeeschool.com/) and we would like to see it in other schools.
+Now, it's an everyday tool for the [Dundee School of English](http://www.dundeeschool.com/) and we would like to see it in other schools.
 
 If you want know more, [cointinue reading the history](docs/history.md).
 
