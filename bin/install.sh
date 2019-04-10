@@ -15,3 +15,6 @@ chmod +x composer
 
 echo 'Installing project composer dependencies'
 ./composer install
+cd www
+npm install
+cd ..
