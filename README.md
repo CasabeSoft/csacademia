@@ -16,8 +16,8 @@ If you want know more, [cointinue reading the history](docs/history.md).
 
 ### Prerequisites
 
-0. PHP >= 5.6
-0. MySQL
+1. PHP >= 5.6
+1. MySQL
 
 ### Dev tools
 
@@ -25,18 +25,21 @@ You can try doing it automatically running from the project base path:
 ```
 $ bin/install.sh
 ```
-If something goes wrong, try to install composer manually and then, from the project base path, run:
+If something goes wrong, try to install the dependencies manually and then, from the project base path, run:
 ```
 $ ./composer install
+$ cd www
+$ npm install
+$ cd ..
 ```
 
 ### DB config
 
-0. From the project base path run:
+1. From the project base path run:
     ```
     $ ./composer run-script db-init
     ```
-0. Setup a user access to the database by optionally:
+1. Setup a user access to the database by optionally:
   - Editing the "user" and "password" config in the file _www/application/config/database.php_, or
   - Creating the default MySQL user "academia" with password "academia" (which you should change, later) and giving access to the "academia" database, created in the first step.
 
