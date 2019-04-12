@@ -1,4 +1,7 @@
 <?php
+
+use Mpdf\Mpdf;
+
 /**
  * Gestión de los datos de un estudiante.
  */
@@ -271,11 +274,10 @@ class Student extends Basic_controller
             $payments = $this->Payment_model->get_all($id);
             $student = $this->General_model->get_where('contact', 'id = ' . $id);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
@@ -337,7 +339,6 @@ class Student extends Basic_controller
     {
 
         try {
-            $this->load->library('mpdf');
             //$header = 'Document header ' . $id;
             //$html1 = 'Your document content goes here';
             //$footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
@@ -395,14 +396,20 @@ class Student extends Basic_controller
                    <p style="text-align: center">' . $client_info['web'] . '</p>
               </div>
               </body>';
-            // </p><p>Firmado: ______________</p>
-            //$mpdf = new mPDF('utf-8', 'A4', 0, '', 12, 12, 25, 15, 12, 12);
-            $mpdf = new mPDF('c', array(80, 125), '10', 1, 8, 13, 13, 0, 0, '');
+
+            $config = [
+                'mode' => 'c',
+                'format' => array(80, 125),
+                'default_font_size' => 10,
+                'default_font' => 'sans',
+                'margin_left' => 8,
+                'margin_right' => 13,
+                'margin_top' => 13,
+                'margin_bottom' => 0,
+                'margin_header' => 0,
+            ];
+            $mpdf = new Mpdf($config);
             $mpdf->SetDisplayMode('fullpage');
-            //$stylesheet = file_get_contents(site_url('assets/css/report.css'));
-            //$mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHTMLHeader($header);
-            //$mpdf->SetHTMLFooter($footer);
             $mpdf->SetJS('this.print();');
             $mpdf->WriteHTML($html);
             $mpdf->Output();
@@ -472,11 +479,10 @@ class Student extends Basic_controller
             $qualifications = $this->Qualification_model->get_all($student_id);
             $student = $this->General_model->get_where('contact', 'id = ' . $student_id);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
@@ -548,11 +554,10 @@ class Student extends Basic_controller
             $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
@@ -624,11 +629,21 @@ class Student extends Basic_controller
             $this->load->helper('Util_helper');
             $students = $this->Student_model->get_birthday($isActive, $center, $month);
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4', '', 14, 0, 0, 13, 13, 0, 0, '');
+            $config = [
+                'mode' => 'c',
+                'default_font_size' => 10,
+                'default_font' => 'sans',
+                'margin_left' => 0,
+                'margin_right' => 0,
+                'margin_top' => 13,
+                'margin_bottom' => 13,
+                'margin_header' => 0,
+                'margin_footer' => 0,
+            ];
+            $mpdf = new Mpdf($config);
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
 
             $html = '
@@ -730,11 +745,10 @@ class Student extends Basic_controller
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
 
             $html = '
@@ -813,11 +827,10 @@ class Student extends Basic_controller
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
 
             $html = '

@@ -1,4 +1,7 @@
 <?php
+
+use Mpdf\Mpdf;
+
 /**
  * Controlador para la gestión de las tareas
  *
@@ -104,12 +107,11 @@ class Task extends Basic_controller
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
-            
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             
             $start_date = explode('-', $date);

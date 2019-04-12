@@ -1,4 +1,7 @@
 <?php
+
+use Mpdf\Mpdf;
+
 /**
  * Controlador para la gestión de Grupos
  *
@@ -240,11 +243,9 @@ class Group extends Basic_controller
             }
 
             //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
-
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
 
             $html = '
@@ -322,7 +323,6 @@ class Group extends Basic_controller
 <body>';
             //$this->setup_ajax_response_headers();
             //header("Content-Type: text/plain");
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
@@ -343,13 +343,11 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             $this->load->model('General_model');
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-
             $months = array(lang('form_january'), lang('form_february'), lang('form_march'), lang('form_april'),
                 lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
                 lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
@@ -467,7 +465,6 @@ class Group extends Basic_controller
                 $mpdf->AddPage();
                 $mpdf->WriteHTML($html);
             }
-            header('Content-type: application/pdf');
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
             $this->echo_json_error($e->getMessage());
@@ -486,11 +483,10 @@ class Group extends Basic_controller
             $group = $this->Group_model->get_by_id($group_id);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
 
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             //$mpdf->SetFooter('|Página {PAGENO}|');
@@ -548,7 +544,6 @@ class Group extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -558,7 +553,6 @@ class Group extends Basic_controller
 
     public function report_groups($filter)
     {
-
         try {
             //$filter = $this->input->post();
             //if (!is_array($filter))
@@ -570,11 +564,9 @@ class Group extends Basic_controller
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4-L');
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
-
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
@@ -633,7 +625,6 @@ class Group extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {

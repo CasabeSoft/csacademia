@@ -1,6 +1,6 @@
 parameters:
     git_dir: .
-    bin_dir: vendor/bin
+    bin_dir: ./vendor/bin
     tasks:
         git_commit_message:
             enforce_capitalized_subject: false
@@ -9,4 +9,6 @@ parameters:
             case_insensitive: true
             max_subject_width: 0
             max_body_width: 0
-        phpcs: ~
+        phpcs:
+            whitelist_patterns:
+                - /^www\/application\/(.*)/
