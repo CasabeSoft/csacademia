@@ -608,7 +608,6 @@ class Student extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -684,7 +683,6 @@ class Student extends Basic_controller
          </tbody>
      </table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -800,7 +798,6 @@ class Student extends Basic_controller
             $html .='</tbody></table>
 <body>';
             //header("Content-Type: text/plain");
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
@@ -861,7 +858,6 @@ class Student extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos_bancarios.pdf', 'I');
         } catch (Exception $e) {

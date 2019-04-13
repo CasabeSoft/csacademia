@@ -144,7 +144,6 @@ class Teacher extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Profesores.pdf', 'I');
         } catch (Exception $e) {

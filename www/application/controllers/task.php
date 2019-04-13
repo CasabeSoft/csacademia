@@ -174,7 +174,6 @@ class Task extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('tareas.pdf', 'I'); //exit;
         } catch (Exception $e) {

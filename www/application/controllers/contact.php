@@ -135,7 +135,6 @@ class Contact extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Contactos.pdf', 'I');
             exit;
