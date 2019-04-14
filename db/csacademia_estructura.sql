@@ -521,7 +521,7 @@ CREATE TABLE `key_value_storage` (
   `value` text NOT NULL,
   PRIMARY KEY (`client_id`,`key`),
   CONSTRAINT `fk_key_value_storage_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=uft8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Volcando estructura para vista csacademia.view_student
 DROP VIEW IF EXISTS `view_student`;
