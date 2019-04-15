@@ -10,6 +10,8 @@
 !*/cache/index.html
 !*/cache/.htaccess
 !/assets/uploads/index.html
+!/assets/uploads/client/index.html
+!/assets/uploads/client/logo_csacademia_print.png
 /assets/uploads/files/classroom/
 /assets/uploads/
 /mailoutput/

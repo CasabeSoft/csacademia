@@ -1,4 +1,7 @@
 <?php
+
+use Mpdf\Mpdf;
+
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
  * en los controladores de estudiantes y profesores.
@@ -97,9 +100,8 @@ class Contact extends Basic_controller
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4');
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $mpdf = new Mpdf();
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
@@ -133,7 +135,6 @@ class Contact extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Contactos.pdf', 'I');
             exit;

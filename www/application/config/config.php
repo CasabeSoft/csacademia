@@ -358,16 +358,18 @@ $config['rewrite_short_tags'] = false;
 */
 $config['proxy_ips'] = '';
 
-function __autoload($class)
+function autoload_files($class)
 {
-    if (true || strpos($class, 'CI_') !== 0) {
+    if (strpos($class, 'CI_') !== 0) {
         if (file_exists($file = APPPATH . 'core/' . $class . EXT)) {
-            include $file;
+            require_once $file;
         } elseif (file_exists($file = APPPATH . 'libraries/' . $class . EXT)) {
-            include $file;
+            require_once $file;
         }
     }
 }
+
+spl_autoload_register('autoload_files');
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -1,4 +1,7 @@
 <?php
+
+use Mpdf\Mpdf;
+
 /**
  * TEMPORAL. Probablemente este código deba ser heredado o integrado
  * en los controladores de estudiantes y profesores.
@@ -94,12 +97,11 @@ class Teacher extends Basic_controller
             $this->load->helper('Util_helper');
             $teachers = $this->Teacher_model->get_all(["isActive" => $filter]);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
-            
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('c', 'A4-L');
+
+            $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
             
-            $stylesheet = file_get_contents(site_url('assets/css/report.css'));
+            $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
             //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
@@ -142,7 +144,6 @@ class Teacher extends Basic_controller
             }
             $html .='</tbody></table>
 <body>';
-            header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('Profesores.pdf', 'I');
         } catch (Exception $e) {
