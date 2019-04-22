@@ -2,8 +2,6 @@
 /**
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
- *
- * @author Leonardo Quintero
  */
 class Admin_pages extends Crud_controller
 {
@@ -455,9 +453,6 @@ class Admin_pages extends Crud_controller
                 ->display_as('school_level', lang('form_school_level'))
                 ->display_as('school_name', lang('form_school_name'))
                 ->display_as('language_years', lang('form_language_years'))
-                //->display_as('pref_start_time', lang('form_pref_start_time'))
-                //->display_as('pref_end_time', lang('form_pref_end_time'))
-                //->display_as('current_academic_period', lang('form_academic_period'))
                 ->display_as('bank_account_format', lang('form_bank_account_format'))
                 ->display_as('bank_account_number', lang('form_bank_account_number'))
                 ->display_as('bank_account_holder', lang('form_bank_account_holder'))
@@ -473,9 +468,7 @@ class Admin_pages extends Crud_controller
         $this->crud->set_relation('contact_id', 'contact', '{first_name} {last_name}');
         $this->crud->set_relation('center_id', 'center', 'name');
         $this->crud->set_relation('leave_reason_code', 'leave_reason', 'description');
-        //$this->crud->set_relation('current_academic_period', 'academic_period', 'name');
         $this->crud->set_relation('school_level', 'school_level', 'name');
-        //$this->crud->set_relation_n_n('group', 'students_by_groups', 'group', 'student_id', 'groups_id', 'name');
         $this->crud->set_relation('group_id', 'group', 'name');
         $this->crud->field_type('bank_notes', 'string');
 

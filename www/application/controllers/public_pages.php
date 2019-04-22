@@ -2,8 +2,6 @@
 /**
  * Controlador para las páginas públicas que no requieren mucho
  * procesamiento, del lado del servidor.
- *
- * @author Leonardo Quintero
  */
 class Public_pages extends Basic_controller
 {
@@ -60,34 +58,15 @@ class Public_pages extends Basic_controller
 
     protected function send_email($fromAddress, $fromName, $to, $subject, $message)
     {
-        /*
-        $this->load->library('email');
-        $config = $this->config->item('email', 'academy');
-
-        $this->email->clear();
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-
-        $this->email->from($fromAddress, $fromName);
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message(nl2br($message));
-        $sent = $this->email->send();
-        //$this->email->print_debugger(array('headers'));
-        return $sent;
-        */
         // content-type para HTML
         $headers = "MIME-Version: 1.0" . PHP_EOL; //"\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8" . PHP_EOL; //"\r\n";
 
         // Mas headers
         $headers .= 'From: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
-        //$headers .= 'Cc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
         $headers .= 'Bcc: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
-        //$headers .='Reply-To: ' . $fromName . ' <' . $fromAddress . '>' . PHP_EOL; //"\r\n";
 
         return mail($to, $subject, $message, $headers);
-        //return mail($to, $subject, $message, 'From: ' . $fromAddress . PHP_EOL);
     }
     
     public function contact()

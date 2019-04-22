@@ -4,8 +4,6 @@ use Mpdf\Mpdf;
 
 /**
  * Controlador para la gestión de Grupos
- *
- * @author Leonardo Quintero
  */
 class Group extends Basic_controller
 {
@@ -124,9 +122,6 @@ class Group extends Basic_controller
     {
         $this->setup_ajax_response_headers();
         try {
-            //$student_id = $this->input->post('contact_id');
-            //$groups_id = $this->input->post('group_id');
-
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
@@ -138,9 +133,6 @@ class Group extends Basic_controller
     {
         $this->setup_ajax_response_headers();
         try {
-            //$student_id = $this->input->post('contact_id');
-            //$groups_id = $this->input->post('group_id');
-
             $this->load->model('Student_model');
             echo json_encode($this->Student_model->update_group($student_id, $groups_id));
         } catch (Exception $e) {
@@ -242,7 +234,6 @@ class Group extends Basic_controller
                 $count1++;
             }
 
-            //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
             $mpdf = new Mpdf();
             $mpdf->SetDisplayMode('fullpage');
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
@@ -301,7 +292,6 @@ class Group extends Basic_controller
             $count = 1;
             foreach ($students as $student) {
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                 $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
                 $html .= '<td>' . $student['name'] . '</td>';
                 for ($day = 1; $day <= $daysInMonth; $day++) {
@@ -320,9 +310,7 @@ class Group extends Basic_controller
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-<body>';
-            //$this->setup_ajax_response_headers();
-            //header("Content-Type: text/plain");
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Asistencia.pdf', 'I');
         } catch (Exception $e) {
@@ -352,7 +340,6 @@ class Group extends Basic_controller
                 lang('form_may'), lang('form_june'), lang('form_july'), lang('form_august'),
                 lang('form_september'), lang('form_october'), lang('form_november'), lang('form_december'));
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
-            //$weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
             $weekDaysLetters = explode(',', lang('day_short_names'));
             
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -363,12 +350,10 @@ class Group extends Basic_controller
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             foreach ($groups as $group_id) {
-                //echo 'id ' . $group_id;                exit();
                 $html = '';
                 
                 $students = $this->Student_model->get_by_group($group_id['id']);
                 $group = $this->Group_model->get_by_id($group_id['id']);
-                //$attendance = $this->Attendance_model->get_attendance_for_month($group_id, $year, $month);
 
                 $teachingDays = array();
 
@@ -394,7 +379,7 @@ class Group extends Basic_controller
     <tbody>
         <tr>
             <td  width="400px" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="120" /></td>
-            <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] /*.  $group['center']*/ . '</b></td>
+            <td ><p class="title-font"><b>' . lang('report_attendance') . ' - ' . lang('form_group') . ': ' . $group['name'] . '</b></td>
         </tr>
     </tbody>
 </table>
@@ -442,7 +427,6 @@ class Group extends Basic_controller
                 $count = 1;
                 foreach ($students as $student) {
                     $html .= '<tr><td class="td_center">' . $count . '</td>';
-                    //$html .= '<td>' . $student['first_name'] . ' ' . $student['last_name'] . '</td>';
                     $html .= '<td>' . $student['last_name'] . ', ' . $student['first_name'] . '</td>';
                     $html .= '<td>' . $student['name'] . '</td>';
                     for ($day = 1; $day <= $daysInMonth; $day++) {
@@ -488,11 +472,8 @@ class Group extends Basic_controller
 
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
-            //$mpdf->SetFooter('|Página {PAGENO}|');
 
             $weekDays = array("monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
-            //$weekDaysLetters = array("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa");
             $weekDaysLetters = explode(',', lang('day_short_names'));
             
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
@@ -508,25 +489,25 @@ class Group extends Basic_controller
 
             $html = '
 <body> 
-<table border="0" width="100%" >
-    <tbody>
-    <tr>
-        <td rowspan="3" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
-        <td colspan="4"><p class="title-font"><b>' . lang('form_group') . ': ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
-    </tr>
-    <tr>
-        <td width="280px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
-        <td width="120px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
-        <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
-    </tr>
-    <tr>
-        <td><b>' . lang('form_teacher') . ': </b>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>
-        <td><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
-        <td><b>' . lang('form_academic_period') . ': </b>' . $group['academic_period'] . '</td>               
-    </tr>
-    </tbody>
-</table>
-<br>
+    <table border="0" width="100%" >
+        <tbody>
+        <tr>
+            <td rowspan="3" style="text-align: right;"><img src="./assets/uploads/files/client/' . $logo_print . '" width="140" /></td>
+            <td colspan="4"><p class="title-font"><b>' . lang('form_group') . ': ' . $group['name'] . ' - ' . $group['center'] . '</b></td>
+        </tr>
+        <tr>
+            <td width="280px"><b>' . lang('form_level') . ': </b>' . $group['level'] . '</td>
+            <td width="120px"><b>' . lang('form_days') . ': </b>' . $dayLetter . '</td>
+            <td width="160px"><b>' . lang('form_schedule') . ': </b>' . $group['start_time'] . ' - ' . $group['end_time'] . '</td>               
+        </tr>
+        <tr>
+            <td><b>' . lang('form_teacher') . ': </b>' . $group['first_name'] . ' ' . $group['last_name'] . '</td>
+            <td><b>' . lang('form_classroom') . ': </b>' . $group['classroom'] . '</td>
+            <td><b>' . lang('form_academic_period') . ': </b>' . $group['academic_period'] . '</td>               
+        </tr>
+        </tbody>
+    </table>
+    <br>
     ';
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
@@ -543,7 +524,7 @@ class Group extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -554,9 +535,6 @@ class Group extends Basic_controller
     public function report_groups($filter)
     {
         try {
-            //$filter = $this->input->post();
-            //if (!is_array($filter))
-            //   $filter = [];
             $this->load->model('Group_model');
             $this->load->model('General_model');
             $groups = $this->Group_model->get_group_report(["academic_period" => $filter]);
@@ -568,7 +546,6 @@ class Group extends Basic_controller
             $mpdf->SetDisplayMode('fullpage');
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
             
             $weekDaysLetters = explode(',', lang('day_short_names'));
@@ -586,7 +563,6 @@ class Group extends Basic_controller
     ';
             $html .= '<table class="list1" border="1" width="100%" style="border-collapse: collapse">';
             $html .= '<thead><tr>';
-            //$html .= '<th class="td_center">#</th>';
             $html .= '<th>' . lang('form_group') . '</th>';
             $html .= '<th>' . lang('form_center') . '</th>';
             $html .= '<th>' . lang('form_classroom') . '</th>';
@@ -605,7 +581,6 @@ class Group extends Basic_controller
             $count = 1;
             foreach ($groups as $group) {
                 $html .= '<tr>';
-                //$html .= '<td class="td_center">' . $count . '</td>';
                 $html .= '<td>' . $group['name'] . '</td>';
                 $html .= '<td>' . $group['center'] . '</td>';
                 $html .= '<td>' . $group['classroom'] . '</td>';
@@ -624,7 +599,7 @@ class Group extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {

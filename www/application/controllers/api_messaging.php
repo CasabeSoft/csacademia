@@ -2,8 +2,6 @@
 /**
  * Controlador para las páginas de administración que no requieren mucho
  * procesamiento, del lado del servidor.
- *
- * @author Leonardo Quintero
  */
 class Api_messaging extends Api_controller
 {

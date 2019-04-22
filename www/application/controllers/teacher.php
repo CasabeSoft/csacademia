@@ -89,9 +89,6 @@ class Teacher extends Basic_controller
     {
 
         try {
-            /*$filter = $this->input->post();
-            if (!is_array($filter))
-                $filter = [];*/
             $this->load->model('Teacher_model');
             $this->load->model('General_model');
             $this->load->helper('Util_helper');
@@ -103,7 +100,6 @@ class Teacher extends Basic_controller
             
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
             
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
@@ -143,7 +139,7 @@ class Teacher extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Profesores.pdf', 'I');
         } catch (Exception $e) {

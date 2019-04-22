@@ -53,12 +53,6 @@ class Student_by_group_model extends CI_Model
     
     public function update($student)
     {
-
-        //$student['client_id'] = $this->client_id;
-        //$student_id = $family['student_id'];
-        //$cleanFamily = substract_fields($student, $this->FIELDS);
-       // unset($cleanFamily['student_id']);
-        //unset($cleanFamily['contact_id']);
         $this->db->update('students_by_groups', $cleanFamily, 'groups_id = '.$id.' AND student_id = '.$student_id);
         return $id;
     }

@@ -2,8 +2,6 @@
 
 /**
  * User Helpers
- *
- * @author Leoanrdo Quintero
  */
 // ------------------------------------------------------------------------
 
@@ -21,7 +19,6 @@ if (!function_exists('isLogged')) {
 
         $CI = &get_instance();
 
-        //if ($CI->session->userdata('usuario')->email && $CI->session->userdata('usuario')->email !== '') {
         if ($CI->session->userdata('email') && $CI->session->userdata('email') !== '') {
             unset($CI);
 

@@ -4,8 +4,6 @@ use Mpdf\Mpdf;
 
 /**
  * Controlador para la gestión de las tareas
- *
- * @author Leonardo Quintero
  */
 class Task extends Basic_controller
 {
@@ -143,9 +141,7 @@ class Task extends Basic_controller
             $html .= '<table class="list1" border="1" width="100%"  style="border-collapse: collapse">';
             $html .= '<thead><tr>';
             $html .= '<th class="td_center"></th>';
-            //if ($dialy == 'false') {
-                $html .= '<th>' . lang('form_date') . '</th>';
-            //}
+            $html .= '<th>' . lang('form_date') . '</th>';
             $html .= '<th>' . lang('form_time') . '</th>';
             $html .= '<th>' . lang('form_task') . '</td>';
             $html .= '<th>' . lang('form_description') . '</td>';
@@ -159,9 +155,7 @@ class Task extends Basic_controller
                 $start_date_text = db_to_Local($task['start_date']);
                 $end_date = db_to_Local($task['end_date']);
                 $html .= '<tr><td class="td_center">' . $count . '</td>';
-                //if ($dialy == 'false') {
-                    $html .= '<td>' . $start_date_text . '</td>';
-                //}
+                $html .= '<td>' . $start_date_text . '</td>';
                 $html .= '<td>' . substr($task['start_time'], 0, 5) . '</td>';
                 $html .= '<td>' . $task['task'] . '</td>';
                 $html .= '<td>' . $task['description'] . '</td>';
@@ -173,7 +167,7 @@ class Task extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('tareas.pdf', 'I'); //exit;
         } catch (Exception $e) {
