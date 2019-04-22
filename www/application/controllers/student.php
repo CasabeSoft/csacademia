@@ -64,7 +64,6 @@ class Student extends Basic_controller
         $this->load->model('Payment_model');
         $this->centers = $this->General_model->get_fields('center', 'id, name', array('client_id' => $this->client_id));
         $this->payments_types = $this->General_model->get_fields('payment_period_type', 'id, name');
-        //$this->periods_used = $this->General_model->get_fields('payment', 'DISTINCT payment_period_id');
         $this->periods_used = $this->Payment_model->get_distint();
         $this->load_page('student_payment');
     }
@@ -322,8 +321,7 @@ class Student extends Basic_controller
             $html .= '<tr><td colspan="4" class="td_center"><b>TOTAL</b></td>';
             $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '') . '</b></td></tr>';
             $html .='</tbody></table>
-<body>';
-            //header("Content-Type: text/plain");
+</body>';
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
@@ -339,10 +337,6 @@ class Student extends Basic_controller
     {
 
         try {
-            //$header = 'Document header ' . $id;
-            //$html1 = 'Your document content goes here';
-            //$footer = 'Print date: ' . date('d.m.Y H:i:s') . '<br />Page {PAGENO} of {nb}';
-
             $this->load->model('Payment_model');
             $this->load->helper('Util_helper');
             $payment = $this->Payment_model->get_payment_id($id);
@@ -384,8 +378,6 @@ class Student extends Basic_controller
               
               <p>' . lang('title_payment') . ': 
               ';
-            //<p>La cantidad de euros: </p>
-            //<p class="code"> <br> <br></p>
             $html .= $payment['payment_type_name'] . '  ' . $payment['period'] . '  ' . $payment['payment_period_year'];
             $html .= '</p>
              
@@ -395,7 +387,7 @@ class Student extends Basic_controller
             $html .= '<br><br>
                    <p style="text-align: center">' . $client_info['web'] . '</p>
               </div>
-              </body>';
+            </body>';
 
             $config = [
                 'mode' => 'c',
@@ -471,7 +463,6 @@ class Student extends Basic_controller
 
     public function qualifications_report($student_id)
     {
-
         try {
             $this->load->model('Qualification_model');
             $this->load->model('General_model');
@@ -532,8 +523,7 @@ class Student extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
-            //header("Content-Type: text/plain");
+</body>';
             header('Content-type: application/pdf');
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
@@ -546,9 +536,6 @@ class Student extends Basic_controller
     {
 
         try {
-            /* $filter = $this->input->post();
-              if (!is_array($filter))
-              $filter = []; */
             $this->load->model('Student_model');
             $this->load->helper('Util_helper');
             $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
@@ -559,14 +546,12 @@ class Student extends Basic_controller
 
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
             
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
             $html = '
 <body>
-
     <table border="0" width="100%" >
         <tbody>
             <tr>
@@ -607,7 +592,7 @@ class Student extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -682,7 +667,7 @@ class Student extends Basic_controller
             $html .='
          </tbody>
      </table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Alumnos.pdf', 'I');
         } catch (Exception $e) {
@@ -796,8 +781,7 @@ class Student extends Basic_controller
             $html .= '<tr><td colspan="7" class="td_center"><b>TOTAL</b></td>';
             $html .= '<td class="td_right"><b>' . number_format($amount, 2, '.', '') . '</b></td></tr>';
             $html .='</tbody></table>
-<body>';
-            //header("Content-Type: text/plain");
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos.pdf', 'I'); //exit;
         } catch (Exception $e) {
@@ -857,7 +841,7 @@ class Student extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('pagos_bancarios.pdf', 'I');
         } catch (Exception $e) {

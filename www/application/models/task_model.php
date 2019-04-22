@@ -2,8 +2,6 @@
 
 /**
  * Gestión de tareas
- *
- * @author Leonardo Quintero
  */
 class Task_model extends CI_Model
 {
@@ -50,7 +48,6 @@ class Task_model extends CI_Model
             if (!empty($start_date)) {
                 $this->db->where('start_date <= ', $start_date);
                 $this->db->where('end_date >= ', $start_date);
-                //$this->db->where('start_date', $start_date);
             }
         } else {
             if (!empty($start_date)) {
@@ -59,15 +56,6 @@ class Task_model extends CI_Model
                 $this->db->where('MONTH(start_date)', $date[1]);
             }
         }
-        /* foreach ($this->DEFAUL_FILTER as $key => $defaultValue) {
-          $value = array_key_exists($key, $filter) ? $filter[$key] : $defaultValue;
-          switch ($key) {
-
-          default:
-          if (!empty($value))
-          $this->db->where($key, $value);
-          }
-          } */
         $where = "(task_type_id = 1 OR login_id = " . $this->session->userdata('id') . ")";
         $this->db->where($where);
         return $this->db->get()->result_array();

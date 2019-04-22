@@ -2,8 +2,6 @@
 
 /**
  * Modelo para la gestión general
- *
- * @author Leonardo Quintero
  */
 class General_model extends CI_Model
 {

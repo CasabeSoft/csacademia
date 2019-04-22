@@ -3,8 +3,6 @@
  * Controlador en el que deberán basarse todos los controladores del sitio
  * para concentrar la configuración, inicialización y el comportamiento común
  * para todo el sitio.
- *
- * @author Leonardo Quintero
  */
 class MY_Controller extends CI_Controller
 {

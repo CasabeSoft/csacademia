@@ -14,7 +14,6 @@ class Users_model extends CI_Model
     /**
      * Obtener un usuario según sus datos de autenticación.
      *
-     * @author Leonardo
      * @param $email (Correo del usuario)
      * @param $password (Contraseña del usuario)
      * @return array

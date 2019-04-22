@@ -40,8 +40,7 @@
                 <div class="tab-content row-fluid">
                     <table id="tblInternal" class="table table-bordered table-hover table-condensed">
                         <thead>
-                            <tr>
-                                <!--th></th-->                                                                
+                            <tr>                                                               
                                 <th><?php echo lang('form_date'); ?></th>
                                 <th><?php echo lang('form_time'); ?></th>
                                 <th><?php echo lang('form_task'); ?></th>
@@ -54,7 +53,6 @@
                         </thead>
                         <tbody data-bind="foreach: tasks">
                             <tr data-bind="style: {backgroundColor: $root.taskStates[task_state_id()].color}">
-                                <!--td data-bind="text: $index() + 1, click: $root.selectTask"></td--> 
                                 <td data-bind="text: start_date(), click: $root.selectTask"></td> <!--, visible: !$root.viewDaily()-->
                                 <td data-bind="text: short_start_time(), click: $root.selectTask"></td>                                
                                 <td data-bind="text: task(), click: $root.selectTask"></td>
@@ -127,7 +125,6 @@
                 <div class="span4">
                     <label for="lbxTaskType"><?php echo lang('form_type'); ?></label>
                     <select id="task_type_id" class="input-block-level" data-bind="value: task_type_id">
-                        <!--option value="">--</option-->
                         <?php foreach ($tasks_types as $task) { ?>
                             <option value="<?php echo $task["id"] ?>"><?php echo $task["name"] ?></option>
                         <?php } ?>                        

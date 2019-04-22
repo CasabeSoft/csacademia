@@ -1,8 +1,6 @@
 <?php
 /**
  * Controlador para la gestión de usuarios.
- *
- * @author Leoanrdo Quintero
  */
 class User_pages extends Basic_controller
 {

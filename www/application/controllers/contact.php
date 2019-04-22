@@ -89,9 +89,6 @@ class Contact extends Basic_controller
     {
 
         try {
-            /*$filter = $this->input->post();
-            if (!is_array($filter))
-                $filter = [];*/
             $this->load->model('Contact_model');
             $this->load->model('General_model');
             $this->load->helper('Util_helper');
@@ -103,7 +100,6 @@ class Contact extends Basic_controller
             $mpdf = new Mpdf();
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
-            //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->SetFooter('|Página {PAGENO}|');
             
             $html = '
@@ -134,7 +130,7 @@ class Contact extends Basic_controller
                 $count++;
             }
             $html .='</tbody></table>
-<body>';
+</body>';
             $mpdf->WriteHTML($html);
             $mpdf->Output('Contactos.pdf', 'I');
             exit;

@@ -2,8 +2,6 @@
 
 /**
  * Gestión de grupos
- *
- * @author Leonardo Quintero
  */
 class Group_model extends CI_Model
 {

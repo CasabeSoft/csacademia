@@ -104,11 +104,8 @@ class Student_model extends CI_Model
     public function get_payments($center = 0, $payment_type = 0, $month = 0, $year = 0, $state = 0, $bank_payment = -1)
     {
         $isActive = 'true';
-        //$filter_payment_type = '';
-        //$filter_bank_payment = ' AND student.bank_payment = 0';
         $filter_year = '';
         $filter_month = '';
-        //$filter_period = '';
         $filter_start_period = '';
         $filter_end_period = '';
         if ($year != 0) {
@@ -116,11 +113,8 @@ class Student_model extends CI_Model
         }
         if ($month != '0') {
             $filter_month = " AND payment.payment_period_id IN (SELECT payment_period.id FROM payment_period WHERE payment_period.start_month <= " . $month. " AND payment_period.end_month >= " . $month. ")" ;
-            //$filter_period = $year . "-" . $month;
             $filter_start_period = " AND payment_period.start_month <= " . $month;
             $filter_end_period = " AND payment_period.end_month >= " . $month;
-            //$filter_start_period = " AND CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <= '" . $filter_period . "'";
-            //$filter_end_period = " AND CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >= '" . $filter_period . "'";
         }
         $this->db->select('contact.first_name, contact.last_name, student.bank_payment, payment.date, payment.amount, payment.payment_period_year, payment_period.name as period_name, payment_period_type.name as payment_type_name ')
                 ->from('contact')
@@ -140,19 +134,10 @@ class Student_model extends CI_Model
         if ($center != 0) {
             $this->db->where('student.center_id', $center);
         }
-        /*
-          if ($payment_type != 0) {
-          //$filter_payment_type = ' AND payment_period.period_type = ' . $payment_type;
-          $this->db->where('payment_period.period_type', $payment_type);
-          } */
         if ($state != 0) {
             if ($state == 1) {
-                //$this->db->where('payment.date IS NOT NULL');
                 $this->db->where('payment.payment_period_id IS NOT NULL');
-                //$this->db->where("CONCAT(payment.payment_period_year,'-',LPAD(payment_period.start_month,2,'0')) <=", $filter_month);
-                //$this->db->where("CONCAT(payment.payment_period_year + IF(payment_period.end_month < payment_period.start_month, 1, 0),'-',LPAD(payment_period.end_month,2,'0')) >=", $filter_month);
             } else {
-                //$this->db->where('payment.date IS NULL');
                 $this->db->where('payment.payment_period_id IS NULL');
             }
         }
@@ -279,8 +264,6 @@ class Student_model extends CI_Model
 
     public function update_group($student_id, $groups_id)
     {
-        //$this->db->update('student', '', 'contact_id = ' . $student_id);
-        //$this->db->update('student')->where('contact_id', $student_id)->set('group_id', $groups_id);
         $this->db->query('UPDATE `student` SET `group_id` = ' . $groups_id . ' WHERE `contact_id` = ' . $student_id);
         return $student_id;
     }
