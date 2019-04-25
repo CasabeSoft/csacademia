@@ -10,7 +10,7 @@
     },
     "license": "MIT",
     "require": {
-      "rogeriopradoj/codeigniter": "2.2.4",
+      "rogeriopradoj/codeigniter": "2.2.5",
       "mpdf/mpdf": "^8.0"
     },
     "scripts": {
