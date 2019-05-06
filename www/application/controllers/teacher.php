@@ -95,7 +95,7 @@ class Teacher extends Basic_controller
             $teachers = $this->Teacher_model->get_all(["isActive" => $filter]);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['mode' => 'c', 'format' => 'A4-L']);
             $mpdf->SetDisplayMode('fullpage');
             
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
