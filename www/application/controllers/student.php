@@ -541,7 +541,7 @@ class Student extends Basic_controller
             $students = $this->Student_model->get_all(["isActive" => $isActive, "group_id" => $group]);
             $client_info = $this->General_model->get_info_client_id($this->client_id);
 
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['mode' => 'c', 'format' => 'A4-L']);
             $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');

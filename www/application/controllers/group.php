@@ -234,7 +234,7 @@ class Group extends Basic_controller
                 $count1++;
             }
 
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['mode' => 'c', 'format' => 'A4-L']);
             $mpdf->SetDisplayMode('fullpage');
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
@@ -331,7 +331,7 @@ class Group extends Basic_controller
             $this->load->model('Group_model');
             $this->load->model('General_model');
 
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['mode' => 'c', 'format' => 'A4-L']);
             $mpdf->SetDisplayMode('fullpage');
 
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
@@ -542,7 +542,7 @@ class Group extends Basic_controller
 
             $logo_print = isset($client_info['report_logo']) ? $client_info['report_logo'] : 'logo_csacademia_print.png';
 
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['mode' => 'c', 'format' => 'A4-L']);
             $mpdf->SetDisplayMode('fullpage');
             $stylesheet = file_get_contents(APPPATH . '../assets/css/report.css');
             $mpdf->WriteHTML($stylesheet, 1);
