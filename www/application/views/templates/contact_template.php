@@ -100,7 +100,7 @@ function is_active($current_page, $page_name = 'user')
         <!-- End page content -->
 
         <script src="<?php echo site_url('node_modules/jquery/dist/jquery.min.js') ?>"></script>
-        <script src="<?php echo site_url('assets/lib/bootstrap/2.3.1/js/bootstrap.min.js') ?>"></script>        
+        <script src="<?php echo site_url('node_modules/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
         <!-- Start page scripts -->
         <?php
         if (isset($js_files)) {

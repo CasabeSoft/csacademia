@@ -50,7 +50,7 @@
         <!-- End page content -->
 
         <script src="<?php echo site_url('node_modules/jquery/dist/jquery.min.js') ?>"></script>
-        <script src="<?php echo site_url('assets/lib/bootstrap/2.3.1/js/bootstrap.min.js') ?>"></script>        
+        <script src="<?php echo site_url('node_modules/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
         <!-- Start page scripts -->
         <?php
         if (isset($crud_view->js_files)) {
