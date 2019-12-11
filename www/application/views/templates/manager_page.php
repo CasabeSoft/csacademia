@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <?php $this->load->view('templates/gtm', $this->config); ?>
+        <?php renderHeaderGtm($this->config->item('gtm_tag_id', 'academy')); ?>
         <meta charset="utf-8">
         <title><?php echo "CSAcademia - " . $title ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +31,7 @@
         <!-- End page style -->
     </head>
     <body>
+        <?php renderBodyGtm($this->config->item('gtm_tag_id', 'academy')); ?>
         <?php $this->load->view($menu_template) ?>
 
         <!-- Start page content -->

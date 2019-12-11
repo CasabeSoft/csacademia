@@ -1,7 +1,6 @@
 <?php
 /**
  * Configuración básica para la Academia.
- *
  */
 
 /**
@@ -23,6 +22,9 @@ $config['email']['newline'] = "\r\n";
  * Value: datatables, flexigrid
  */
 $config['grocery_crud_theme'] = 'flexigrid';
+
+/** GTM */
+$config['gtm_tag_id'] = 'GTM-XXXXXXX';
 
 /* End of file academy.php */
 /* Location: ./system/application/config/academy.php */
