@@ -82,7 +82,7 @@ function is_active($current_page, $page_name = 'home')
         <!-- End page content -->
 
         <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="../assets/lib/bootstrap/2.3.1/js/bootstrap.min.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- Start page scripts -->
         <?php echo $scripts ?>
         <!-- End page scripts -->
